@@ -1,4 +1,5 @@
 # Data-Science Project
+library(plyr)
 
 # Regression 1 : MentalHealth = a*IncomeInequality + b*wages + c*Unemployment + d*JobQuality + e*WorkTime
 
@@ -25,10 +26,14 @@ data_3 <- Unemployment[,-c(2:5,8)]
 View(data_3)
 data_4 <- JobQuality[,-c(2:12,14:20,22,23)]
 View(data_4)
-data_5 <- worktime...
+data_5 <- WorkTime[,-1]
 View(data_5)
-data_6 <- MentalHealth[-2]
+data_5.2 <- rename(data_5,c("Code"="LOCATION", "Year"="TIME"))
+View(data_5.2)
+data_6 <- MentalHealth[,-1]
 View(data_6)
+data_6.2 <- rename(data_6,c("Code"="LOCATION", "Year"="TIME"))
+View(data_6.2)
 
 # Tables merge 
 total <- merge(data_1, data_2, by=c("LOCATION","TIME"))
