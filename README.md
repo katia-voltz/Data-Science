@@ -3,18 +3,18 @@
 # Regression 1 : Work Environment 
 
 # Open/Read files
-Incineg <- read.csv("Income inequality.csv")
-attach(Incineg)
+MentalHealth <- read.csv("share-with-mental-and-substance-disorders.csv")
+attach(MentalHealth)
+IncomeInequality <- read.csv("Income inequality.csv")
+attach(IncomeInequality)
 wages <- read.csv("Average wages.csv")
 attach(wages)
-YMH <- read.csv("share-with-mental-and-substance-disorders.csv")
-attach(YMH)
-unemp <- read.csv("Unemployement Rate.csv")
-attach(unemp)
-jobqual <- read.csv("Job Quality.csv")
-attach(jobqual)
-worktime <- read.csv("Avg work time per country.csv")
-attach(worktime)
+Unemployment <- read.csv("Unemployement Rate.csv")
+attach(Unemployment)
+JobQuality <- read.csv("Job Quality.csv")
+attach(JobQuality)
+WorkTime <- read.csv("Avg work time per country.csv")
+attach(WorkTime)
 
 # Data sorting 
 data_1 <- wages[,-c(2:5,8)]
