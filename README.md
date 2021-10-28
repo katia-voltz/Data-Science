@@ -1,6 +1,6 @@
 # Data-Science
 
-# Regression 1 : Work Environment 
+# Regression 1 : MentalHealth = a*IncomeInequality + b*wages + c*Unemployment + d*JobQuality + e*WorkTime
 
 # Open/Read files
 MentalHealth <- read.csv("share-with-mental-and-substance-disorders.csv")
