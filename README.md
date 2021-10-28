@@ -33,3 +33,7 @@ View(data_6)
 # Tables merge 
 total <- merge(data_1, data_2, data_3, by=c("LOCATION","TIME"))
 View(total)
+
+# Regression 2.1 : Mental Health = a*Number_Covid-19_cases + b*Number_Covid-19_Death
+# Regression 2.2 : Mental Health = a*Teleworking + b*Unemployment
+# Regression 3 : Mental Health = a*Invesment 
