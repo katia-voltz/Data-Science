@@ -1,4 +1,4 @@
-# Data-Science
+# Data-Science Project
 
 # Regression 1 : MentalHealth = a*IncomeInequality + b*wages + c*Unemployment + d*JobQuality + e*WorkTime
 
