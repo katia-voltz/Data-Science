@@ -23,7 +23,7 @@ data_2 <- wages[,-c(2:5,8)]
 View(data_2)
 data_3 <- Unemployment[,-c(2:5,8)]
 View(data_3)
-data_4 <- JobQuality...
+data_4 <- JobQuality[,-c(2:12,14:20,22,23)]
 View(data_4)
 data_5 <- worktime...
 View(data_5)
@@ -31,7 +31,7 @@ data_6 <- MentalHealth[-2]
 View(data_6)
 
 # Tables merge 
-total <- merge(data_1, data_2, data_3, by=c("LOCATION","TIME"))
+total <- merge(data_1, data_2, by=c("LOCATION","TIME"))
 View(total)
 
 # Regression 2.1 : MentalHealth = a*Number_Covid-19_cases + b*Number_Covid-19_Death
