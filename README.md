@@ -17,11 +17,11 @@ WorkTime <- read.csv("Avg work time per country.csv")
 attach(WorkTime)
 
 # Data sorting 
-data_1 <- wages[,-c(2:5,8)]
+data_1 <- IncomeInequality[,-c(2:5,8)]
 View(data_1)
-data_2 <- Unemployment[,-c(2:5,8)]
+data_2 <- wages[,-c(2:5,8)]
 View(data_2)
-data_3 <- IncomeInequality[,-c(2:5,8)]
+data_3 <- Unemployment[,-c(2:5,8)]
 View(data_3)
 data_4 <- JobQuality...
 View(data_4)
