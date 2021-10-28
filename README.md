@@ -18,7 +18,8 @@ attach(WorkTime)
 
 # Data sorting 
 data_1 <- wages[,-c(2:5,8)]
-view(data_1)
+View(data_1)
 
 # Tables merge 
-
+total <- merge(data_1, ..., by=c("LOCATION","TIME"))
+View(total)
