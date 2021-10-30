@@ -9,7 +9,7 @@ library(plyr)
 # Open/Read files
 
 Mental_Health <- read.csv("share-with-mental-and-substance-disorders.csv")
-attach(MentalHealth)
+attach(Mental_Health)
 Income_Inequality <- read.csv("Income inequality.csv")
 attach(IncomeInequality)
 Salary <- read.csv("Average wages.csv")
@@ -23,7 +23,7 @@ attach(WorkTime)
 
 # Data sorting 
 
-Income_Inequality <- IncomeInequality[,-c(2:5,8)]
+Income_Inequality <- Income_Inequality[,-c(2:5,8)]
 View(Income_Inequality)
 Salary <- Salary[,-c(2:5,8)]
 View(Salary)
@@ -32,14 +32,13 @@ View(Unemployment)
 Job_Quality <- Job_Quality[,-c(2:12,14:20,22,23)]
 View(Job_Quality)
 
-# Attention with Work_time: Différente base de données utilisé
-Work_time <- Avg.work.time.per.country[,-c(2:7,9:14,16:17)]
-View(data_5)
+# Attention with Work_time: Différente base de données utilisée
+Work_time <- Avg.Work.Time[,-c(2:5,8)]
+view(Work_time)
 
-Work_time <- rename(Work_time,"Country"="LOCATION")
-View(data_5.2)
-data_6 <- Mental_Health[,-1]
-View(data_6)
+
+Mental_Health <- Mental_Health[,-1]
+View(Mental_Health)
 data_6.2 <- rename(data_6,c("Code"="LOCATION", "Year"="TIME"))
 View(data_6.2)
 
