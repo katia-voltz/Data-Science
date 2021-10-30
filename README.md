@@ -28,7 +28,7 @@ Job_Quality <- Job_Quality[,-c(2:12,14:20,22,23)]
 View(data_4)
 Work_time <- Avg.work.time.per.country[,-c(2:7,9:14,16:17)]
 View(data_5)
-Work_time <- rename(Work_time,c("Country"="LOCATION")
+Work_time <- rename(Work_time,"Country"="LOCATION")
 View(data_5.2)
 data_6 <- Mental_Health[,-1]
 View(data_6)
