@@ -26,7 +26,10 @@ Unemployment <- Unemployment[,-c(2:5,8)]
 View(data_3)
 Job_Quality <- Job_Quality[,-c(2:12,14:20,22,23)]
 View(data_4)
+
+#Attention with Work_time: Différente base de données utilisé
 Work_time <- Avg.work.time.per.country[,-c(2:7,9:14,16:17)]
+
 View(data_5)
 Work_time <- rename(Work_time,"Country"="LOCATION")
 View(data_5.2)
