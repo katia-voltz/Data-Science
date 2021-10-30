@@ -1,9 +1,13 @@
 # Data-Science Project
+
+# Importation of different packages
+
 library(plyr)
 
 # Regression 1 : MentalHealth = a*IncomeInequality + b*wages + c*Unemployment + d*JobQuality + e*WorkTime
 
 # Open/Read files
+
 Mental_Health <- read.csv("share-with-mental-and-substance-disorders.csv")
 attach(MentalHealth)
 Income_Inequality <- read.csv("Income inequality.csv")
@@ -18,19 +22,20 @@ Work_Time <- read.csv("Avg work time per country.csv")
 attach(WorkTime)
 
 # Data sorting 
+
 Income_Inequality <- IncomeInequality[,-c(2:5,8)]
-View(data_1)
+View(Income_Inequality)
 Salary <- Salary[,-c(2:5,8)]
-View(data_2)
+View(Salary)
 Unemployment <- Unemployment[,-c(2:5,8)]
-View(data_3)
+View(Unemployment)
 Job_Quality <- Job_Quality[,-c(2:12,14:20,22,23)]
-View(data_4)
+View(Job_Quality)
 
-#Attention with Work_time: Différente base de données utilisé
+# Attention with Work_time: Différente base de données utilisé
 Work_time <- Avg.work.time.per.country[,-c(2:7,9:14,16:17)]
-
 View(data_5)
+
 Work_time <- rename(Work_time,"Country"="LOCATION")
 View(data_5.2)
 data_6 <- Mental_Health[,-1]
