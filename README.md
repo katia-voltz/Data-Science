@@ -100,7 +100,7 @@ View(Teleworking)
 
 library(plyr)
 
-Public.spending.on.health_New<- Public.spending.on.health
+Public.spending.on.health_New<- read.csv2("Public Spending on Health.csv")
 View(Public.spending.on.health_New)
 
 #We remove the 3 first rows
