@@ -53,8 +53,9 @@ View(total)
 
 # Regression 2 
 
-Antidepressant_consumption <- read.csv("Antidepressant consumption.csv")
+Antidepressant_consumption <- read.csv("Conso Antidepressant.csv")
 attach(Antidepressant_consumption)
+View(Antidepressant_consumption)
 
 # Regression 2.1 : Antidepressant_consumption = a*Number_Covid-19_cases + b*Number_Covid-19_Death
 
