@@ -51,32 +51,48 @@ View(total)
 
 
 
+# Regression 2 
 
-# Regression 2.1 : MentalHealth = a*Number_Covid-19_cases + b*Number_Covid-19_Death
+Antidepressant_consumption <- read.csv("Antidepressant consumption.csv")
+attach(Antidepressant_consumption)
+
+# Regression 2.1 : Antidepressant_consumption = a*Number_Covid-19_cases + b*Number_Covid-19_Death
 
 Number_Covid19_cases_deaths <- read.csv("Cases + Deaths from Covid-19.csv")
 attach(Number_Covid19_cases_deaths)
-Mental_Health <- read.csv("Mental Health.csv")
-attach(Mental_Health)
 
 # Data sorting : remove unwanted columns
 Number_Covid19_cases_deaths <- Number_Covid19_cases_deaths[,-c(2,4:7,9:13)]
-
 # Remove "Name" column +  remove la 1ère ligne "global"
 View(Number_Covid19_cases_deaths)
 
 # Rename columns
 Number_Covid19_cases_deaths <- rename(Number_Covid19_cases_deaths,c("WHO Region"="LOCATION")) 
 
-# Garder seulement de 2019 à 2021 pour covid 
-
 # Merge tables
-total <- merge(Number_Covid19_cases_deaths, Mental_Health, by="LOCATION")
+total <- merge(Number_Covid19_cases_deaths, Antidepressant_consumption, by="LOCATION")
 View(total)
 
 
 
-# Regression 2.2 : MentalHealth = a*Teleworking + b*Unemployment
+# Regression 2.2 : Antidepressant_consumption = a*Teleworking + b*Unemployment
+
+Teleworking <- read.csv("Teleworking.csv")
+attach(Teleworking)
+Unemployment <- read.csv("Unemployment 2020-2021.csv")
+attach(Unemployment)
+
+# Data sorting : Remove unwanted columns 
+Teleworking <- Teleworking[,-c(1:8,12)]
+View(Teleworking)
+Unemployment <- Unemployment[]
+View(Unemployment)
+
+# Rename columns 
+Teleworking <- rename(Teleworking,c("geo"="LOCATION","TIME_PERIOD"="TIME"))
+View(Teleworking)
+
+
 
 
 
