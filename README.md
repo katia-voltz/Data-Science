@@ -63,14 +63,13 @@ attach(Number_Covid19_cases_deaths)
 
 # Data sorting : remove unwanted columns
 Number_Covid19_cases_deaths <- Number_Covid19_cases_deaths[,-c(2,4:7,9:13)]
-# Remove "Name" column +  remove la 1ère ligne "global"
 View(Number_Covid19_cases_deaths)
-
-# Rename columns
-Number_Covid19_cases_deaths <- rename(Number_Covid19_cases_deaths,c("WHO Region"="LOCATION")) 
+# Remove "Name" column +  remove la 1ère ligne "global" : je sais pas comment faire autrement 
+Number_Covid19_cases_deaths_2 <- Number_Covid19_cases_deaths[-1]
+View(Number_Covid19_cases_deaths_2)
 
 # Merge tables
-total <- merge(Number_Covid19_cases_deaths, Antidepressant_consumption, by="LOCATION")
+total <- merge(Number_Covid19_cases_deaths_2, Antidepressant_consumption, by="LOCATION")
 View(total)
 
 
