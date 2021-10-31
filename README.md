@@ -52,14 +52,33 @@ View(total)
 
 
 
-
-
-
-
-
-
 # Regression 2.1 : MentalHealth = a*Number_Covid-19_cases + b*Number_Covid-19_Death
+
+Number_Covid19_cases_deaths <- read.csv("Cases + Deaths from Covid-19.csv")
+attach(Number_Covid19_cases_deaths)
+Mental_Health <- read.csv("Mental Health.csv")
+attach(Mental_Health)
+
+# Data sorting : remove unwanted columns
+Number_Covid19_cases_deaths <- Number_Covid19_cases_deaths[,-c(2,4:7,9:13)]
+
+# Remove "Name" column +  remove la 1ère ligne "global"
+View(Number_Covid19_cases_deaths)
+
+# Rename columns
+Number_Covid19_cases_deaths <- rename(Number_Covid19_cases_deaths,c("WHO Region"="LOCATION")) 
+
+# Garder seulement de 2019 à 2021 pour covid 
+
+# Merge tables
+total <- merge(Number_Covid19_cases_deaths, Mental_Health, by="LOCATION")
+View(total)
+
+
+
 # Regression 2.2 : MentalHealth = a*Teleworking + b*Unemployment
+
+
 
 
 # Regression 3 : MentalHealth = a*Invesment 
