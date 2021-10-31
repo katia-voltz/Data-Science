@@ -65,6 +65,9 @@ attach(Number_Covid19_cases_deaths)
 Number_Covid19_cases_deaths <- Number_Covid19_cases_deaths[,-c(2,4:7,9:13)]
 View(Number_Covid19_cases_deaths)
 # Remove "Name" column +  remove la 1ère ligne "global" : je sais pas comment faire autrement 
+# --> On peut faire comme ca non ?  : Number_Covid19_cases_deaths <- Number_Covid19_cases_deaths[,-c(1:2,4:7,9:13)]
+# Number_Covid19_cases_deaths <- Number_Covid19_cases_deaths[-1,]
+
 Number_Covid19_cases_deaths_2 <- Number_Covid19_cases_deaths[-1]
 View(Number_Covid19_cases_deaths_2)
 
