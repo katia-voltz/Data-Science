@@ -78,14 +78,15 @@ View(total)
 
 Teleworking <- read.csv("Teleworking.csv")
 attach(Teleworking)
-Unemployment <- read.csv("Unemployment 2020-2021.csv")
-attach(Unemployment)
+UnemploymentCovid <- read.csv("Unemployment Rate Covid.csv")
+attach(UnemploymentCovid)
+View(UnemploymentCovid)
 
 # Data sorting : Remove unwanted columns 
 Teleworking <- Teleworking[,-c(1:8,12)]
 View(Teleworking)
-Unemployment <- Unemployment[]
-View(Unemployment)
+UnemploymentCovid <- UnemploymentCovid[,-c(2:5,8)]
+View(UnemploymentCovid)
 
 # Rename columns 
 Teleworking <- rename(Teleworking,c("geo"="LOCATION","TIME_PERIOD"="TIME"))
