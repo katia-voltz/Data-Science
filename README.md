@@ -62,14 +62,18 @@ Number_Covid19_cases_deaths <- read.csv("Cases + Deaths from Covid-19.csv")
 attach(Number_Covid19_cases_deaths)
 
 # Data sorting : remove unwanted columns
-Number_Covid19_cases_deaths <- Number_Covid19_cases_deaths[,-c(2,4:7,9:13)]
-View(Number_Covid19_cases_deaths)
-# Remove "Name" column +  remove la 1ère ligne "global" : je sais pas comment faire autrement 
-# --> On peut faire comme ca non ?  : Number_Covid19_cases_deaths <- Number_Covid19_cases_deaths[,-c(1:2,4:7,9:13)]
-# Number_Covid19_cases_deaths <- Number_Covid19_cases_deaths[-1,]
 
-Number_Covid19_cases_deaths_2 <- Number_Covid19_cases_deaths[-1]
-View(Number_Covid19_cases_deaths_2)
+# Number_Covid19_cases_deaths <- Number_Covid19_cases_deaths[,-c(2,4:7,9:13)]
+# View(Number_Covid19_cases_deaths)
+# Remove "Name" column +  remove la 1ère ligne "global" : je sais pas comment faire autrement 
+
+# --> On peut faire comme ca non ?  : 
+Number_Covid19_cases_deaths <- Number_Covid19_cases_deaths[,-c(1:2,4:7,9:13)]
+Number_Covid19_cases_deaths <- Number_Covid19_cases_deaths[-1,]
+View(Number_Covid19_cases_deaths)
+
+# Number_Covid19_cases_deaths_2 <- Number_Covid19_cases_deaths[-1]
+# View(Number_Covid19_cases_deaths_2)
 
 # Merge tables
 total <- merge(Number_Covid19_cases_deaths_2, Antidepressant_consumption, by="LOCATION")
