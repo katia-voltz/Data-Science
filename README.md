@@ -129,7 +129,7 @@ View(Public.spending.on.health_New)
 library(tidyverse)
 library(dplyr)
 
-Public.spending.on.health_New <- rename(Public.spending.on.health_New, c('X.43' = 2000)
+Public.spending.on.health_New <- rename(Public.spending.on.health_New, c('X.43' = 2000))
 view(Public.spending.on.health_New)
 
 # Would like to re-arrange the position of the years next to the corresponding country, with 'pivot_longer', but problem...
