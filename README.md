@@ -91,13 +91,12 @@ attach(UnemploymentCovid)
 
 # Data sorting : Remove unwanted columns 
 Teleworking <- Teleworking[,-c(1:8,12)]
+Teleworking <- rename(Teleworking,c("geo"="LOCATION","TIME_PERIOD"="TIME","OBS_VALUE"="Value_x1"))
 View(Teleworking)
 UnemploymentCovid <- UnemploymentCovid[,-c(2:5,8)]
+UnemploymentCovid <- rename(UnemploymentCovid, c("Value"="Value_x2"))
 View(UnemploymentCovid)
 
-# Rename columns 
-Teleworking <- rename(Teleworking,c("geo"="LOCATION","TIME_PERIOD"="TIME"))
-View(Teleworking)
 
 # Merge tables MARCHE PAS 
 Tab_2.2 <- merge(Antidepressant_consumption, Teleworking, UnemploymentCovid, by = c("LOCATION","TIME"))
