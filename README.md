@@ -42,9 +42,9 @@ View(Mental_Health)
 data_6.2 <- rename(data_6,c("Code"="LOCATION", "Year"="TIME"))
 View(data_6.2)
 
-# Tables merge 
-total <- merge(data_1, data_2, by=c("LOCATION","TIME"))
-View(total)
+# Tables merge MARCHE PAS
+Tab_1 <- merge(data_1, data_2, by=c("LOCATION","TIME"))
+View(Tab_1)
 
 
 
