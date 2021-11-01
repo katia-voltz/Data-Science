@@ -55,7 +55,10 @@ View(total)
 
 Antidepressant_consumption <- read.csv("Conso Antidepressant.csv")
 attach(Antidepressant_consumption)
+Antidepressant_consumption <- Antidepressant_consumption[,-c(1:4,6:7,10:11)]
+Antidepressant_consumption <- rename(Antidepressant_consumption,c("COU"="LOCATION","Year"="TIME"))
 View(Antidepressant_consumption)
+
 
 # Regression 2.1 : Antidepressant_consumption = a*Number_Covid-19_cases + b*Number_Covid-19_Death
 
@@ -64,21 +67,16 @@ attach(Number_Covid19_cases_deaths)
 
 # Data sorting : remove unwanted columns
 
-# Number_Covid19_cases_deaths <- Number_Covid19_cases_deaths[,-c(2,4:7,9:13)]
-# View(Number_Covid19_cases_deaths)
-# Remove "Name" column +  remove la 1ère ligne "global" : je sais pas comment faire autrement 
-
 # --> On peut faire comme ca non ?  : 
+# Il doit y avoir un moyen de le faire en une fois mais en vrai ca va pour l'instant 
 Number_Covid19_cases_deaths <- Number_Covid19_cases_deaths[,-c(1:2,4:7,9:13)]
 Number_Covid19_cases_deaths <- Number_Covid19_cases_deaths[-1,]
 View(Number_Covid19_cases_deaths)
 
-# Number_Covid19_cases_deaths_2 <- Number_Covid19_cases_deaths[-1]
-# View(Number_Covid19_cases_deaths_2)
 
-# Merge tables
-total <- merge(Number_Covid19_cases_deaths_2, Antidepressant_consumption, by="LOCATION")
-View(total)
+# Merge tables A VERIFIER
+Tab_2.1 <- merge(Number_Covid19_cases_deaths, Antidepressant_consumption, by=c("LOCATION","TIME"))
+View(Tab_2.1)
 
 
 
@@ -88,7 +86,6 @@ Teleworking <- read.csv("Teleworking.csv")
 attach(Teleworking)
 UnemploymentCovid <- read.csv("Unemployment Rate Covid.csv")
 attach(UnemploymentCovid)
-View(UnemploymentCovid)
 
 # Data sorting : Remove unwanted columns 
 Teleworking <- Teleworking[,-c(1:8,12)]
@@ -100,6 +97,9 @@ View(UnemploymentCovid)
 Teleworking <- rename(Teleworking,c("geo"="LOCATION","TIME_PERIOD"="TIME"))
 View(Teleworking)
 
+# Merge tables MARCHE PAS 
+Tab_2.2 <- merge(Antidepressant_consumption, Teleworking, UnemploymentCovid, by = c("LOCATION","TIME"))
+View(Tab_2.2)
 
 
 
