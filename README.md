@@ -107,12 +107,16 @@ View(Tab_2.2)
 
 # Regression 3 : MentalHealth = a*Invesment 
 
-library(plyr)
+Mental_Health <- read.csv("share-with-mental-and-substance-disorders.csv")
+attach(Mental_Health)
+Mental_Health <- Mental_Health[,-1]
+Mental_Health <- rename(Mental_Health,c("Code"="LOCATION", "Year"="TIME"))
+View(Mental_Health)
 
 Public.spending.on.health_New<- read.csv2("Public Spending on Health.csv")
 View(Public.spending.on.health_New)
 
-#We remove the 3 first rows
+# We remove the 3 first rows
 
 Public.spending.on.health_New <- Public.spending.on.health_New[-c(1:3),]
 View(Public.spending.on.health_New)
