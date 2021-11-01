@@ -6,41 +6,43 @@ library(plyr)
 
 # Regression 1 : MentalHealth = a*IncomeInequality + b*wages + c*Unemployment + d*JobQuality + e*WorkTime
 
-# Open/Read files
+# Open/Read/Sort files
 
-Mental_Health <- read.csv("share-with-mental-and-substance-disorders.csv")
+Mental_Health <- read.csv("Mental Health.csv")
 attach(Mental_Health)
+MentalHealth <- MentalHealth[,-1]
+Mental_Health <- rename(Mental_Health,c("Code"="LOCATION", "Year"="TIME"))
+View(Mental_Health)
+
 Income_Inequality <- read.csv("Income inequality.csv")
-attach(IncomeInequality)
-Salary <- read.csv("Average wages.csv")
+attach(Income_Inequality)
+Income_Inequality <- Income_Inequality[,-c(2:5,8)]
+Income_Inequality <- rename(Income_Inequality,c("Value"="Value_x1"))
+View(Income_Inequality)
+
+wages <- read.csv("Average wages.csv")
 attach(wages)
+wages <- wages[,-c(2:5,8)]
+wages <- rename(wages,c("Value"="Value_x2"))
+View(wages)
+
 Unemployment <- read.csv("Unemployement Rate.csv")
 attach(Unemployment)
-Job_Quality <- read.csv("Job Quality.csv")
-attach(JobQuality)
-Work_Time <- read.csv("Avg work time per country.csv")
-attach(WorkTime)
-
-# Data sorting 
-
-Income_Inequality <- Income_Inequality[,-c(2:5,8)]
-View(Income_Inequality)
-Salary <- Salary[,-c(2:5,8)]
-View(Salary)
 Unemployment <- Unemployment[,-c(2:5,8)]
+Unemployment <- rename(Unemployment,c("Value"="Value_x3"))
 View(Unemployment)
+
+Job_Quality <- read.csv("Job Quality.csv")
+attach(Job_Quality)
 Job_Quality <- Job_Quality[,-c(2:12,14:20,22,23)]
+Job_Quality <- rename(Job_Quality,c("Value"="Value_x4"))
 View(Job_Quality)
 
-# Attention with Work_time: Différente base de données utilisée
-Work_time <- Avg.Work.Time[,-c(2:5,8)]
-view(Work_time)
-
-
-Mental_Health <- Mental_Health[,-1]
-View(Mental_Health)
-data_6.2 <- rename(data_6,c("Code"="LOCATION", "Year"="TIME"))
-View(data_6.2)
+Work_Time <- read.csv("Avg Work Time.csv")
+attach(Work_Time)
+Work_Time <- Work_Time[,-c(2:5,8)]
+Work_Time <- rename(Work_Time,c("Value"="Value_x5"))
+View(Work_Time)
 
 # Tables merge MARCHE PAS
 Tab_1 <- merge(data_1, data_2, by=c("LOCATION","TIME"))
