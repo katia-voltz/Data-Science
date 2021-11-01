@@ -109,42 +109,35 @@ View(Tab_2.2)
 
 # Regression 3 : MentalHealth = a*Invesment 
 
+library(plyr)
+library(tidyverse)
+library(dplyr)
+
+
 Mental_Health <- read.csv("share-with-mental-and-substance-disorders.csv")
 attach(Mental_Health)
 Mental_Health <- Mental_Health[,-1]
 Mental_Health <- rename(Mental_Health,c("Code"="LOCATION", "Year"="TIME"))
 View(Mental_Health)
 
-Public.spending.on.health_New<- read.csv2("Public Spending on Health.csv")
-View(Public.spending.on.health_New)
-
-# We remove the 3 first rows
-
-Public.spending.on.health_New <- Public.spending.on.health_New[-c(1:3),]
-View(Public.spending.on.health_New)
-Public.spending.on.health_New <- rename(Public.spending.on.health_New, c('Data.Source' = 'Country', 'World.Development.Indicators' = 'LOCALISATION'))
-View(Public.spending.on.health_New)
-
+# PROBLEM AVEC COLONNES SUPPRIMEES
+Public_spending_Health<- read.csv2("Public Spending on Health.csv")
+attach(Public_spending_Health)
+#We remove the 3 first rows
+Public_spending_Health<- Public_spending_Health[-c(1:3),]
+Public_spending_Health <- rename(Public_spending_Health, c('Data.Source' = 'Country', 'World.Development.Indicators' = 'LOCALISATION'))
 # We remove the unecessary colomne, with no data corresponding
-
-Public.spending.on.health_New <- Public.spending.on.health_New[,-c(5:45)]
-View(Public.spending.on.health_New)
-
+Public_spending_Health <- Public_spending_Health[,-c(5:45)]
 # We remove the unecessary colomne 
+Public_spending_Health$X.61 <- NULL
+Public_spending_Health$Country <- NULL
+Public_spending_Health$X <- NULL
+Public_spending_Health$X.1 <- NULL
+Public_spending_Health$X.62 <- NULL
+Public_spending_Health$X.63 <- NULL
+Public_spending_Health <- rename(Public_spending_Health, c('X.43' = 2000))
+View(Public_spending_Health)
 
-Public.spending.on.health_New$X.61 <- NULL
-Public.spending.on.health_New$Country <- NULL
-Public.spending.on.health_New$X <- NULL
-Public.spending.on.health_New$X.1 <- NULL
-Public.spending.on.health_New$X.62 <- NULL
-Public.spending.on.health_New$X.63 <- NULL
-View(Public.spending.on.health_New)
-
-library(tidyverse)
-library(dplyr)
-
-Public.spending.on.health_New <- rename(Public.spending.on.health_New, c('X.43' = 2000))
-view(Public.spending.on.health_New)
 
 # Would like to re-arrange the position of the years next to the corresponding country, with 'pivot_longer', but problem...
 
