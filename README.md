@@ -57,8 +57,15 @@ t5 <- as.data.frame(table(Job_Quality))
 t6 <- as.data.frame(table(Work_Time))
 merged.table <- Reduce(function(...) merge(..., all = TRUE, by = "LOCATION","TIME"), list(t1, t2, t3, t4, t5, t6))
 
-
-
+# ca sort le tableau et j'ai l'impression qu'il est juste mais le code est clairement pas ouf, il faut l'améliorer 
+tableau <- full_join(Income_Inequality, Wages, by = c("LOCATION", "TIME"))
+View(tableau) 
+tableau1 <- full_join(tableau, Unemployment, by = c("LOCATION", "TIME"))
+View(tableau1)
+tableau2 <- full_join(tableau1, Job_Quality, by = c("LOCATION", "TIME"))
+View(tableau2)
+tableau3 <- full_join(tableau2, Work_Time, by = c("LOCATION", "TIME"))
+View(tableau3)
 
 # Regression 2 
 
