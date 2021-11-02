@@ -57,15 +57,14 @@ t5 <- as.data.frame(table(Job_Quality))
 t6 <- as.data.frame(table(Work_Time))
 merged.table <- Reduce(function(...) merge(..., all = TRUE, by = "LOCATION","TIME"), list(t1, t2, t3, t4, t5, t6))
 
-# ca sort le tableau et j'ai l'impression qu'il est juste mais le code est clairement pas ouf, il faut l'améliorer 
-tableau <- full_join(Income_Inequality, Wages, by = c("LOCATION", "TIME"))
-View(tableau) 
-tableau1 <- full_join(tableau, Unemployment, by = c("LOCATION", "TIME"))
-View(tableau1)
-tableau2 <- full_join(tableau1, Job_Quality, by = c("LOCATION", "TIME"))
-View(tableau2)
-tableau3 <- full_join(tableau2, Work_Time, by = c("LOCATION", "TIME"))
-View(tableau3)
+# ca sort le tableau et j'ai l'impression qu'il est juste mais le code est clairement pas ouf, il faut l'améliorer + Il y a pas les valeurs de Mental Health
+
+tab <- full_join(Income_Inequality, wages, by = c("LOCATION", "TIME"))
+tab_1 <- full_join(tab, Unemployment, by = c("LOCATION", "TIME"))
+tab_2 <- full_join(tab_1, Job_Quality, by = c("LOCATION", "TIME"))
+tab_3 <- full_join(tab_2, Work_Time, by = c("LOCATION", "TIME"))
+tab_3 <- rename(tab_3, c("Value_x1"="Value.x","Value_x2"="Value.y","Value_x3"="Value.x.x","Value_x4"="Value.y.y","Value_x5"="Value"))
+View(tab_3)
 
 # Regression 2 
 
