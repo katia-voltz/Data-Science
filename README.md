@@ -56,6 +56,14 @@ tab_R1 <- full_join(tab_3, Work_Time, by = c("LOCATION", "TIME"))
 tab_R1 <- rename(tab_R1, c("Value_y"="Prevalence...Mental.and.substance.use.disorders...Sex..Both...Age..Age.standardized..Percent.","Value_x1"="Value.x","Value_x2"="Value.y","Value_x3"="Value.x.x","Value_x4"="Value.y.y","Value_x5"="Value"))
 View(tab_R1)
 
+# Regression study
+
+library(corrplot)
+library(ggplot2)
+
+tab_3 <- as.numeric(as.character[1])
+cor(as.matrix (tab_3[,-1]))
+Reg_2.1 <- lm()
 
 
 
@@ -66,27 +74,25 @@ View(tab_R1)
 Antidepressant_consumption <- read.csv("Conso Antidepressant.csv")
 attach(Antidepressant_consumption)
 Antidepressant_consumption <- Antidepressant_consumption[,-c(1:4,6:7,10:11)]
-Antidepressant_consumption <- rename(Antidepressant_consumption,c("COU"="LOCATION","Year"="TIME"))
+Antidepressant_consumption <- rename(Antidepressant_consumption,c("LOCATION"="COU","TIME"="Year"))
+# Séléctionner que les données pour 2020 pour coller avec Nb covid cases and deaths 
 View(Antidepressant_consumption)
 
 
-# Regression 2.1 : Antidepressant_consumption = a*Number_Covid-19_cases + b*Number_Covid-19_Death
+# Regression 2.1 : Antidepressant_consumption = a*Number_Covid19_cases + b*Number_Covid-19_Death
 
 Number_Covid19_cases_deaths <- read.csv("Cases + Deaths from Covid-19.csv")
 attach(Number_Covid19_cases_deaths)
-
-# Data sorting : remove unwanted columns
-
-# --> On peut faire comme ca non ?  : 
-# Il doit y avoir un moyen de le faire en une fois mais en vrai ca va pour l'instant 
 Number_Covid19_cases_deaths <- Number_Covid19_cases_deaths[,-c(1:2,4:7,9:13)]
 Number_Covid19_cases_deaths <- Number_Covid19_cases_deaths[-1,]
+# Problème parce que les pays sont écrit en entier (pas le bon format)
+Number_Covid19_cases_deaths <- rename(Number_Covid19_cases_deaths, "LOCATION"="?")
 View(Number_Covid19_cases_deaths)
 
+# Merge tables
+tab_R2.1 <- full_join(Number_Covid19_cases_deaths, Antidepressant_consumption, by = c("LOCATION"))
+View(tab_R2.1)
 
-# Merge tables A VERIFIER
-Tab_2.1 <- merge(Number_Covid19_cases_deaths, Antidepressant_consumption, by=c("LOCATION","TIME"))
-View(Tab_2.1)
 
 
 
@@ -94,22 +100,22 @@ View(Tab_2.1)
 
 Teleworking <- read.csv("Teleworking.csv")
 attach(Teleworking)
+Teleworking <- Teleworking[,-c(1:8,12)]
+Teleworking <- rename(Teleworking,c("LOCATION"="geo","TIME"="TIME_PERIOD","Value_x1"="OBS_VALUE"))
+View(Teleworking)
+
 UnemploymentCovid <- read.csv("Unemployment Rate Covid.csv")
 attach(UnemploymentCovid)
-
-# Data sorting : Remove unwanted columns 
-Teleworking <- Teleworking[,-c(1:8,12)]
-Teleworking <- rename(Teleworking,c("geo"="LOCATION","TIME_PERIOD"="TIME","OBS_VALUE"="Value_x1"))
-View(Teleworking)
 UnemploymentCovid <- UnemploymentCovid[,-c(2:5,8)]
-UnemploymentCovid <- rename(UnemploymentCovid, c("Value"="Value_x2"))
+# Les dates ne sont pas dans le bon format
+UnemploymentCovid <- rename(UnemploymentCovid, c("Value_x2"="Value"))
 View(UnemploymentCovid)
 
 
-# Merge tables MARCHE PAS 
-Tab_2.2 <- merge(Antidepressant_consumption, Teleworking, UnemploymentCovid, by = c("LOCATION","TIME"))
-View(Tab_2.2)
-
+# Merge tables 
+tab <- full_join(Antidepressant_consumption, Teleworking, by=c("LOCATION", "TIME"))
+tab_R2.2 <- full_join(tab, UnemploymentCovid, by = c("LOCATION", "TIME"))
+View(tab_R2.2)
 
 
 
