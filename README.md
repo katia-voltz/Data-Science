@@ -10,8 +10,8 @@ library(plyr)
 
 Mental_Health <- read.csv("Mental Health.csv")
 attach(Mental_Health)
-MentalHealth <- MentalHealth[,-1]
-Mental_Health <- rename(Mental_Health,c("Code"="LOCATION", "Year"="TIME"))
+Mental_Health <- Mental_Health[,-1]
+Mental_Health <- rename(Mental_Health,c("LOCATION"="Code", "TIME"="Year"))
 View(Mental_Health)
 
 Income_Inequality <- read.csv("Income inequality.csv")
@@ -48,12 +48,18 @@ View(Work_Time)
 
 # ca sort le tableau et j'ai l'impression qu'il est juste mais le code est clairement pas ouf, il faut l'améliorer + Il y a pas les valeurs de Mental Health
 
-tab <- full_join(Income_Inequality, wages, by = c("LOCATION", "TIME"))
-tab_1 <- full_join(tab, Unemployment, by = c("LOCATION", "TIME"))
-tab_2 <- full_join(tab_1, Job_Quality, by = c("LOCATION", "TIME"))
-tab_3 <- full_join(tab_2, Work_Time, by = c("LOCATION", "TIME"))
-tab_3 <- rename(tab_3, c("Value_x1"="Value.x","Value_x2"="Value.y","Value_x3"="Value.x.x","Value_x4"="Value.y.y","Value_x5"="Value"))
-View(tab_3)
+tab_0 <- full_join(Mental_Health, Income_Inequality, by = c("LOCATION", "TIME"))
+tab_1 <- full_join(tab_0, wages, by = c("LOCATION", "TIME"))
+tab_2 <- full_join(tab_1, Unemployment, by = c("LOCATION", "TIME"))
+tab_3 <- full_join(tab_2, Job_Quality, by = c("LOCATION", "TIME"))
+tab_R1 <- full_join(tab_3, Work_Time, by = c("LOCATION", "TIME"))
+tab_R1 <- rename(tab_R1, c("Value_y"="Prevalence...Mental.and.substance.use.disorders...Sex..Both...Age..Age.standardized..Percent.","Value_x1"="Value.x","Value_x2"="Value.y","Value_x3"="Value.x.x","Value_x4"="Value.y.y","Value_x5"="Value"))
+View(tab_R1)
+
+
+
+
+
 
 # Regression 2 
 
