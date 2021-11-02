@@ -44,18 +44,7 @@ Work_Time <- Work_Time[,-c(2:5,8)]
 Work_Time <- rename(Work_Time,c("Value"="Value_x5"))
 View(Work_Time)
 
-# Tables merge MARCHE PAS
-Tab_1 <- merge(data_1, data_2, by=c("LOCATION","TIME"))
-View(Tab_1)
-
-# C'est juste un test mais ca marche pas des masses
-t1 <- as.data.frame(table(Mental_Health))
-t2 <- as.data.frame(table(Income_Inequality))
-t3 <- as.data.frame(table(wages))
-t4 <- as.data.frame(table(Unemployment))
-t5 <- as.data.frame(table(Job_Quality))
-t6 <- as.data.frame(table(Work_Time))
-merged.table <- Reduce(function(...) merge(..., all = TRUE, by = "LOCATION","TIME"), list(t1, t2, t3, t4, t5, t6))
+# Tables merge 
 
 # ca sort le tableau et j'ai l'impression qu'il est juste mais le code est clairement pas ouf, il faut l'améliorer + Il y a pas les valeurs de Mental Health
 
