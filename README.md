@@ -127,11 +127,42 @@ library(tidyverse)
 library(dplyr)
 
 
-Mental_Health <- read.csv("share-with-mental-and-substance-disorders.csv")
-attach(Mental_Health)
+# Mental_Health <- read.csv('share.with.mental.and.substance.disorders')
+### Importation des données pout Mental_Health
+
+
 Mental_Health <- Mental_Health[,-1]
-Mental_Health <- rename(Mental_Health,c("Code"="LOCATION", "Year"="TIME"))
+view(Mental_Health)
+
+# On renomme les variable de Year avec Time. Par contre j'arrive pas a renommer celle de Prevalence...
+
+Mental_Health <- Mental_Health %>%
+  rename(Time=Year)
+  
+Mental_Health <- Mental_Health %>%
+  rename(LOCATION=Code)
+
+Metal_Health <- Mental_Health %>%
+  rename(Mental_health_value = Prevalence...Mental.and.substance.use.disorders...Sex..Both...Age..Age.standardized..Percent.)
+
+# On filtre les données par années allant de 2000 jusqu'a 2018
+
+Mental_Health <- Mental_Health %>%
+  group_by(Code,Prevalence...Mental.and.substance.use.disorders...Sex..Both...Age..Age.standardized..Percent.) %>%
+  filter(Time>1999)
+
+View(Mental_Health)  
+  
+#On selectionne que les pays de la liste
+
+Mental_Health <- Mental_Health %>%
+  filter(LOCATION == 'AFG')
+
 View(Mental_Health)
+
+
+
+
 
 # PROBLEM AVEC COLONNES SUPPRIMEES
 
