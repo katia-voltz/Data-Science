@@ -168,7 +168,8 @@ View(Public.spending.on.health_New)
 
 # We rename the columns variables by the years
 
-Public.spending.on.health_New <- rename(Public.spending.on.health_New, c('X.42'='2000','X.43'='2001','X.44'='2002','X.45'='2003', 'X.46'='2004','X.47'='2005','X.48'='2006','X.49'='2007', 'X.50'='2008','X.51'='2009','X.52'='2010', 'X.53'='2011','X.54'='2012','X.55'='2013','X.56'='2014','X.57'='2015','X.58'='2016','X.59'='2017','X.60'='2018'))
+Public.spending.on.health_New <- rename(Public.spending.on.health_New, c('2000'='X.42','2001'='X.43','2002'='X.44','2003'='X.45', '2004'='X.46','2005'='X.47','2006'='X.48','2007'='X.49', '2008'='X.50','2009'='X.51','2010'='X.52', '2011'='X.53','2012'='X.54','2013'='X.55','2014'='X.56','2015'='X.57','2016'='X.58','2017'='X.59','2018'='X.60'))
+
 
 Public.spending.on.health_New <- Public.spending.on.health_New[-1,]
 
