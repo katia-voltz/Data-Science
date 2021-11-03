@@ -74,8 +74,10 @@ Reg_2.1 <- lm()
 Antidepressant_consumption <- read.csv("Conso Antidepressant.csv")
 attach(Antidepressant_consumption)
 Antidepressant_consumption <- Antidepressant_consumption[,-c(1:4,6:7,10:11)]
-Antidepressant_consumption <- rename(Antidepressant_consumption,c("LOCATION"="COU","TIME"="Year"))
 # Séléctionner que les données pour 2020 pour coller avec Nb covid cases and deaths 
+Antidepressant_consumption <- Antidepressant_consumption %>%
+  rename("LOCATION"="COU","TIME"="Year")
+  filter(year == "2020") 
 View(Antidepressant_consumption)
 
 
