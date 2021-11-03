@@ -46,7 +46,7 @@ View(Work_Time)
 
 # Tables merge 
 
-# ca sort le tableau et j'ai l'impression qu'il est juste mais le code est clairement pas ouf, il faut l'améliorer 
+# ca sort le tableau et j'ai l'impression qu'il est juste mais le code est clairement pas ouf, il faut l'améliorer + Il y a pas les valeurs de Mental Health
 
 tab_0 <- full_join(Mental_Health, Income_Inequality, by = c("LOCATION", "TIME"))
 tab_1 <- full_join(tab_0, wages, by = c("LOCATION", "TIME"))
@@ -148,7 +148,6 @@ Public_spending_Health$X <- NULL
 Public_spending_Health$X.1 <- NULL
 Public_spending_Health$X.62 <- NULL
 Public_spending_Health$X.63 <- NULL
-Public_spending_Health <- rename(Public_spending_Health, c('X.43' = 2000))
 View(Public_spending_Health)
 
 
