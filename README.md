@@ -74,10 +74,8 @@ Reg_2.1 <- lm()
 Antidepressant_consumption <- read.csv("Conso Antidepressant.csv")
 attach(Antidepressant_consumption)
 Antidepressant_consumption <- Antidepressant_consumption[,-c(1:4,6:7,10:11)]
+Antidepressant_consumption <- rename(Antidepressant_consumption,c("LOCATION"="COU","TIME"="Year"))
 # Séléctionner que les données pour 2020 pour coller avec Nb covid cases and deaths 
-Antidepressant_consumption <- Antidepressant_consumption %>%
-  rename("LOCATION"="COU","TIME"="Year")
-  filter(year == "2020") 
 View(Antidepressant_consumption)
 
 
@@ -142,7 +140,7 @@ attach(Public_spending_Health)
 Public_spending_Health<- Public_spending_Health[-c(1:3),]
 Public_spending_Health <- rename(Public_spending_Health, c('Data.Source' = 'Country', 'World.Development.Indicators' = 'LOCALISATION'))
 # We remove the unecessary colomne, with no data corresponding
-Public_spending_Health <- Public_spending_Health[,-c(5:45)]
+Public_spending_Health <- Public_spending_Health[,-c(5:44)]
 # We remove the unecessary colomne 
 Public_spending_Health$X.61 <- NULL
 Public_spending_Health$Country <- NULL
@@ -154,11 +152,17 @@ Public_spending_Health <- rename(Public_spending_Health, c('X.43' = 2000))
 View(Public_spending_Health)
 
 
-# Would like to re-arrange the position of the years next to the corresponding country, with 'pivot_longer', but problem...
-
-Public.spending.on.health_New %>% pivot_longer(cols
-= c('X.43','X:44','X.45','X.46','X.47','X.48','X.49','X.50','X.51','X.52','X.53','X.54','X.55','X.56','X.57','X.58','X.59','X.60'),names_to = 'TIME', values_to = 'value')
+# Would like to re-arrange the position of the years next to the corresponding country, with 'pivot_longer'.
 
 
+Public.spending.on.health_New <- rename(Public.spending.on.health_New, c('X.42'='2000','X.43'='2001','X.44'='2002','X.45'='2003', 'X.46'='2004','X.47'='2005','X.48'='2006','X.49'='2007', 'X.50'='2008','X.51'='2009','X.52'='2010', 'X.53'='2011','X.54'='2012','X.55'='2013','X.56'='2014','X.57'='2015','X.58'='2016','X.59'='2017','X.60'='2018'))
+
+Public.spending.on.health_New <- Public.spending.on.health_New[-1,]
+
+library(tidyverse)
+
+Public.spending.on.health_New <- Public.spending.on.health_New %>% pivot_longer(cols = c('2000','2001','2002','2003','2004','2005','2006','2007','2008','2009','2010','2011','2012','2013','2014','2015','2016','2017','2018'),names_to = 'TIME', values_to = 'value')
+
+view(Public.spending.on.health_New)
 
 
