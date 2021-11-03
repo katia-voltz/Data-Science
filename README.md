@@ -169,6 +169,8 @@ View(Mental_Health)
 # Public.spending.on.health 
 
 library(plyr)
+library(tidyverse)
+library(dplyr)
 
 Public.spending.on.health<- read.csv2("Public Spending on Health.csv")
 
@@ -204,10 +206,6 @@ Public.spending.on.health_New <- rename(Public.spending.on.health_New, c('2000'=
 
 Public.spending.on.health_New <- Public.spending.on.health_New[-1,]
 
-# First RUN, works before the upload of packages - If RUN everything (Tidyverse) CONFLICTS (dplyr), with rename...NOT working
-
-library(tidyverse)
-library(dplyr)
 
 # Would like to re-arrange the position of the years next to the corresponding country, with 'pivot_longer'.
 
