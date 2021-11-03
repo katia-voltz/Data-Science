@@ -134,34 +134,58 @@ Mental_Health <- rename(Mental_Health,c("Code"="LOCATION", "Year"="TIME"))
 View(Mental_Health)
 
 # PROBLEM AVEC COLONNES SUPPRIMEES
-Public_spending_Health<- read.csv2("Public Spending on Health.csv")
-attach(Public_spending_Health)
-#We remove the 3 first rows
-Public_spending_Health<- Public_spending_Health[-c(1:3),]
-Public_spending_Health <- rename(Public_spending_Health, c('Data.Source' = 'Country', 'World.Development.Indicators' = 'LOCALISATION'))
+
+# Public.spending.on.health 
+
+library(plyr)
+
+Public.spending.on.health<- read.csv2("Public Spending on Health.csv")
+
+Public.spending.on.health_New<- Public.spending.on.health
+View(Public.spending.on.health_New)
+
+# We remove the 3 first rows
+
+Public.spending.on.health_New <- Public.spending.on.health_New[-c(1:3),]
+View(Public.spending.on.health_New)
+Public.spending.on.health_New <- rename(Public.spending.on.health_New, c('Data.Source' = 'Country', 'World.Development.Indicators' = 'LOCALISATION'))
+View(Public.spending.on.health_New)
+
 # We remove the unecessary colomne, with no data corresponding
-Public_spending_Health <- Public_spending_Health[,-c(5:44)]
-# We remove the unecessary colomne 
-Public_spending_Health$X.61 <- NULL
-Public_spending_Health$Country <- NULL
-Public_spending_Health$X <- NULL
-Public_spending_Health$X.1 <- NULL
-Public_spending_Health$X.62 <- NULL
-Public_spending_Health$X.63 <- NULL
-View(Public_spending_Health)
 
+Public.spending.on.health_New <- Public.spending.on.health_New[,-c(5:44)]
+View(Public.spending.on.health_New)
 
-# Would like to re-arrange the position of the years next to the corresponding country, with 'pivot_longer'.
+# We remove the unecessary columnes 
 
+Public.spending.on.health_New$X.61 <- NULL
+Public.spending.on.health_New$Country <- NULL
+Public.spending.on.health_New$X <- NULL
+Public.spending.on.health_New$X.1 <- NULL
+Public.spending.on.health_New$X.62 <- NULL
+Public.spending.on.health_New$X.63 <- NULL
+View(Public.spending.on.health_New)
+
+# We rename the columns variables by the years
 
 Public.spending.on.health_New <- rename(Public.spending.on.health_New, c('X.42'='2000','X.43'='2001','X.44'='2002','X.45'='2003', 'X.46'='2004','X.47'='2005','X.48'='2006','X.49'='2007', 'X.50'='2008','X.51'='2009','X.52'='2010', 'X.53'='2011','X.54'='2012','X.55'='2013','X.56'='2014','X.57'='2015','X.58'='2016','X.59'='2017','X.60'='2018'))
 
 Public.spending.on.health_New <- Public.spending.on.health_New[-1,]
 
+# First RUN, works before the upload of packages - If RUN everything (Tidyverse) CONFLICTS (dplyr), with rename...NOT working
+
 library(tidyverse)
+library(dplyr)
+
+# Would like to re-arrange the position of the years next to the corresponding country, with 'pivot_longer'.
 
 Public.spending.on.health_New <- Public.spending.on.health_New %>% pivot_longer(cols = c('2000','2001','2002','2003','2004','2005','2006','2007','2008','2009','2010','2011','2012','2013','2014','2015','2016','2017','2018'),names_to = 'TIME', values_to = 'value')
 
 view(Public.spending.on.health_New)
+
+
+
+
+
 
 
