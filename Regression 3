@@ -51,7 +51,7 @@ View(Mental_Health)
 
 library(plyr)
 library(tidyverse)
-library(dplyr)
+
 
 Public.spending.on.health<- read.csv2("Public Spending on Health.csv")
 
@@ -90,7 +90,7 @@ Public.spending.on.health_New <- Public.spending.on.health_New[-1,]
 
 # Would like to re-arrange the position of the years next to the corresponding country, with 'pivot_longer'.
 
-Public.spending.on.health_New <- Public.spending.on.health_New %>% pivot_longer(cols = c('2000','2001','2002','2003','2004','2005','2006','2007','2008','2009','2010','2011','2012','2013','2014','2015','2016','2017','2018'),names_to = 'TIME', values_to = 'value')
+Public.spending.on.health_New <- Public.spending.on.health_New %>% pivot_longer(cols = c('2000','2001','2002','2003','2004','2005','2006','2007','2008','2009','2010','2011','2012','2013','2014','2015','2016','2017','2018'),names_to = 'Time', values_to = 'Value_Spending.on.health')
 
 view(Public.spending.on.health_New)
 
