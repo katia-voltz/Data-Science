@@ -1,1 +1,63 @@
-# Regression 1 
+# Regression 1 : MentalHealth = a*IncomeInequality + b*wages + c*Unemployment + d*JobQuality + e*WorkTime
+
+library(plyr)
+
+# Open/Read/Sort files
+
+Mental_Health <- read.csv("Mental Health.csv")
+attach(Mental_Health)
+Mental_Health <- Mental_Health[,-1]
+Mental_Health <- rename(Mental_Health,c("LOCATION"="Code", "TIME"="Year"))
+View(Mental_Health)
+
+Income_Inequality <- read.csv("Income inequality.csv")
+attach(Income_Inequality)
+Income_Inequality <- Income_Inequality[,-c(2:5,8)]
+Income_Inequality <- rename(Income_Inequality,c("Value"="Value_x1"))
+View(Income_Inequality)
+
+wages <- read.csv("Average wages.csv")
+attach(wages)
+wages <- wages[,-c(2:5,8)]
+wages <- rename(wages,c("Value"="Value_x2"))
+View(wages)
+
+Unemployment <- read.csv("Unemployement Rate.csv")
+attach(Unemployment)
+Unemployment <- Unemployment[,-c(2:5,8)]
+Unemployment <- rename(Unemployment,c("Value"="Value_x3"))
+View(Unemployment)
+
+Job_Quality <- read.csv("Job Quality.csv")
+attach(Job_Quality)
+Job_Quality <- Job_Quality[,-c(2:12,14:20,22,23)]
+Job_Quality <- rename(Job_Quality,c("Value"="Value_x4"))
+View(Job_Quality)
+
+Work_Time <- read.csv("Avg Work Time.csv")
+attach(Work_Time)
+Work_Time <- Work_Time[,-c(2:5,8)]
+Work_Time <- rename(Work_Time,c("Value"="Value_x5"))
+View(Work_Time)
+
+# Tables merge 
+
+# ca sort le tableau et j'ai l'impression qu'il est juste mais le code est clairement pas ouf, il faut l'améliorer + Il y a pas les valeurs de Mental Health
+
+tab_0 <- full_join(Mental_Health, Income_Inequality, by = c("LOCATION", "TIME"))
+tab_1 <- full_join(tab_0, wages, by = c("LOCATION", "TIME"))
+tab_2 <- full_join(tab_1, Unemployment, by = c("LOCATION", "TIME"))
+tab_3 <- full_join(tab_2, Job_Quality, by = c("LOCATION", "TIME"))
+tab_R1 <- full_join(tab_3, Work_Time, by = c("LOCATION", "TIME"))
+tab_R1 <- rename(tab_R1, c("Value_y"="Prevalence...Mental.and.substance.use.disorders...Sex..Both...Age..Age.standardized..Percent.","Value_x1"="Value.x","Value_x2"="Value.y","Value_x3"="Value.x.x","Value_x4"="Value.y.y","Value_x5"="Value"))
+View(tab_R1)
+
+# Regression study
+
+library(corrplot)
+library(ggplot2)
+
+tab_3 <- as.numeric(as.character[1])
+cor(as.matrix (tab_3[,-1]))
+Reg_2.1 <- lm()
+
