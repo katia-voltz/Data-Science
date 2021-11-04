@@ -1,6 +1,6 @@
 # Regression 2 
 
-library(dplyr)
+library(plyr)
 
 Antidepressant_consumption <- read.csv("Conso Antidepressant.csv")
 attach(Antidepressant_consumption)
