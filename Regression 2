@@ -12,11 +12,11 @@ View(Antidepressant_consumption)
 
 # Regression 2.1 : Antidepressant_consumption = a*Number_Covid19_cases + b*Number_Covid-19_Death
 
-Number_Covid19_cases_deaths <- read.csv("Cases + Deaths from Covid-19.csv")
+Number_Covid19_cases_deaths <- read.csv("Cases + Deaths Covid.csv")
 attach(Number_Covid19_cases_deaths)
-Number_Covid19_cases_deaths <- Number_Covid19_cases_deaths[,-c(1:2,4:7,9:13)]
+Number_Covid19_cases_deaths <- Number_Covid19_cases_deaths[,-c(2,4:7,9:12)]
 Number_Covid19_cases_deaths <- Number_Covid19_cases_deaths[-1,]
-# Problème parce que les pays sont écrit en entier (pas le bon format)
+
 Number_Covid19_cases_deaths <- rename(Number_Covid19_cases_deaths, "LOCATION"="?")
 View(Number_Covid19_cases_deaths)
 
