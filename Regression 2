@@ -1,27 +1,30 @@
 # Regression 2 
 
 library(plyr)
+library(dbplyr)
+library(tidyverse)
 
 Antidepressant_consumption <- read.csv("Conso Antidepressant.csv")
 attach(Antidepressant_consumption)
 Antidepressant_consumption <- Antidepressant_consumption[,-c(1:4,6:7,10:11)]
 Antidepressant_consumption <- rename(Antidepressant_consumption,c("LOCATION"="COU","TIME"="Year"))
-# Séléctionner que les données pour 2020 pour coller avec Nb covid cases and deaths 
 View(Antidepressant_consumption)
 
 
 # Regression 2.1 : Antidepressant_consumption = a*Number_Covid19_cases + b*Number_Covid-19_Death
 
-Number_Covid19_cases_deaths <- read.csv("Cases + Deaths Covid.csv")
+Number_Covid19_cases_deaths <- read.csv2("Cases + Deaths Covid.csv")
 attach(Number_Covid19_cases_deaths)
-Number_Covid19_cases_deaths <- Number_Covid19_cases_deaths[,-c(2,4:7,9:12)]
+Number_Covid19_cases_deaths <- Number_Covid19_cases_deaths[,-c(1,2,4:7,9:12)]
 Number_Covid19_cases_deaths <- Number_Covid19_cases_deaths[-1,]
-
-Number_Covid19_cases_deaths <- rename(Number_Covid19_cases_deaths, "LOCATION"="?")
+Number_Covid19_cases_deaths <- rename(Number_Covid19_cases_deaths, "LOCATION"="Code")
+Number_Covid19_cases_deaths <- Number_Covid19_cases_deaths %>% add_column(TIME = 2020, .after = "LOCATION") 
+# sélectionner que les pays qu'on veut mais problème avec : 
+# Number_Covid19_cases_deaths <- subset(Number_Covid19_cases_deaths, LOCATION ==c("USA","BEL","HRV","CZE","DNK","FIN","FRA","DEU","GRC","HUN","ISL","ITA","ROU","PRT","POL","NOR","NLD","CHE","SWE","ESP","AUS","BRA","CAN","CHN","JPN","NZL"))
 View(Number_Covid19_cases_deaths)
 
 # Merge tables
-tab_R2.1 <- full_join(Number_Covid19_cases_deaths, Antidepressant_consumption, by = c("LOCATION"))
+tab_R2.1 <- full_join(Number_Covid19_cases_deaths, Antidepressant_consumption, by= c("LOCATION","TIME"))
 View(tab_R2.1)
 
 
