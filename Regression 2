@@ -1,1 +1,50 @@
+# Regression 2 
+
+library(dplyr)
+
+Antidepressant_consumption <- read.csv("Conso Antidepressant.csv")
+attach(Antidepressant_consumption)
+Antidepressant_consumption <- Antidepressant_consumption[,-c(1:4,6:7,10:11)]
+Antidepressant_consumption <- rename(Antidepressant_consumption,c("LOCATION"="COU","TIME"="Year"))
+# Séléctionner que les données pour 2020 pour coller avec Nb covid cases and deaths 
+View(Antidepressant_consumption)
+
+
+# Regression 2.1 : Antidepressant_consumption = a*Number_Covid19_cases + b*Number_Covid-19_Death
+
+Number_Covid19_cases_deaths <- read.csv("Cases + Deaths from Covid-19.csv")
+attach(Number_Covid19_cases_deaths)
+Number_Covid19_cases_deaths <- Number_Covid19_cases_deaths[,-c(1:2,4:7,9:13)]
+Number_Covid19_cases_deaths <- Number_Covid19_cases_deaths[-1,]
+# Problème parce que les pays sont écrit en entier (pas le bon format)
+Number_Covid19_cases_deaths <- rename(Number_Covid19_cases_deaths, "LOCATION"="?")
+View(Number_Covid19_cases_deaths)
+
+# Merge tables
+tab_R2.1 <- full_join(Number_Covid19_cases_deaths, Antidepressant_consumption, by = c("LOCATION"))
+View(tab_R2.1)
+
+
+
+
+# Regression 2.2 : Antidepressant_consumption = a*Teleworking + b*Unemployment
+
+Teleworking <- read.csv("Teleworking.csv")
+attach(Teleworking)
+Teleworking <- Teleworking[,-c(1:8,12)]
+Teleworking <- rename(Teleworking,c("LOCATION"="geo","TIME"="TIME_PERIOD","Value_x1"="OBS_VALUE"))
+View(Teleworking)
+
+UnemploymentCovid <- read.csv("Unemployment Rate Covid.csv")
+attach(UnemploymentCovid)
+UnemploymentCovid <- UnemploymentCovid[,-c(2:5,8)]
+# Les dates ne sont pas dans le bon format
+UnemploymentCovid <- rename(UnemploymentCovid, c("Value_x2"="Value"))
+View(UnemploymentCovid)
+
+
+# Merge tables 
+tab <- full_join(Antidepressant_consumption, Teleworking, by=c("LOCATION", "TIME"))
+tab_R2.2 <- full_join(tab, UnemploymentCovid, by = c("LOCATION", "TIME"))
+View(tab_R2.2)
 
