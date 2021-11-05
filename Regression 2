@@ -37,17 +37,20 @@ View(tab_R2.1)
 
 # Regression 2.2 : Antidepressant_consumption = a*Teleworking + b*Unemployment
 
+List.of.Countries = c('AUT','BEL','HRV', 'CZE', 'DNK', 'ENG', 'FIN', 'FRA', 'DEU', 'GRC', 'HUN', 'ISL', 'ITA', 'ROU', 'PRT', 'POL', 'NOR', 'NLD', 'CHE', 'SWE', 'ESP', 'AUS', 'BRA', 'CAN', 'CHN', 'JPN', 'NZL', 'USA')
+
 Teleworking <- read.csv("Teleworking.csv")
 attach(Teleworking)
 Teleworking <- Teleworking[,-c(1:8,12)]
 Teleworking <- rename(Teleworking,c("LOCATION"="geo","TIME"="TIME_PERIOD","Value_x1"="OBS_VALUE"))
+Teleworking <-  Teleworking %>% filter(LOCATION %in% List.of.Countries)
 View(Teleworking)
 
 UnemploymentCovid <- read.csv("Unemployment Rate Covid.csv")
 attach(UnemploymentCovid)
 UnemploymentCovid <- UnemploymentCovid[,-c(2:5,8)]
-# Les dates ne sont pas dans le bon format
 UnemploymentCovid <- rename(UnemploymentCovid, c("Value_x2"="Value"))
+UnemploymentCovid <-  UnemploymentCovid %>% filter(LOCATION %in% List.of.Countries)
 View(UnemploymentCovid)
 
 
