@@ -1,61 +1,75 @@
-# Regression 1 : MentalHealth = a*IncomeInequality + b*wages + c*Unemployment + d*JobQuality + e*WorkTime
+# Regression 1 : MentalHealth = a*IncomeInequality + b*wages + c*Unemployment + d*WorkingAgePopulation + e*WorkTime
 
 library(plyr)
 library(dplyr)
 
+# Open/Read/Sort files
 
 Mental_Health <- read.csv("Mental Health.csv")
 attach(Mental_Health)
 Mental_Health <- Mental_Health[,-1]
 Mental_Health <- rename(Mental_Health,c("LOCATION"="Code", "TIME"="Year"))
+List.of.Countries = c('AUT','BEL','HRV', 'CZE', 'DNK', 'ENG', 'FIN', 'FRA', 'DEU', 'GRC', 'HUN', 'ISL', 'ITA', 'ROU', 'PRT', 'POL', 'NOR', 'NLD', 'CHE', 'SWE', 'ESP', 'AUS', 'BRA', 'CAN', 'JPN', 'NZL', 'USA')
+Mental_Health <-  Mental_Health %>% filter(LOCATION %in% List.of.Countries)
+Mental_Health <- Mental_Health %>%
+  filter(TIME>1999, TIME< 2018)
 View(Mental_Health)
 
-Income_Inequality <- read.csv("Income inequality.csv")
+Income_Inequality <- read.csv2("Income Inequality New-1.csv")
 attach(Income_Inequality)
-Income_Inequality <- Income_Inequality[,-c(2:5,8)]
+Income_Inequality <- rename(Income_Inequality,c( "TIME"="X"))
 View(Income_Inequality)
 
 wages <- read.csv("Average wages.csv")
 attach(wages)
 wages <- wages[,-c(2:5,8)]
+List.of.Countries = c('AUT','BEL','HRV', 'CZE', 'DNK', 'ENG', 'FIN', 'FRA', 'DEU', 'GRC', 'HUN', 'ISL', 'ITA', 'ROU', 'PRT', 'POL', 'NOR', 'NLD', 'CHE', 'SWE', 'ESP', 'AUS', 'BRA', 'CAN', 'JPN', 'NZL', 'USA')
+wages <-  wages %>% filter(LOCATION %in% List.of.Countries)
+wages <- wages %>%
+  filter(TIME>1999, TIME< 2018)
 View(wages)
 
 Unemployment <- read.csv("Unemployement Rate.csv")
 attach(Unemployment)
 Unemployment <- Unemployment[,-c(2:5,8)]
+List.of.Countries = c('AUT','BEL','HRV', 'CZE', 'DNK', 'ENG', 'FIN', 'FRA', 'DEU', 'GRC', 'HUN', 'ISL', 'ITA', 'ROU', 'PRT', 'POL', 'NOR', 'NLD', 'CHE', 'SWE', 'ESP', 'AUS', 'BRA', 'CAN', 'JPN', 'NZL', 'USA')
+Unemployment <-  Unemployment %>% filter(LOCATION %in% List.of.Countries)
+Unemployment <- Unemployment %>%
+  filter(TIME>1999, TIME< 2018)
 View(Unemployment)
 
-Job_Quality <- read.csv("Job Quality.csv")
-attach(Job_Quality)
-Job_Quality <- Job_Quality[,-c(2:12,14:20,22,23)]
-View(Job_Quality)
+Working_Age <- read.csv("Working age population.csv")
+attach(Working_Age)
+Working_Age <- Working_Age[,-c(2:5,8)]
+List.of.Countries = c('AUT','BEL','HRV', 'CZE', 'DNK', 'ENG', 'FIN', 'FRA', 'DEU', 'GRC', 'HUN', 'ISL', 'ITA', 'ROU', 'PRT', 'POL', 'NOR', 'NLD', 'CHE', 'SWE', 'ESP', 'AUS', 'BRA', 'CAN', 'JPN', 'NZL', 'USA')
+Working_Age <-  Working_Age %>% filter(LOCATION %in% List.of.Countries)
+View(Working_Age)
 
 Work_Time <- read.csv("Avg Work Time.csv")
 attach(Work_Time)
 Work_Time <- Work_Time[,-c(2:5,8)]
+List.of.Countries = c('AUT','BEL','HRV', 'CZE', 'DNK', 'ENG', 'FIN', 'FRA', 'DEU', 'GRC', 'HUN', 'ISL', 'ITA', 'ROU', 'PRT', 'POL', 'NOR', 'NLD', 'CHE', 'SWE', 'ESP', 'AUS', 'BRA', 'CAN', 'JPN', 'NZL', 'USA')
+Work_Time <-  Work_Time %>% filter(LOCATION %in% List.of.Countries)
+Work_Time <- Work_Time %>%
+  filter(TIME>1999, TIME< 2018)
 View(Work_Time)
 
-# Tables merge : TROUVER COMMENT FAIRE EN UNE LIGNE 
+# Tables merge : TROUVER COMMENT FAIRE EN UNE LIGNE ou avec FULL JOIN + Problem avec rename 
 
-Mental_Health <- Mental_Health %>%
-  mutate(Mental_Health = as.numeric(Mental_Health))
-
-tab_0 <- full_join(Mental_Health, Income_Inequality, by = c("LOCATION", "TIME"))
-tab_1 <- full_join(tab_0, wages, by = c("LOCATION", "TIME"))
-tab_2 <- full_join(tab_1, Unemployment, by = c("LOCATION", "TIME"))
-tab_3 <- full_join(tab_2, Job_Quality, by = c("LOCATION", "TIME"))
-tab_R1 <- full_join(tab_3, Work_Time, by = c("LOCATION", "TIME"))
-tab_R1 <- rename(tab_R1, c("Mental Health"="Prevalence...Mental.and.substance.use.disorders...Sex..Both...Age..Age.standardized..Percent.","Income Inequality"="Value.x","wages"="Value.y","Unemployment"="Value.x.x","Job Quality"="Value.y.y","Work Time"="Value"))
-
-List.of.Countries = c('AUT','BEL','HRV', 'CZE', 'DNK', 'ENG', 'FIN', 'FRA', 'DEU', 'GRC', 'HUN', 'ISL', 'ITA', 'ROU', 'PRT', 'POL', 'NOR', 'NLD', 'CHE', 'SWE', 'ESP', 'AUS', 'BRA', 'CAN', 'CHN', 'JPN', 'NZL', 'USA')
-tab_R1 <-  tab_R1 %>% filter(LOCATION %in% List.of.Countries)
-
-#Select data from 2000 : A OPTIMISER
-
-List.of.Dates = c('2000','2001','2002','2003','2004','2005','2006','2007','2008','2009','2010','2011','2012','2013','2014','2015','2016','2017','2018','2019','2020')
-tab_R1 <- tab_R1%>% filter(TIME %in% List.of.Dates)
+tab_0 <- merge(Mental_Health, Income_Inequality, by = c("LOCATION", "TIME"))
+tab_1 <- merge(tab_0, wages, by = c("LOCATION", "TIME"))
+tab_2 <- merge(tab_1, Unemployment, by = c("LOCATION", "TIME"))
+tab_3 <- merge(tab_2, Working_Age, by = c("LOCATION", "TIME"))
+tab_R1 <- merge(tab_3, Work_Time, by = c("LOCATION", "TIME"))
+tab_R1 <- rename(tab_R1, c("Mental Health"="Prevalence...Mental.and.substance.use.disorders...Sex..Both...Age..Age.standardized..Percent.","Income Inequality"="X.1","wages"="Value.x","Unemployment"="Value.y"))
+tab_R1 <- rename(tab_R1, c("Job Quality"="Value.x","Work Time"="Value.y"))
 
 View(tab_R1)
+
+# Mettre LOCATION en as.numeric MARCHE PAS
+tab_R1 <- tab_R1 %>%
+  mutate(tab_R1$LOCATION = as.numeric(tab_R1$LOCATION))
+
 
 # Regression study
 
@@ -65,6 +79,3 @@ library(car)
 
 summary(tab_R1)
 plot(tab_R1)
-
-Reg1 <- lm(tab_R1$LOCATION~1)
-summary(Reg1)
