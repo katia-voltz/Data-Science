@@ -91,6 +91,9 @@ Public.spending.on.health_New <- Public.spending.on.health_New %>% pivot_longer(
 
 view(Public.spending.on.health_New)
 
+# On selectionne les pays de la liste
+
+Public.spending.on.health_New_2 <- Public.spending.on.health_New %>% filter(LOCATION %in% List.of.Countries)
 
 # On fusionne les deux dataframes en une seule table.
 
