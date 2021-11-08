@@ -91,3 +91,21 @@ Public.spending.on.health_New <- Public.spending.on.health_New %>% pivot_longer(
 
 view(Public.spending.on.health_New)
 
+
+# On fusionne les deux dataframes en une seule table.
+
+tab_1 <- merge(Public.spending.on.health_New_2, Mental_Health_2, by = c('LOCATION', 'Time'))
+
+view(tab_1)
+
+##################################################################################################################################
+
+### ANALYSE DE DATA
+
+plot(tab_1$Value_Spending.on.health, tab_1$Prevalence...Mental.and.substance.use.disorders...Sex..Both...Age..Age.standardized..Percent.)
+
+cor(tab_1$Value_Spending.on.health , tab_1$Prevalence...Mental.and.substance.use.disorders...Sex..Both...Age..Age.standardized..Percent.)
+
+Regression_3 <- lm (tab_1$Prevalence...Mental.and.substance.use.disorders...Sex..Both...Age..Age.standardized..Percent.~tab_1$Value_Spending.on.healt)
+
+summary(Regression_3)
