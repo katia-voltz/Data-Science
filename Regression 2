@@ -3,13 +3,19 @@
 library(plyr)
 library(dbplyr)
 library(tidyverse)
+library(tibble)
+library(corrplot)
+library(car)
+
+List.of.Countries = c('AUT','BEL','HRV', 'CZE', 'DNK', 'ENG', 'FIN', 'FRA', 'DEU', 'GRC', 'HUN', 'ISL', 'ITA', 'ROU', 'PRT', 'POL', 'NOR', 'NLD', 'CHE', 'SWE', 'ESP', 'AUS', 'BRA', 'CAN', 'CHN', 'JPN', 'NZL', 'USA')
+List.of.Countries2 = c('GRC', 'HUN', 'ISL', 'ITA', 'NOR','PRT', 'SWE', 'ESP') #pays avec data en 2020 pour conso d'antidepress 
 
 Antidepressant_consumption <- read.csv("Conso Antidepressant.csv")
 attach(Antidepressant_consumption)
 Antidepressant_consumption <- Antidepressant_consumption[,-c(1:4,6:7,10:11)]
 Antidepressant_consumption <- rename(Antidepressant_consumption,c("LOCATION"="COU","TIME"="Year"))
-View(Antidepressant_consumption)
-
+Antidepressant_consumption1 <- Antidepressant_consumption %>% filter(LOCATION %in% List.of.Countries2)
+View(Antidepressant_consumption1)
 
 # Regression 2.1 : Antidepressant_consumption = a*Number_Covid19_cases + b*Number_Covid-19_Death
 
@@ -19,43 +25,76 @@ Number_Covid19_cases_deaths <- Number_Covid19_cases_deaths[,-c(1,2,4:7,9:12)]
 Number_Covid19_cases_deaths <- Number_Covid19_cases_deaths[-1,]
 Number_Covid19_cases_deaths <- rename(Number_Covid19_cases_deaths, "LOCATION"="Code")
 Number_Covid19_cases_deaths <- Number_Covid19_cases_deaths %>% add_column(TIME = 2020, .after = "LOCATION") 
-
-# On sélectionne les pays :
-
-List.of.Countries = c('AUT','BEL','HRV', 'CZE', 'DNK', 'ENG', 'FIN', 'FRA', 'DEU', 'GRC', 'HUN', 'ISL', 'ITA', 'ROU', 'PRT', 'POL', 'NOR', 'NLD', 'CHE', 'SWE', 'ESP', 'AUS', 'BRA', 'CAN', 'CHN', 'JPN', 'NZL', 'USA')
-
-Number_Covid19_cases_deaths <-  Number_Covid19_cases_deaths %>% filter(LOCATION %in% List.of.Countries)
+Number_Covid19_cases_deaths <-  Number_Covid19_cases_deaths %>% filter(LOCATION %in% List.of.Countries2)
 View(Number_Covid19_cases_deaths)
 
 
 # Merge tables
-tab_R2.1 <- full_join(Number_Covid19_cases_deaths, Antidepressant_consumption, by= c("LOCATION","TIME"))
+tab_R2.1 <- full_join(Number_Covid19_cases_deaths, Antidepressant_consumption1, by= c("LOCATION","TIME"))
+tab_R2.1[is.na(tab_R2.1)] <- 0 
 View(tab_R2.1)
 
+plot(tab_R2.1)
 
+ggplot(data = tab_R2.1) +
+  geom_point(mapping = aes(x = TIME, y = Value, color = LOCATION))
+  
+Reg2 <- lm(tab_R2.1$Value~tab_R2.1$Cases...cumulative.total)
+summary(Reg2)
+plot(Reg2)
 
+Reg2.1 <- lm(tab_R2.1$Value~tab_R2.1$Deaths...cumulative.total)
+summary(Reg2.1)
+plot(Reg2.1)
+
+cor(tab_R2.1$Value, tab_R2.1$Cases...cumulative.total)
 
 # Regression 2.2 : Antidepressant_consumption = a*Teleworking + b*Unemployment
 
-List.of.Countries = c('AUT','BEL','HRV', 'CZE', 'DNK', 'ENG', 'FIN', 'FRA', 'DEU', 'GRC', 'HUN', 'ISL', 'ITA', 'ROU', 'PRT', 'POL', 'NOR', 'NLD', 'CHE', 'SWE', 'ESP', 'AUS', 'BRA', 'CAN', 'CHN', 'JPN', 'NZL', 'USA')
+Antidepressant_consumption2 <- Antidepressant_consumption %>% filter(LOCATION %in% List.of.Countries)
+View(Antidepressant_consumption2)
 
 Teleworking <- read.csv("Teleworking.csv")
 attach(Teleworking)
 Teleworking <- Teleworking[,-c(1:8,12)]
-Teleworking <- rename(Teleworking,c("LOCATION"="geo","TIME"="TIME_PERIOD","Value_x1"="OBS_VALUE"))
+Teleworking <- rename(Teleworking,c("LOCATION"="geo","TIME"="TIME_PERIOD","Teleworking"="OBS_VALUE"))
 Teleworking <-  Teleworking %>% filter(LOCATION %in% List.of.Countries)
 View(Teleworking)
 
 UnemploymentCovid <- read.csv("Unemployment Rate Covid.csv")
 attach(UnemploymentCovid)
 UnemploymentCovid <- UnemploymentCovid[,-c(2:5,8)]
-UnemploymentCovid <- rename(UnemploymentCovid, c("Value_x2"="Value"))
+UnemploymentCovid <- rename(UnemploymentCovid, c("Unemployment"="Value"))
 UnemploymentCovid <-  UnemploymentCovid %>% filter(LOCATION %in% List.of.Countries)
 View(UnemploymentCovid)
 
 
 # Merge tables 
-tab <- full_join(Antidepressant_consumption, Teleworking, by=c("LOCATION", "TIME"))
+tab <- full_join(Antidepressant_consumption2, Teleworking, by=c("LOCATION", "TIME"))
+
 tab_R2.2 <- full_join(tab, UnemploymentCovid, by = c("LOCATION", "TIME"))
+tab_R2.2[is.na(tab_R2.2)] <- 0 
 View(tab_R2.2)
+
+ggplot(data = tab_R2.2) +
+  geom_point(mapping = aes(x = TIME, y = Value, color = LOCATION))
+
+ggplot(data = tab_R2.2) +
+  geom_point(mapping = aes(x = TIME, y = Teleworking, color = LOCATION))
+
+ggplot(data = tab_R2.2) +
+  geom_point(mapping = aes(x = TIME, y = Unemployment, color = LOCATION))
+  
+Reg2.2 <- lm(tab_R2.2$Value~tab_R2.2$Value_x1)
+summary(Reg2.2)
+plot(Reg2.2)
+
+Reg2.3 <- lm(tab_R2.2$Value~tab_R2.2$Value_x2)
+summary(Reg2.3)
+plot(Reg2.3)
+
+Reg2.4 <- lm(tab_R2.2$Value~tab_R2.2$Value_x1+tab_R2.2$Value_x2)
+summary(Reg2.3)
+plot(Reg2.3)
+
 
