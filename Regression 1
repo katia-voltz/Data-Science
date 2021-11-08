@@ -61,8 +61,8 @@ tab_1 <- merge(tab_0, wages, by = c("LOCATION", "TIME"))
 tab_2 <- merge(tab_1, Unemployment, by = c("LOCATION", "TIME"))
 tab_3 <- merge(tab_2, Working_Age, by = c("LOCATION", "TIME"))
 tab_R1 <- merge(tab_3, Work_Time, by = c("LOCATION", "TIME"))
-tab_R1 <- rename(tab_R1, c("Mental Health"="Prevalence...Mental.and.substance.use.disorders...Sex..Both...Age..Age.standardized..Percent.","Income Inequality"="X.1","wages"="Value.x","Unemployment"="Value.y"))
-tab_R1 <- rename(tab_R1, c("Job Quality"="Value.x","Work Time"="Value.y"))
+tab_R1 <- rename(tab_R1, c("Mental_Health"="Prevalence...Mental.and.substance.use.disorders...Sex..Both...Age..Age.standardized..Percent.","Income_Inequality"="X.1","wages"="Value.x","Unemployment"="Value.y"))
+tab_R1 <- rename(tab_R1, c("Working_Age"="Value.x","Work_Time"="Value.y"))
 
 View(tab_R1)
 
