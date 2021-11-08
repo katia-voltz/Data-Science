@@ -81,7 +81,13 @@ packages <- c("ggrepel", "gghighlight", "patchwork", "scales")
 summary(tab_R1)
 plot(tab_R1)
 
-plot(Mental_Health, Working_Age, by=c("COUNTRY","TIME"))
+reg1 <- lm(tab_R1$Mental_Health~tab_R1$Income_Inequality)
+summary(reg1)
+plot(tab_R1$Unemployment, tab_R1$Mental_Health)
+
+mod1 <- lm(tab_R1$Mental_Health~tab_R1$wages + tab_R1$Unemployment + tab_R1$Working_Age + tab_R1$Work_Time)
+summary(mod1)
+plot(mod1)
 
 plot(tab_1$Mental_Health, tab_R1$Income_Inequality, main="Scatterplot",
      xlab="Mental Health", ylab="Income Inequality")
