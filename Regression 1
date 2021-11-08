@@ -76,6 +76,12 @@ tab_R1 <- tab_R1 %>%
 library(corrplot)
 library(ggplot2)
 library(car)
-
+packages <- c("ggrepel", "gghighlight", "patchwork", "scales") 
+  
 summary(tab_R1)
 plot(tab_R1)
+
+plot(Mental_Health, Working_Age, by=c("COUNTRY","TIME"))
+plot(tab_1$Mental_Health, tab_R1$Income_Inequality, main="Scatterplot",
+     xlab="Mental Health", ylab="Income Inequality")
+
