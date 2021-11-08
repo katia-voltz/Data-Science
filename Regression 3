@@ -119,3 +119,6 @@ cor(tab_1$Value_Spending.on.health , tab_1$Prevalence...Mental.and.substance.use
 Regression_3 <- lm (tab_1$Prevalence...Mental.and.substance.use.disorders...Sex..Both...Age..Age.standardized..Percent.~tab_1$Value_Spending.on.healt)
 
 summary(Regression_3)
+
+ggplot(data = #nom de ton dataframe#) +
+geom_point(mapping = aes(x = #nom de ton dataframe# $ #TIME, y =  #nom de ton dataframe# $ #Antidepressant, shape = LOCATION (Nom de tes pays selectionnés))
