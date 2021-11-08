@@ -103,9 +103,16 @@ view(tab_1)
 
 ##################################################################################################################################
 
-### ANALYSE DE DATA
+########### ANALYSE DE DATA
+
+####### Graphiques
 
 plot(tab_1$Value_Spending.on.health, tab_1$Prevalence...Mental.and.substance.use.disorders...Sex..Both...Age..Age.standardized..Percent.)
+
+ggplot(data = tab_1) + geom_point(mapping = aes(x= tab_1$Value_Spending.on.health, y = tab_1$Prevalence...Mental.and.substance.use.disorders...Sex..Both...Age..Age.standardized..Percent., color = tab_1$LOCATION))
+
+
+####### Correlation 
 
 cor(tab_1$Value_Spending.on.health , tab_1$Prevalence...Mental.and.substance.use.disorders...Sex..Both...Age..Age.standardized..Percent.)
 
