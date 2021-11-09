@@ -131,19 +131,29 @@ library(car)
 packages <- c("ggrepel", "gghighlight", "patchwork", "scales") 
   
 
-reg1 <- lm(tab_R1$wages~tab_R1$GDP)
-summary(reg1)
-
 mod1 <- lm(tab_R1$Depression ~ tab_R1$wages + tab_R1$Unemployment + tab_R1$Working_Age + tab_R1$Work_Time + tab_R1$GDP)
 summary(mod1)
 
-
-plot(tab_1$Mental_Health, tab_R1$wages, main="Scatterplot",
-     xlab="Mental Health", ylab="wages")
+reg1 <- lm(tab_R1$Depression~tab_R1$wages)
+summary(reg1)
+reg2 <- lm(tab_R1$Depression~tab_R1$Unemployment)
+summary(reg2)
+reg3 <- lm(tab_R1$Depression~tab_R1$Working_Age)
+summary(reg3)
+reg4 <- lm(tab_R1$Depression~tab_R1$Work_Time)
+summary(reg4)
+reg5 <- lm(tab_R1$Depression~tab_R1$GDP)
+summary(reg5)
 
 ggplot(data = tab_R1) + geom_point(mapping = aes(x = Depression, y =  Work_Time, color = LOCATION))   
 ggplot(data = tab_R1) + geom_point(mapping = aes(x = Depression, y =  wages, color = LOCATION))
 ggplot(data = tab_R1) + geom_point(mapping = aes(x = Depression, y =  Unemployment, color = LOCATION))
 ggplot(data = tab_R1) + geom_point(mapping = aes(x = Depression, y =  Working_Age, color = LOCATION))
 ggplot(data = tab_R1) + geom_point(mapping = aes(x = Depression, y =  GDP, color = LOCATION))
+
+
+
+install.packages(c("sf", "rnaturalearth", "rnaturalearthdata"))
+ggplot(data = world) + geom_sf()
+
                                    
