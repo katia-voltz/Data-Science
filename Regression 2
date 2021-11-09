@@ -54,7 +54,7 @@ cor(tab_R2.1$Value, tab_R2.1$Cases...cumulative.total)
 Antidepressant_consumption2 <- Antidepressant_consumption %>% filter(LOCATION %in% List.of.Countries)
 View(Antidepressant_consumption2)
 
-Teleworking <- read.csv("Teleworking.csv")
+Teleworking <- read.csv2("Teleworking.csv")
 attach(Teleworking)
 Teleworking <- Teleworking[,-c(1:8,12)]
 Teleworking <- rename(Teleworking,c("LOCATION"="geo","TIME"="TIME_PERIOD","Teleworking"="OBS_VALUE"))
@@ -73,7 +73,8 @@ View(UnemploymentCovid)
 tab <- full_join(Antidepressant_consumption2, Teleworking, by=c("LOCATION", "TIME"))
 
 tab_R2.2 <- full_join(tab, UnemploymentCovid, by = c("LOCATION", "TIME"))
-tab_R2.2[is.na(tab_R2.2)] <- 0 
+#tab_R2.2[is.na(tab_R2.2)] <- 0 
+tab_R2.2 <- na.omit(tab_R2.2)
 View(tab_R2.2)
 
 ggplot(data = tab_R2.2) +
@@ -85,16 +86,17 @@ ggplot(data = tab_R2.2) +
 ggplot(data = tab_R2.2) +
   geom_point(mapping = aes(x = TIME, y = Unemployment, color = LOCATION))
   
-Reg2.2 <- lm(tab_R2.2$Value~tab_R2.2$Value_x1)
-summary(Reg2.2)
-plot(Reg2.2)
+#Reg2.2 <- lm(tab_R2.2$Value~tab_R2.2$Teleworking)
+#summary(Reg2.2)
+#plot(Reg2.2)
 
-Reg2.3 <- lm(tab_R2.2$Value~tab_R2.2$Value_x2)
-summary(Reg2.3)
-plot(Reg2.3)
+#Reg2.3 <- lm(tab_R2.2$Value~tab_R2.2$Unemployment)
+#summary(Reg2.3)
+#plot(Reg2.3)
 
-Reg2.4 <- lm(tab_R2.2$Value~tab_R2.2$Value_x1+tab_R2.2$Value_x2)
-summary(Reg2.3)
-plot(Reg2.3)
+Reg2.4 <- lm(tab_R2.2$Value~tab_R2.2$Teleworking+tab_R2.2$Unemployment)
+summary(Reg2.4)
+plot(Reg2.4)
+
 
 
