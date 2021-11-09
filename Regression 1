@@ -5,20 +5,49 @@ library(dplyr)
 
 # Open/Read/Sort files
 
+Anxiety <- read.csv("share-with-anxiety-disorders.csv")
+attach(Anxiety)
+Anxiety <- Anxiety[,-1]
+Anxiety <- rename(Anxiety ,c("LOCATION"="Code", "TIME"="Year", ))
+List.of.Countries = c('AUT','BEL','HRV', 'CZE', 'DNK', 'ENG', 'FIN', 'FRA', 'DEU', 'GRC', 'HUN', 'ISL', 'ITA', 'ROU', 'PRT', 'POL', 'NOR', 'NLD', 'CHE', 'SWE', 'ESP', 'AUS', 'BRA', 'CAN', 'JPN', 'NZL', 'USA')
+Anxiety <-  Anxiety %>% filter(LOCATION %in% List.of.Countries)
+Anxiety <- Anxiety %>%
+  filter(TIME>1999, TIME< 2018)
+Anxiety_m <- aggregate(Anxiety[,3], list(Anxiety$LOCATION), mean)
+Anxiety_m <- rename(Anxiety_m,c("LOCATION"="Group.1","Mean_1"="x"))
+#View(Anxiety_m)
+
+Depression <- read.csv("dalys-depression-age-std-rate.csv")
+attach(Depression)
+Depression <- Depression[,-1]
+Depression <- rename(Depression ,c("LOCATION"="Code", "TIME"="Year", ))
+List.of.Countries = c('AUT','BEL','HRV', 'CZE', 'DNK', 'ENG', 'FIN', 'FRA', 'DEU', 'GRC', 'HUN', 'ISL', 'ITA', 'ROU', 'PRT', 'POL', 'NOR', 'NLD', 'CHE', 'SWE', 'ESP', 'AUS', 'BRA', 'CAN', 'JPN', 'NZL', 'USA')
+Depression <-  Depression %>% filter(LOCATION %in% List.of.Countries)
+Depression <- Depression %>%
+  filter(TIME>1999, TIME< 2018)
+Depression_m <- aggregate(Depression[,3], list(Depression$LOCATION), mean)
+Depression_m <- rename(Depression_m,c("LOCATION"="Group.1","Mean_1"="x"))
+#View(Depression_m)
+
 Mental_Health <- read.csv("Mental Health.csv")
 attach(Mental_Health)
 Mental_Health <- Mental_Health[,-1]
-Mental_Health <- rename(Mental_Health,c("LOCATION"="Code", "TIME"="Year"))
+Mental_Health <- rename(Mental_Health,c("LOCATION"="Code", "TIME"="Year","ValueH"="Prevalence...Mental.and.substance.use.disorders...Sex..Both...Age..Age.standardized..Percent."))
 List.of.Countries = c('AUT','BEL','HRV', 'CZE', 'DNK', 'ENG', 'FIN', 'FRA', 'DEU', 'GRC', 'HUN', 'ISL', 'ITA', 'ROU', 'PRT', 'POL', 'NOR', 'NLD', 'CHE', 'SWE', 'ESP', 'AUS', 'BRA', 'CAN', 'JPN', 'NZL', 'USA')
 Mental_Health <-  Mental_Health %>% filter(LOCATION %in% List.of.Countries)
 Mental_Health <- Mental_Health %>%
   filter(TIME>1999, TIME< 2018)
-View(Mental_Health)
+Mental_Health_m <- aggregate(Mental_Health[,3], list(Mental_Health$LOCATION), mean)
+Mental_Health_m <- rename(Mental_Health_m,c("LOCATION"="Group.1","Mean_1"="x"))
+#View(Mental_Health_m)
 
-Income_Inequality <- read.csv2("Income Inequality New-1.csv")
+Income_Inequality <- read.csv("Income inequality.csv")
 attach(Income_Inequality)
-Income_Inequality <- rename(Income_Inequality,c( "TIME"="X"))
 View(Income_Inequality)
+Income_Inequality <- rename(Income_Inequality,c( "TIME"="X"))
+Income_Inequality_m <- aggregate(Income_Inequality[,3], list(Income_Inequality$LOCATION), mean)
+Income_Inequality_m <- rename(Income_Inequality_m,c("LOCATION"="Group.1","Mean_2"="x"))
+View(Income_Inequality_m)
 
 wages <- read.csv("Average wages.csv")
 attach(wages)
@@ -27,7 +56,9 @@ List.of.Countries = c('AUT','BEL','HRV', 'CZE', 'DNK', 'ENG', 'FIN', 'FRA', 'DEU
 wages <-  wages %>% filter(LOCATION %in% List.of.Countries)
 wages <- wages %>%
   filter(TIME>1999, TIME< 2018)
-View(wages)
+wages_m <- aggregate(wages[,3], list(wages$LOCATION), mean)
+wages_m <- rename(wages_m,c("LOCATION"="Group.1","Mean_3"="x"))
+#View(wages_m)
 
 Unemployment <- read.csv("Unemployement Rate.csv")
 attach(Unemployment)
@@ -36,14 +67,18 @@ List.of.Countries = c('AUT','BEL','HRV', 'CZE', 'DNK', 'ENG', 'FIN', 'FRA', 'DEU
 Unemployment <-  Unemployment %>% filter(LOCATION %in% List.of.Countries)
 Unemployment <- Unemployment %>%
   filter(TIME>1999, TIME< 2018)
-View(Unemployment)
+Unemployment_m <- aggregate(Unemployment[,3], list(Unemployment$LOCATION), mean)
+Unemployment_m <- rename(Unemployment_m,c("LOCATION"="Group.1","Mean_4"="x"))
+#View(Unemployment_m)
 
 Working_Age <- read.csv("Working age population.csv")
 attach(Working_Age)
 Working_Age <- Working_Age[,-c(2:5,8)]
 List.of.Countries = c('AUT','BEL','HRV', 'CZE', 'DNK', 'ENG', 'FIN', 'FRA', 'DEU', 'GRC', 'HUN', 'ISL', 'ITA', 'ROU', 'PRT', 'POL', 'NOR', 'NLD', 'CHE', 'SWE', 'ESP', 'AUS', 'BRA', 'CAN', 'JPN', 'NZL', 'USA')
 Working_Age <-  Working_Age %>% filter(LOCATION %in% List.of.Countries)
-View(Working_Age)
+Working_Age_m <- aggregate(Working_Age[,3], list(Working_Age$LOCATION), mean)
+Working_Age_m <- rename(Working_Age_m,c("LOCATION"="Group.1","Mean_5"="x"))
+#View(Working_Age_m)
 
 Work_Time <- read.csv("Avg Work Time.csv")
 attach(Work_Time)
@@ -52,24 +87,41 @@ List.of.Countries = c('AUT','BEL','HRV', 'CZE', 'DNK', 'ENG', 'FIN', 'FRA', 'DEU
 Work_Time <-  Work_Time %>% filter(LOCATION %in% List.of.Countries)
 Work_Time <- Work_Time %>%
   filter(TIME>1999, TIME< 2018)
-View(Work_Time)
+Work_Time_m <- aggregate(Work_Time[,3], list(Work_Time$LOCATION), mean)
+Work_Time_m <- rename(Work_Time_m,c("LOCATION"="Group.1","Mean_6"="x"))
+#View(Work_Time_m)
+
+GDP <- read.csv("gdp-per-capita.csv")
+attach(GDP)
+GDP <- GDP[,-c(1,5)]
+GDP <- rename(GDP,c("LOCATION"="Code", "TIME"="Year"))
+List.of.Countries = c('AUT','BEL','HRV', 'CZE', 'DNK', 'ENG', 'FIN', 'FRA', 'DEU', 'GRC', 'HUN', 'ISL', 'ITA', 'ROU', 'PRT', 'POL', 'NOR', 'NLD', 'CHE', 'SWE', 'ESP', 'AUS', 'BRA', 'CAN', 'JPN', 'NZL', 'USA')
+GDP <-  GDP %>% filter(LOCATION %in% List.of.Countries)
+GDP <- GDP %>%
+  filter(TIME>1999, TIME< 2018)
+GDP_m <- aggregate(GDP[,3], list(GDP$LOCATION), mean)
+GDP_m <- rename(GDP_m,c("LOCATION"="Group.1","Mean_7"="x"))
+#View(GDP_m)
+
+###############################################################################################
 
 # Tables merge : TROUVER COMMENT FAIRE EN UNE LIGNE ou avec FULL JOIN + Problem avec rename 
 
-tab_0 <- merge(Mental_Health, Income_Inequality, by = c("LOCATION", "TIME"))
-tab_1 <- merge(tab_0, wages, by = c("LOCATION", "TIME"))
-tab_2 <- merge(tab_1, Unemployment, by = c("LOCATION", "TIME"))
-tab_3 <- merge(tab_2, Working_Age, by = c("LOCATION", "TIME"))
-tab_R1 <- merge(tab_3, Work_Time, by = c("LOCATION", "TIME"))
-tab_R1 <- rename(tab_R1, c("Mental_Health"="Prevalence...Mental.and.substance.use.disorders...Sex..Both...Age..Age.standardized..Percent.","Income_Inequality"="X.1","wages"="Value.x","Unemployment"="Value.y"))
-tab_R1 <- rename(tab_R1, c("Working_Age"="Value.x","Work_Time"="Value.y"))
+tab_0 <- merge(Depression_m, Work_Time_m, by = c("LOCATION"))
+tab_1 <- merge(tab_0, wages_m, by = c("LOCATION"))
+tab_2 <- merge(tab_1, Unemployment_m, by = c("LOCATION"))
+tab_3 <- merge(tab_2, Working_Age_m, by = c("LOCATION"))
+tab_R1 <- merge(tab_3, GDP_m, by = c("LOCATION"))
+tab_R1 <- rename(tab_R1, c("Depression"="Mean_1","Work_Time"="Mean_6","wages"="Mean_3","Unemployment"="Mean_4","Working_Age"="Mean_5","GDP"="Mean_7"))
 
 View(tab_R1)
+plot(tab_R1)
 
 # Mettre LOCATION en as.numeric MARCHE PAS
 tab_R1 <- tab_R1 %>%
   mutate(tab_R1$LOCATION = as.numeric(tab_R1$LOCATION))
 
+########################################################################################################
 
 # Regression study
 
@@ -78,20 +130,20 @@ library(ggplot2)
 library(car)
 packages <- c("ggrepel", "gghighlight", "patchwork", "scales") 
   
-summary(tab_R1)
-plot(tab_R1)
 
-reg1 <- lm(tab_R1$Mental_Health~tab_R1$Income_Inequality)
+reg1 <- lm(tab_R1$wages~tab_R1$GDP)
 summary(reg1)
-plot(tab_R1$Unemployment, tab_R1$Mental_Health)
 
-mod1 <- lm(tab_R1$Mental_Health~tab_R1$wages + tab_R1$Unemployment + tab_R1$Working_Age + tab_R1$Work_Time)
+mod1 <- lm(tab_R1$Depression ~ tab_R1$wages + tab_R1$Unemployment + tab_R1$Working_Age + tab_R1$Work_Time + tab_R1$GDP)
 summary(mod1)
-plot(mod1)
-
-plot(tab_1$Mental_Health, tab_R1$Income_Inequality, main="Scatterplot",
-     xlab="Mental Health", ylab="Income Inequality")
-
-ggplot(data = tab_R1) + geom_point(mapping = aes(x= tab_R1$TIME, y=tab_R1$Mental_Health, shape = tab_R1$LOCATION))
 
 
+plot(tab_1$Mental_Health, tab_R1$wages, main="Scatterplot",
+     xlab="Mental Health", ylab="wages")
+
+ggplot(data = tab_R1) + geom_point(mapping = aes(x = Depression, y =  Work_Time, color = LOCATION))   
+ggplot(data = tab_R1) + geom_point(mapping = aes(x = Depression, y =  wages, color = LOCATION))
+ggplot(data = tab_R1) + geom_point(mapping = aes(x = Depression, y =  Unemployment, color = LOCATION))
+ggplot(data = tab_R1) + geom_point(mapping = aes(x = Depression, y =  Working_Age, color = LOCATION))
+ggplot(data = tab_R1) + geom_point(mapping = aes(x = Depression, y =  GDP, color = LOCATION))
+                                   
