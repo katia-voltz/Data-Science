@@ -1,0 +1,20 @@
+# Data Science Project - Redaction
+
+For this project we choose to study how  the mental health can be 
+
+
+1. Our first resarch question was : 
+
+Given the structure of the working environment in different countries, can we say that the mental health of the population is influenced by the working conditions and the situation of the country?
+
+To see those effects , we are going to use seven variables
+- the average work-time, 
+- the GPD
+- the unemployment rate, 
+- the working age population, 
+- the salaries
+- the income inequalities 
+
+We took the data for each of these variables for a certain sample of countries and then chose to do an individual average over the years from 2000 to 2017.
+
+All data comes from https://www.oecd.org and https://ourworldindata.org
