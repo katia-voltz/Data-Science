@@ -1,0 +1,50 @@
+---
+title: "Data"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE) # supprimer ? a quoi il sert ?
+```
+
+```{r, echo=FALSE, message=FALSE}
+#faire un code qui ouvre tous les packages dans un autre file (--> setup.R)
+
+```
+
+For our research, we are going to use different datasets for our three main themes. 
+
+## Work Environment
+
+First of all, for the database concerning the environment at work, we have extracted all the data from
+the sites : <https://www.oecd.org> and <https://ourworldindata.org>. 
+
+We have chosen the information of 7 variables, for a selection of countries, and for a period from
+2000 to 2017. 
+
+```{r}
+#creer un code pour ouvrir les données depuis le bonne endroit, car il y aura un doc avec toutes les
+#données en csv. 
+```
+
+````{r}
+#mettre les codes pour trier toutes les donnees et avoir un seul tableau et decrire ce qu'on fait 
+````
+
+## Covid 
+
+For our second theme around Covid, we found data on antidepressant consumption on the website : 
+<https://www.oecd.org>, in the Pharmaceutical Market Section. 
+Regarding the Covid data, they come from the site : <https://coronavirus.jhu.edu>. Finally, 
+informations on Teleworking and Unemployement were extracted respectively from the sites : 
+<https://ec.europa.eu/eurostat> and <https://data.oecd.org>. 
+
+
+
+
+
+
+
+
+
+
