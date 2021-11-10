@@ -99,9 +99,9 @@ summary(Regression_3)
 
 # Vizualisation of the Mental_health_Value evolution according to the different countries. One point represent one year for each country.
 
-ggplot(data = tab_1) + geom_point(mapping = aes(x= tab_1$Value_Spending.on.health, y = tab_1$Mental_health_Value, color = tab_1$LOCATION))
-
-#Different vizualization of the graph
+ggplot(data = tab_1, mapping = aes(x = Value_Spending.on.health, y = Mental_health_Value)) +
+  geom_point(mapping = aes(color = LOCATION)) +
+  geom_smooth()
 
 tab_1 %>% group_by(LOCATION) %>%
   ggplot(aes(
@@ -145,13 +145,10 @@ summary(Regression_3.2)
 
 # graph of our new dataframe
 
-tab_2 %>% group_by(LOCATION) %>%
-  ggplot(aes(
-    x = Mean_Value_Spending.on.health,
-    y = Mean_Mental_health_Value,
-    col = LOCATION,
-    group = LOCATION
-  ))
+ggplot(data = tab_2)+ geom_point(mapping = aes(x= Mean_Value_Spending.on.health, y = Mean_Mental_health_Value, color = LOCATION))
 
-ggplot(data = tab_2) + geom_point(mapping = aes(x= tab_2$Mean_Value_Spending.on.health, y = tab_2$Mean_Value_Spending.on.health, color = tab_2$LOCATION))
+ggplot(data = tab_2, mapping = aes(x = Mean_Value_Spending.on.health, y = Mean_Mental_health_Value)) +
+  geom_point(mapping = aes(color = LOCATION)) +
+  geom_smooth(se = FALSE)
+
 
