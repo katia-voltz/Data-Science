@@ -17,6 +17,42 @@ Antidepressant_consumption <- rename(Antidepressant_consumption,c("LOCATION"="CO
 Antidepressant_consumption1 <- Antidepressant_consumption %>% filter(LOCATION %in% List.of.Countries2)
 View(Antidepressant_consumption1)
 
+#Regression avec le taux de dépression en 2017 et 2021 
+
+Depression_Rate2017 <- read.csv("Depression Rate 2000:2017.csv")
+attach(Depression_Rate2017)
+View(Depression_Rate2017)
+Depression_Rate2017 <- Depression_Rate2017[-1]
+Depression_Rate2017 <- rename(Depression_Rate2017,c("LOCATION"="Code","TIME"="Year"))
+Depression_Rate2017 <- rename(Depression_Rate2017, "Value"="Prevalence...Depressive.disorders...Sex..Both...Age..Age.standardized..Percent.")
+Depression_Rate2017 <- Depression_Rate2017 %>%
+  filter(TIME>2016)
+Depression_Rate2017 <- Depression_Rate2017 %>% filter(LOCATION %in% List.of.Countries)
+
+
+Depression_Rate2021 <- read.csv2("Depression Rate 2021.csv")
+attach(Depression_Rate2021)
+View(Depression_Rate2021)
+Depression_Rate2021 <- Depression_Rate2021[,-c(1,3:4)]
+Depression_Rate2021 <- rename(Depression_Rate2021,c("Value"="prevalence"))
+Depression_Rate2021 <- Depression_Rate2021 %>% filter(LOCATION %in% List.of.Countries)
+Depression_Rate2021 <- Depression_Rate2021 %>% add_column(TIME = 2021, .after = "LOCATION") 
+
+#il faut join les deux datas 
+
+tab_test <- full_join(Depression_Rate2017, Depression_Rate2021, by=c("LOCATION","TIME")) 
+tab_test <- right_join(Depression_Rate2017, Depression_Rate2021, by=c("LOCATION","TIME"))
+View(tab_test)
+
+plot(tab_test)
+
+RegTest <- lm(tab_test$prevalence~tab_test$Value)
+summary(RegTest)
+
+ggplot(data = tab_test) +
+  geom_point(mapping = aes(x = TIME, y = Value, color = LOCATION))
+
+
 # Regression 2.1 : Antidepressant_consumption = a*Number_Covid19_cases + b*Number_Covid-19_Death
 
 Number_Covid19_cases_deaths <- read.csv2("Cases + Deaths Covid.csv")
@@ -32,6 +68,8 @@ View(Number_Covid19_cases_deaths)
 # Merge tables
 tab_R2.1 <- full_join(Number_Covid19_cases_deaths, Antidepressant_consumption1, by= c("LOCATION","TIME"))
 tab_R2.1[is.na(tab_R2.1)] <- 0 
+tab_R2.1$Cases...cumulative.total <- as.numeric(tab_R2.1$Cases...cumulative.total)
+
 View(tab_R2.1)
 
 plot(tab_R2.1)
@@ -74,7 +112,8 @@ tab <- full_join(Antidepressant_consumption2, Teleworking, by=c("LOCATION", "TIM
 
 tab_R2.2 <- full_join(tab, UnemploymentCovid, by = c("LOCATION", "TIME"))
 #tab_R2.2[is.na(tab_R2.2)] <- 0 
-tab_R2.2 <- na.omit(tab_R2.2)
+tab_R2.2 <- na.omit(tab_R2.2)  #c'est mieux d'enlever les NA plutot aue de les remplacer par des 0 
+tab_R2.2$Teleworking <- as.numeric(tab_R2.2$Teleworking) # teleworking était en charactère , on met en numeric 
 View(tab_R2.2)
 
 ggplot(data = tab_R2.2) +
