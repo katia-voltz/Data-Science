@@ -23,11 +23,9 @@ For our research, we are going to use different datasets for our three main them
 
 ## Work Environment
 
-First of all, for the database concerning the environment at work, we have extracted all the data from
-the sites : <https://www.oecd.org> and <https://ourworldindata.org>. 
+First of all, for the database concerning the environment at work, we have extracted all the data from the sites : <https://www.oecd.org> and <https://ourworldindata.org>. 
 
-We have chosen the information of 7 variables, for a selection of countries, and for a period from
-2000 to 2017. 
+We have chosen the information of 7 variables, for a selection of countries, and for a period from 2000 to 2017. 
 
 ```{r}
 #creer un code pour ouvrir les données depuis le bonne endroit, car il y aura un doc avec toutes les
@@ -40,11 +38,20 @@ We have chosen the information of 7 variables, for a selection of countries, and
 
 ## Covid 
 
-For our second theme around Covid, we found data on antidepressant consumption on the website : 
-<https://www.oecd.org>, in the Pharmaceutical Market Section. 
-Regarding the Covid data, they come from the site : <https://coronavirus.jhu.edu>. Finally, 
-informations on Teleworking and Unemployement were extracted respectively from the sites : 
-<https://ec.europa.eu/eurostat> and <https://data.oecd.org>. 
+For our second theme around Covid, we wanted to analyze if Covid had an impact on antidepressant consumption and we found data on antidepressant consumption on the 
+website : <https://www.oecd.org>, in the Pharmaceutical Market Section. 
+Regarding the Covid data, they come from the site : <https://coronavirus.jhu.edu>. 
+
+First of all, we have made a selection of several countries which are the following (To simplify, country codes have been used and not the full names) : Austria, 
+Belgium, Croatia, Czechia, Denmark, Finland, France, Germany, Greece, Hungary, Iceland, Ireland, Italy, Romania, Portugal, Poland, Norway, Netherlands, Switzerland, 
+Sweden, Spain, Australia, Brazil, Canada, China, Japan, New-Zealand and the USA.  
+
+```{r}
+List.of.Countries = c('AUT','BEL','HRV', 'CZE', 'DNK', 'ENG', 'FIN', 'FRA', 'DEU', 'GRC', 'HUN','ISL',
+                      'ITA', 'ROU', 'PRT', 'POL', 'NOR', 'NLD', 'CHE', 'SWE', 'ESP', 'AUS', 'BRA',
+                      'CAN', 'CHN', 'JPN', 'NZL', 'USA')
+```
+
 
 
 
