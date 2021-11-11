@@ -68,7 +68,59 @@ Antidepressant_consumption1 <- Antidepressant_consumption %>% filter(LOCATION %i
 View(Antidepressant_consumption1)
 ````
 
+```{r}
+Number_Covid19_cases_deaths <- read.csv2("Cases + Deaths Covid.csv")
+attach(Number_Covid19_cases_deaths)
+Number_Covid19_cases_deaths <- Number_Covid19_cases_deaths[,-c(1,2,4:7,9:12)]
+Number_Covid19_cases_deaths <- Number_Covid19_cases_deaths[-1,] 
+Number_Covid19_cases_deaths <- rename(Number_Covid19_cases_deaths, "LOCATION"="Code")
+Number_Covid19_cases_deaths <- Number_Covid19_cases_deaths %>% add_column(TIME = 2020, .after = "LOCATION") 
+Number_Covid19_cases_deaths <-  Number_Covid19_cases_deaths %>% filter(LOCATION %in% List.of.Countries2)
+View(Number_Covid19_cases_deaths)
+````
+We can now form a table with the data. 
+```{r}
+tab_R2.1 <- full_join(Number_Covid19_cases_deaths, Antidepressant_consumption, by= c("LOCATION","TIME"))
+tab_R2.1[is.na(tab_R2.1)] <- 0 
+tab_R2.1$Cases...cumulative.total <- as.numeric(tab_R2.1$Cases...cumulative.total)
+View(tab_R2.1)
+```
 
+We also wanted to analyze the evolution of the depression rate between 2010 and 2017, and if the covid had an impact on it in 2021. Our data comes frome the sites : <https://ourworldindata.org/mental-health#depression> and <https://worldpopulationreview.com/>. 
+
+```{r}
+Depression_Rate2017 <- read.csv("Depression Rate 2000:2017.csv")
+attach(Depression_Rate2017)
+Depression_Rate2017 <- Depression_Rate2017[-1]
+Depression_Rate2017 <- rename(Depression_Rate2017,c("LOCATION"="Code","TIME"="Year"))
+Depression_Rate2017 <- rename(Depression_Rate2017, "2017"="Prevalence...Depressive.disorders...Sex..Both...Age..Age.standardized..Percent.")
+Depression_Rate2017 <- Depression_Rate2017 %>%
+  filter(TIME>2016)
+Depression_Rate2017 <- Depression_Rate2017 %>% filter(LOCATION %in% List.of.Countries)
+Depression_Rate2017 <- Depression_Rate2017[-2]
+View(Depression_Rate2017)
+```
+```{r}
+Depression_Rate2021 <- read.csv2("Depression Rate 2021.csv")
+attach(Depression_Rate2021)
+Depression_Rate2021 <- Depression_Rate2021[,-c(1,3:4)]
+Depression_Rate2021 <- rename(Depression_Rate2021,c("2021"="prevalence"))
+Depression_Rate2021 <- Depression_Rate2021 %>% filter(LOCATION %in% List.of.Countries)
+Depression_Rate2021 <- Depression_Rate2021 %>% add_column(TIME = 2021, .after = "LOCATION") 
+Depression_Rate2021 <- Depression_Rate2021[-3]
+View(Depression_Rate2021)
+```
+
+```{r}
+tab_test <- Depression_Rate2017 %>%
+  inner_join(Depression_Rate2021, by = "LOCATION")
+tab_test$"2021" <- as.numeric(tab_test$"2021")
+tab_test <- tab_test %>%
+  pivot_longer(c(`2017`, `2021`),
+               names_to = "TIME",
+               values_to = "VALUE")
+View(tab_test)
+```
 
 
 
