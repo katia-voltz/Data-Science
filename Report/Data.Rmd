@@ -123,9 +123,38 @@ tab_test <- tab_test %>%
 View(tab_test)
 ```
 
+For the second study of this theme, information on Teleworking and Unemployment were extracted respectively from the sites : <https://ec.europa.eu/eurostat> and <https://data.oecd.org>. 
 
+```{r}
+Antidepressant_consumption2 <- Antidepressant_consumption %>% filter(LOCATION %in% List.of.Countries)
+View(Antidepressant_consumption2)
+```
 
+```{r}
+Teleworking <- read.csv2("Teleworking.csv")
+attach(Teleworking)
+Teleworking <- Teleworking[,-c(1:8,12)]
+Teleworking <- rename(Teleworking,c("LOCATION"="geo","TIME"="TIME_PERIOD","Teleworking"="OBS_VALUE"))
+Teleworking <-  Teleworking %>% filter(LOCATION %in% List.of.Countries)
+View(Teleworking)
+```
 
+```{r}
+UnemploymentCovid <- read.csv("Unemployement Rate.csv")
+attach(UnemploymentCovid)
+UnemploymentCovid <- UnemploymentCovid[,-c(2:5,8)]
+UnemploymentCovid <- rename(UnemploymentCovid, c("Unemployment"="Value"))
+UnemploymentCovid <-  UnemploymentCovid %>% filter(LOCATION %in% List.of.Countries)
+View(UnemploymentCovid)
+```
+
+```{r}
+tab <- full_join(Antidepressant_consumption2, Teleworking, by=c("LOCATION", "TIME"))
+tab_R2.2 <- full_join(tab, UnemploymentCovid, by = c("LOCATION", "TIME"))
+tab_R2.2 <- na.omit(tab_R2.2)
+tab_R2.2$Teleworking <- as.numeric(tab_R2.2$Teleworking)
+View(tab_R2.2)
+```
 
 
 
