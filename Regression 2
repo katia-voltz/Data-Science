@@ -28,7 +28,7 @@ Depression_Rate2017 <- rename(Depression_Rate2017, "Value"="Prevalence...Depress
 Depression_Rate2017 <- Depression_Rate2017 %>%
   filter(TIME>2016)
 Depression_Rate2017 <- Depression_Rate2017 %>% filter(LOCATION %in% List.of.Countries)
-
+Depression_Rate2017 <- Depression_Rate2017[-2]
 
 Depression_Rate2021 <- read.csv2("Depression Rate 2021.csv")
 attach(Depression_Rate2021)
@@ -37,22 +37,29 @@ Depression_Rate2021 <- Depression_Rate2021[,-c(1,3:4)]
 Depression_Rate2021 <- rename(Depression_Rate2021,c("Value"="prevalence"))
 Depression_Rate2021 <- Depression_Rate2021 %>% filter(LOCATION %in% List.of.Countries)
 Depression_Rate2021 <- Depression_Rate2021 %>% add_column(TIME = 2021, .after = "LOCATION") 
+Depression_Rate2021 <- Depression_Rate2021[-3]
 
 #il faut join les deux datas 
 
-tab_test <- full_join(Depression_Rate2017, Depression_Rate2021, by=c("LOCATION","TIME")) 
-tab_test <- right_join(Depression_Rate2017, Depression_Rate2021, by=c("LOCATION","TIME"))
+tab_test <- Depression_Rate2017 %>%
+  inner_join(Depression_Rate2021, by = "LOCATION")
+tab_test$"2021" <- as.numeric(tab_test$"2021")
+tab_test <- tab_test %>%
+  pivot_longer(c(`2017`, `2021`),
+               names_to = "TIME",
+               values_to = "VALUE")
 View(tab_test)
 
 plot(tab_test)
 
-RegTest <- lm(tab_test$prevalence~tab_test$Value)
+RegTest <- lm(tab_test$Value2017~tab_test$Value2021)
 summary(RegTest)
 
 ggplot(data = tab_test) +
-  geom_point(mapping = aes(x = TIME, y = Value, color = LOCATION))
-
-
+  geom_point(mapping = aes(x = TIME , y = VALUE, color = LOCATION)) +
+  geom_smooth(se = FALSE)
+  
+  
 # Regression 2.1 : Antidepressant_consumption = a*Number_Covid19_cases + b*Number_Covid-19_Death
 
 Number_Covid19_cases_deaths <- read.csv2("Cases + Deaths Covid.csv")
