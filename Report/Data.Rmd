@@ -52,7 +52,16 @@ List.of.Countries = c('AUT','BEL','HRV', 'CZE', 'DNK', 'ENG', 'FIN', 'FRA', 'DEU
                       'CAN', 'CHN', 'JPN', 'NZL', 'USA')
 ```
 
+Now we can select and sort the data. 
 
+```{r}
+Antidepressant_consumption <- read.csv("Conso Antidepressant.csv") #--> Mettre un code qui sélectionne la donnée depuis le bon emplacement : read.csv(here::here("data/Conso Antidepressant.csv")) ? 
+attach(Antidepressant_consumption)
+Antidepressant_consumption <- Antidepressant_consumption[,-c(1:4,6:7,10:11)]
+Antidepressant_consumption <- rename(Antidepressant_consumption,c("LOCATION"="COU","TIME"="Year"))
+Antidepressant_consumption1 <- Antidepressant_consumption %>% filter(LOCATION %in% List.of.Countries2)
+View(Antidepressant_consumption1)
+````
 
 
 
