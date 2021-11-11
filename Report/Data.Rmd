@@ -28,12 +28,13 @@ First of all, for the database concerning the environment at work, we have extra
 We have chosen the information of 7 variables, for a selection of countries, and for a period from 2000 to 2017. 
 
 ```{r}
-#creer un code pour ouvrir les données depuis le bonne endroit, car il y aura un doc avec toutes les
-#données en csv. 
+
+
 ```
 
 ````{r}
-#mettre les codes pour trier toutes les donnees et avoir un seul tableau et decrire ce qu'on fait 
+
+
 ````
 
 ## Covid 
