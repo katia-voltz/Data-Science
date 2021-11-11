@@ -6,22 +6,23 @@ library(ggplot2)
 library(factoextra) 
 library(corrplot)
 
-Public.spending.on.health_New<- Public.spending.on.health
-View(Public.spending.on.health_New)
+# Importation of the different datasets.
 
-#We remove the 3 first rows
+Public.spending.on.health_New<- Public.spending.on.health
+
+
+#We remove the 3 first rows and we rename the different variables in the columns.
 
 Public.spending.on.health_New <- Public.spending.on.health_New[-c(1:3),]
-View(Public.spending.on.health_New)
-Public.spending.on.health_New <- rename(Public.spending.on.health_New, c('Country' = 'Data.Source', 'LOCATION' = 'World.Development.Indicators'))
-View(Public.spending.on.health_New)
 
-# We remove the unecessary colomne, with no data corresponding
+Public.spending.on.health_New <- rename(Public.spending.on.health_New, c('Country' = 'Data.Source', 'LOCATION' = 'World.Development.Indicators'))
+
+
+# We remove the unecessary columns, with no data corresponding.
 
 Public.spending.on.health_New <- Public.spending.on.health_New[,-c(5:44)]
-View(Public.spending.on.health_New)
 
-# We remove the unecessary colomne 
+# We remove the unecessary columns with no relevant data.
 
 Public.spending.on.health_New$X.61 <- NULL
 Public.spending.on.health_New$Country <- NULL
@@ -29,25 +30,36 @@ Public.spending.on.health_New$X <- NULL
 Public.spending.on.health_New$X.1 <- NULL
 Public.spending.on.health_New$X.62 <- NULL
 Public.spending.on.health_New$X.63 <- NULL
-View(Public.spending.on.health_New)
+
+
+# Our initial dataframe as for variables [(X.n),(X.n+1)...(X.m)], we need to transform them as Years. 
 
 Public.spending.on.health_New <- rename(Public.spending.on.health_New, c('2000'='X.42','2001'='X.43','2002'='X.44','2003'='X.45', '2004'='X.46','2005'='X.47','2006'='X.48','2007'='X.49', '2008'='X.50','2009'='X.51','2010'='X.52', '2011'='X.53','2012'='X.54','2013'='X.55','2014'='X.56','2015'='X.57','2016'='X.58','2017'='X.59','2018'='X.60'))
 
 Public.spending.on.health_New <- Public.spending.on.health_New[-1,]
 
+# We use the pivot_longer formula to attribute each value to the corresponding 'Time' and 'LOCATION'.
 
-Public.spending.on.health_New <- Public.spending.on.health_New %>% pivot_longer(cols = c('2000','2001','2002','2003','2004','2005','2006','2007','2008','2009','2010','2011','2012','2013','2014','2015','2016','2017','2018'),names_to = 'Time', values_to = 'Value_Spending.on.health')
+Public.spending.on.health_New <- Public.spending.on.health_New %>% 
+  pivot_longer(cols = c('2000','2001','2002','2003','2004','2005','2006','2007','2008','2009','2010','2011','2012','2013','2014','2015','2016','2017','2018'),names_to = 'Time', values_to = 'Value_Spending.on.health')
+
+
+##########################################################################################
+
+### Now we import the  share with mental and substance disorders data corresponding to a list of countries. 
+# Our goal is to compare the prevalence of mental health disorder in a population of a country with respect to the public investments on health.
 
 # Mental_Health <- read.csv(share.with.mental.and.substance.disorders)
 
-### Importation des données pout Mental_Health
+# we rename the (share.with.mental.and.substance.disorders) dataframe into Mental_Health.
 
 Mental_Health <- share.with.mental.and.substance.disorders.copie
 
+# We remove the 'Entity' column. Indeed we refer only to the LOCATION as code.
 Mental_Health <- Mental_Health[,-1]
-view(Mental_Health)
 
-# On rennome les variable de Year avec Time.
+
+# We rename the variable column of year with Time, the Code with LOCATION and Prevalence...Mental.and.substance.use.disorders...Sex..Both...Age..Age.standardized..Percent. with Mental_health_value.
 
 Mental_Health <- Mental_Health %>%
   rename(Time=Year)
@@ -57,52 +69,80 @@ Mental_Health <- Mental_Health %>%
 
 Mental_Health1 <- rename(Mental_Health, 'Mental_health_Value' = 'Prevalence...Mental.and.substance.use.disorders...Sex..Both...Age..Age.standardized..Percent.')
 
-View(Mental_Health1)
 
-# On filtre les données par années allant de 2000 jusqu'a 2018
+
+# After this, we want to filter the data with the value going from 2000 to 2017.
 
 Mental_Health <- Mental_Health1 %>%
   group_by(LOCATION,Mental_health_Value) %>%
   filter(Time>1999)
 
   
-#On selectionne que les pays de la liste
+### Our analysis is focus on a specific list of countries. We consider it relevant to take a sample of 28 countries with different structural characteristics.
+# Here is the following selected countries: 'AUT','BEL','HRV', 'CZE', 'DNK', 'ENG', 'FIN', 'FRA', 'DEU', 'GRC', 'HUN', 'ISL', 'ITA', 'ROU', 'PRT', 'POL', 'NOR', 'NLD', 'CHE', 'SWE', 'ESP', 'AUS', 'BRA', 'CAN', 'CHN', 'JPN', 'NZL', 'USA'
 
 List.of.Countries = c('AUT','BEL','HRV', 'CZE', 'DNK', 'ENG', 'FIN', 'FRA', 'DEU', 'GRC', 'HUN', 'ISL', 'ITA', 'ROU', 'PRT', 'POL', 'NOR', 'NLD', 'CHE', 'SWE', 'ESP', 'AUS', 'BRA', 'CAN', 'CHN', 'JPN', 'NZL', 'USA')
 
-Mental_Health_2 <-  Mental_Health %>% filter(LOCATION %in% List.of.Countries)
+Mental_Health_2 <-  Mental_Health %>%
+  filter(LOCATION %in% List.of.Countries)
 
-Public.spending.on.health_New_2 <- Public.spending.on.health_New %>% filter(LOCATION %in% List.of.Countries)
+Public.spending.on.health_New_2 <- Public.spending.on.health_New %>% 
+  filter(LOCATION %in% List.of.Countries)
 
-View(Public.spending.on.health_New_2)
 
-# On fusionne les deux dataframes en une seule table: tab_1.
+# We merge the two dataframes into one single table named tab_1. We join them by LOCATION and Time.
 
 tab_1 <- merge(Public.spending.on.health_New_2, Mental_Health_2, by = c('LOCATION', 'Time'))
 
-view(tab_1)
 
-# We observe the basic graph of the observations distributions 
+##########################################################################################
+
+### Graphical observations and regression interpretation. 
+
+# We observe the basic graph of the observations distributions.
 
 plot(tab_1$Value_Spending.on.health, tab_1$Mental_health_Value)
 
-# It looks like there is a positive correlation between the investments in a country and the prevalence of mental health disorder
+# We can try also with the logarithmic function.
+
+plot(log(tab_1$Value_Spending.on.health), log(tab_1$Mental_health_Value))
+
+# It looks like there is a positive correlation between the investments in a country and the prevalence of mental health disorder.
 
 cor(tab_1$Value_Spending.on.health , tab_1$Mental_health_Value)
 
-Regression_3 <- lm (tab_1$Mental_health_Value~tab_1$Value_Spending.on.healt)
+Regression_Q.3.1 <- lm (tab_1$Mental_health_Value~tab_1$Value_Spending.on.healt)
 
-summary(Regression_3)
+summary(Regression_Q.3.1)
+
+# The first Regression_Q.3.1 shows a significant increase for one unit of 0.41281 * Value.Spending.on.health for the Mental_health_Value.
+# The regression is significant with 3 stars, which is satisfying. 
+# The R^2 is equal to 0.45, which is moderated to low... It means that our model is explained by 45% of the variance.
+
+# We try the same regression but with the logarithmic function to see if something is more relevant or not.
+
+Regression_Q.3.1.log <- lm (log(tab_1$Mental_health_Value)~log(tab_1$Value_Spending.on.healt))
+
+summary(Regression_Q.3.1.log)
+
+# We can see that it does not add drastically more information or explanation.
 
 
+##########################################################################################
 
+### VISUALIZATION 
 
-# Vizualisation of the Mental_health_Value evolution according to the different countries. One point represent one year for each country.
+# Visualization of the Mental_health_Value evolution according to the different countries. One point represent one year for each country.
+
+ggplot(data = tab_1) + geom_point(mapping = aes(x= Value_Spending.on.health, y = Mental_health_Value, color = LOCATION))
+
+#Different visualization of the graph.
 
 ggplot(data = tab_1, mapping = aes(x = Value_Spending.on.health, y = Mental_health_Value)) +
   geom_point(mapping = aes(color = LOCATION)) +
   geom_smooth()
 
+# By adding a geom_line we can observe if the countries values differ from one year to another.
 tab_1 %>% group_by(LOCATION) %>%
   ggplot(aes(
     x = Value_Spending.on.health,
@@ -112,7 +152,8 @@ tab_1 %>% group_by(LOCATION) %>%
   )) +
   geom_line()
 
-# We can see that the values of the countrirs do not drastically differ from one year to an another. It is why we apply the mean fonction to have one average value for the list of countries.
+# We can see that the values of the countries do not drastically differ from one year to an another. The evolution is quite linear.
+# It is why we apply the mean function to have one average value for the list of countries.
 
 # Aggregate The Value_Spending_on_health
 
@@ -126,13 +167,12 @@ tab_Mean_Mental_health_Value <- aggregate(tab_1[,4], list(tab_1$LOCATION), mean)
 
 tab_Mean_Mental_health_Value <- rename(tab_Mean_Mental_health_Value,c("LOCATION"="Group.1","Mean_Mental_health_Value"="x"))
 
-view(tab_Mean_Mental_health_Value)
-
 # We merge the table into a new dataframe representing the mean values with respect to the countries into: tab_2
 
 tab_2 <- merge(tab_Mean_Value_Spending.on.health, tab_Mean_Mental_health_Value, by = 'LOCATION')
 
-view(tab_2)
+
+### Graphical observations and regression interpretation. 
 
 plot(tab_2)
 
@@ -140,15 +180,69 @@ plot(tab_2$Mean_Value_Spending.on.health, tab_2$Mean_Mental_health_Value)
 
 cor(tab_2$Mean_Value_Spending.on.health, tab_2$Mean_Mental_health_Value)
 
-Regression_3.2 <- lm (tab_2$Mean_Mental_health_Value~tab_2$Mean_Value_Spending.on.health)
-summary(Regression_3.2)
+# We create a new regression with the mean values of the countries.
 
-# graph of our new dataframe
+Regression_Q.3.2 <- lm (tab_2$Mean_Value_Spending.on.health~tab_2$Mean_Mental_health_Value)
+
+summary(Regression_Q.3.2)
+
+# The first Regression_Q.3.1 shows a significant increase for one unit of 0.59493 * Value.Spending.on.health for the Mental_health_Value.
+# The regression is significant with 3 stars, which is satisfying. 
+# The R^2 is equal to 0.42, which is moderated to low... It means that our model is explained by 42% of the variance.
+
+
+### VISUALIZATION 
+
+# graph of our new dataframe tab_2.
+
 
 ggplot(data = tab_2)+ geom_point(mapping = aes(x= Mean_Value_Spending.on.health, y = Mean_Mental_health_Value, color = LOCATION))
 
 ggplot(data = tab_2, mapping = aes(x = Mean_Value_Spending.on.health, y = Mean_Mental_health_Value)) +
   geom_point(mapping = aes(color = LOCATION)) +
   geom_smooth(se = FALSE)
+
+
+# we can even identify clusters !
+
+### First conclusion: Our first goal is to compare whether there is a link between the country's investment in health and the number of cases of mental health problems.
+
+#The hypothesis is that the more a country invests in health, the fewer mental health problems should be present because access to care is high. However, the data shows the opposite. The more a country spends on health, the more mental health problems are likely to occur. This may be related to several biases such as the richness of a country, or other factors. 
+
+#In this case it would be more relevant to study the reverse. Is a country with a lot of mental health problems a country that invests a lot in public health? 
+  
+#Can we predict health expenditure according to the number of people affected by a mental illness in a specific country? 
+  
+  
+###### REVERSE !!!!
+
+##########################################################################################
+
+### Graphical observations and regression interpretation. 
+
+plot( tab_2$Mean_Mental_health_Value, tab_2$Mean_Value_Spending.on.health)
+
+# We create a new regression with the mean mental health value according to the mean value spending on health. 
+
+Regression_Q.3.3 <- lm (tab_2$Mean_Mental_health_Value~ tab_2$Mean_Value_Spending.on.health)
+
+summary(Regression_Q.3.3)
+
+# The first Regression_Q.3.3 shows a significant increase for one unit of 0.7073 * Value.Spending.on.health for the Mental_health_Value.
+# The regression is significant with 3 stars, which is satisfying. 
+# The R^2 is equal to 0.42, which is moderated to low... It means that our model is explained by 42% of the variance.
+
+
+### VISUALIZATION 
+
+ggplot(data = tab_2, mapping = aes(x = Mean_Mental_health_Value, y = Mean_Value_Spending.on.health)) +
+  geom_point(mapping = aes(color = LOCATION)) +
+  geom_smooth()
+
+
+
+
+
+
 
 
