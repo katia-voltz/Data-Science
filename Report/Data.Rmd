@@ -7,9 +7,16 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE) # supprimer ? a quoi il sert ?
 ```
 
-```{r, echo=FALSE, message=FALSE}
-#faire un code qui ouvre tous les packages dans un autre file (--> setup.R)
+First, we need to install different packages. 
 
+```{r, echo=FALSE, message=FALSE}
+library(plyr)
+library(dbplyr)
+library(tidyverse)
+library(tibble)
+library(corrplot)
+library(car)
+#faire un code qui ouvre tous les packages dans un autre file (--> setup.R)
 ```
 
 For our research, we are going to use different datasets for our three main themes. 
