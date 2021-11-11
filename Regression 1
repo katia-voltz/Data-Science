@@ -1,10 +1,10 @@
 # Regression 1 : MentalHealth = a*IncomeInequality + b*wages + c*Unemployment + d*WorkingAgePopulation + e*WorkTime + f*GPD
 
+# Data Science Project
 library(plyr)
 library(dplyr)
 
-
-# Open/Read/Sort files
+# Data
 
 Anxiety <- read.csv("share-with-anxiety-disorders.csv")
 attach(Anxiety)
@@ -41,7 +41,6 @@ Mental_Health <- Mental_Health %>%
 Mental_Health_m <- aggregate(Mental_Health[,3], list(Mental_Health$LOCATION), mean)
 Mental_Health_m <- rename(Mental_Health_m,c("LOCATION"="Group.1","Mean_1"="x"))
 #View(Mental_Health_m)
-
 
 Income_Inequality <- read.csv2("Income inequality-1.csv")
 attach(Income_Inequality)
@@ -109,9 +108,6 @@ GDP_m <- aggregate(GDP[,3], list(GDP$LOCATION), mean)
 GDP_m <- rename(GDP_m,c("LOCATION"="Group.1","Mean_7"="x"))
 #View(GDP_m)
 
-###############################################################################################
-
-# Tables merge : TROUVER COMMENT FAIRE EN UNE LIGNE ou avec FULL JOIN + Problem avec rename 
 
 tab_0 <- full_join(Mental_Health_m, Income_Inequality_m, by = c("LOCATION"))
 tab_1 <- full_join(tab_0, wages_m, by = c("LOCATION"))
@@ -123,49 +119,83 @@ tab_R1 <- na.omit(tab_R1)
 tab_R1 <- rename(tab_R1, c("Mental_Health"="Mean_1","Income_Inequality"="Mean_2","wages"="Mean_3","Unemployment"="Mean_4","Working_Age"="Mean_5","Work_Time"="Mean_6","GDP"="Mean_7"))
 tab_R1_log <- log(tab_R1[,2:8])
 tab_Tot <- cbind(tab_R1$LOCATION, tab_R1_log)
+tab_Tot <- rename(tab_Tot, c("LOCATION"="tab_R1$LOCATION"))
 View(tab_Tot)
 plot(tab_Tot)
 
 
 ########################################################################################################
 
-# Regression study
-
 library(corrplot)
 library(ggplot2)
 library(car)
 packages <- c("ggrepel", "gghighlight", "patchwork", "scales") 
-  
 
-mod1 <- lm(tab_Tot$Mental_Health ~ tab_Tot$Work_Time) 
-# tab_Tot$wages + tab_Tot$Unemployment + tab_Tot$Working_Age + tab_Tot$Work_Time + tab_Tot$GDP)
-summary(mod1)
+# Eda
 
-#reg0 <- lm(log(tab_R1$Mental_Health)~log(tab_R1$Income_Inequality))
-#summary(reg0)
-reg1 <- lm(log(tab_R1$Mental_Health)~log(tab_R1$wages))
+mod <- lm(tab_Tot$Mental_Health ~ tab_Tot$Income_Inequality + tab_Tot$wages + tab_Tot$Unemployment + tab_Tot$Working_Age + tab_Tot$Work_Time + tab_Tot$GDP)
+summary(mod)
+# We have ** for Income_Inequality and Working_Age and 0 for the others
+
+# Income Inequality Analysis 
+reg0 <- lm(tab_Tot$Mental_Health~tab_Tot$Income_Inequality)
+summary(reg0)
+# We have * 
+plot(tab_Tot$Income_Inequality, tab_Tot$Mental_Health)
+# We can see that the higher the income inequality, the higher the share of the population with mental health disorders is
+ggplot(data = tab_Tot) + geom_point(mapping = aes(x = Income_Inequality, y = Mental_Health, color = LOCATION))   
+
+# Wages Analysis
+reg1 <- lm(tab_Tot$Mental_Health~tab_Tot$wages)
 summary(reg1)
-reg2 <- lm(log(tab_R1$Mental_Health)~log(tab_R1$Unemployment))
+# We have ** 
+plot(tab_Tot$wages, tab_Tot$Mental_Health)
+# We can see that the higher the wages, the higher the share of the share of the population with mental health disorders is
+ggplot(data = tab_Tot) + geom_point(mapping = aes(x = wages, y = Mental_Health , color = LOCATION))
+
+# Unemployment Analysis
+reg2 <- lm(tab_Tot$Mental_Health~tab_Tot$Unemployment)
 summary(reg2)
-reg3 <- lm(log(tab_R1$Depression)~log(tab_R1$Working_Age))
+# We have 0 
+plot(tab_Tot$Unemployment, tab_Tot$Mental_Health)
+# It doesn't seem to have any distinct correlation between this two variables 
+ggplot(data = tab_Tot) + geom_point(mapping = aes(x = Unemployment, y = Mental_Health , color = LOCATION))
+
+#Working Age Analysis
+reg3 <- lm(tab_Tot$Mental_Health~tab_Tot$Working_Age)
 summary(reg3)
-reg4 <- lm(tab_R1$Depression~tab_R1$Work_Time)
+# We have ** 
+plot(tab_Tot$Working_Age, tab_Tot$Mental_Health)
+# We can see that the share of the population with mental health disorders is higher when the working age is lower
+ggplot(data = tab_Tot) + geom_point(mapping = aes(x = Working_Age, y = Mental_Health , color = LOCATION))
+
+# Work Time Analysis
+reg4 <- lm(tab_Tot$Mental_Health~tab_Tot$Work_Time)
 summary(reg4)
-reg5 <- lm(tab_R1$Depression~tab_R1$GDP)
+# We have 0
+plot(tab_Tot$Work_Time, tab_Tot$Mental_Health)
+# It doesn't seem to have any distinct correlation between this two variables 
+ggplot(data = tab_Tot) + geom_point(mapping = aes(x = Work_Time, y = Mental_Health, color = LOCATION)) 
+
+# GDP Analysis
+reg5 <- lm(tab_Tot$Mental_Health~tab_Tot$GDP)
 summary(reg5)
+# We have **
+plot(tab_Tot$GDP, tab_Tot$Mental_Health)
+# It seems that when the GDP tends to be high, the share of the population with mental health disorders also tends to be high
+ggplot(data = tab_Tot) + geom_point(mapping = aes(x = GDP, y = Mental_Health , color = LOCATION))
 
-#ggplot(data = tab_R1) + geom_point(mapping = aes(x = Income_Inequality, y = Mental_Health, color = LOCATION))   
-ggplot(data = tab_R1) + geom_point(mapping = aes(x = wages, y = Mental_Health , color = LOCATION))
-ggplot(data = tab_R1) + geom_point(mapping = aes(x = Unemployment, y = Mental_Health , color = LOCATION))
-ggplot(data = tab_R1) + geom_point(mapping = aes(x = Working_Age, y = Mental_Health , color = LOCATION))
-ggplot(data = tab_R1) + geom_point(mapping = aes(x = Work_Time, y = Mental_Health, color = LOCATION)) 
-ggplot(data = tab_R1) + geom_point(mapping = aes(x = GDP, y = Mental_Health , color = LOCATION))
-  
+#########################################################################################################################  
 
-cor(tab_R1$Mental_Health, tab_R1$Unemployment)
-plot(tab_R1$Depression, tab_R1$GDP)
+# Forward selection 
 
-install.packages(c("sf", "rnaturalearth", "rnaturalearthdata"))
-ggplot(data = world) + geom_sf()
-
+mod0 <- lm(tab_Tot$Mental_Health~1)
+summary(mod0)
+mod1 <- lm(tab_Tot$Mental_Health~tab_Tot$Income_Inequality)
+summary(mod1)
+mod2 <- lm(tab_Tot$Mental_Health~tab_Tot$Income_Inequality+tab_Tot$wages)
+summary(mod2)
+mod3 <- lm(tab_Tot$Mental_Health~tab_Tot$Income_Inequality+tab_Tot$wages+tab_Tot$Working_Age)
+summary(mod3)
+# We have *** for Income_Inequality and ** for wages and working_Age
 
