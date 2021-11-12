@@ -43,6 +43,7 @@ Regression 1 : MentalHealth = a*IncomeInequality + b*wages + c*Unemployment + d*
 In order to have a table with all of our variables .....
 we start by sorting our data ....
 
+
 ```{r}
 
 
@@ -51,7 +52,7 @@ we start by sorting our data ....
 ````{r}
 
 
-````
+```
 
 ## Covid 
 
