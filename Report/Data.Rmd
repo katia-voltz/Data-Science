@@ -25,7 +25,23 @@ For our research, we are going to use different datasets for our three main them
 
 First of all, for the database concerning the environment at work, we have extracted all the data from the sites : <https://www.oecd.org> and <https://ourworldindata.org>. 
 
-We have chosen the information of 7 variables, for a selection of countries, and for a period from 2000 to 2017. 
+Our first resarch question was : Given the structure of the working environment in different countries, can we say that the mental health of the population is influenced by the working conditions and the situation of the country?
+
+To see those effects , we have chosen the information of 7 variables ; 
+
+- the average work-time
+- the GPD
+- the unemployment rate 
+- the working age population
+- the salaries
+- the income inequalities 
+
+We took the data for each of these variables for a certain sample of countries and then chose to do an individual average over the years from 2000 to 2017.
+
+Regression 1 : MentalHealth = a*IncomeInequality + b*wages + c*Unemployment + d*WorkingAgePopulation + e*WorkTime + f*GPD
+
+In order to have a table with all of our variables .....
+we start by sorting our data ....
 
 ```{r}
 
