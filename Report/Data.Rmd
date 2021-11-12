@@ -60,7 +60,7 @@ For our second theme around Covid, we wanted to analyze if Covid had an impact o
 website : <https://www.oecd.org>, in the Pharmaceutical Market Section. 
 Regarding the Covid data, they come from the site : <https://coronavirus.jhu.edu>. 
 
-Regression 2.1 : Antidepressant_consumption = a*Number_Covid-19_cases + b*Number_Covid-19_Death
+Regression 2.1 : Antidepressant_consumption = a*Number_Covid-19_Cases + b*Number_Covid-19_Deaths
 
 First of all, we have made a selection of several countries which are the following (To simplify, country codes have been used and not the full names) : Austria, 
 Belgium, Croatia, Czechia, Denmark, Finland, France, Germany, Greece, Hungary, Iceland, Ireland, Italy, Romania, Portugal, Poland, Norway, Netherlands, Switzerland, 
@@ -105,9 +105,16 @@ Number_Covid19_cases_deaths <- Number_Covid19_cases_deaths %>% add_column(TIME =
 Number_Covid19_cases_deaths <-  Number_Covid19_cases_deaths %>% filter(LOCATION %in% List.of.Countries2)
 View(Number_Covid19_cases_deaths)
 ````
-We can now form a table with the data. 
+
+We can now form a table with all the data together, using the "full_join" function. 
+
 ```{r}
 tab_R2.1 <- full_join(Number_Covid19_cases_deaths, Antidepressant_consumption, by= c("LOCATION","TIME"))
+```
+
+As the data of cases and death of the covid for the years before 2020 were displayed in NA, they had to be equalized to 0. Also, the "cases" variable was output in character, we converted it to numeric.
+
+```{r}
 tab_R2.1[is.na(tab_R2.1)] <- 0 
 tab_R2.1$Cases...cumulative.total <- as.numeric(tab_R2.1$Cases...cumulative.total)
 View(tab_R2.1)
