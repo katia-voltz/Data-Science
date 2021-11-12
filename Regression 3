@@ -5,8 +5,9 @@ library(FactoMineR)
 library(ggplot2) 
 library(factoextra) 
 library(corrplot)
+library(openxlsx)
 
-# Importation of the different datasets.
+# Importation of the data set Public.spending on health. This dataframe represent Current health expenditure (% of GDP) of each countries.
 
 Public.spending.on.health_New<- Public.spending.on.health
 
@@ -38,13 +39,16 @@ Public.spending.on.health_New <- rename(Public.spending.on.health_New, c('2000'=
 
 Public.spending.on.health_New <- Public.spending.on.health_New[-1,]
 
-# We use the pivot_longer formula to attribute each value to the corresponding 'Time' and 'LOCATION'.
+# We use the pivot_longer formula to attribute each value (Value_Spending.on.health) to the corresponding 'Time' and 'LOCATION'.
 
 Public.spending.on.health_New <- Public.spending.on.health_New %>% 
   pivot_longer(cols = c('2000','2001','2002','2003','2004','2005','2006','2007','2008','2009','2010','2011','2012','2013','2014','2015','2016','2017','2018'),names_to = 'Time', values_to = 'Value_Spending.on.health')
 
+# Finally we have a new dataframe of the Current health expenditure (% of GDP) of each countries attributed to the Time (from 2000 to 2018)
+
 
 ##########################################################################################
+
 
 ### Now we import the  share with mental and substance disorders data corresponding to a list of countries. 
 # Our goal is to compare the prevalence of mental health disorder in a population of a country with respect to the public investments on health.
@@ -68,7 +72,6 @@ Mental_Health <- Mental_Health %>%
   rename(LOCATION=Code)
 
 Mental_Health1 <- rename(Mental_Health, 'Mental_health_Value' = 'Prevalence...Mental.and.substance.use.disorders...Sex..Both...Age..Age.standardized..Percent.')
-
 
 
 # After this, we want to filter the data with the value going from 2000 to 2017.
@@ -97,15 +100,19 @@ tab_1 <- merge(Public.spending.on.health_New_2, Mental_Health_2, by = c('LOCATIO
 
 ##########################################################################################
 
+
+#### ANALYSIS
+
+
 ### Graphical observations and regression interpretation. 
 
 # We observe the basic graph of the observations distributions.
 
-plot(tab_1$Value_Spending.on.health, tab_1$Mental_health_Value)
-
+plot(Value_Spending.on.health ~ Mental_health_Value, tab_1)
+ 
 # We can try also with the logarithmic function.
 
-plot(log(tab_1$Value_Spending.on.health), log(tab_1$Mental_health_Value))
+plot(log(Value_Spending.on.health) ~ log(Mental_health_Value), tab_1)
 
 # It looks like there is a positive correlation between the investments in a country and the prevalence of mental health disorder.
 
@@ -130,9 +137,10 @@ summary(Regression_Q.3.1.log)
 
 ##########################################################################################
 
+
 ### VISUALIZATION 
 
-# Visualization of the Mental_health_Value evolution according to the different countries. One point represent one year for each country.
+# Visualization of the Mental_health_Value evolution according to the Value_Spending.on.health in different countries. One point represent one year for each country.
 
 ggplot(data = tab_1) + geom_point(mapping = aes(x= Value_Spending.on.health, y = Mental_health_Value, color = LOCATION))
 
@@ -143,6 +151,7 @@ ggplot(data = tab_1, mapping = aes(x = Value_Spending.on.health, y = Mental_heal
   geom_smooth()
 
 # By adding a geom_line we can observe if the countries values differ from one year to another.
+
 tab_1 %>% group_by(LOCATION) %>%
   ggplot(aes(
     x = Value_Spending.on.health,
@@ -176,9 +185,12 @@ tab_2 <- merge(tab_Mean_Value_Spending.on.health, tab_Mean_Mental_health_Value, 
 
 plot(tab_2)
 
-plot(tab_2$Mean_Value_Spending.on.health, tab_2$Mean_Mental_health_Value)
+plot(Mean_Mental_health_Value ~ Mean_Value_Spending.on.health, tab_2)
 
-cor(tab_2$Mean_Value_Spending.on.health, tab_2$Mean_Mental_health_Value)
+# Now we want to add the LOCATION to the points in the graph. 
+
+plot(Mean_Mental_health_Value ~ Mean_Value_Spending.on.health, tab_2)
+with(tab_2, text(Mean_Mental_health_Value ~ Mean_Value_Spending.on.health, labels = LOCATION, pos = 1, cex = 0.6))
 
 # We create a new regression with the mean values of the countries.
 
@@ -203,8 +215,6 @@ ggplot(data = tab_2, mapping = aes(x = Mean_Value_Spending.on.health, y = Mean_M
   geom_smooth(se = FALSE)
 
 
-# we can even identify clusters !
-
 ### First conclusion: Our first goal is to compare whether there is a link between the country's investment in health and the number of cases of mental health problems.
 
 #The hypothesis is that the more a country invests in health, the fewer mental health problems should be present because access to care is high. However, the data shows the opposite. The more a country spends on health, the more mental health problems are likely to occur. This may be related to several biases such as the richness of a country, or other factors. 
@@ -218,9 +228,16 @@ ggplot(data = tab_2, mapping = aes(x = Mean_Value_Spending.on.health, y = Mean_M
 
 ##########################################################################################
 
+
 ### Graphical observations and regression interpretation. 
 
 plot( tab_2$Mean_Mental_health_Value, tab_2$Mean_Value_Spending.on.health)
+
+# Now we want to add the LOCATION to the points in the graph. 
+
+plot(Mean_Value_Spending.on.health ~ Mean_Mental_health_Value, tab_2)
+with(tab_2, text(Mean_Value_Spending.on.health ~ Mean_Mental_health_Value, labels = LOCATION, pos = 1, cex = 0.6))
+
 
 # We create a new regression with the mean mental health value according to the mean value spending on health. 
 
@@ -238,6 +255,15 @@ summary(Regression_Q.3.3)
 ggplot(data = tab_2, mapping = aes(x = Mean_Mental_health_Value, y = Mean_Value_Spending.on.health)) +
   geom_point(mapping = aes(color = LOCATION)) +
   geom_smooth()
+
+
+# we can even identify clusters !
+
+# Indeed, with the following graph, we can see that the countries can be allocated to clusters according to their values.
+
+plot(Mean_Value_Spending.on.health ~ Mean_Mental_health_Value, tab_2)
+with(tab_2, text(Mean_Value_Spending.on.health ~ Mean_Mental_health_Value, labels = LOCATION, pos = 1, cex = 0.6))
+
 
 
 
