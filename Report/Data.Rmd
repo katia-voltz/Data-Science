@@ -69,7 +69,8 @@ List.of.Countries = c('AUT','BEL','HRV', 'CZE', 'DNK', 'ENG', 'FIN', 'FRA', 'DEU
                       'ITA', 'ROU', 'PRT', 'POL', 'NOR', 'NLD', 'CHE', 'SWE', 'ESP', 'AUS', 'BRA',
                       'CAN', 'CHN', 'JPN', 'NZL', 'USA')
 ```
-Another list of countries has been made, to select countries to select the countries where we had data available on antidepressant consumption. 
+
+Another list of countries has been made, to select countries to select the countries where we had data available on antidepressant consumption in 2020, to be able to then observe a change or not due to the Covid. 
 
 ```{r}
 List.of.Countries2 = c('GRC', 'HUN', 'ISL', 'ITA', 'NOR','PRT', 'SWE', 'ESP')
@@ -80,6 +81,12 @@ Now we can select and sort the data.
 ```{r}
 Antidepressant_consumption <- read.csv("Conso Antidepressant.csv") #--> Mettre un code qui sélectionne la donnée depuis le bon emplacement : read.csv(here::here("data/Conso Antidepressant.csv")) ? 
 attach(Antidepressant_consumption)
+```
+
+For all the variables we only kept the columns on the country, the date and the value of the variable, because they were the only ones that interested us. All the others have therefore been deleted.
+It was also often necessary to rename the columns so that they all follow the scheme: LOCATION, TIME and VALUE. 
+
+```{r}
 Antidepressant_consumption <- Antidepressant_consumption[,-c(1:4,6:7,10:11)]
 Antidepressant_consumption <- rename(Antidepressant_consumption,c("LOCATION"="COU","TIME"="Year"))
 Antidepressant_consumption1 <- Antidepressant_consumption %>% filter(LOCATION %in% List.of.Countries2)
