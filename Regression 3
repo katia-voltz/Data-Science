@@ -267,6 +267,54 @@ with(tab_2, text(Mean_Value_Spending.on.health ~ Mean_Mental_health_Value, label
 
 
 
+################  TEST OF CLUSTERS  #################
+
+
+data_test <- tab_2[-1]
+data_test <- data_test[,c(2,1)]
+view(data_test)
+mean_data <-apply(data_test, 2, mean)
+mean_data
+
+std <- apply(data_test,2,sd)
+
+# We have a normalized data
+data_test_std <- scale(data_test, mean_data,std)
+row.names(data_test_std) <- tab_2[,1]
+data_test_std
+
+# Computation of the euclidienne distance
+distance <- dist(data_test_std)
+distance
+print(distance, digits = 1)
+
+# We create the Cluster Dendogram
+hc <- hclust(distance)
+plot(hc, labels= tab_2$LOCATION)
+
+# We calculate the average clusters
+avclust <- hclust(distance, method="average") 
+plot(avclust, labels=tab_2$LOCATION)
+
+#  Then we use an average-linkage model on the scaled data and use 6 clusters to show the difference:
+ct1 <- cutree(avclust, k=6)
+plot(avclust, labels=tab_2$LOCATION) 
+rect.hclust(avclust, k=6, border="red")
+
+# Study what is the optimal number of clusters k that is relevant to use
+fviz_nbclust(data_test_std, kmeans, method="wss")
+
+# We conclude that a number of 6 clusters is optimal because the total within sum of square  reduces only slightly from this point.
+
+# Graphical representation of the clusters 
+km.res <- kmeans(data_test_std, 6)
+fviz_cluster(km.res, data=data_test_std, repel=TRUE)
+
+
+
+
+
+
 
 
 
