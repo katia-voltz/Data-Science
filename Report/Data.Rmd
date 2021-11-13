@@ -54,6 +54,15 @@ we start by sorting our data ....
 
 ```
 
+
+"Anxiety" and "Depression" are two of the major determinants of our mental health variable. Our next objective is therefore to analyze whether one or the other would have a significant impact on the work environment.
+
+````{r}
+
+
+```
+
+
 ## Covid
 
 For our second theme around Covid, we want to analyze if Covid had an impact on antidepressant consumption in selected countries around the world. We found data on antidepressant consumption on the website :  : <https://www.oecd.org>, in the Pharmaceutical Market Section. 
