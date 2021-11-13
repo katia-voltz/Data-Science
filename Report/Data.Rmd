@@ -38,16 +38,6 @@ To see those effects , we have chosen the information of 6 variables ;
 
  --> Regression 1 : MentalHealth = x1*IncomeInequality + x2*wages + x3*Unemployment + x4*WorkingAgePopulation + x5*WorkTime + x6*GPD
 
-We start by installing the libraries and packages we will need for this part of the analysis.
-
-```{r}
-library(plyr)
-library(dplyr)
-library(corrplot)
-library(ggplot2)
-library(car)
-packages <- c("ggrepel", "gghighlight", "patchwork", "scales") 
-```
 We have made a selection of several countries which are the following (To simplify, country codes have been used and not the full names) : Austria, Belgium, Croatia, Czechia, Denmark, Finland, France, Germany, Greece, Hungary, Iceland, Ireland, Italy, Romania, Portugal, Poland, Norway, Netherlands, Switzerland, Sweden, Spain, Australia, Brazil, Canada, Japan, New-Zealand and the USA.  
 
 ```{r}
