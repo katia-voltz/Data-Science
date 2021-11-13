@@ -126,15 +126,19 @@ We therefore wanted to analyze the evolution of the depression rate between 2010
 ```{r}
 Depression_Rate2017 <- read.csv("Depression Rate 2000:2017.csv")
 attach(Depression_Rate2017)
+```
+Here too we have only kept the country, the year and the value, and renamed the columns.
+```{r}
 Depression_Rate2017 <- Depression_Rate2017[-1]
-Depression_Rate2017 <- rename(Depression_Rate2017,c("LOCATION"="Code","TIME"="Year"))
-Depression_Rate2017 <- rename(Depression_Rate2017, "2017"="Prevalence...Depressive.disorders...Sex..Both...Age..Age.standardized..Percent.")
+Depression_Rate2017 <- rename(Depression_Rate2017,c("LOCATION"="Code","TIME"="Year","2017"="Prevalence...Depressive.disorders...Sex..Both...Age..Age.standardized..Percent."))
 Depression_Rate2017 <- Depression_Rate2017 %>%
   filter(TIME>2016)
 Depression_Rate2017 <- Depression_Rate2017 %>% filter(LOCATION %in% List.of.Countries)
 Depression_Rate2017 <- Depression_Rate2017[-2]
 View(Depression_Rate2017)
 ```
+
+We did exactly the same thing for the depression rate in 2021.
 ```{r}
 Depression_Rate2021 <- read.csv2("Depression Rate 2021.csv")
 attach(Depression_Rate2021)
@@ -145,6 +149,8 @@ Depression_Rate2021 <- Depression_Rate2021 %>% add_column(TIME = 2021, .after = 
 Depression_Rate2021 <- Depression_Rate2021[-3]
 View(Depression_Rate2021)
 ```
+
+Then, we had to join the two tables into one, using both "inner_join" and "pivot_longer" in order to obtain a table that we could use correctly afterwards to do analyses. 
 
 ```{r}
 tab_test <- Depression_Rate2017 %>%
