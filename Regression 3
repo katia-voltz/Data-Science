@@ -80,7 +80,7 @@ Mental_Health <- Mental_Health1 %>%
   group_by(LOCATION,Mental_health_Value) %>%
   filter(Time>1999)
 
-  
+
 ### Our analysis is focus on a specific list of countries. We consider it relevant to take a sample of 28 countries with different structural characteristics.
 # Here is the following selected countries: 'AUT','BEL','HRV', 'CZE', 'DNK', 'ENG', 'FIN', 'FRA', 'DEU', 'GRC', 'HUN', 'ISL', 'ITA', 'ROU', 'PRT', 'POL', 'NOR', 'NLD', 'CHE', 'SWE', 'ESP', 'AUS', 'BRA', 'CAN', 'CHN', 'JPN', 'NZL', 'USA'
 
@@ -114,23 +114,23 @@ tab_1$Mental_health_Value <- as.numeric(tab_1$Mental_health_Value)
 
 # We observe the basic graph of the observations distributions.
 
-plot(Value_Spending.on.health ~ Mental_health_Value, tab_1)
- 
+plot(Mental_health_Value ~ Value_Spending.on.health , tab_1)
+
 # We can try also with the logarithmic function.
 
-plot(log(Value_Spending.on.health) ~ log(Mental_health_Value), tab_1)
+plot(log(Mental_health_Value) ~ log(Value_Spending.on.health), tab_1)
 
 # It looks like there is a positive correlation between the investments in a country and the prevalence of mental health disorder.
 
 cor(tab_1$Value_Spending.on.health , tab_1$Mental_health_Value)
 
-Regression_Q.3.1 <- lm (tab_1$Mental_health_Value~tab_1$Value_Spending.on.healt)
+Regression_Q.3.1 <- lm (tab_1$Mental_health_Value~tab_1$Value_Spending.on.health)
 
 summary(Regression_Q.3.1)
 
-# The first Regression_Q.3.1 shows a significant increase for one unit of 0.41281 * Value.Spending.on.health for the Mental_health_Value.
+# The first Regression_Q.3.1 shows a significant increase for one unit of 0.61843 * Value.Spending.on.health for the Mental_health_Value.
 # The regression is significant with 3 stars, which is satisfying. 
-# The R^2 is equal to 0.45, which is moderated to low... It means that our model is explained by 45% of the variance.
+# The R^2 is equal to 0.3653, which is moderated to low... It means that our model is explained by 37% of the variance.
 
 # We try the same regression but with the logarithmic function to see if something is more relevant or not.
 
@@ -200,13 +200,13 @@ with(tab_2, text(Mean_Mental_health_Value ~ Mean_Value_Spending.on.health, label
 
 # We create a new regression with the mean values of the countries.
 
-Regression_Q.3.2 <- lm (tab_2$Mean_Value_Spending.on.health~tab_2$Mean_Mental_health_Value)
+Regression_Q.3.2 <- lm (tab_2$Mean_Mental_health_Value~ tab_2$Mean_Value_Spending.on.health)
 
 summary(Regression_Q.3.2)
 
-# The first Regression_Q.3.1 shows a significant increase for one unit of 0.59493 * Value.Spending.on.health for the Mental_health_Value.
+# The first Regression_Q.3.1 shows a significant increase for one unit of 0.7073 * Value.Spending.on.health for the Mental_health_Value.
 # The regression is significant with 3 stars, which is satisfying. 
-# The R^2 is equal to 0.42, which is moderated to low... It means that our model is explained by 42% of the variance.
+# The R^2 is equal to 0.4208, which is moderated to low... It means that our model is explained by 42% of the variance.
 
 
 ### VISUALIZATION 
@@ -226,10 +226,10 @@ ggplot(data = tab_2, mapping = aes(x = Mean_Value_Spending.on.health, y = Mean_M
 #The hypothesis is that the more a country invests in health, the fewer mental health problems should be present because access to care is high. However, the data shows the opposite. The more a country spends on health, the more mental health problems are likely to occur. This may be related to several biases such as the richness of a country, or other factors. 
 
 #In this case it would be more relevant to study the reverse. Is a country with a lot of mental health problems a country that invests a lot in public health? 
-  
+
 #Can we predict health expenditure according to the number of people affected by a mental illness in a specific country? 
-  
-  
+
+
 ###### REVERSE !!!!
 
 ##########################################################################################
@@ -247,11 +247,11 @@ with(tab_2, text(Mean_Value_Spending.on.health ~ Mean_Mental_health_Value, label
 
 # We create a new regression with the mean mental health value according to the mean value spending on health. 
 
-Regression_Q.3.3 <- lm (tab_2$Mean_Mental_health_Value~ tab_2$Mean_Value_Spending.on.health)
+Regression_Q.3.3 <- lm (tab_2$Mean_Value_Spending.on.health ~ tab_2$Mean_Mental_health_Value )
 
 summary(Regression_Q.3.3)
 
-# The first Regression_Q.3.3 shows a significant increase for one unit of 0.7073 * Value.Spending.on.health for the Mental_health_Value.
+# The first Regression_Q.3.3 shows a significant increase for one unit of 0.59493 * Mental_health_Value Value for the Spending.on.health 
 # The regression is significant with 3 stars, which is satisfying. 
 # The R^2 is equal to 0.42, which is moderated to low... It means that our model is explained by 42% of the variance.
 
@@ -315,7 +315,6 @@ fviz_nbclust(data_test_std, kmeans, method="wss")
 # Graphical representation of the clusters 
 km.res <- kmeans(data_test_std, 6)
 fviz_cluster(km.res, data=data_test_std, repel=TRUE)
-
 
 
 
