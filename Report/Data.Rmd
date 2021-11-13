@@ -120,7 +120,8 @@ tab_R2.1$Cases...cumulative.total <- as.numeric(tab_R2.1$Cases...cumulative.tota
 View(tab_R2.1)
 ```
 
-We also wanted to analyze the evolution of the depression rate between 2010 and 2017, and if the covid had an impact on it in 2021. Our data comes frome the sites : <https://ourworldindata.org/mental-health#depression> and <https://worldpopulationreview.com/>. 
+Given the little information we had on antidepressant consumption in 2020 (only for 8 countries) we decided to observe the rate of depression and finally include it in our research question.
+We therefore wanted to analyze the evolution of the depression rate between 2010 and 2017, and if the covid had an impact on it in 2021. Our data comes from the sites : <https://ourworldindata.org/mental-health#depression> and <https://worldpopulationreview.com/>. 
 
 ```{r}
 Depression_Rate2017 <- read.csv("Depression Rate 2000:2017.csv")
