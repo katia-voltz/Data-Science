@@ -20,42 +20,10 @@ library(car)
 
 ```
 
+Now all our databases are clean and ready to be used. 
+
 ## Covid
 
-For our first analysis related to the impact of Covid, R2.1, we quickly realized that the data available for antidepressant consumption in 2020 was very limited. We had to make a second selection of countries for this regression in order to observe only the countries with data in 2020, during the covid year. 
-
-```{r}
-List.of.Countries2 = c('GRC', 'HUN', 'ISL', 'ITA', 'NOR','PRT', 'SWE', 'ESP')
-```
-We then create a new modified database for the consumption of antidepressants.
-```{r}
-Antidepressant_consumption1 <- Antidepressant_consumption %>% filter(LOCATION %in% List.of.Countries2)
-```
-It is therefore necessary to select the same countries for the covid cases and deaths data.
-```{r}
-Number_Covid19_cases_deaths1 <-  Number_Covid19_cases_deaths %>% filter(LOCATION %in% List.of.Countries2)
-```
-We can now reform our table. 
-```{r}
-tab_R2.1 <- full_join(Number_Covid19_cases_deaths1, Antidepressant_consumption1, by= c("LOCATION","TIME"))
-```
-We noticed that NAs were present in the table and only for cases and deaths of covid before 2020. We assumed that its values were equal to 0. Also, the "cases" variable was output in character, we converted it to numeric.
-```{r}
-tab_R2.1[is.na(tab_R2.1)] <- 0 
-tab_R2.1$Cases...cumulative.total <- as.numeric(tab_R2.1$Cases...cumulative.total)
-View(tab_R2.1)
-```
-Our table on the use of antidepressants and the number of cases and deaths of covid is now ready to be used. 
-
-We also noticed a problem on our third table, R2.2. Indeed, a large number of NAs were present in the table, which later would not allow us to do analyses. We have removed them and also convert the variable "teleworking" in numerical (which was in character). 
-
-```{r}
-tab_R2.2 <- na.omit(tab_R2.2)
-tab_R2.2$Teleworking <- as.numeric(tab_R2.2$Teleworking)
-View(tab_R2.2)
-```
-
-Now all our databases are clean and ready to be used. 
 
 ###Analysis 
 
