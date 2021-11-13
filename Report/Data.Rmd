@@ -124,18 +124,19 @@ Given the little information we had on antidepressant consumption in 2020 (only 
 We therefore wanted to analyze the evolution of the depression rate between 2010 and 2017, and if the covid had an impact on it in 2021. Our data comes from the sites : <https://ourworldindata.org/mental-health#depression> and <https://worldpopulationreview.com/>. 
 
 ```{r}
-Depression_Rate2017 <- read.csv("Depression Rate 2000:2017.csv")
-attach(Depression_Rate2017)
+Depression_Rate2000_2017 <- read.csv("Depression Rate 2000:2017.csv")
+attach(Depression_Rate2000_2017)
+View(Depression_Rate2000_2017)
 ```
 Here too we have only kept the country, the year and the value, and renamed the columns.
 ```{r}
-Depression_Rate2017 <- Depression_Rate2017[-1]
-Depression_Rate2017 <- rename(Depression_Rate2017,c("LOCATION"="Code","TIME"="Year","2017"="Prevalence...Depressive.disorders...Sex..Both...Age..Age.standardized..Percent."))
-Depression_Rate2017 <- Depression_Rate2017 %>%
+Depression_Rate2000_2017 <- Depression_Rate2000_2017[-1]
+Depression_Rate2000_2017 <-rename(Depression_Rate2000_2017,c("LOCATION"="Code","TIME"="Year","Value"="Prevalence...Depressive.disorders...Sex..Both...Age..Age.standardized..Percent."))
+Depression_Rate2017 <- Depression_Rate2000_2017 %>%
   filter(TIME>2016)
+Depression_Rate2017 <- rename(Depression_Rate2017,c("2017"="Value"))
 Depression_Rate2017 <- Depression_Rate2017 %>% filter(LOCATION %in% List.of.Countries)
 Depression_Rate2017 <- Depression_Rate2017[-2]
-View(Depression_Rate2017)
 ```
 
 We did exactly the same thing for the depression rate in 2021.
