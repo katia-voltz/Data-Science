@@ -23,8 +23,7 @@ Depression_Rate2017 <- read.csv("Depression Rate 2000:2017.csv")
 attach(Depression_Rate2017)
 View(Depression_Rate2017)
 Depression_Rate2017 <- Depression_Rate2017[-1]
-Depression_Rate2017 <- rename(Depression_Rate2017,c("LOCATION"="Code","TIME"="Year"))
-Depression_Rate2017 <- rename(Depression_Rate2017, "Value"="Prevalence...Depressive.disorders...Sex..Both...Age..Age.standardized..Percent.")
+Depression_Rate2017 <- rename(Depression_Rate2017,c("LOCATION"="Code","TIME"="Year","Value"="Prevalence...Depressive.disorders...Sex..Both...Age..Age.standardized..Percent."))
 Depression_Rate2017 <- Depression_Rate2017 %>%
   filter(TIME>2016)
 Depression_Rate2017 <- Depression_Rate2017 %>% filter(LOCATION %in% List.of.Countries)
