@@ -54,9 +54,9 @@ we start by sorting our data ....
 
 ```
 
-## **Covid**
+## Covid
 
-For our second theme around Covid, we wanted to analyze if Covid had an impact on antidepressant consumption in selected countries around the world. We found data on antidepressant consumption on the website :  : <https://www.oecd.org>, in the Pharmaceutical Market Section. 
+For our second theme around Covid, we want to analyze if Covid had an impact on antidepressant consumption in selected countries around the world. We found data on antidepressant consumption on the website :  : <https://www.oecd.org>, in the Pharmaceutical Market Section. 
 Regarding the Covid data, they come from the site : <https://coronavirus.jhu.edu>. 
 
 Regression 2.1 : Antidepressant_consumption = a*Number_Covid-19_Cases + b*Number_Covid-19_Deaths
@@ -105,7 +105,7 @@ Number_Covid19_cases_deaths <-  Number_Covid19_cases_deaths %>% filter(LOCATION 
 View(Number_Covid19_cases_deaths)
 ````
 
-We can now form a table with all the data together, using the "full_join" function. 
+We can now form a table with all the data together, using the *full_join* function. 
 
 ```{r}
 tab_R2.1 <- full_join(Number_Covid19_cases_deaths, Antidepressant_consumption, by= c("LOCATION","TIME"))
@@ -150,7 +150,7 @@ Depression_Rate2021 <- Depression_Rate2021[-3]
 View(Depression_Rate2021)
 ```
 
-Then, we had to join the two tables into one, using both "inner_join" and "pivot_longer" in order to obtain a table that we could use correctly afterwards to do analyses. 
+Then, we had to join the two tables into one, using both *inner_join* and *pivot_longer* in order to obtain a table that we could use correctly afterwards to do analyses. 
 
 ```{r}
 tab_test <- Depression_Rate2017 %>%
@@ -163,13 +163,15 @@ tab_test <- tab_test %>%
 View(tab_test)
 ```
 
-For the second study of this theme, information on Teleworking and Unemployment were extracted respectively from the sites : <https://ec.europa.eu/eurostat> and <https://data.oecd.org>. 
+For the second study of this theme, we want to see whether teleworking and unemployment rates can affect antidepressant use in selected countries. Information on Teleworking and Unemployment rate were extracted respectively from the sites : <https://ec.europa.eu/eurostat> and <https://data.oecd.org>. 
 
+We now download the data by sorting them according to the first selected country list. 
 ```{r}
 Antidepressant_consumption2 <- Antidepressant_consumption %>% filter(LOCATION %in% List.of.Countries)
 View(Antidepressant_consumption2)
 ```
 
+As above, we have kept only the columns we were interested in, i.e. value, date and country, and we have renamed some inadequate columns.
 ```{r}
 Teleworking <- read.csv2("Teleworking.csv")
 attach(Teleworking)
@@ -179,6 +181,7 @@ Teleworking <-  Teleworking %>% filter(LOCATION %in% List.of.Countries)
 View(Teleworking)
 ```
 
+We also did this for the unemployment rate. 
 ```{r}
 UnemploymentCovid <- read.csv("Unemployement Rate.csv")
 attach(UnemploymentCovid)
@@ -187,6 +190,9 @@ UnemploymentCovid <- rename(UnemploymentCovid, c("Unemployment"="Value"))
 UnemploymentCovid <-  UnemploymentCovid %>% filter(LOCATION %in% List.of.Countries)
 View(UnemploymentCovid)
 ```
+
+With the *full_join* function we have gathered the data of these three variables in a single table.
+For the good functioning of the table for further analysis, it was necessary to remove the NA values, and to convert the variable "teleworking" in numerical (which was in character). 
 
 ```{r}
 tab <- full_join(Antidepressant_consumption2, Teleworking, by=c("LOCATION", "TIME"))
