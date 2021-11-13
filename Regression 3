@@ -9,8 +9,8 @@ library(openxlsx)
 
 # Importation of the data set Public.spending on health. This dataframe represent Current health expenditure (% of GDP) of each countries.
 
+Public.spending.on.health <- read.csv2('/Users/katiavoltz/Desktop/Public.spending.on.health.csv')
 Public.spending.on.health_New<- Public.spending.on.health
-
 
 #We remove the 3 first rows and we rename the different variables in the columns.
 
@@ -53,11 +53,11 @@ Public.spending.on.health_New <- Public.spending.on.health_New %>%
 ### Now we import the  share with mental and substance disorders data corresponding to a list of countries. 
 # Our goal is to compare the prevalence of mental health disorder in a population of a country with respect to the public investments on health.
 
-# Mental_Health <- read.csv(share.with.mental.and.substance.disorders)
+share.with.mental.and.substance.disorders <- read.csv2('/Users/katiavoltz/Desktop/share-with-mental-and-substance-disorders copie.csv')
 
 # we rename the (share.with.mental.and.substance.disorders) dataframe into Mental_Health.
 
-Mental_Health <- share.with.mental.and.substance.disorders.copie
+Mental_Health <- share.with.mental.and.substance.disorders
 
 # We remove the 'Entity' column. Indeed we refer only to the LOCATION as code.
 Mental_Health <- Mental_Health[,-1]
@@ -96,6 +96,12 @@ Public.spending.on.health_New_2 <- Public.spending.on.health_New %>%
 # We merge the two dataframes into one single table named tab_1. We join them by LOCATION and Time.
 
 tab_1 <- merge(Public.spending.on.health_New_2, Mental_Health_2, by = c('LOCATION', 'Time'))
+
+#We need the values as numeric and not as characters for the analysis
+
+tab_1$Value_Spending.on.health <- as.numeric(tab_1$Value_Spending.on.health)
+tab_1$Mental_health_Value <- as.numeric(tab_1$Mental_health_Value)
+
 
 
 ##########################################################################################
