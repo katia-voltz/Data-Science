@@ -184,3 +184,244 @@ ggplot(data = tab_R2.2, mapping = aes(x = Value, y = Teleworking)) +
 ```
 
 
+
+
+#### ANALYSIS Regression 3 
+
+
+Graphical observations and regression interpretation. 
+
+ We observe the basic graph of the observations distributions.
+```{r}
+plot(Mental_health_Value ~ Value_Spending.on.health , tab_1)
+```
+
+We can try also with the logarithmic function.
+```{r}
+plot(log(Mental_health_Value) ~ log(Value_Spending.on.health), tab_1)
+```
+
+
+It looks like there is a positive correlation between the investments in a country and the prevalence of mental health disorder.
+```{r}
+cor(tab_1$Value_Spending.on.health , tab_1$Mental_health_Value)
+
+Regression_Q.3.1 <- lm (tab_1$Mental_health_Value~tab_1$Value_Spending.on.health)
+
+summary(Regression_Q.3.1)
+```
+
+
+- The first Regression_Q.3.1 shows a significant increase for one unit of 0.61843 * Value.Spending.on.health for the Mental_health_Value.
+- The regression is significant with 3 stars, which is satisfying. 
+- The R^2 is equal to 0.3653, which is moderated to low... It means that our model is explained by 37% of the variance.
+
+We try the same regression but with the logarithmic function to see if something is more relevant or not.
+```{r}
+Regression_Q.3.1.log <- lm (log(tab_1$Mental_health_Value)~log(tab_1$Value_Spending.on.healt))
+
+summary(Regression_Q.3.1.log)
+```
+
+We can see that it does not add drastically more information or explanation.
+
+
+### VISUALIZATION 
+
+Visualization of the Mental_health_Value evolution according to the Value_Spending.on.health in different countries. One point represent one year for each country.
+```{r}
+ggplot(data = tab_1) + geom_point(mapping = aes(x= Value_Spending.on.health, y = Mental_health_Value, color = LOCATION))
+```
+
+Different visualization of the graph.
+```{r}
+ggplot(data = tab_1, mapping = aes(x = Value_Spending.on.health, y = Mental_health_Value)) +
+  geom_point(mapping = aes(color = LOCATION)) +
+  geom_smooth()
+```
+
+By adding a geom_line we can observe if the countries values differ from one year to another.
+```{r}
+tab_1 %>% group_by(LOCATION) %>%
+  ggplot(aes(
+    x = Value_Spending.on.health,
+    y = Mental_health_Value,
+    col = LOCATION,
+    group = LOCATION
+  )) +
+  geom_line()
+```
+
+We can see that the values of the countries do not drastically differ from one year to an another. The evolution is quite linear.
+It is why we apply the mean function to have one average value for the list of countries.
+
+Aggregate The Value_Spending_on_health
+```{r}
+tab_Mean_Value_Spending.on.health <- aggregate(tab_1[,3], list(tab_1$LOCATION), mean)
+
+tab_Mean_Value_Spending.on.health <- rename(tab_Mean_Value_Spending.on.health,c("LOCATION"="Group.1","Mean_Value_Spending.on.health"="x"))
+```
+
+Aggregate the Mental_health_Value
+```{r}
+tab_Mean_Mental_health_Value <- aggregate(tab_1[,4], list(tab_1$LOCATION), mean)
+
+tab_Mean_Mental_health_Value <- rename(tab_Mean_Mental_health_Value,c("LOCATION"="Group.1","Mean_Mental_health_Value"="x"))
+```
+
+We merge the table into a new dataframe representing the mean values with respect to the countries into: tab_2
+```{r}
+tab_2 <- merge(tab_Mean_Value_Spending.on.health, tab_Mean_Mental_health_Value, by = 'LOCATION')
+```
+
+
+### Graphical observations and regression interpretation. 
+```{r}
+plot(tab_2)
+
+plot(Mean_Mental_health_Value ~ Mean_Value_Spending.on.health, tab_2)
+```
+
+Now we want to add the LOCATION to the points in the graph. 
+```{r}
+plot(Mean_Mental_health_Value ~ Mean_Value_Spending.on.health, tab_2)
+with(tab_2, text(Mean_Mental_health_Value ~ Mean_Value_Spending.on.health, labels = LOCATION, pos = 1, cex = 0.6))
+```
+
+We create a new regression with the mean values of the countries.
+```{r}
+Regression_Q.3.2 <- lm (tab_2$Mean_Mental_health_Value~ tab_2$Mean_Value_Spending.on.health)
+
+summary(Regression_Q.3.2)
+```
+
+The first Regression_Q.3.1 shows a significant increase for one unit of 0.7073 * Value.Spending.on.health for the Mental_health_Value.
+The regression is significant with 3 stars, which is satisfying. 
+The R^2 is equal to 0.4208, which is moderated to low... It means that our model is explained by 42% of the variance.
+
+
+### VISUALIZATION 
+
+graph of our new dataframe tab_2.
+
+```{r}
+ggplot(data = tab_2)+ geom_point(mapping = aes(x= Mean_Value_Spending.on.health, y = Mean_Mental_health_Value, color = LOCATION))
+
+ggplot(data = tab_2, mapping = aes(x = Mean_Value_Spending.on.health, y = Mean_Mental_health_Value)) +
+  geom_point(mapping = aes(color = LOCATION)) +
+  geom_smooth(se = FALSE)
+```
+
+
+First conclusion: Our first goal is to compare whether there is a link between the country's investment in health and the number of cases of mental health problems.
+
+The hypothesis is that the more a country invests in health, the fewer mental health problems should be present because access to care is high. However, the data shows the opposite. The more a country spends on health, the more mental health problems are likely to occur. This may be related to several biases such as the richness of a country, or other factors. 
+
+In this case it would be more relevant to study the reverse. Is a country with a lot of mental health problems a country that invests a lot in public health? 
+
+Can we predict health expenditure according to the number of people affected by a mental illness in a specific country? 
+
+
+###### REVERSE !!!!
+
+
+### Graphical observations and regression interpretation. 
+```{r}
+plot( tab_2$Mean_Mental_health_Value, tab_2$Mean_Value_Spending.on.health)
+```
+
+Now we want to add the LOCATION to the points in the graph. 
+```{r}
+plot(Mean_Value_Spending.on.health ~ Mean_Mental_health_Value, tab_2)
+with(tab_2, text(Mean_Value_Spending.on.health ~ Mean_Mental_health_Value, labels = LOCATION, pos = 1, cex = 0.6))
+```
+
+We create a new regression with the mean mental health value according to the mean value spending on health. 
+```{r}
+Regression_Q.3.3 <- lm (tab_2$Mean_Value_Spending.on.health ~ tab_2$Mean_Mental_health_Value )
+
+summary(Regression_Q.3.3)
+```
+
+The first Regression_Q.3.3 shows a significant increase for one unit of 0.59493 * Mental_health_Value Value for the Spending.on.health 
+The regression is significant with 3 stars, which is satisfying. 
+The R^2 is equal to 0.42, which is moderated to low... It means that our model is explained by 42% of the variance.
+
+
+### VISUALIZATION 
+```{r}
+ggplot(data = tab_2, mapping = aes(x = Mean_Mental_health_Value, y = Mean_Value_Spending.on.health)) +
+  geom_point(mapping = aes(color = LOCATION)) +
+  geom_smooth()
+```
+
+We can even identify clusters !
+
+Indeed, with the following graph, we can see that the countries can be allocated to clusters according to their values.
+```{r}
+plot(Mean_Value_Spending.on.health ~ Mean_Mental_health_Value, tab_2)
+with(tab_2, text(Mean_Value_Spending.on.health ~ Mean_Mental_health_Value, labels = LOCATION, pos = 1, cex = 0.6))
+```
+
+
+
+################  TEST OF CLUSTERS  #################
+
+```{r}
+data_test <- tab_2[-1]
+data_test <- data_test[,c(2,1)]
+view(data_test)
+mean_data <-apply(data_test, 2, mean)
+mean_data
+
+std <- apply(data_test,2,sd)
+```
+
+We have a normalized data
+```{r}
+data_test_std <- scale(data_test, mean_data,std)
+row.names(data_test_std) <- tab_2[,1]
+data_test_std
+```
+
+Computation of the euclidienne distance
+```{r}
+distance <- dist(data_test_std)
+distance
+print(distance, digits = 1)
+```
+
+We create the Cluster Dendogram
+```{r}
+hc <- hclust(distance)
+plot(hc, labels= tab_2$LOCATION)
+```
+
+We calculate the average clusters
+```{r}
+avclust <- hclust(distance, method="average") 
+plot(avclust, labels=tab_2$LOCATION)
+```
+
+Then we use an average-linkage model on the scaled data and use 6 clusters to show the difference:
+```{r}
+ct1 <- cutree(avclust, k=6)
+plot(avclust, labels=tab_2$LOCATION) 
+rect.hclust(avclust, k=6, border="red")
+```
+
+
+Study what is the optimal number of clusters k that is relevant to use
+```{r}
+fviz_nbclust(data_test_std, kmeans, method="wss")
+```
+
+We conclude that a number of 6 clusters is optimal because the total within sum of square  reduces only slightly from this point.
+
+Graphical representation of the clusters 
+```{r}
+km.res <- kmeans(data_test_std, 6)
+fviz_cluster(km.res, data=data_test_std, repel=TRUE)
+```
+
+
