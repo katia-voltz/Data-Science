@@ -7,6 +7,31 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Intro
+# Introduction
+
+## Title of our project 
+
+Mental Health:  An analysis of mental health related to the work environment. The impact of the covid-19 and the different health care systems in different countries.
+
+## Background and motivation 
 
 
+## Research questions
+
+1.  About the work environnement 
+
+Given the structure of the working environment in different countries, can we say that the mental health of the population is influenced by the working conditions and the situation of the country?
+
+--> Can we explain the number of people with mental health disorder in a country with the average work-time, the quality of work, the unemployment rate, the job satisfaction, the salaries, and the inequalities? 
+
+2. About the Covid-19
+
+What is the Covid-19 impact on the population's mental-health ? Can we show an increase in the antidepressant consumption with the epidemic crisis measured by the numbers of death, the unemployment rate during the pandemic, and the teleworking. 
+
+ 2.1 Can we demonstrate a link between teleworking and the mental illness evolution in the population?
+ 
+ 2.2 Is a population from a country with high covid mortality more affected by mental health disorders? 
+ 
+3. About Health care system 
+
+Can health care systems such as financial investments in overall health, access to medication explain and predict cross-country differences in mental disorders in the population?
