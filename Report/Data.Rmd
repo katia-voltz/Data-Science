@@ -414,3 +414,131 @@ View(tab_R2.2)
 
 
 
+
+
+## Public spendings on health 
+
+
+
+In this thrid analysis of datasets,  we are going to compare the prevalence of mental health disorder (in % of the population (age-standardaized)) in a population of a country and the current health expenditure (% of GDP).
+
+The sources of our datas comes from the website : <https://data.worldbank.org/indicator/SH.XPD.CHEX.GD.ZS> for the current health expenditure in the countries and <https://ourworldindata.org/mental-health> for the Mental health datas.
+
+Our intitial question of research is: 
+- Can health care systems such as financial investments in overall health, access to medication explain and predict cross-country differences in mental disorders in the population? Is a country that invests more in public health for its population the country where there is less mental illness?
+
+- Our influenced variable Y is therefore the prevalence of mental health disorder 
+- our independant variable X is the current health expenditure
+
+
+Importation of the data set Public.spending on health. This dataframe represent Current health expenditure (% of GDP) of each countries.
+
+```{r}
+Public.spending.on.health <- read.csv2(here::here('data/Regression_3/Public.spending.on.health.csv')
+````
+                                       
+We remove the 3 first rows and we rename the different variables in the columns.
+
+```{r}
+Public.spending.on.health_New <- Public.spending.on.health_New[-c(1:3),]
+
+Public.spending.on.health_New <- rename(Public.spending.on.health_New, c('Country' = 'Data.Source', 'LOCATION' = 'World.Development.Indicators'))
+````
+
+We remove the unecessary columns, with no data corresponding and we remove the unecessary columns with no relevant data.
+
+```{r}
+Public.spending.on.health_New <- Public.spending.on.health_New[,-c(5:44)]
+Public.spending.on.health_New$X.61 <- NULL
+Public.spending.on.health_New$Country <- NULL
+Public.spending.on.health_New$X <- NULL
+Public.spending.on.health_New$X.1 <- NULL
+Public.spending.on.health_New$X.62 <- NULL
+Public.spending.on.health_New$X.63 <- NULL
+````
+
+ Our initial dataframe as for variables [(X.n),(X.n+1)...(X.m)], we need to transform them as Years. 
+
+```{r}
+Public.spending.on.health_New <- rename(Public.spending.on.health_New, c('2000'='X.42','2001'='X.43','2002'='X.44','2003'='X.45', '2004'='X.46','2005'='X.47','2006'='X.48','2007'='X.49', '2008'='X.50','2009'='X.51','2010'='X.52', '2011'='X.53','2012'='X.54','2013'='X.55','2014'='X.56','2015'='X.57','2016'='X.58','2017'='X.59','2018'='X.60'))
+
+Public.spending.on.health_New <- Public.spending.on.health_New[-1,]
+````
+
+Then, we use *pivot_longer* to attribute each value (Value_Spending.on.health) to the corresponding 'Time' and 'LOCATION'.
+
+```{r}
+Public.spending.on.health_New <- Public.spending.on.health_New %>% 
+  pivot_longer(cols = c('2000','2001','2002','2003','2004','2005','2006','2007','2008','2009','2010','2011','2012','2013','2014','2015','2016','2017','2018'),names_to = 'Time', values_to = 'Value_Spending.on.health')
+````
+
+Finally we have a new dataframe of the Current health expenditure (% of GDP) of each countries attributed to the Time (from 2000 to 2018)
+
+# 
+Now we import the  share with mental and substance disorders data corresponding to a list of countries. Our goal is to compare the prevalence of mental health disorder in a population of a country with respect to the public investments on health.
+
+```{r}
+share.with.mental.and.substance.disorders <- read.csv2(here::here('data/Regression_3/share-with-mental-and-substance-disorders copie.csv')
+````
+
+We rename the (share.with.mental.and.substance.disorders) dataframe into Mental_Health.
+
+```{r}
+Mental_Health <- share.with.mental.and.substance.disorders                                                       
+````
+
+We remove the 'Entity' column. Indeed we refer only to the LOCATION as code.
+```{r}
+Mental_Health <- Mental_Health[,-1]
+````
+
+We rename the variable column of year with Time, the Code with LOCATION and
+Prevalence...Mental.and.substance.use.disorders...Sex..Both...Age..Age.standardized..Percent. with Mental_health_value.
+
+```{r}
+Mental_Health <- Mental_Health %>%
+  rename(Time=Year)
+
+Mental_Health <- Mental_Health %>%
+  rename(LOCATION=Code)
+
+Mental_Health1 <- rename(Mental_Health, 'Mental_health_Value' = 'Prevalence...Mental.and.substance.use.disorders...Sex..Both...Age..Age.standardized..Percent.')
+```
+
+After this, we want to filter the data with the value going from 2000 to 2017.
+
+```{r}
+Mental_Health <- Mental_Health1 %>%
+  group_by(LOCATION,Mental_health_Value) %>%
+  filter(Time>1999)
+```
+
+Our analysis is focus on a specific list of countries. We consider it relevant to take a sample of 28 countries with different structural characteristics.
+Here is the following selected countries: 'AUT','BEL','HRV', 'CZE', 'DNK', 'ENG', 'FIN', 'FRA', 'DEU', 'GRC', 'HUN', 'ISL', 'ITA', 'ROU', 'PRT', 'POL', 'NOR', 'NLD', 'CHE', 'SWE', 'ESP', 'AUS', 'BRA', 'CAN', 'CHN', 'JPN', 'NZL', 'USA'
+
+```{r}
+List.of.Countries = c('AUT','BEL','HRV', 'CZE', 'DNK', 'ENG', 'FIN', 'FRA', 'DEU', 'GRC', 'HUN', 'ISL', 'ITA', 'ROU', 'PRT', 'POL', 'NOR', 'NLD', 'CHE', 'SWE', 'ESP', 'AUS', 'BRA', 'CAN', 'CHN', 'JPN', 'NZL', 'USA')
+
+Mental_Health_2 <-  Mental_Health %>%
+  filter(LOCATION %in% List.of.Countries)
+
+Public.spending.on.health_New_2 <- Public.spending.on.health_New %>% 
+  filter(LOCATION %in% List.of.Countries)
+```
+
+We merge the two dataframes into one single table named tab_1. We join them by LOCATION and Time.
+
+```{r}
+tab_1 <- merge(Public.spending.on.health_New_2, Mental_Health_2, by = c('LOCATION', 'Time'))
+```
+
+We need the values as numeric and not as characters for the analysis
+
+```{r}
+tab_1$Value_Spending.on.health <- as.numeric(tab_1$Value_Spending.on.health)
+tab_1$Mental_health_Value <- as.numeric(tab_1$Mental_health_Value)
+```
+
+
+
+
