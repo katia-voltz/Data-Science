@@ -15,14 +15,27 @@ Mental Health:  An analysis of mental health related to the work environment. Th
 
 ## Background and motivation 
 
+It has been more than a year and a half since we have been living through a global health crisis and it was important to us to work on a subject that directly affects us. We had to drastically reduce our social contacts, leaving us alone with ourselves and our thoughts. Therefore, we are very interested to know how work environment and structure can affect the mental health in a country. 
+
+According to the WHO, mental health is defined as; "a state of well-being that enables people to achieve their potential, cope with the normal challenges of life, work successfully and productively, and be able to contribute to the community." Moreover, since mental health is closely related to psychological, emotional, and cognitive well-being. It is therefore something that we are all subject to, to varying degrees, and that remains of multiple and sometimes unstudied causes. This was one of our main motivations to work on this subject. 
+
+We wanted to understand what factors might play a role in mental health and by looking into the subject, we thought that the work environment could play an important role in the mental health of workers and of a population in general. Also, that the crisis of covid has surely had an impact on the mental health of a country given the changes that this crisis has instituted regarding work. 
+
+
+## Project objectives
+
+The objectives of this project are to make a link between the characteristics of the world of work and mental illness. Our research is based on an analysis of selected countries and the benefits of this approach are that those selected countries contain relevant data to this study, moreover, they are also structurally very different from each other, which is an advantage for our analysis. Therefore, the objective is to understand the reasons and the benefit would be to be able to deduce why the population of a country suffers so much from mental illness.
+
 
 ## Research questions
+
+We have decided to focus our research and analysis on three different themes presented below.
 
 1.  About the work environnement 
 
 Given the structure of the working environment in different countries, can we say that the mental health of the population is influenced by the working conditions and the situation of the country?
 
---> Can we explain the number of people with mental health disorder in a country with the average work-time, the quality of work, the unemployment rate, the job satisfaction, the salaries, and the inequalities? 
+--> Can we explain the number of people with mental health disorder in a country with the average work-time, the working age population, the unemployment rate, the GDP, the salaries, and the income inequalities? 
 
 2. About the Covid-19
 
@@ -32,6 +45,6 @@ What is the Covid-19 impact on the population's mental-health ? Can we show an i
  
  2.2 Is a population from a country with high covid mortality more affected by mental health disorders? 
  
-3. About Health care system 
+3. About public spendings on health 
 
 Can health care systems such as financial investments in overall health, access to medication explain and predict cross-country differences in mental disorders in the population?
