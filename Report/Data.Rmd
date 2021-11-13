@@ -65,14 +65,13 @@ we start by sorting our data ....
 
 ## Covid
 
-For our second theme around Covid, we want to analyze if Covid had an impact on antidepressant consumption in selected countries around the world. We found data on antidepressant consumption on the website :  : <https://www.oecd.org>, in the Pharmaceutical Market Section. 
+For our second theme around Covid, we want to analyze if Covid had an impact on antidepressant 
+consumption in selected countries around the world. We found data on antidepressant consumption on the website : <https://www.oecd.org>, in the Pharmaceutical Market Section. 
 Regarding the Covid data, they come from the site : <https://coronavirus.jhu.edu>. 
 
-Regression 2.1 : Antidepressant_consumption = a*Number_Covid-19_Cases + b*Number_Covid-19_Deaths
+Regression 2.1 : Antidepressant_consumption = a*Number_Covid-19_cases + b*Number_Covid-19_Death
 
-First of all, we have made a selection of several countries which are the following (To simplify, country codes have been used and not the full names) : Austria, 
-Belgium, Croatia, Czechia, Denmark, Finland, France, Germany, Greece, Hungary, Iceland, Ireland, Italy, Romania, Portugal, Poland, Norway, Netherlands, Switzerland, 
-Sweden, Spain, Australia, Brazil, Canada, China, Japan, New-Zealand and the USA.  
+First of all, we have made a selection of several countries which are the following (To simplify, country codes have been used and not the full names) : Austria, Belgium, Croatia, Czechia, Denmark, Finland, France, Germany, Greece, Hungary, Iceland, Ireland, Italy, Romania, Portugal, Poland, Norway, Netherlands, Switzerland, Sweden, Spain, Australia, Brazil, Canada, China, Japan, New-Zealand and the USA.  
 
 ```{r}
 List.of.Countries = c('AUT','BEL','HRV', 'CZE', 'DNK', 'ENG', 'FIN', 'FRA', 'DEU', 'GRC', 'HUN','ISL',
@@ -80,14 +79,13 @@ List.of.Countries = c('AUT','BEL','HRV', 'CZE', 'DNK', 'ENG', 'FIN', 'FRA', 'DEU
                       'CAN', 'CHN', 'JPN', 'NZL', 'USA')
 ```
 
-Another list of countries has been made, to select countries to select the countries where we had data available on antidepressant consumption in 2020, to be able to then observe a change or not due to the Covid. 
+For this first analysis related to the impact of Covid, R2.1, we quickly realized that the data available for antidepressant consumption in 2020 was very limited. We had to make a second selection of countries for this regression in order to observe only the countries with data in 2020, during the covid year. 
 
 ```{r}
 List.of.Countries2 = c('GRC', 'HUN', 'ISL', 'ITA', 'NOR','PRT', 'SWE', 'ESP')
 ```
 
 Now we can select and sort the data. 
-
 ```{r}
 Antidepressant_consumption <- read.csv("Conso Antidepressant.csv") #--> Mettre un code qui sélectionne la donnée depuis le bon emplacement : read.csv(here::here("data/Conso Antidepressant.csv")) ? 
 attach(Antidepressant_consumption)
@@ -99,10 +97,12 @@ It was also often necessary to rename the columns so that they all follow the sc
 ```{r}
 Antidepressant_consumption <- Antidepressant_consumption[,-c(1:4,6:7,10:11)]
 Antidepressant_consumption <- rename(Antidepressant_consumption,c("LOCATION"="COU","TIME"="Year"))
+Antidepressant_consumption <- Antidepressant_consumption %>% filter(LOCATION %in% List.of.Countries)
 Antidepressant_consumption1 <- Antidepressant_consumption %>% filter(LOCATION %in% List.of.Countries2)
-View(Antidepressant_consumption1)
-````
+View(Antidepressant_consumption)
+```
 
+We had to add a column with the date 2020 for the covid data, because it was not present. 
 ```{r}
 Number_Covid19_cases_deaths <- read.csv2("Cases + Deaths Covid.csv")
 attach(Number_Covid19_cases_deaths)
@@ -110,23 +110,25 @@ Number_Covid19_cases_deaths <- Number_Covid19_cases_deaths[,-c(1,2,4:7,9:12)]
 Number_Covid19_cases_deaths <- Number_Covid19_cases_deaths[-1,] 
 Number_Covid19_cases_deaths <- rename(Number_Covid19_cases_deaths, "LOCATION"="Code")
 Number_Covid19_cases_deaths <- Number_Covid19_cases_deaths %>% add_column(TIME = 2020, .after = "LOCATION") 
-Number_Covid19_cases_deaths <-  Number_Covid19_cases_deaths %>% filter(LOCATION %in% List.of.Countries2)
+Number_Covid19_cases_deaths <-  Number_Covid19_cases_deaths %>% filter(LOCATION %in% List.of.Countries)
+Number_Covid19_cases_deaths1 <-  Number_Covid19_cases_deaths %>% filter(LOCATION %in% List.of.Countries2)
 View(Number_Covid19_cases_deaths)
-````
+```
 
 We can now form a table with all the data together, using the *full_join* function. 
 
 ```{r}
-tab_R2.1 <- full_join(Number_Covid19_cases_deaths, Antidepressant_consumption, by= c("LOCATION","TIME"))
+tab_R2.1 <- full_join(Number_Covid19_cases_deaths1, Antidepressant_consumption1, by= c("LOCATION","TIME"))
 ```
 
-As the data of cases and death of the covid for the years before 2020 were displayed in NA, they had to be equalized to 0. Also, the "cases" variable was output in character, we converted it to numeric.
+As the data of cases and death of the covid for the years before 2020 were displayed in NA, we assumed that its values were equal to 0. Also, the "cases" variable was output in character, we converted it to numeric.
 
 ```{r}
 tab_R2.1[is.na(tab_R2.1)] <- 0 
 tab_R2.1$Cases...cumulative.total <- as.numeric(tab_R2.1$Cases...cumulative.total)
 View(tab_R2.1)
 ```
+Our table on the use of antidepressants and the number of cases and deaths of covid is now ready to be used. 
 
 Given the little information we had on antidepressant consumption in 2020 (only for 8 countries) we decided to observe the rate of depression and finally include it in our research question.
 We therefore wanted to analyze the evolution of the depression rate between 2010 and 2017, and if the covid had an impact on it in 2021. Our data comes from the sites : <https://ourworldindata.org/mental-health#depression> and <https://worldpopulationreview.com/>. 
@@ -136,18 +138,23 @@ Depression_Rate2000_2017 <- read.csv("Depression Rate 2000:2017.csv")
 attach(Depression_Rate2000_2017)
 View(Depression_Rate2000_2017)
 ```
-Here too we have only kept the country, the year and the value, and renamed the columns.
+
+Here too we have only kept the country, the year and the value, and renamed the columns.As the years start before 2000, we have to make a selection of the years after 1999, to keep only what interests us. 
+
 ```{r}
 Depression_Rate2000_2017 <- Depression_Rate2000_2017[-1]
-Depression_Rate2000_2017 <-rename(Depression_Rate2000_2017,c("LOCATION"="Code","TIME"="Year","Value"="Prevalence...Depressive.disorders...Sex..Both...Age..Age.standardized..Percent."))
+Depression_Rate2000_2017 <- rename(Depression_Rate2000_2017,c("LOCATION"="Code","TIME"="Year","Value"="Prevalence...Depressive.disorders...Sex..Both...Age..Age.standardized..Percent."))
+Depression_Rate2000_2017 <- Depression_Rate2000_2017 %>% filter(LOCATION %in% List.of.Countries)
+Depression_Rate2000_2017 <- Depression_Rate2000_2017 %>%
+  filter(TIME>1999)
 Depression_Rate2017 <- Depression_Rate2000_2017 %>%
   filter(TIME>2016)
 Depression_Rate2017 <- rename(Depression_Rate2017,c("2017"="Value"))
-Depression_Rate2017 <- Depression_Rate2017 %>% filter(LOCATION %in% List.of.Countries)
 Depression_Rate2017 <- Depression_Rate2017[-2]
+View(Depression_Rate2017)
 ```
 
-We did exactly the same thing for the depression rate in 2021.
+We did exactly the same thing for the depression rate in 2021. 
 ```{r}
 Depression_Rate2021 <- read.csv2("Depression Rate 2021.csv")
 attach(Depression_Rate2021)
@@ -162,25 +169,25 @@ View(Depression_Rate2021)
 Then, we had to join the two tables into one, using both *inner_join* and *pivot_longer* in order to obtain a table that we could use correctly afterwards to do analyses. 
 
 ```{r}
-tab_test <- Depression_Rate2017 %>%
+tab_R2.1.1 <- Depression_Rate2017 %>%
   inner_join(Depression_Rate2021, by = "LOCATION")
-tab_test$"2021" <- as.numeric(tab_test$"2021")
-tab_test <- tab_test %>%
+tab_R2.1.1$"2021" <- as.numeric(tab_R2.1.1$"2021")
+tab_R2.1.1 <- tab_R2.1.1 %>%
   pivot_longer(c(`2017`, `2021`),
                names_to = "TIME",
                values_to = "VALUE")
-View(tab_test)
+View(tab_R2.1.1)
 ```
 
 For the second study of this theme, we want to see whether teleworking and unemployment rates can affect antidepressant use in selected countries. Information on Teleworking and Unemployment rate were extracted respectively from the sites : <https://ec.europa.eu/eurostat> and <https://data.oecd.org>. 
 
-We now download the data by sorting them according to the first selected country list. 
+We will now use the data of antidepressant according to the first selected country list. 
 ```{r}
-Antidepressant_consumption2 <- Antidepressant_consumption %>% filter(LOCATION %in% List.of.Countries)
-View(Antidepressant_consumption2)
+View(Antidepressant_consumption)
 ```
 
-As above, we have kept only the columns we were interested in, i.e. value, date and country, and we have renamed some inadequate columns.
+As above, we have kept only the columns we were interested in, i.e. value, date and country, and we have renamed some inadequate columns. 
+
 ```{r}
 Teleworking <- read.csv2("Teleworking.csv")
 attach(Teleworking)
@@ -191,6 +198,7 @@ View(Teleworking)
 ```
 
 We also did this for the unemployment rate. 
+
 ```{r}
 UnemploymentCovid <- read.csv("Unemployement Rate.csv")
 attach(UnemploymentCovid)
@@ -204,7 +212,7 @@ With the *full_join* function we have gathered the data of these three variables
 For the good functioning of the table for further analysis, it was necessary to remove the NA values, and to convert the variable "teleworking" in numerical (which was in character). 
 
 ```{r}
-tab <- full_join(Antidepressant_consumption2, Teleworking, by=c("LOCATION", "TIME"))
+tab <- full_join(Antidepressant_consumption, Teleworking, by=c("LOCATION", "TIME"))
 tab_R2.2 <- full_join(tab, UnemploymentCovid, by = c("LOCATION", "TIME"))
 tab_R2.2 <- na.omit(tab_R2.2)
 tab_R2.2$Teleworking <- as.numeric(tab_R2.2$Teleworking)
