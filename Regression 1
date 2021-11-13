@@ -1,6 +1,7 @@
+### Work Environnment 
+
 # Regression 1 : MentalHealth = a*IncomeInequality + b*wages + c*Unemployment + d*WorkingAgePopulation + e*WorkTime + f*GPD
 
-# Data Science Project
 library(plyr)
 library(dplyr)
 
@@ -123,15 +124,15 @@ tab_Tot <- rename(tab_Tot, c("LOCATION"="tab_R1$LOCATION"))
 View(tab_Tot)
 plot(tab_Tot)
 
-
 ########################################################################################################
+
+# Eda
 
 library(corrplot)
 library(ggplot2)
 library(car)
 packages <- c("ggrepel", "gghighlight", "patchwork", "scales") 
 
-# Eda
 
 mod <- lm(tab_Tot$Mental_Health ~ tab_Tot$Income_Inequality + tab_Tot$wages + tab_Tot$Unemployment + tab_Tot$Working_Age + tab_Tot$Work_Time + tab_Tot$GDP)
 summary(mod)
@@ -143,7 +144,7 @@ summary(reg0)
 # We have * 
 plot(tab_Tot$Income_Inequality, tab_Tot$Mental_Health)
 # We can see that the higher the income inequality, the higher the share of the population with mental health disorders is
-ggplot(data = tab_Tot) + geom_point(mapping = aes(x = Income_Inequality, y = Mental_Health, color = LOCATION))   
+ggplot(data = tab_Tot) + geom_point(mapping = aes(x = Income_Inequality, y = Mental_Health, color = LOCATION))
 
 # Wages Analysis
 reg1 <- lm(tab_Tot$Mental_Health~tab_Tot$wages)
@@ -187,7 +188,7 @@ ggplot(data = tab_Tot) + geom_point(mapping = aes(x = GDP, y = Mental_Health , c
 
 #########################################################################################################################  
 
-# Forward selection 
+# Forward induction
 
 mod0 <- lm(tab_Tot$Mental_Health~1)
 summary(mod0)
@@ -198,4 +199,22 @@ summary(mod2)
 mod3 <- lm(tab_Tot$Mental_Health~tab_Tot$Income_Inequality+tab_Tot$wages+tab_Tot$Working_Age)
 summary(mod3)
 # We have *** for Income_Inequality and ** for wages and working_Age
+
+
+#############################################################################################################################
+
+#tab0 <- full_join(Mental_Health_m, Income_Inequality_m, by = c("LOCATION"))
+#tab1 <- full_join(tab0, wages_m, by = c("LOCATION"))
+#tab_R2 <- full_join(tab1, Working_Age_m, by = c("LOCATION"))
+#tab_R2 <- na.omit(tab_R2)
+#tab_R2_log <- log(tab_R2[,2:5])
+#tab_Tot2 <- cbind(tab_R2$LOCATION, tab_R2_log)
+#View(tab_Tot2)
+#plot(tab_Tot2)
+
+#data <- data.frame(Mental_Health = tab_Tot$Mental_Health, country = tab_Tot$LOCATION)
+#map <- map_data("country")
+#k <- ggplot(data, aes(fill= Mental_Health))
+#k + geom_map(aes(map_id = LOCATION), map = map)
+
 
