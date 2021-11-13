@@ -87,10 +87,13 @@ summary(mod1)
 mod2 <- lm(tab_R2.2$Value~tab_R2.2$Teleworking+tab_R2.2$Unemployment)
 summary(mod2)
 ```
-Given the results, this confirms that unemployment is not significant and that this variable could be removed. 
+Given the results, this confirms that unemployment is not significant and that this variable could be removed. That's why we will now now focus on teleworking which would have an impact on the consumption of antidepressants. 
 
-
-
-
+Here is a graph that shows the increase in the value of the consumption according to the teleworking. 
+```{r}
+ggplot(data = tab_R2.2, mapping = aes(x = Value, y = Teleworking)) +
+  geom_point(mapping = aes(color = LOCATION)) +
+  geom_smooth()
+```
 
 
