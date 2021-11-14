@@ -22,7 +22,9 @@ library(car)
 
 Now all our databases are clean and ready to be used. 
 
-## Covid
+## Work environment 
+
+### Analysis
 
 The final table and its plot that we obtain in Data.Rmd allow us to do correlation tests and to have visual representations of all these movements.
 
@@ -90,6 +92,8 @@ ggplot(data = tab_Tot) + geom_point(mapping = aes(x = GDP, y = Mental_Health , c
 ```
 We have ** and it seems that when the GDP tends to be high, the share of the population with mental health disorders also tends to be high.
 
+The analysis of this first part still needs to be refined and improved.
+
 We used many variables to test this effect of the work environment on mental health in these countrie. Thus we thought it wise to use a forward induction in order to define which of them are really significant. 
 
 ````{r}
@@ -106,13 +110,9 @@ The result that we have is *** for Income_Inequality and ** for wages and workin
 
 
 
+## Covid-19
 
-
-
-## Covid
-
-
-###Analysis 
+### Analysis 
 
 Firstly, we would like to know if there is a correlation between Cases of Covid and the Value of Antidepressant Consumption through the years. We want to observe whether there is a peak in the consumption of these medications because of the covid crisis. Indeed, we make the hypothesis that due to this crisis, the proportion of people suffering from depression has increased, which would have had a significant impact on this consumption in 2020. 
 
@@ -184,10 +184,9 @@ ggplot(data = tab_R2.2, mapping = aes(x = Value, y = Teleworking)) +
 ```
 
 
+## Public spendings on health
 
-
-#### ANALYSIS Regression 3 
-
+### Analysis
 
 Graphical observations and regression interpretation. 
 
