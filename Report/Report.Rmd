@@ -1,0 +1,15 @@
+---
+title: "Report"
+author: "Nina"
+date: "11/14/2021"
+output: html_document
+---
+
+
+<style>
+body {
+text-align: justify}
+</style>
+
+```{r child = c('intro.Rmd', 'data.Rmd', 'eda.Rmd', 'analysis.Rmd', 'concl.Rmd')}
+```
