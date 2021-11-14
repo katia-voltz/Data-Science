@@ -1,24 +1,18 @@
 ---
 title: "Eda"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r, echo=FALSE, message=FALSE} 
-
-library(plyr)
-library(dbplyr)
-library(tidyverse)
-library(tibble)
-library(corrplot)
-library(car) 
-
-#faire un code qui ouvre tous les packages dans un autre file (--> setup.R)
-
+```{r, echo = FALSE, message = FALSE}
+source(here::here("scripts/Setup.R"))
 ```
+
 
 Now all our databases are clean and ready to be used. 
 
@@ -78,13 +72,14 @@ We have ** and we can see that the share of the population with mental health di
 reg4 <- lm(tab_Tot$Mental_Health~tab_Tot$Work_Time)
 summary(reg4)
 plot(tab_Tot$Work_Time, tab_Tot$Mental_Health)
-ggplot(data = tab_Tot) + geom_point(mapping = aes(x = Work_Time, y = Mental_Health, color = LOCATION)) ```
+ggplot(data = tab_Tot) + geom_point(mapping = aes(x = Work_Time, y = Mental_Health, color = LOCATION)) 
+```
 
 We have 0 and it doesn't seem to have any distinct correlation between this two variables 
 
 6. GDP Analysis
 
-````{r}
+```{r}
 reg5 <- lm(tab_Tot$Mental_Health~tab_Tot$GDP)
 summary(reg5)
 plot(tab_Tot$GDP, tab_Tot$Mental_Health)
@@ -137,11 +132,9 @@ ggplot(data = tab_R2.1) +
 
 Given the results, we thought it would be more interesting to observe the rate of depression by country between 2000 and 2021. Here is the table of depression rate by selected countries in 2017 and 2021. This table was made because we could not find the data for the years 2018,2019 and 2020. So we wanted to compare these two dates to see if there was a significant difference. 
 ```{r}
-View(tab_R2.1.1)
 
 ggplot(data = tab_R2.1.1) +
-  geom_point(mapping = aes(x = TIME , y = VALUE, color = LOCATION)) +
-  geom_smooth(se = FALSE)
+  geom_point(mapping = aes(x = TIME , y = VALUE, color = LOCATION))
 ```
 
 
@@ -369,7 +362,7 @@ with(tab_2, text(Mean_Value_Spending.on.health ~ Mean_Mental_health_Value, label
 ```{r}
 data_test <- tab_2[-1]
 data_test <- data_test[,c(2,1)]
-view(data_test)
+
 mean_data <-apply(data_test, 2, mean)
 mean_data
 
