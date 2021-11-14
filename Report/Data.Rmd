@@ -6,6 +6,7 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE) # supprimer ? a quoi il sert ?
 ```
+For our research, we are going to use different datasets for our three main themes. 
 
 First, we need to install different packages. 
 
@@ -18,8 +19,6 @@ library(corrplot)
 library(car)
 #faire un code qui ouvre tous les packages dans un autre file (--> setup.R)
 ```
-
-For our research, we are going to use different datasets for our three main themes. 
 
 ## Work Environment
 
@@ -41,7 +40,7 @@ To see those effects, we have chosen the information of 6 independants variables
 We have made a selection of several countries which are the following (To simplify, country codes have been used and not the full names) : Austria, Belgium, Croatia, Czechia, Denmark, Finland, France, Germany, Greece, Hungary, Iceland, Ireland, Italy, Romania, Portugal, Poland, Norway, Netherlands, Switzerland, Sweden, Spain, Australia, Brazil, Canada, Japan, New-Zealand and the USA.  
 
 ```{r}
-List.of.Countries = c('AUT','BEL','HRV', 'CZE', 'DNK', 'ENG', 'FIN', 'FRA', 'DEU', 'GRC', 'HUN', 'ISL', 'ITA', 'ROU', 'PRT', 'POL', 'NOR', 'NLD', 'CHE', 'SWE', 'ESP', 'AUS', 'BRA', 'CAN', 'JPN', 'NZL', 'USA)
+List.of.Countries = c('AUT','BEL','HRV', 'CZE', 'DNK', 'ENG', 'FIN', 'FRA', 'DEU', 'GRC', 'HUN', 'ISL', 'ITA', 'ROU', 'PRT', 'POL', 'NOR', 'NLD', 'CHE', 'SWE', 'ESP', 'AUS', 'BRA', 'CAN', 'JPN', 'NZL', 'USA')
 ```
 
 Now that we have collected all our data, we need to sort, order and rename them in order to obtain only tables with three columns to have the value of our variable according to its country and its date. We took the data for each of these variables for a certain sample of countries and then chose to do an individual average over the years from 2000 to 2017.
@@ -342,7 +341,7 @@ Our intitial question of research is:
 Importation of the data set Public.spending on health. This dataframe represent Current health expenditure (% of GDP) of each countries.
 
 ```{r}
-Public.spending.on.health <- read.csv2(here::here('data/Regression_3/Public.spending.on.health.csv')
+Public.spending.on.health <- read.csv2(here::here('data/Regression_3/Public.spending.on.health.csv'))
 ```
                                        
 We remove the 3 first rows and we rename the different variables in the columns.
@@ -386,14 +385,14 @@ Finally we have a new dataframe of the Current health expenditure (% of GDP) of 
 Now we import the  share with mental and substance disorders data corresponding to a list of countries. Our goal is to compare the prevalence of mental health disorder in a population of a country with respect to the public investments on health.
 
 ```{r}
-share.with.mental.and.substance.disorders <- read.csv2(here::here('data/Regression_3/share-with-mental-and-substance-disorders copie.csv')
+share.with.mental.and.substance.disorders <- read.csv2(here::here('data/Regression_3/share-with-mental-and-substance-disorders copie.csv'))
 ```
 
 We rename the (share.with.mental.and.substance.disorders) dataframe into Mental_Health.
 
 ```{r}
 Mental_Health <- share.with.mental.and.substance.disorders                                                       
-````
+```
 
 We remove the 'Entity' column. Indeed we refer only to the LOCATION as code.
 ```{r}
