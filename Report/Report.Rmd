@@ -1,5 +1,7 @@
 ---
 title: "Report"
+author: "Nina Bidet, Armance Larfeuille and Katia Voltz"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
 output: html_document
 ---
 
