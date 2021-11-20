@@ -318,6 +318,94 @@ fviz_cluster(km.res, data=data_test_std, repel=TRUE)
 
 
 
+############################## ANALYSE ###################################
+
+
+
+
+mental.health <- share.with.mental.and.substance.disorders
+view(mental.health)
+
+Entities <- c("Austria"," Belgium", "Croatia", "Czechia", "Denmark", "Finland", "France", "Germany", "Greece", "Hungary", "Iceland", "Ireland", "Italy", "Romania", "Portugal","Poland", "Norway", "Netherlands", "Switzerland", "Sweden", "Spain",'United States')
+
+mental.health <- mental.health %>%
+  filter(Entity %in% Entities, )
+
+
+mental.health <- rename(mental.health, 'mental_health_Value' = 'Prevalence...Mental.and.substance.use.disorders...Sex..Both...Age..Age.standardized..Percent.')
+
+
+mental.health$mental_health_Value <- as.numeric(mental.health$mental_health_Value)
+
+mental.health <- mental.health[-2]
+
+mental.health.new <- mental.health %>%
+  group_by(Entity,mental_health_Value) %>%
+  filter(Year>1999)
+
+
+view(mental.health.new)
+
+mean.mental.health <- aggregate(. ~ Entity, mental.health.new[-2], mean)
+
+view(mean.mental.health)
+
+
+mapdata <- map_data('world')
+view(mapdata)
+
+mapdata <- rename(mapdata,'Entity'='region')
+view(mapdata)
+
+
+mapdata2 <- left_join(mapdata, mental.health , by='Entity')
+view(mapdata2)
+
+mapdata2 <- mapdata2 %>%
+  filter(!is.na(mapdata2$mental_health_Value))
+
+mapdata2 <- mapdata2 %>%
+  filter(Entity%in% Entities)
+view(mapdata2)
+
+map1 <- ggplot(mapdata2, aes(x=long, y=lat, group=group))+
+  geom_polygon(aes(fill=mental_health_Value), color='black')
+
+map1
+
+######### TEST MAP #############
+
+
+mental.health <- share.with.mental.and.substance.disorders
+
+mental.health <- rename(mental.health, 'mental_health_Value' = 'Prevalence...Mental.and.substance.use.disorders...Sex..Both...Age..Age.standardized..Percent.')
+
+
+mental.health$mental_health_Value <- as.numeric(mental.health$mental_health_Value)
+
+mental.health <- mental.health[-2]
+
+mental.health.new <- mental.health %>%
+  group_by(Entity,mental_health_Value) %>%
+  filter(Year>1999)
+
+mean.mental.health <- aggregate(. ~ Entity, mental.health.new[-2], mean)
+
+mapdata <- map_data('world')
+
+mapdata <- rename(mapdata,'Entity'='region')
+
+mental.health <- rename(mental.health, mental.health$Entity,'United States' = 'USA')
+
+mapdata2 <- left_join(mapdata, mental.health , by='Entity')
+
+map1 <- ggplot(mapdata2, aes(x=long, y=lat, group=group))+
+  geom_polygon(aes(fill=mental_health_Value), color='black')
+
+map1
+
+
+
 
 
 
