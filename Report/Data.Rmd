@@ -309,8 +309,7 @@ View(tab_R2.2)
 ## Public spendings on health 
 
 
-
-In this thrid analysis of datasets,  we are going to compare the prevalence of mental health disorder (in % of the population (age-standardaized)) in a population of a country and the current health expenditure (% of GDP).
+In this thrid analysis of datasets,  we are going to compare the prevalence of mental health disorder (in % of the population (age-standardaized)) in a population of a country and the current health expenditure (% of GDP). Particularly focus on the countries of the OCDE that is The Organisation for Economic Co-operation and Development.
 
 The sources of our datas comes from the website : <https://data.worldbank.org/indicator/SH.XPD.CHEX.GD.ZS> for the current health expenditure in the countries and <https://ourworldindata.org/mental-health> for the Mental health datas.
 
@@ -318,8 +317,8 @@ Our intitial question of research is:
 
 - Can health care systems such as financial investments in overall health, access to medication explain and predict cross-country differences in mental disorders in the population? Is a country that invests more in public health for its population the country where there is less mental illness?
 
-- Our influenced variable Y is therefore the prevalence of mental health disorder 
-- our independant variable X is the current health expenditure
+- Our influenced variable Y is therefore the prevalence of mental health disorder (% of the population)
+- our independant variable X is the current health expenditure (% of the GDP)
 
 
 Importation of the data set Public.spending on health. This dataframe represent Current health expenditure (% of GDP) of each countries.
@@ -366,27 +365,29 @@ Public.spending.on.health_New <- Public.spending.on.health_New %>%
   pivot_longer(cols = c('2000','2001','2002','2003','2004','2005','2006','2007','2008','2009','2010','2011','2012','2013','2014','2015','2016','2017','2018'),names_to = 'Time', values_to = 'Value_Spending.on.health')
 ```
 
-Finally we have a new dataframe of the Current health expenditure (% of GDP) of each countries attributed to the Time (from 2000 to 2018)
+Finally we have a new dataframe of the Current health expenditure (% of GDP) of each countries attributed to the Time (from 2000 to 2018).
+
 
 # Now we import the  share with mental and substance disorders data corresponding to a list of countries. Our goal is to compare the prevalence of mental health disorder in a population of a country with respect to the public investments on health.
 
 ```{r}
 share.with.mental.and.substance.disorders <- read.csv2(here::here('Data/Régression 3/share-with-mental-and-substance-disorders copie.csv'))
 ```
+This dataset has already a good structure, the same as the others for our analysis. The value Y; *prevalence mental and substance use disorders.sex.both.age stanrdaized percent*, represents more clearly the proportion of the population in % sufuring from mental illness in a given country. 
 
-We rename the (share.with.mental.and.substance.disorders) dataframe into Mental_Health.
+We rename our (share.with.mental.and.substance.disorders) dataframe into Mental_Health.
 
 ```{r}
 Mental_Health <- share.with.mental.and.substance.disorders                                                       
 ```
 
-We remove the 'Entity' column. Indeed we refer only to the LOCATION as code.
+We remove the *Entity* column. Indeed we refer only to the LOCATION as code.
 ```{r}
 Mental_Health <- Mental_Health[,-1]
 ```
 
-We rename the variable column of year with Time, the Code with LOCATION and
-Prevalence...Mental.and.substance.use.disorders...Sex..Both...Age..Age.standardized..Percent. with Mental_health_value.
+We rename the variable column of *year* with Time, the *Code* with LOCATION and
+*Prevalence...Mental.and.substance.use.disorders...Sex..Both...Age..Age.standardized..Percent.* with Mental_health_value.
 
 ```{r}
 Mental_Health <- Mental_Health %>%
@@ -398,7 +399,8 @@ Mental_Health <- Mental_Health %>%
 Mental_Health1 <- rename(Mental_Health, 'Mental_health_Value' = 'Prevalence...Mental.and.substance.use.disorders...Sex..Both...Age..Age.standardized..Percent.')
 ```
 
-After this, we want to filter the data with the value going from 2000 to 2017.
+After this, we want to filter the data with the value going from 2000 to 2017. Why do we keep only these values?
+Because we consider it as a relevant horizon of time and we will need to fit these values to the public spendinds on health for our final table. So we must keep the same strucure.
 
 ```{r}
 Mental_Health <- Mental_Health1 %>%
@@ -406,8 +408,13 @@ Mental_Health <- Mental_Health1 %>%
   filter(Time>1999)
 ```
 
-Our analysis is focus on a specific list of countries. We consider it relevant to take a sample of 28 countries with different structural characteristics.
+Our analysis is focus on a specific list of countries. We consider it relevant to take a sample of 28 countries with different structural characteristics. 
 Here is the following selected countries: 'AUT','BEL','HRV', 'CZE', 'DNK', 'ENG', 'FIN', 'FRA', 'DEU', 'GRC', 'HUN', 'ISL', 'ITA', 'ROU', 'PRT', 'POL', 'NOR', 'NLD', 'CHE', 'SWE', 'ESP', 'AUS', 'BRA', 'CAN', 'CHN', 'JPN', 'NZL', 'USA'
+
+The countries in this list our part of the OCDE. We make this selection because taking all the countries is the world would result to:
+- Too many observations 
+- Extreme values
+- Unrelevant study 
 
 ```{r}
 List.of.Countries = c('AUT','BEL','HRV', 'CZE', 'DNK', 'ENG', 'FIN', 'FRA', 'DEU', 'GRC', 'HUN', 'ISL', 'ITA', 'ROU', 'PRT', 'POL', 'NOR', 'NLD', 'CHE', 'SWE', 'ESP', 'AUS', 'BRA', 'CAN', 'CHN', 'JPN', 'NZL', 'USA')
@@ -419,11 +426,11 @@ Public.spending.on.health_New_2 <- Public.spending.on.health_New %>%
   filter(LOCATION %in% List.of.Countries)
 ```
 
-We merge the two dataframes into one single table named tab_1. We join them by LOCATION and Time.
+We merge the two dataframes into one single table named tab_1. We join them by LOCATION and Time. 
 
 ```{r}
 tab_1 <- merge(Public.spending.on.health_New_2, Mental_Health_2, by = c('LOCATION', 'Time'))
-View(tab_1)
+Kabble(tab_1)
 ```
 
 We need the values as numeric and not as characters for the analysis
