@@ -309,7 +309,7 @@ View(tab_R2.2)
 ## Public spendings on health 
 
 
-In this thrid analysis of datasets,  we are going to compare the prevalence of mental health disorder (in % of the population (age-standardaized)) in a population of a country and the current health expenditure (% of GDP). Particularly focus on the countries of the OCDE that is The Organisation for Economic Co-operation and Development.
+In this thrid analysis of datasets,  we are going to compare the prevalence of mental health disorder (% of the population (age-standardaized)) in a population of a country and the current health expenditure (% of GDP). Particularly focus on the countries of the OCDE that is The Organisation for Economic Co-operation and Development.
 
 The sources of our datas comes from the website : <https://data.worldbank.org/indicator/SH.XPD.CHEX.GD.ZS> for the current health expenditure in the countries and <https://ourworldindata.org/mental-health> for the Mental health datas.
 
