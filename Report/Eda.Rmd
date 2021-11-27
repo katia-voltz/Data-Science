@@ -11,6 +11,19 @@ source(here::here("scripts/Setup.R"))
 
 Now all our databases are clean and ready to be used. 
 
+# Exloratory data analysis:
+
+- Visualization and representation of tables 
+- Identification of relevant variables
+- Interpretation of graphs and regressions
+
+1/ Plot the all Tab
+2/ Make assumptions about correlations between Y and Xi (by visualization of plot)
+3/ Deeper visualization with ggplot between Y and Xi
+4/ Create a linear regression
+5/ Interpretation of regression and graphs
+
+
 ## Work environment 
 
 ### Analysis
