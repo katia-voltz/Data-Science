@@ -315,6 +315,7 @@ In this thrid analysis of datasets,  we are going to compare the prevalence of m
 The sources of our datas comes from the website : <https://data.worldbank.org/indicator/SH.XPD.CHEX.GD.ZS> for the current health expenditure in the countries and <https://ourworldindata.org/mental-health> for the Mental health datas.
 
 Our intitial question of research is: 
+
 - Can health care systems such as financial investments in overall health, access to medication explain and predict cross-country differences in mental disorders in the population? Is a country that invests more in public health for its population the country where there is less mental illness?
 
 - Our influenced variable Y is therefore the prevalence of mental health disorder 
@@ -327,7 +328,8 @@ Importation of the data set Public.spending on health. This dataframe represent 
 Public.spending.on.health_New <- read.csv2(here::here('Data/Régression 3/Public.spending.on.health.csv'))
 ```
                                        
-We remove the 3 first rows and we rename the different variables in the columns.
+This dataet of Public sprending on health has a bad structure initialy.
+We remove the 3 first rows and we rename the different variables in the columns to get the same structure as previusly.
 
 ```{r}
 Public.spending.on.health_New <- Public.spending.on.health_New[-c(1:3),]
@@ -335,7 +337,9 @@ Public.spending.on.health_New <- Public.spending.on.health_New[-c(1:3),]
 Public.spending.on.health_New <- rename(Public.spending.on.health_New, c('Country' = 'Data.Source', 'LOCATION' = 'World.Development.Indicators'))
 ```
 
-We remove the unecessary columns, with no data corresponding and we remove the unecessary columns with no relevant data.
+Then we need to remove the unecessary columns, with no data corresponding, which means the missing values from 1960 to 1999 and from 2019-2020. Deleting this columns will not biais our analysis because there are NA for every observations. We believe that the data about the public health expenditures started to be recorded in 2000.
+
+Also, the **Indicator Name**, **Indicator Code** are unrelevant data.
 
 ```{r}
 Public.spending.on.health_New <- Public.spending.on.health_New[,-c(5:44)]
@@ -347,7 +351,7 @@ Public.spending.on.health_New$X.62 <- NULL
 Public.spending.on.health_New$X.63 <- NULL
 ```
 
- Our initial dataframe as for variables [(X.n),(X.n+1)...(X.m)], we need to transform them as Years. 
+ Our initial dataframe as for variables names [(X.n),(X.n+1)...(X.m)], we need to transform them as Years. 
 
 ```{r}
 Public.spending.on.health_New <- rename(Public.spending.on.health_New, c('2000'='X.42','2001'='X.43','2002'='X.44','2003'='X.45', '2004'='X.46','2005'='X.47','2006'='X.48','2007'='X.49', '2008'='X.50','2009'='X.51','2010'='X.52', '2011'='X.53','2012'='X.54','2013'='X.55','2014'='X.56','2015'='X.57','2016'='X.58','2017'='X.59','2018'='X.60'))
@@ -355,7 +359,7 @@ Public.spending.on.health_New <- rename(Public.spending.on.health_New, c('2000'=
 Public.spending.on.health_New <- Public.spending.on.health_New[-1,]
 ```
 
-Then, we use *pivot_longer* to attribute each value (Value_Spending.on.health) to the corresponding 'Time' and 'LOCATION'.
+Then, we use **pivot_longer** to attribute each value (Value_Spending.on.health) to the corresponding 'Time' (the year) and 'LOCATION'(the code of the country). This will transform our dataframe with the years in rows and not in columns.
 
 ```{r}
 Public.spending.on.health_New <- Public.spending.on.health_New %>% 
@@ -364,8 +368,7 @@ Public.spending.on.health_New <- Public.spending.on.health_New %>%
 
 Finally we have a new dataframe of the Current health expenditure (% of GDP) of each countries attributed to the Time (from 2000 to 2018)
 
-# 
-Now we import the  share with mental and substance disorders data corresponding to a list of countries. Our goal is to compare the prevalence of mental health disorder in a population of a country with respect to the public investments on health.
+# Now we import the  share with mental and substance disorders data corresponding to a list of countries. Our goal is to compare the prevalence of mental health disorder in a population of a country with respect to the public investments on health.
 
 ```{r}
 share.with.mental.and.substance.disorders <- read.csv2(here::here('Data/Régression 3/share-with-mental-and-substance-disorders copie.csv'))
