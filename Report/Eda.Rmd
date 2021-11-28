@@ -28,78 +28,61 @@ Now all our databases are clean and ready to be used.
 
 ### Analysis
 
-The final table and its plot that we obtain in Data.Rmd allow us to do correlation tests and to have visual representations of all these movements.
+First, we will plot each of our variables according to its impact on mental health across countries to see more closely which ones have a significant impact and to analyze their distribution. 
 
-1. Income Inequality Analysis 
+```{r, echo = FALSE, message = FALSE}
+GG0 <- ggplot(data = tab_Tot, mapping = aes(x = Income_Inequality, y = Mental_Health)) +
+  geom_point(mapping = aes(color = LOCATION)) +
+  geom_smooth()+
+  geom_text(label = c(tab_Tot$LOCATION))
 
-````{r}
-reg0 <- lm(tab_Tot$Mental_Health~tab_Tot$Income_Inequality)
-summary(reg0)
-plot(tab_Tot$Income_Inequality, tab_Tot$Mental_Health)
-ggplot(data = tab_Tot) + geom_point(mapping = aes(x = Income_Inequality, y = Mental_Health, color = LOCATION))
+GG1 <- ggplot(data = tab_Tot, mapping = aes(x = wages, y = Mental_Health)) +
+  geom_point(mapping = aes(color = LOCATION)) +
+  geom_smooth()+
+  geom_text(label = c(tab_Tot$LOCATION))
+
+GG2 <- ggplot(data = tab_Tot, mapping = aes(x = Unemployment, y = Mental_Health)) +
+  geom_point(mapping = aes(color = LOCATION)) +
+  geom_smooth()+
+  geom_text(label = c(tab_Tot$LOCATION))
+
+GG3 <- ggplot(data = tab_Tot, mapping = aes(x = Working_Age, y = Mental_Health)) +
+  geom_point(mapping = aes(color = LOCATION)) +
+  geom_smooth()+
+  geom_text(label = c(tab_Tot$LOCATION))
+
+GG4 <- ggplot(data = tab_Tot, mapping = aes(x = Work_Time, y = Mental_Health)) +
+  geom_point(mapping = aes(color = LOCATION)) +
+  geom_smooth()+
+  geom_text(label = c(tab_Tot$LOCATION))
+
+GG5 <- ggplot(data = tab_Tot, mapping = aes(x = GDP, y = Mental_Health)) +
+  geom_point(mapping = aes(color = LOCATION)) +
+  geom_smooth() +
+  geom_text(label = c(tab_Tot$LOCATION))
+
+plot_grid(GG0, GG1, GG2, GG3, GG4, GG5, labels=c("A","B","C","D","E","F"), ncol=3, nrow=2)
 ```
+1. We can see that the higher the income inequality, the higher the share of the population with mental health disorders is
+2. We can see that the higher the wages, the higher the share of the share of the population with mental health disorders is
+3. It doesn't seem to have any distinct correlation between this two variables 
+4. We can see that the share of the population with mental health disorders is higher when the working age is lower
+5. It doesn't seem to have any distinct correlation between this two variables 
+6. It seems that when the GDP tends to be high, the share of the population with mental health disorders also tends to be high
 
-We have *  and we can see that the higher the income inequality, the higher the share of the population with mental health disorders is.
+# REGRESSION
 
-2. Wages Analysis
+In order to verify these first visual analyses, we will perform a regression analysis and a forward induction. This should orient our research and enable us to specify which aspects of the work environment have a significant impact on the mental health of a worker. 
 
-````{r}
-reg1 <- lm(tab_Tot$Mental_Health~tab_Tot$wages)
-summary(reg1)
-plot(tab_Tot$wages, tab_Tot$Mental_Health)
-ggplot(data = tab_Tot) + geom_point(mapping = aes(x = wages, y = Mental_Health , color = LOCATION))
+```{r, echo = FALSE, message = FALSE}
+mod <- lm(tab_Tot$Mental_Health ~ tab_Tot$Income_Inequality + tab_Tot$wages + tab_Tot$Unemployment + tab_Tot$Working_Age + tab_Tot$Work_Time + tab_Tot$GDP)
+summary(mod)
 ```
+We have ** for Income_Inequality and Working_Age and 0 for the others
 
-We have **  and we can see that the higher the wages, the higher the share of the share of the population with mental health disorders is.
+# FORWARD INDUCTION
 
-3. Unemployment Analysis
-
-````{r}
-reg2 <- lm(tab_Tot$Mental_Health~tab_Tot$Unemployment)
-summary(reg2)
-plot(tab_Tot$Unemployment, tab_Tot$Mental_Health)
-ggplot(data = tab_Tot) + geom_point(mapping = aes(x = Unemployment, y = Mental_Health , color = LOCATION))
-```
-
-We have 0 and it doesn't seem to have any distinct correlation between this two variables.
-
-4. Working Age Analysis
-
-````{r}
-reg3 <- lm(tab_Tot$Mental_Health~tab_Tot$Working_Age)
-summary(reg3)
-plot(tab_Tot$Working_Age, tab_Tot$Mental_Health)
-ggplot(data = tab_Tot) + geom_point(mapping = aes(x = Working_Age, y = Mental_Health , color = LOCATION))
-```
-
-We have ** and we can see that the share of the population with mental health disorders is higher when the working age is lower.
-
-5. Work Time Analysis
-
-````{r}
-reg4 <- lm(tab_Tot$Mental_Health~tab_Tot$Work_Time)
-summary(reg4)
-plot(tab_Tot$Work_Time, tab_Tot$Mental_Health)
-ggplot(data = tab_Tot) + geom_point(mapping = aes(x = Work_Time, y = Mental_Health, color = LOCATION)) 
-```
-
-We have 0 and it doesn't seem to have any distinct correlation between this two variables 
-
-6. GDP Analysis
-
-```{r}
-reg5 <- lm(tab_Tot$Mental_Health~tab_Tot$GDP)
-summary(reg5)
-plot(tab_Tot$GDP, tab_Tot$Mental_Health)
-ggplot(data = tab_Tot) + geom_point(mapping = aes(x = GDP, y = Mental_Health , color = LOCATION))
-```
-We have ** and it seems that when the GDP tends to be high, the share of the population with mental health disorders also tends to be high.
-
-The analysis of this first part still needs to be refined and improved.
-
-We used many variables to test this effect of the work environment on mental health in these countrie. Thus we thought it wise to use a forward induction in order to define which of them are really significant. 
-
-````{r}
+```{r, echo = FALSE, message = FALSE}
 mod0 <- lm(tab_Tot$Mental_Health~1)
 summary(mod0)
 mod1 <- lm(tab_Tot$Mental_Health~tab_Tot$Income_Inequality)
@@ -109,7 +92,96 @@ summary(mod2)
 mod3 <- lm(tab_Tot$Mental_Health~tab_Tot$Income_Inequality+tab_Tot$wages+tab_Tot$Working_Age)
 summary(mod3)
 ```
-The result that we have is *** for Income_Inequality and ** for wages and working_Age.
+
+
+# CLUSTER ANALYSIS
+
+We also wanted to study our problem through another perspective, that of the countries. Indeed, we could notice on the first plots, some countries adopt more extreme behaviors (position separated from the others) and it is often the same across the different variables. A good way to analyze this is to group our countries using clusters. The goal is to see if the work environment has more impact in some countries than in others on the mental health of its population. 
+
+```{r, echo = FALSE, message = FALSE}
+# Income Inequality
+data_t0 <- tab_Tot[-1]
+data_t0 <- data_t0[,c(2,1)]
+mean_data <- apply(data_t0, 2, mean)
+std <- apply(data_t0,2,sd)
+data_t0_std <- scale(data_t0, mean_data, std)
+row.names(data_t0_std) <- tab_Tot[,1]
+distance <- dist(data_t0_std)
+hc <- hclust(distance)
+avclust <- hclust(distance, method = "average")
+km.res <- kmeans(data_t0_std, 5)
+C0 <- fviz_cluster(km.res, data=data_t0_std, repel = TRUE)
+
+# Wages
+data_t1 <- tab_Tot[-1]
+data_t1 <- data_t1[,c(3,1)]
+mean_data <- apply(data_t1, 2, mean)
+std <- apply(data_t1,2,sd)
+data_t1_std <- scale(data_t1, mean_data, std)
+row.names(data_t1_std) <- tab_Tot[,1]
+distance <- dist(data_t1_std)
+hc <- hclust(distance)
+avclust <- hclust(distance, method = "average")
+km.res <- kmeans(data_t1_std, 5)
+C1 <- fviz_cluster(km.res, data=data_t1_std, repel = TRUE)
+
+# Unemployment
+data_t2 <- tab_Tot[-1]
+data_t2 <- data_t2[,c(4,1)]
+mean_data <- apply(data_t2, 2, mean)
+std <- apply(data_t2,2,sd)
+data_t2_std <- scale(data_t2, mean_data, std)
+row.names(data_t2_std) <- tab_Tot[,1]
+distance <- dist(data_t2_std)
+hc <- hclust(distance)
+avclust <- hclust(distance, method = "average")
+km.res <- kmeans(data_t2_std, 5)
+C2 <- fviz_cluster(km.res, data=data_t2_std, repel = TRUE)
+
+# Working Age
+data_t3 <- tab_Tot[-1]
+data_t3 <- data_t3[,c(5,1)]
+mean_data <- apply(data_t3, 2, mean)
+std <- apply(data_t3,2,sd)
+data_t3_std <- scale(data_t3, mean_data, std)
+row.names(data_t3_std) <- tab_Tot[,1]
+distance <- dist(data_t3_std)
+hc <- hclust(distance)
+avclust <- hclust(distance, method = "average")
+km.res <- kmeans(data_t3_std, 5)
+C3 <- fviz_cluster(km.res, data=data_t3_std, repel = TRUE)
+
+# Work Time 
+data_t4 <- tab_Tot[-1]
+data_t4 <- data_t4[,c(6,1)]
+mean_data <- apply(data_t4, 2, mean)
+std <- apply(data_t4,2,sd)
+data_t4_std <- scale(data_t4, mean_data, std)
+row.names(data_t4_std) <- tab_Tot[,1]
+distance <- dist(data_t4_std)
+hc <- hclust(distance)
+avclust <- hclust(distance, method = "average")
+km.res <- kmeans(data_t4_std, 5)
+C4 <- fviz_cluster(km.res, data=data_t4_std, repel = TRUE)
+
+# GDP
+data_t5 <- tab_Tot[-1]
+data_t5 <- data_t5[,c(7,1)]
+mean_data <- apply(data_t5, 2, mean)
+std <- apply(data_t5,2,sd)
+data_t5_std <- scale(data_t5, mean_data, std)
+row.names(data_t5_std) <- tab_Tot[,1]
+distance <- dist(data_t5_std)
+hc <- hclust(distance)
+avclust <- hclust(distance, method = "average")
+km.res <- kmeans(data_t5_std, 5)
+C5 <- fviz_cluster(km.res, data=data_t5_std, repel = TRUE)
+
+# Put all the graphs together
+plot_grid(C0, C1, C2, C3, C4, C5, labels=c("A","B","C","D","E","F"), ncol=3, nrow=2)
+```
+
+
 
 
 
