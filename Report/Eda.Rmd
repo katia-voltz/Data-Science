@@ -155,6 +155,13 @@ By calculating the growth in antidepressant use each year and averaging it over 
 Given the results, we thought it would be more interesting to observe the rate of depression by country between 2000 and 2021. Here is the table of depression rate by selected countries in 2017 and 2021. This table was made because we could not find the data for the years 2018,2019 and 2020. So we wanted to compare these two dates to see if there was a significant difference. 
 
 ```{r, echo = FALSE, message = FALSE}
+ggplot(data = tab_R2.1.1) +
+  geom_point(mapping = aes(x = TIME , y = VALUE, group = LOCATION, color = LOCATION))+
+  geom_line(mapping = aes(x = TIME , y = VALUE, group = LOCATION, color = LOCATION))
+```
+We can see well the increase between 2017 and 2021 for all countries. 
+
+```{r, echo = FALSE, message = FALSE}
 Depression_Rate2000_2017 <- ddply(Depression_Rate2000_2017, .(LOCATION),
       function (d) {
         d$Growth <- c(NA, tail(d$Value, -1) - head(d$Value, -1))
@@ -164,15 +171,8 @@ Depression_Rate2000_2017 <- ddply(Depression_Rate2000_2017, .(LOCATION),
 ```
 Here we have calculated the growth each year until 2017 of the depression rate by country. We can see that it is decreasing for most of the countries, which leads us to conclude that the trend is decreasing every year, even constant. We will now compare it to the year 2021. 
 
-```{r, echo = FALSE, message = FALSE}
-
-ggplot(data = tab_R2.1.1) +
-  geom_point(mapping = aes(x = TIME , y = VALUE, group = LOCATION, color = LOCATION))+
-  geom_line(mapping = aes(x = TIME , y = VALUE, group = LOCATION, color = LOCATION))
-```
-
 Now that we see the increase, and compare it to the growth of previous years, we notice that there has been a strong increase in the depression rate in 2021.
-A new table must be created with values from 2000 to 2017 and 2021.  
+
 
 
 
