@@ -262,12 +262,12 @@ Now a table with all the data between 2000 and 2021 must be done to see if Covid
 We will now focus on our second study, which is the evolution of antidepressant consumption as a function of teleworking and unemployment rate. 
 
 The following graph shows the evolution of antidepressant consumption, which is increasing. 
-```{r}
+```{r, echo = FALSE, message = FALSE}
 ggplot(data = tab_R2.2) +
   geom_point(mapping = aes(x = TIME, y = Consumption, color = LOCATION))
 ```
 
-```{r}
+```{r, echo = FALSE, message = FALSE}
 Reg2.2 <- lm(tab_R2.2$Consumption~tab_R2.2$Teleworking+tab_R2.2$Unemployment)
 summary(Reg2.2)
 ```
@@ -275,7 +275,7 @@ summary(Reg2.2)
 With the *summary* function we can see a significant increase for one unit of  1.70310 * ValueAntidepressantConsumption for "Teleworking". This variable is significant with 2 stars wich is satisfying. However, the "Unemployment" is not significant as it represents an increase for one unit of 0.04958 * ValueAntidepressantConsumption. 
 
 We can do a forward selection: 
-```{r}
+```{r, echo = FALSE, message = FALSE}
 mod0 <- lm(tab_R2.2$Consumption~1)
 summary(mod0)
 mod1 <- lm(tab_R2.2$Consumption~tab_R2.2$Teleworking)
@@ -286,7 +286,7 @@ summary(mod2)
 Given the results, this confirms that unemployment is not significant and that this variable could be removed. That's why we will now now focus on teleworking which would have an impact on the consumption of antidepressants. 
 
 Here is a graph that shows the increase in the value of the consumption according to the teleworking. 
-```{r}
+```{r, echo = FALSE, message = FALSE}
 ggplot(data = tab_R2.2, mapping = aes(x = Consumption, y = Teleworking)) +
   geom_point(mapping = aes(color = LOCATION)) +
   geom_smooth()
