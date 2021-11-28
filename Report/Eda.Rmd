@@ -172,6 +172,7 @@ Depression_Rate2000_2017 <- ddply(Depression_Rate2000_2017, .(LOCATION),
 Here we have calculated the growth each year until 2017 of the depression rate by country. We can see that it is decreasing for most of the countries, which leads us to conclude that the trend is decreasing every year, even constant. We will now compare it to the year 2021. 
 
 Now that we see the increase, and compare it to the growth of previous years, we notice that there has been a strong increase in the depression rate in 2021.
+Now a table with all the data between 2000 and 2021 must be done to see if Covid could have had an impact on this growth. 
 
 
 
