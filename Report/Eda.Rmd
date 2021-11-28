@@ -264,11 +264,11 @@ We will now focus on our second study, which is the evolution of antidepressant 
 The following graph shows the evolution of antidepressant consumption, which is increasing. 
 ```{r}
 ggplot(data = tab_R2.2) +
-  geom_point(mapping = aes(x = TIME, y = Value, color = LOCATION))
+  geom_point(mapping = aes(x = TIME, y = Consumption, color = LOCATION))
 ```
 
 ```{r}
-Reg2.2 <- lm(tab_R2.2$Value~tab_R2.2$Teleworking+tab_R2.2$Unemployment)
+Reg2.2 <- lm(tab_R2.2$Consumption~tab_R2.2$Teleworking+tab_R2.2$Unemployment)
 summary(Reg2.2)
 ```
 
@@ -276,18 +276,18 @@ With the *summary* function we can see a significant increase for one unit of  1
 
 We can do a forward selection: 
 ```{r}
-mod0 <- lm(tab_R2.2$Value~1)
+mod0 <- lm(tab_R2.2$Consumption~1)
 summary(mod0)
-mod1 <- lm(tab_R2.2$Value~tab_R2.2$Teleworking)
+mod1 <- lm(tab_R2.2$Consumption~tab_R2.2$Teleworking)
 summary(mod1)
-mod2 <- lm(tab_R2.2$Value~tab_R2.2$Teleworking+tab_R2.2$Unemployment)
+mod2 <- lm(tab_R2.2$Consumption~tab_R2.2$Teleworking+tab_R2.2$Unemployment)
 summary(mod2)
 ```
 Given the results, this confirms that unemployment is not significant and that this variable could be removed. That's why we will now now focus on teleworking which would have an impact on the consumption of antidepressants. 
 
 Here is a graph that shows the increase in the value of the consumption according to the teleworking. 
 ```{r}
-ggplot(data = tab_R2.2, mapping = aes(x = Value, y = Teleworking)) +
+ggplot(data = tab_R2.2, mapping = aes(x = Consumption, y = Teleworking)) +
   geom_point(mapping = aes(color = LOCATION)) +
   geom_smooth()
 ```
