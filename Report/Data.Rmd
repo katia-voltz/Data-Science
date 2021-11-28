@@ -143,7 +143,8 @@ Regarding the Covid data, they come from the site : <https://coronavirus.jhu.edu
 
 Regression 2.1 : Antidepressant_consumption = a*Number_Covid-19_cases + b*Number_Covid-19_Death
 
-Once again, we have made a selection of several countries which are the following : Austria, Belgium, Croatia, Czechia, Denmark, Finland, France, Germany, Greece, Hungary, Iceland, Ireland, Italy, Romania, Portugal, Poland, Norway, Netherlands, Switzerland, Sweden, Spain, Australia, Brazil, Canada, China, Japan, New-Zealand and the USA.  
+Once again, we have made a selection of several countries which are the following : Austria, Belgium, Croatia, Czechia, Denmark, Finland, France, Germany, Greece, Hungary, Iceland, Ireland, Italy, Romania, Portugal, Poland, Norway, Netherlands, Switzerland, Sweden, Spain, Australia, Brazil, Canada, China, Japan, New-Zealand and the USA. 
+Countries were selected based on available data, and this list includes the countries where there was the most data for our research.  
 
 ```{r}
 List.of.Countries = c('AUT','BEL','HRV', 'CZE', 'DNK', 'ENG', 'FIN', 'FRA', 'DEU', 'GRC', 'HUN','ISL',
@@ -168,7 +169,7 @@ It was also often necessary to rename the columns so that they all follow the sc
 
 ```{r}
 Antidepressant_consumption <- Antidepressant_consumption[,-c(1:4,6:7,10:11)]
-Antidepressant_consumption <- rename(Antidepressant_consumption,c("LOCATION"="COU","TIME"="Year"))
+Antidepressant_consumption <- rename(Antidepressant_consumption,c("LOCATION"="COU","TIME"="Year","Consumption"="Value"))
 Antidepressant_consumption <- Antidepressant_consumption %>% filter(LOCATION %in% List.of.Countries)
 Antidepressant_consumption1 <- Antidepressant_consumption %>% filter(LOCATION %in% List.of.Countries2)
 ```
@@ -212,13 +213,13 @@ Here too we have only kept the country, the year and the value, and renamed the 
 
 ```{r}
 Depression_Rate2000_2017 <- Depression_Rate2000_2017[-1]
-Depression_Rate2000_2017 <- rename(Depression_Rate2000_2017,c("LOCATION"="Code","TIME"="Year","Value"="Prevalence...Depressive.disorders...Sex..Both...Age..Age.standardized..Percent."))
+Depression_Rate2000_2017 <- rename(Depression_Rate2000_2017,c("LOCATION"="Code","TIME"="Year","Rate"="Prevalence...Depressive.disorders...Sex..Both...Age..Age.standardized..Percent."))
 Depression_Rate2000_2017 <- Depression_Rate2000_2017 %>% filter(LOCATION %in% List.of.Countries)
 Depression_Rate2000_2017 <- Depression_Rate2000_2017 %>%
   filter(TIME>1999)
 Depression_Rate2017 <- Depression_Rate2000_2017 %>%
   filter(TIME>2016)
-Depression_Rate2017 <- rename(Depression_Rate2017,c("2017"="Value"))
+Depression_Rate2017 <- rename(Depression_Rate2017,c("2017"="Rate"))
 Depression_Rate2017 <- Depression_Rate2017[-2]
 ```
 
@@ -236,14 +237,13 @@ Depression_Rate2021 <- Depression_Rate2021[-3]
 Then, we had to join the two tables into one, using both *inner_join* and *pivot_longer* in order to obtain a table that we could use correctly afterwards to do analyses. 
 
 ```{r}
-tab_R2.1.1 <- Depression_Rate2017 %>%
+Depression2017_2021 <- Depression_Rate2017 %>%
   inner_join(Depression_Rate2021, by = "LOCATION")
-tab_R2.1.1$"2021" <- as.numeric(tab_R2.1.1$"2021")
-tab_R2.1.1 <- tab_R2.1.1 %>%
+Depression2017_2021$"2021" <- as.numeric(Depression2017_2021$"2021")
+Depression2017_2021 <- Depression2017_2021 %>%
   pivot_longer(c(`2017`, `2021`),
                names_to = "TIME",
                values_to = "VALUE")
-View(tab_R2.1.1)
 ```
 
 For the second study of this theme, we want to see whether teleworking and unemployment rates can affect antidepressant use in selected countries. Information on Teleworking and Unemployment rate were extracted respectively from the sites : <https://ec.europa.eu/eurostat> and <https://data.oecd.org>. 
