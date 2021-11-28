@@ -243,7 +243,7 @@ Depression2017_2021$"2021" <- as.numeric(Depression2017_2021$"2021")
 Depression2017_2021 <- Depression2017_2021 %>%
   pivot_longer(c(`2017`, `2021`),
                names_to = "TIME",
-               values_to = "VALUE")
+               values_to = "RATE")
 ```
 
 For the second study of this theme, we want to see whether teleworking and unemployment rates can affect antidepressant use in selected countries. Information on Teleworking and Unemployment rate were extracted respectively from the sites : <https://ec.europa.eu/eurostat> and <https://data.oecd.org>. 
