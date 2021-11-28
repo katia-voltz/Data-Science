@@ -119,7 +119,7 @@ The result that we have is *** for Income_Inequality and ** for wages and workin
 
 Firstly, we would like to know if there is a correlation between Cases of Covid and the Value of Antidepressant Consumption through the years. We want to observe whether there is a peak in the consumption of these medications because of the covid crisis. Indeed, we make the hypothesis that due to this crisis, the proportion of people suffering from depression has increased, which would have had a significant impact on this consumption in 2020. 
 
-```{r}
+```{r, echo = FALSE, message = FALSE}
 Reg2 <- lm(tab_R2.1$Value~tab_R2.1$Cases...cumulative.total)
 summary(Reg2)
 
@@ -127,16 +127,18 @@ cor(tab_R2.1$Value, tab_R2.1$Deaths...cumulative.total)
 cor(tab_R2.1$Value, tab_R2.1$Cases...cumulative.total)
 ```
 
+We obtain a correlation of "0,0049" between antidepressant consumption and the number of deaths due to covid, and a correlation of "0,0453" between antidepressant consumption and Covid cases.  
 Unfortunately, we can see that there is no correlation between these variables, either with the number of cases or the number of deaths. 
 We can give several explanations to this surprising observation.
 The first one is the lack of data. Indeed, we were able to study the evolution of antidepressant consumption in only 8 countries. Perhaps with more countries, we would have seen a more significant difference. 
 
 The second and the most likely, is that we can see that the number of cases (and deaths) related to covid are huge numbers, going from 0 to several millions (to thousands). However, compared to these numbers, the value of antidepressants consumption is increasing well as we can see in the graph below but not as much as the number of cases. The ratio is not the same. It would be interesting, later on, to calculate the value of the increase in consumption, by years and see if we can observe a difference between years or not. 
 
-```{r}
+```{r, echo = FALSE, message = FALSE}
 ggplot(data = tab_R2.1) +
   geom_point(mapping = aes(x = TIME, y = Value, color = LOCATION))
 ```
+
 
 Given the results, we thought it would be more interesting to observe the rate of depression by country between 2000 and 2021. Here is the table of depression rate by selected countries in 2017 and 2021. This table was made because we could not find the data for the years 2018,2019 and 2020. So we wanted to compare these two dates to see if there was a significant difference. 
 ```{r}
