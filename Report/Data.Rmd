@@ -21,12 +21,12 @@ Our first resarch question was : Given the structure of the working environment 
 
 To see those effects, we have chosen the information of 6 independants variables ; 
 
-- the average work-time
-- the GPD
-- the unemployment rate 
-- the working age population
-- the salaries
-- the income inequalities 
+- the average work-time (Hours/worker)
+- the GPD (US dollars/capita)
+- the unemployment rate (% of labour force)
+- the working age population (% of population)
+- the average wages (US dollars)
+- the income inequalities (Gini coefficient, 0=complete equality and 1=complete inequality)
 
  --> Regression 1 : MentalHealth = x1*IncomeInequality + x2*wages + x3*Unemployment + x4*WorkingAgePopulation + x5*WorkTime + x6*GPD
 
@@ -113,12 +113,14 @@ tab2 <- full_join(tab1, Unemployment_m, by = c("LOCATION"))
 tab3 <- full_join(tab2, Working_Age_m, by = c("LOCATION"))
 tab4 <- full_join(tab3, Work_Time_m, by = c("LOCATION"))
 tab_R1 <- full_join(tab4, GDP_m, by = c("LOCATION"))
+```
+At this stage, we realized that for some of the countries we had selected (England, Hungary, Japan, Romania, Belgium, Brazil) the data was too insufficient to extract anything. And in order not to bias our results we chose to remove them from our analysis by using the "na.omit" function.
+
+````{r}
 tab_R1 <- na.omit(tab_R1)
 tab_R1 <- rename(tab_R1, c("Mental_Health"="Mean_1","Income_Inequality"="Mean_2","wages"="Mean_3","Unemployment"="Mean_4","Working_Age"="Mean_5","Work_Time"="Mean_6","GDP"="Mean_7"))
 ```
-Because of the large amount of data we used, some countries were left out due to lack of information, which made them insufficient to compare with others.
-
-As our linear relationship doesn't seem satisfying, we decide to flatten our values and obtain more meaningful results, we converted our table using the log function. 
+This table allowed us to extract a plot and to start answering our questions. Unfortunately we could not see any real trend between our variables. So we decided to transform our data with the log function in order to reduce the range of our distribution. 
 
 ````{r}
 tab_R1_log <- log(tab_R1[,2:8])
@@ -127,30 +129,7 @@ tab_Tot <- rename(tab_Tot, c("LOCATION"="tab_R1$LOCATION"))
 View(tab_Tot)
 plot(tab_Tot)
 ```
-
-"Anxiety" and "Depression" are two of the major determinants of our mental health variable. Our next objective is therefore to analyze whether one or the other would have a significant impact on the work environment.
-
-````{r}
-Anxiety <- read.csv(here::here("Data/Régression 1/share-with-anxiety-disorders.csv"))
-attach(Anxiety)
-Anxiety <- Anxiety[,-1]
-Anxiety <- rename(Anxiety ,c("LOCATION"="Code", "TIME"="Year"))
-Anxiety <-  Anxiety %>% filter(LOCATION %in% List.of.Countries)
-Anxiety <- Anxiety %>%
-  filter(TIME>1999, TIME< 2018)
-Anxiety_m <- aggregate(Anxiety[,3], list(Anxiety$LOCATION), mean)
-Anxiety_m <- rename(Anxiety_m,c("LOCATION"="Group.1","Mean_1"="x"))
-
-Depression <- read.csv(here::here("Data/Régression 1/dalys-depression-age-std-rate.csv"))
-attach(Depression)
-Depression <- Depression[,-1]
-Depression <- rename(Depression ,c("LOCATION"="Code", "TIME"="Year"))
-Depression <-  Depression %>% filter(LOCATION %in% List.of.Countries)
-Depression <- Depression %>%
-  filter(TIME>1999, TIME< 2018)
-Depression_m <- aggregate(Depression[,3], list(Depression$LOCATION), mean)
-Depression_m <- rename(Depression_m,c("LOCATION"="Group.1","Mean_1"="x"))
-```
+This plot allows us to see how the variables we implemented affect mental health in these different countries. In spite of the use of the log function which improved our curves a little, the significance of our results is still not obvious. We will do further analysis later on but, at first sight, it does not seem that the work environment has a flagrant impact on the mental health of the population.
 
 
 
