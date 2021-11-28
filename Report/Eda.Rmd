@@ -31,31 +31,37 @@ Now all our databases are clean and ready to be used.
 First, we will plot each of our variables according to its impact on mental health across countries to see more closely which ones have a significant impact and to analyze their distribution. 
 
 ```{r, echo = FALSE, message = FALSE}
+# Income Inequality
 GG0 <- ggplot(data = tab_Tot, mapping = aes(x = Income_Inequality, y = Mental_Health)) +
   geom_point(mapping = aes(color = LOCATION)) +
   geom_smooth()+
   geom_text(label = c(tab_Tot$LOCATION))
 
+# Wages
 GG1 <- ggplot(data = tab_Tot, mapping = aes(x = wages, y = Mental_Health)) +
   geom_point(mapping = aes(color = LOCATION)) +
   geom_smooth()+
   geom_text(label = c(tab_Tot$LOCATION))
 
+# Unemployment
 GG2 <- ggplot(data = tab_Tot, mapping = aes(x = Unemployment, y = Mental_Health)) +
   geom_point(mapping = aes(color = LOCATION)) +
   geom_smooth()+
   geom_text(label = c(tab_Tot$LOCATION))
 
+# Working Age
 GG3 <- ggplot(data = tab_Tot, mapping = aes(x = Working_Age, y = Mental_Health)) +
   geom_point(mapping = aes(color = LOCATION)) +
   geom_smooth()+
   geom_text(label = c(tab_Tot$LOCATION))
 
+# Work Time
 GG4 <- ggplot(data = tab_Tot, mapping = aes(x = Work_Time, y = Mental_Health)) +
   geom_point(mapping = aes(color = LOCATION)) +
   geom_smooth()+
   geom_text(label = c(tab_Tot$LOCATION))
 
+# GDP
 GG5 <- ggplot(data = tab_Tot, mapping = aes(x = GDP, y = Mental_Health)) +
   geom_point(mapping = aes(color = LOCATION)) +
   geom_smooth() +
