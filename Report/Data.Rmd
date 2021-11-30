@@ -407,7 +407,7 @@ We merge the two dataframes into one single table named tab_1. We join them by L
 
 ```{r}
 tab_1 <- merge(Public.spending.on.health_New_2, Mental_Health_2, by = c('LOCATION', 'Time'))
-Kabble(tab_1)
+kable(tab_1)
 ```
 
 We need the values as numeric and not as characters for the analysis
