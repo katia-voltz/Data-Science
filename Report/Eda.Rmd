@@ -94,7 +94,15 @@ We have ** for Income_Inequality and Working_Age and 0 for the others
 
 Firstly, we would like to know if there is a correlation between Cases of Covid and the Value of Antidepressant Consumption through the years. We want to observe whether there is a peak in the consumption of these medications because of the covid crisis. Indeed, we make the hypothesis that due to this crisis, the proportion of people suffering from depression has increased, which would have had a significant impact on this consumption in 2020. 
 
+
 ```{r, echo = FALSE, message = FALSE}
+ggplot(data = tab_R2.1) +
+  geom_point(mapping = aes(x = TIME, y = Consumption, color = LOCATION))
+```
+By creating a graph of antidepressant consumption over time, we can see that consumption is increasing. We will see if Covid Cases or Deaths are correlated to this increase.  
+
+```{r, echo = FALSE, message = FALSE}
+
 Reg2 <- lm(tab_R2.1$Consumption~tab_R2.1$Cases...cumulative.total)
 summary(Reg2)
 
@@ -144,7 +152,7 @@ kabble(comparaison)
 
 ```
 
-By creating a graph of antidepressant consumption over time, we can see that consumption is increasing. However, by calculating the growth in antidepressant use each year and averaging it over time, when compared to the growth rate between 2019 and 2020, we cannot conclude for all countries that covid has had a significant impact on antidepressant use. Indeed, the value of growth between 2019 and 2020 is above average for 5 out of 8 countries, so covid have had an impact for them.  (Portugal, Italy, Iceland, Hungary and Greece)
+We can see on the graph that consumption is increasing. However, by calculating the growth in antidepressant use each year and averaging it over time, when compared to the growth rate between 2019 and 2020, we cannot conclude for all countries that covid has had a significant impact on antidepressant use. Indeed, the value of growth between 2019 and 2020 is above average for 5 out of 8 countries, so covid have had an impact for them.  (Portugal, Italy, Iceland, Hungary and Greece)
 
 
 Given the results, we thought it would be more interesting to observe the rate of depression by country between 2000 and 2021. Here is the table of depression rate by selected countries in 2017 and 2021. This table was made because we could not find the data for the years 2018,2019 and 2020. So we wanted to compare these two dates to see if there was a significant difference. 
