@@ -11,5 +11,5 @@ body {
 text-align: justify}
 </style>
 
-```{r child = c('Intro.Rmd', 'Data.Rmd', 'Eda.Rmd')}
+```{r child = c('Intro.Rmd', 'Data.Rmd', 'Eda.Rmd', 'Analysis.Rmd', 'Conclusion.Rmd')}
 ```
