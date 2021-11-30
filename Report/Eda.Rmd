@@ -120,7 +120,14 @@ tab_R2.1 <- ddply(Antidepressant_consumption1, .(LOCATION),
                                     d
                                   }
 )
-aggregate(tab_R2.1[,4], list(tab_R2.1$LOCATION), mean, na.rm=T). --> #ATTENTION, a revoir j'ai fais moyenne de jusqu'en 2020 mais il faut faire que jusqu'en 2019
+
+tab_R2.1mean <- tab_R2.1 %>%
+  group_by(LOCATION,Growth) %>%
+  filter(TIME< 2020)
+view(tab_R2.1mean)
+
+tab_R2.1mean <-aggregate(tab_R2.1mean[,4], list(tab_R2.1mean$LOCATION), mean, na.rm=T)
+
 ```
 
 By creating a graph of antidepressant consumption over time, we can see that consumption is increasing. However, by calculating the growth in antidepressant use each year and averaging it over time, when compared to the growth rate between 2019 and 2020, we cannot conclude with certainty that covid has had a significant impact on antidepressant use. Indeed, the value of growth between 2019 and 2020 is above average for 5 out of 8 countries.  (Portugal, Italy, Iceland, Hungary and Greece)
