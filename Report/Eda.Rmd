@@ -124,9 +124,23 @@ tab_R2.1 <- ddply(Antidepressant_consumption1, .(LOCATION),
 tab_R2.1mean <- tab_R2.1 %>%
   group_by(LOCATION,Growth) %>%
   filter(TIME< 2020)
-view(tab_R2.1mean)
 
 tab_R2.1mean <-aggregate(tab_R2.1mean[,4], list(tab_R2.1mean$LOCATION), mean, na.rm=T)
+
+tab_R2.1mean2 <- tab_R2.1 %>%
+  group_by(LOCATION,Growth) %>%
+  filter(TIME == 2020)
+
+tab_R2.1mean2 <-tab_R2.1mean2[-3]
+
+
+tab_R2.1mean <-rename(tab_R2.1mean, "LOCATION" = "Group.1")
+
+
+comparaison <- merge(tab_R2.1mean,tab_R2.1mean2, by = c("LOCATION"))
+comparaison <- rename(comparaison, c("Growth_mean"="Growth.x","Growth2020"="Growth.y"))
+comparaison <- comparaison[-3]
+kabble(comparaison)
 
 ```
 
