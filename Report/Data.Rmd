@@ -349,7 +349,7 @@ Finally we have a new dataframe of the Current health expenditure (% of GDP) of 
 # Now we import the  share with mental and substance disorders data corresponding to a list of countries. Our goal is to compare the prevalence of mental health disorder in a population of a country with respect to the public investments on health.
 
 ```{r,echo = FALSE, message = FALSE}
-share.with.mental.and.substance.disorders <- read.csv2(here::here('Data/Régression 3/share-with-mental-and-substance-disorders copie.csv'))
+share.with.mental.and.substance.disorders <- read.csv2(here::here('Data/Regression3/share-with-mental-and-substance-disorders_copie.csv'))
 ```
 This dataset has already a good structure, the same as the others for our analysis. The value Y; *prevalence mental and substance use disorders.sex.both.age stanrdaized percent*, represents more clearly the proportion of the population in % sufuring from mental illness in a given country. 
 
