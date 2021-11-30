@@ -126,7 +126,7 @@ This table allowed us to extract a plot and to start answering our questions. Un
 tab_R1_log <- log(tab_R1[,2:8])
 tab_Tot <- cbind(tab_R1$LOCATION, tab_R1_log)
 tab_Tot <- rename(tab_Tot, c("LOCATION"="tab_R1$LOCATION"))
-
+kable(tab_Tot)
 plot(tab_Tot)
 ```
 This plot allows us to see how the variables we implemented affect mental health in these different countries. In spite of the use of the log function which improved our curves a little, the significance of our results is still not obvious. We will do further analysis later on but, at first sight, it does not seem that the work environment has a flagrant impact on the mental health of the population.
