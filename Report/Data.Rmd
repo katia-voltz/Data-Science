@@ -39,7 +39,7 @@ List.of.Countries = c('AUT','BEL','HRV', 'CZE', 'DNK', 'ENG', 'FIN', 'FRA', 'DEU
 Now that we have collected all our data, we need to sort, order and rename them in order to obtain only tables with three columns to have the value of our variable according to its country and its date. We took the data for each of these variables for a certain sample of countries and then chose to do an individual average over the years from 2000 to 2017.
 
 ```{r}
-Mental_Health <- read.csv(here::here("Data/Régression 1/Mental Health.csv"))
+Mental_Health <- read.csv(here::here("Data/Regression1/Mental_Health.csv"))
 attach(Mental_Health)
 Mental_Health <- Mental_Health[,-1]
 Mental_Health <- rename(Mental_Health,c("LOCATION"="Code", "TIME"="Year","ValueH"="Prevalence...Mental.and.substance.use.disorders...Sex..Both...Age..Age.standardized..Percent."))
@@ -49,7 +49,7 @@ Mental_Health <- Mental_Health %>%
 Mental_Health_m <- aggregate(Mental_Health[,3], list(Mental_Health$LOCATION), mean)
 Mental_Health_m <- rename(Mental_Health_m,c("LOCATION"="Group.1","Mean_1"="x"))
 
-Income_Inequality <- read.csv2(here::here("Data/Régression 1/Income inequality-1.csv"))
+Income_Inequality <- read.csv2(here::here("Data/Regression1/Income_inequality-1.csv"))
 attach(Income_Inequality)
 Income_Inequality <- Income_Inequality[,-c(2:5,8)]
 Income_Inequality$Value <- as.numeric(Income_Inequality$Value)
@@ -59,7 +59,7 @@ Income_Inequality <- Income_Inequality %>%
 Income_Inequality_m <- aggregate(Income_Inequality[,3], list(Income_Inequality$LOCATION), mean)
 Income_Inequality_m <- rename(Income_Inequality_m,c("LOCATION"="Group.1","Mean_2"="x"))
 
-wages <- read.csv(here::here("Data/Régression 1/Average wages.csv"))
+wages <- read.csv(here::here("Data/Regression1/Average_wages.csv"))
 attach(wages)
 wages <- wages[,-c(2:5,8)]
 wages <-  wages %>% filter(LOCATION %in% List.of.Countries)
@@ -68,7 +68,7 @@ wages <- wages %>%
 wages_m <- aggregate(wages[,3], list(wages$LOCATION), mean)
 wages_m <- rename(wages_m,c("LOCATION"="Group.1","Mean_3"="x"))
 
-Unemployment <- read.csv(here::here("Data/Régression 1/Unemployement Rate.csv"))
+Unemployment <- read.csv(here::here("Data/Regression1/Unemployement_Rate.csv"))
 attach(Unemployment)
 Unemployment <- Unemployment[,-c(2:5,8)]
 Unemployment <-  Unemployment %>% filter(LOCATION %in% List.of.Countries)
@@ -77,14 +77,14 @@ Unemployment <- Unemployment %>%
 Unemployment_m <- aggregate(Unemployment[,3], list(Unemployment$LOCATION), mean)
 Unemployment_m <- rename(Unemployment_m,c("LOCATION"="Group.1","Mean_4"="x"))
 
-Working_Age <- read.csv(here::here("Data/Régression 1/Working age population.csv"))
+Working_Age <- read.csv(here::here("Data/Regression1/Working_age_population.csv"))
 attach(Working_Age)
 Working_Age <- Working_Age[,-c(2:5,8)]
 Working_Age <-  Working_Age %>% filter(LOCATION %in% List.of.Countries)
 Working_Age_m <- aggregate(Working_Age[,3], list(Working_Age$LOCATION), mean)
 Working_Age_m <- rename(Working_Age_m,c("LOCATION"="Group.1","Mean_5"="x"))
 
-Work_Time <- read.csv(here::here("Data/Régression 1/Avg Work Time.csv"))
+Work_Time <- read.csv(here::here("Data/Regression_1/Avg Work_Time.csv"))
 attach(Work_Time)
 Work_Time <- Work_Time[,-c(2:5,8)]
 Work_Time <-  Work_Time %>% filter(LOCATION %in% List.of.Countries)
@@ -93,7 +93,7 @@ Work_Time <- Work_Time %>%
 Work_Time_m <- aggregate(Work_Time[,3], list(Work_Time$LOCATION), mean)
 Work_Time_m <- rename(Work_Time_m,c("LOCATION"="Group.1","Mean_6"="x"))
 
-GDP <- read.csv(here::here("Data/Régression 1/gdp-per-capita.csv"))
+GDP <- read.csv(here::here("Data/Regression1/gdp-per-capita.csv"))
 attach(GDP)
 GDP <- GDP[,-c(1,5)]
 GDP <- rename(GDP,c("LOCATION"="Code", "TIME"="Year"))
@@ -160,7 +160,7 @@ List.of.Countries2 = c('GRC', 'HUN', 'ISL', 'ITA', 'NOR','PRT', 'SWE', 'ESP')
 
 Now we can select and sort the data. 
 ```{r, echo = FALSE, message = FALSE}
-Antidepressant_consumption <- read.csv(here::here("Data/Régression 2/Conso Antidepressant.csv"))
+Antidepressant_consumption <- read.csv(here::here("Data/Regression2/Conso_Antidepressant.csv"))
 attach(Antidepressant_consumption)
 ```
 
@@ -176,7 +176,7 @@ Antidepressant_consumption1 <- Antidepressant_consumption %>% filter(LOCATION %i
 
 We had to add a column with the date 2020 for the covid data, because it was not present. 
 ```{r, echo = FALSE, message = FALSE}
-Number_Covid19_cases_deaths <- read.csv2(here::here("Data/Régression 2/Cases + Deaths Covid.csv"))
+Number_Covid19_cases_deaths <- read.csv2(here::here("Data/Regression2/Cases + Deaths_Covid.csv"))
 attach(Number_Covid19_cases_deaths)
 Number_Covid19_cases_deaths <- Number_Covid19_cases_deaths[,-c(1,2,4:7,9:12)]
 Number_Covid19_cases_deaths <- Number_Covid19_cases_deaths[-1,] 
@@ -204,7 +204,7 @@ Given the little information we had on antidepressant consumption in 2020 (only 
 We therefore wanted to analyze the evolution of the depression rate between 2010 and 2017, and if the covid had an impact on it in 2021. Our data comes from the sites : <https://ourworldindata.org/mental-health#depression> and <https://worldpopulationreview.com/>. 
 
 ```{r, echo = FALSE, message = FALSE}
-Depression_Rate2000_2017 <- read.csv(here::here("Data/Régression 2/Depression Rate 2000:2017.csv"))
+Depression_Rate2000_2017 <- read.csv(here::here("Data/Regression2/Depression_Rate_2000:2017.csv"))
 attach(Depression_Rate2000_2017)
 ```
 
@@ -224,7 +224,7 @@ Depression_Rate2017 <- Depression_Rate2017[-2]
 
 We did exactly the same thing for the depression rate in 2021. 
 ```{r, echo = FALSE, message = FALSE}
-Depression_Rate2021 <- read.csv2(here::here("Data/Régression 2/Depression Rate 2021.csv"))
+Depression_Rate2021 <- read.csv2(here::here("Data/Regression2/Depression_Rate_2021.csv"))
 attach(Depression_Rate2021)
 Depression_Rate2021 <- Depression_Rate2021[,-c(1,3:4)]
 Depression_Rate2021 <- rename(Depression_Rate2021,c("2021"="prevalence"))
@@ -252,7 +252,7 @@ We will now use the data of antidepressant according to the first selected count
 As above, we have kept only the columns we were interested in, i.e. value, date and country, and we have renamed some inadequate columns. 
 
 ```{r, echo = FALSE, message = FALSE}
-Teleworking <- read.csv2(here::here("Data/Régression 2/Teleworking.csv"))
+Teleworking <- read.csv2(here::here("Data/Regression2/Teleworking.csv"))
 attach(Teleworking)
 Teleworking <- Teleworking[,-c(1:8,12)]
 Teleworking <- rename(Teleworking,c("LOCATION"="geo","TIME"="TIME_PERIOD","Teleworking"="OBS_VALUE"))
@@ -262,7 +262,7 @@ Teleworking <-  Teleworking %>% filter(LOCATION %in% List.of.Countries)
 We also did this for the unemployment rate. 
 
 ```{r, echo = FALSE, message = FALSE}
-UnemploymentCovid <- read.csv(here::here("Data/Régression 2/Unemployement Rate.csv"))
+UnemploymentCovid <- read.csv(here::here("Data/Regression2/Unemployement_Rate.csv"))
 attach(UnemploymentCovid)
 UnemploymentCovid <- UnemploymentCovid[,-c(2:5,8)]
 UnemploymentCovid <- rename(UnemploymentCovid, c("Unemployment"="Value"))
@@ -302,7 +302,7 @@ Our intitial question of research is:
 Importation of the dataset Public.spending on health. This dataframe represent Current health expenditure (% of GDP) of each countries.
 
 ```{r, echo = FALSE, message = FALSE}
-Public.spending.on.health_New <- read.csv2(here::here('Data/Régression 3/Public.spending.on.health.csv'))
+Public.spending.on.health_New <- read.csv2(here::here('Data/Regression3/Public.spending.on.health.csv'))
 ```
                                        
 This dataet of Public sprending on health has a bad structure initialy.
