@@ -118,10 +118,6 @@ The first one is the lack of data. Indeed, we were able to study the evolution o
 The second and the most likely, is that we can see that the number of cases (and deaths) related to covid are huge numbers, going from 0 to several millions (to thousands). However, compared to these numbers, the value of antidepressants consumption is increasing well as we can see in the graph below but not as much as the number of cases. The ratio is not the same. It would be interesting, later on, to calculate the value of the increase in consumption, by years and see if we can observe a difference between years or not. 
 
 ```{r, echo = FALSE, message = FALSE}
-ggplot(data = tab_R2.1) +
-  geom_point(mapping = aes(x = TIME, y = Consumption, color = LOCATION))
-```
-```{r, echo = FALSE, message = FALSE}
 tab_R2.1 <- ddply(Antidepressant_consumption1, .(LOCATION),
                                   function (d) {
                                     d$Growth <- c(NA, tail(d$Consumption, -1) - head(d$Consumption, -1))
