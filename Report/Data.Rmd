@@ -84,7 +84,7 @@ Working_Age <-  Working_Age %>% filter(LOCATION %in% List.of.Countries)
 Working_Age_m <- aggregate(Working_Age[,3], list(Working_Age$LOCATION), mean)
 Working_Age_m <- rename(Working_Age_m,c("LOCATION"="Group.1","Mean_5"="x"))
 
-Work_Time <- read.csv(here::here("Data/Avg Work_Time.csv"))
+Work_Time <- read.csv(here::here("Data/Avg_Work_Time.csv"))
 attach(Work_Time)
 Work_Time <- Work_Time[,-c(2:5,8)]
 Work_Time <-  Work_Time %>% filter(LOCATION %in% List.of.Countries)
@@ -204,7 +204,7 @@ Given the little information we had on antidepressant consumption in 2020 (only 
 We therefore wanted to analyze the evolution of the depression rate between 2010 and 2017, and if the covid had an impact on it in 2021. Our data comes from the sites : <https://ourworldindata.org/mental-health#depression> and <https://worldpopulationreview.com/>. 
 
 ```{r, echo = FALSE, message = FALSE}
-Depression_Rate2000_2017 <- read.csv(here::here("Data/Regression2/Depression_Rate_2000:2017.csv"))
+Depression_Rate2000_2017 <- read.csv(here::here("Data/Depression_Rate2000_2017.csv"))
 attach(Depression_Rate2000_2017)
 ```
 
@@ -224,7 +224,7 @@ Depression_Rate2017 <- Depression_Rate2017[-2]
 
 We did exactly the same thing for the depression rate in 2021. 
 ```{r, echo = FALSE, message = FALSE}
-Depression_Rate2021 <- read.csv2(here::here("Data/Regression2/Depression_Rate_2021.csv"))
+Depression_Rate2021 <- read.csv2(here::here("Data/Depression_Rate2021.csv"))
 attach(Depression_Rate2021)
 Depression_Rate2021 <- Depression_Rate2021[,-c(1,3:4)]
 Depression_Rate2021 <- rename(Depression_Rate2021,c("2021"="prevalence"))
@@ -262,7 +262,7 @@ Teleworking <-  Teleworking %>% filter(LOCATION %in% List.of.Countries)
 We also did this for the unemployment rate. 
 
 ```{r, echo = FALSE, message = FALSE}
-UnemploymentCovid <- read.csv(here::here("Data/Regression2/Unemployement_Rate2.csv"))
+UnemploymentCovid <- read.csv(here::here("Data/Unemployement_Rate2.csv"))
 attach(UnemploymentCovid)
 UnemploymentCovid <- UnemploymentCovid[,-c(2:5,8)]
 UnemploymentCovid <- rename(UnemploymentCovid, c("Unemployment"="Value"))
@@ -349,7 +349,7 @@ Finally we have a new dataframe of the Current health expenditure (% of GDP) of 
 # Now we import the  share with mental and substance disorders data corresponding to a list of countries. Our goal is to compare the prevalence of mental health disorder in a population of a country with respect to the public investments on health.
 
 ```{r,echo = FALSE, message = FALSE}
-share.with.mental.and.substance.disorders <- read.csv2(here::here('Data/Regression3/share-with-mental-and-substance-disorders_copie.csv'))
+share.with.mental.and.substance.disorders <- read.csv2(here::here('Data/share-with-mental-and-substance-disorders_copie.csv'))
 ```
 This dataset has already a good structure, the same as the others for our analysis. The value Y; *prevalence mental and substance use disorders.sex.both.age stanrdaized percent*, represents more clearly the proportion of the population in % sufuring from mental illness in a given country. 
 
