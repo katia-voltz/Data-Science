@@ -23,6 +23,7 @@ We wanted to understand what factors might play a role in mental health and by l
 
 The objectives of this project are to make a link between the characteristics of the world of work and mental illness. Our research is based on an analysis of selected countries and the benefits of this approach are that those selected countries contain relevant data to this study, moreover, they are also structurally very different from each other, which is an advantage for our analysis. Therefore, the objective is to understand the reasons and the benefit would be to be able to deduce why the population of a country suffers so much from mental illness.
 
+We select the countries of the OCDE, the Organisation for Economic Co-operation and Development for our study. Indeed the countries that are part of this organisation are developed or developing. 
 
 ## Research questions
 
