@@ -95,7 +95,7 @@ We have ** for Income_Inequality and Working_Age and 0 for the others
 Firstly, we would like to know if there is a correlation between Cases of Covid and the Value of Antidepressant Consumption through the years. We want to observe whether there is a peak in the consumption of these medications because of the covid crisis. Indeed, we make the hypothesis that due to this crisis, the proportion of people suffering from depression has increased, which would have had a significant impact on this consumption in 2020. 
 
 ```{r, echo = FALSE, message = FALSE}
-Reg2 <- lm(tab_R2.1$Value~tab_R2.1$Cases...cumulative.total)
+Reg2 <- lm(tab_R2.1$Consumption~tab_R2.1$Cases...cumulative.total)
 summary(Reg2)
 
 cor(tab_R2.1$Consumption, tab_R2.1$Deaths...cumulative.total)
