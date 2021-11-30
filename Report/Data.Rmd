@@ -68,7 +68,7 @@ wages <- wages %>%
 wages_m <- aggregate(wages[,3], list(wages$LOCATION), mean)
 wages_m <- rename(wages_m,c("LOCATION"="Group.1","Mean_3"="x"))
 
-Unemployment <- read.csv(here::here("Data/Regression1/Unemployement_Rate.csv"))
+Unemployment <- read.csv(here::here("Data/Regression1/Unemployement_Rate1.csv"))
 attach(Unemployment)
 Unemployment <- Unemployment[,-c(2:5,8)]
 Unemployment <-  Unemployment %>% filter(LOCATION %in% List.of.Countries)
@@ -262,7 +262,7 @@ Teleworking <-  Teleworking %>% filter(LOCATION %in% List.of.Countries)
 We also did this for the unemployment rate. 
 
 ```{r, echo = FALSE, message = FALSE}
-UnemploymentCovid <- read.csv(here::here("Data/Regression2/Unemployement_Rate.csv"))
+UnemploymentCovid <- read.csv(here::here("Data/Regression2/Unemployement_Rate2.csv"))
 attach(UnemploymentCovid)
 UnemploymentCovid <- UnemploymentCovid[,-c(2:5,8)]
 UnemploymentCovid <- rename(UnemploymentCovid, c("Unemployment"="Value"))
