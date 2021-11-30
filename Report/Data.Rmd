@@ -283,7 +283,7 @@ tab_R2.2$Teleworking <- as.numeric(tab_R2.2$Teleworking)
 
 
 
-## Public spendings on health 
+### Public spendings on health 
 
 
 In this thrid analysis of datasets,  we are going to compare the prevalence of mental health disorder (% of the population (age-standardaized)) in a population of a country and the current health expenditure (% of GDP). Particularly focus on the countries of the OCDE that is The Organisation for Economic Co-operation and Development.
@@ -296,16 +296,17 @@ Our intitial question of research is:
 
 - Our influenced variable Y is therefore the prevalence of mental health disorder (% of the population)
 - our independant variable X is the current health expenditure (% of the GDP)
+- The access to medication is a difficulte variable to quantify, we did not find data corresponding to that. Therefore, our analysis is focus on these two variables X and Y. 
 
 
-Importation of the data set Public.spending on health. This dataframe represent Current health expenditure (% of GDP) of each countries.
+Importation of the dataset Public.spending on health. This dataframe represent Current health expenditure (% of GDP) of each countries.
 
 ```{r}
 Public.spending.on.health_New <- read.csv2(here::here('Data/Régression 3/Public.spending.on.health.csv'))
 ```
                                        
 This dataet of Public sprending on health has a bad structure initialy.
-We remove the 3 first rows and we rename the different variables in the columns to get the same structure as previusly.
+We remove the 3 first rows and we rename the different variables in the columns to get the same structure as previously.
 
 ```{r}
 Public.spending.on.health_New <- Public.spending.on.health_New[-c(1:3),]
@@ -315,7 +316,7 @@ Public.spending.on.health_New <- rename(Public.spending.on.health_New, c('Countr
 
 Then we need to remove the unecessary columns, with no data corresponding, which means the missing values from 1960 to 1999 and from 2019-2020. Deleting this columns will not biais our analysis because there are NA for every observations. We believe that the data about the public health expenditures started to be recorded in 2000.
 
-Also, the **Indicator Name**, **Indicator Code** are unrelevant data.
+Also, the **Indicator Name**, **Indicator Code** are unrelevant datas.
 
 ```{r}
 Public.spending.on.health_New <- Public.spending.on.health_New[,-c(5:44)]
@@ -327,7 +328,7 @@ Public.spending.on.health_New$X.62 <- NULL
 Public.spending.on.health_New$X.63 <- NULL
 ```
 
- Our initial dataframe as for variables names [(X.n),(X.n+1)...(X.m)], we need to transform them as Years. 
+ Our initial dataframe as for variables names [(X.n),(X.n+1)...(X.m)], we need to transform them as Years (2000,2001...2018). 
 
 ```{r}
 Public.spending.on.health_New <- rename(Public.spending.on.health_New, c('2000'='X.42','2001'='X.43','2002'='X.44','2003'='X.45', '2004'='X.46','2005'='X.47','2006'='X.48','2007'='X.49', '2008'='X.50','2009'='X.51','2010'='X.52', '2011'='X.53','2012'='X.54','2013'='X.55','2014'='X.56','2015'='X.57','2016'='X.58','2017'='X.59','2018'='X.60'))
