@@ -144,7 +144,7 @@ Regarding the Covid data, they come from the site : <https://coronavirus.jhu.edu
 Regression 2.1 : Antidepressant_consumption = a*Number_Covid-19_cases + b*Number_Covid-19_Death
 
 Once again, we have made a selection of several countries which are the following : Austria, Belgium, Croatia, Czechia, Denmark, Finland, France, Germany, Greece, Hungary, Iceland, Ireland, Italy, Romania, Portugal, Poland, Norway, Netherlands, Switzerland, Sweden, Spain, Australia, Brazil, Canada, China, Japan, New-Zealand and the USA. 
-Countries were selected based on available data, and this list includes the countries where there was the most data for our research.  
+
 
 ```{r, echo = FALSE, message = FALSE}
 List.of.Countries = c('AUT','BEL','HRV', 'CZE', 'DNK', 'ENG', 'FIN', 'FRA', 'DEU', 'GRC', 'HUN','ISL',
