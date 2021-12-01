@@ -171,7 +171,7 @@ It was also often necessary to rename the columns so that they all follow the sc
 Antidepressant_consumption <- Antidepressant_consumption[,-c(1:4,6:7,10:11)]
 Antidepressant_consumption <- rename(Antidepressant_consumption,c("LOCATION"="COU","TIME"="Year","Consumption"="Value"))
 Antidepressant_consumption <- Antidepressant_consumption %>% filter(LOCATION %in% List.of.Countries)
-Antidepressant_consumption1 <- Antidepressant_consumption %>% filter(LOCATION %in% List.of.Countries2)
+Antidepressant_consumption2 <- Antidepressant_consumption %>% filter(LOCATION %in% List.of.Countries2)
 ```
 
 We had to add a column with the date 2020 for the covid data, because it was not present. 
@@ -189,7 +189,7 @@ Number_Covid19_cases_deaths1 <-  Number_Covid19_cases_deaths %>% filter(LOCATION
 We can now form a table with all the data together, using the *full_join* function. 
 
 ```{r, echo = FALSE, message = FALSE}
-tab_R2.1 <- full_join(Number_Covid19_cases_deaths1, Antidepressant_consumption1, by= c("LOCATION","TIME"))
+tab_R2.1 <- full_join(Number_Covid19_cases_deaths1, Antidepressant_consumption2, by= c("LOCATION","TIME"))
 ```
 
 As the data of cases and death of the covid for the years before 2020 were displayed in NA, we assumed that its values were equal to 0. Also, the "cases" variable was output in character, we converted it to numeric.
