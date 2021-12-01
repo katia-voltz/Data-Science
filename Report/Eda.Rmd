@@ -97,9 +97,10 @@ Firstly, we would like to know if there is a correlation between Cases of Covid 
 
 ```{r, echo = FALSE, message = FALSE}
 ggplot(data = tab_R2.1) +
-  geom_point(mapping = aes(x = TIME, y = Consumption, color = LOCATION))
+  geom_point(mapping = aes(x = TIME, y = Consumption, color = LOCATION))+
+  geom_line(mapping = aes(x = TIME, y = Consumption, color = LOCATION))
 ```
-By creating a graph of antidepressant consumption over time, we can see that consumption is increasing. We will see if Covid Cases or Deaths are correlated to this increase.  
+By creating a graph of antidepressant consumption over time, we can see that, for our second selection of countries, antidepressant consumption is increasing. We will see if Covid Cases or Deaths are correlated to this increase.  
 
 ```{r, echo = FALSE, message = FALSE}
 
@@ -168,7 +169,7 @@ Depression_Rate2000_2017 <- ddply(Depression_Rate2000_2017, .(LOCATION),
       }
 )
 ```
-Here we have calculated the growth each year until 2017 of the depression rate by country. We can see that it is decreasing for most of the countries, which leads us to conclude that the trend is decreasing every year, even constant. We can also see it on the following graph: 
+Here we have calculated the growth each year until 2017 of the depression rate by country. We can indeed observe a growth over the years, but this increase is smaller and smaller over time.  We can also see it on the following graph: 
 
 ```{r, echo = FALSE, message = FALSE}
 ggplot(data = Depression_Rate2000_2017) +
