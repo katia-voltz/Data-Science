@@ -6,6 +6,8 @@ library(ggplot2)
 library(factoextra) 
 library(corrplot)
 library(openxlsx)
+library(lme4) 
+library(arm)
 install.packages('stargazer')
 install.packages('gghighlight')
 library(gghighlight)
@@ -155,10 +157,9 @@ corrplot(cor(tab_1[2:4]), method = 'number')
 
 #With this corrplot, we can identify the correlation values for each variables. The mental health value, as our dependant variable (Y) as for coefficient value 0.6 with the value spending on health. As predicted with the initial plot, Time does not impact the mental healht because the value is close to 0 and does not appear on the graph.
 
-# Visualization of prevalence of mental health (% of the population) against Time for OCDE countries from 2000 to 2017 
 
-# Graph.1
-Mental_Health_2$Mental_health_Value <- as.numeric(Mental_Health_2$Mental_health_Value)
+
+# Graph.1: Visualization of prevalence of mental health (% of the population) against Time for OCDE countries from 2000 to 2017.
 
 Graph_Mental_Health <- Mental_Health_2 %>% ggplot(aes(
   x = Time,
@@ -200,14 +201,70 @@ ggplotly(Graph_public.spending.on.health)
 # We can see that the prevalence of mental health disorder does not rise through time. Indeed the variation appears small over time and the correlation negative.
 
 
+### Statistical analysis of Mental health value evolution and the time:
+
+Regression.1.Time <- lm(tab_1$Mental_health_Value ~ tab_1$Time)
+
+summary(Regression.1.Time)
+
+# As visualy analysed, the time does not impact our Y. The coefficient is not significant, the variance of the model is explained at 0.03% which is extremely low. The p-value is also high.
+# We conclude that this first model is bad. 
 
 
-# Now we want to compare the two variable x=Value_Spending.on.health., y=Mental_health_Value In order to see if the expenditure of a country from the OCDE impacts the prevalence of mental illness in its population.
+#### Comparison of the 2 variables ####
+
+# Now we want to compare the two variables: x = Value_Spending.on.health., y = Mental_health_Value In order to see if the expenditure on health of a country from the OCDE impacts the prevalence of mental illness in its population.
 
 Graph.region <- ggplot(tab_1, aes(x=Value_Spending.on.health, y=Mental_health_Value, colour=Region, group=Entity)) + geom_point()
 ggplotly(Graph.region)
 
-# We observe that the two variables are positively correlated. However it looks paradoxical, because 
+# We observe that the two variables are positively correlated. However it looks paradoxical, because the more a country invests in public health, the more there is prevalence of mental illness.
+
+# Therefore, we decide to observe the opposite. Is a country suffering from a big proportion of mental illness, a country that invests the most in public health?
+
+# We decide to reverse the research question for this analysis because it is more logical to put  x = Mental_health_Value , y = Value_Spending.on.health.
+
+
+Graph.region <- ggplot(tab_1, aes( x = Mental_health_Value , y = Value_Spending.on.health, colour=Region, group=Entity)) +
+  geom_point()
+ggplotly(Graph.region)
+
+# The fact that we allocate the colors to the region of the country is to shed the light on the distributions of the values according to the location in the world.
+
+# As a result, the values are distributed in a similar way according to the region of the country.
+
+
+
+###################
+
+
+# Analyse...
+
+ggplot(tab_1, aes(x=Mental_health_Value, y=Value_Spending.on.health)) + geom_point() + facet_wrap(~Region)
+
+
+tab_1$Mental_health_Value2 <- scale(tab_1$Mental_health_Value, center=TRUE, scale=TRUE) 
+rd.int <- lmer(Value_Spending.on.health ~ Mental_health_Value2 + (1|Region), data=tab_1) 
+summary(rd.int)
+
+
+# We want to add the regression to these graphs.
+
+
+rd.int.sl <- lmer(Value_Spending.on.health ~ Mental_health_Value2 + (1 + Mental_health_Value2|Region), data = tab_1)
+                  
+summary(rd.int.sl)
+
+
+ggplot(tab_1, aes(x = Mental_health_Value, y = Value_Spending.on.health)) +
+  facet_wrap(~Region, nrow=2) +
+  geom_point(alpha = 0.5) +
+  geom_line(data = cbind(tab_1, pred = predict(rd.int.sl)), aes(y = pred), size = 1)
+
+
+# As specified and checked by these plots, the slopes are now varying across observations of regions and so are the respective intercepts. 
+#That is really the value added of this model, in that we want to control for the fact that we have different populations in order to determine the “true” relationship between the mental health proportion and the Spending on health
+
 
 
 
@@ -444,23 +501,29 @@ fviz_cluster(km.res, data=data_test_std, repel=TRUE)
 
 
 
+
+
+
+
+
+
 ############################## ANALYSE ###################################
 
 
-
+##### We want to create a map of the world to see the data of the prevalence of mental health disorder in the countries selected. In our case now, we focus on the Europe.
+share.with.mental.and.substance.disorders <- read.csv2('/Users/katiavoltz/Desktop/share-with-mental-and-substance-disorders copie.csv')
 
 mental.health <- share.with.mental.and.substance.disorders
-view(mental.health)
 
 Entities <- c("Austria"," Belgium", "Croatia", "Czechia", "Denmark", "Finland", "France", "Germany", "Greece", "Hungary", "Iceland", "Ireland", "Italy", "Romania", "Portugal","Poland", "Norway", "Netherlands", "Switzerland", "Sweden", "Spain",'United States')
 
 mental.health <- mental.health %>%
   filter(Entity %in% Entities, )
 
-
+# Rename our mental variable.
 mental.health <- rename(mental.health, 'mental_health_Value' = 'Prevalence...Mental.and.substance.use.disorders...Sex..Both...Age..Age.standardized..Percent.')
 
-
+# We sort our data set.
 mental.health$mental_health_Value <- as.numeric(mental.health$mental_health_Value)
 
 mental.health <- mental.health[-2]
@@ -469,44 +532,47 @@ mental.health.new <- mental.health %>%
   group_by(Entity,mental_health_Value) %>%
   filter(Year>1999)
 
-
-view(mental.health.new)
-
+# We aggregate our data. 
 mean.mental.health <- aggregate(. ~ Entity, mental.health.new[-2], mean)
 
-view(mean.mental.health)
-
-
+# importation of the data map.
 mapdata <- map_data('world')
-view(mapdata)
 
+# Rename the region by Entity, like in our initial mental health data set.
 mapdata <- rename(mapdata,'Entity'='region')
-view(mapdata)
 
-
+# After we join two data frames with a 'left_join' function.
 mapdata2 <- left_join(mapdata, mental.health , by='Entity')
-view(mapdata2)
 
+# We remove the NA
 mapdata2 <- mapdata2 %>%
   filter(!is.na(mapdata2$mental_health_Value))
 
+# Filter by Entity selection
 mapdata2 <- mapdata2 %>%
   filter(Entity%in% Entities)
-view(mapdata2)
 
-map1 <- ggplot(mapdata2, aes(x=long, y=lat, group=group))+
+# Our first map: representation of the prevalence of mental health ddisorder in pourcentage in Europe. The darker it is the lower the value is.
+map.1 <- ggplot(mapdata2, aes(x=long, y=lat, group=group))+
   geom_polygon(aes(fill=mental_health_Value), color='black')
 
-map1
+
+map.1
+
+ggplotly(map.1)
+
+
 
 ######### TEST MAP #############
 
+
+# we reproduce the same process but with the values of the world
 
 mental.health <- share.with.mental.and.substance.disorders
 
 mental.health <- rename(mental.health, 'mental_health_Value' = 'Prevalence...Mental.and.substance.use.disorders...Sex..Both...Age..Age.standardized..Percent.')
 
-
+# sorting
 mental.health$mental_health_Value <- as.numeric(mental.health$mental_health_Value)
 
 mental.health <- mental.health[-2]
@@ -521,21 +587,69 @@ mapdata <- map_data('world')
 
 mapdata <- rename(mapdata,'Entity'='region')
 
-mental.health <- rename(mental.health, mental.health$Entity,'United States' = 'USA')
-
+# Join
 mapdata2 <- left_join(mapdata, mental.health , by='Entity')
 
-map1 <- ggplot(mapdata2, aes(x=long, y=lat, group=group))+
+# Representation of the world
+map.2 <- ggplot(mapdata2, aes(x=long, y=lat, group=group))+
   geom_polygon(aes(fill=mental_health_Value), color='black')
 
-map1
+map.2
 
 
+############ Map of the current spending in health (% of PIB) by countries ###############
+
+Public.spending.on.health <- read.csv2('/Users/katiavoltz/Desktop/Public.spending.on.health.csv')
 
 
+view(Public.spending.on.health)
+
+#We remove the 3 first rows and we rename the different variables in the columns.
+
+Public.spending.on.health_New_2 <- Public.spending.on.health[-c(1:4),]
+
+Public.spending.on.health_New_2 <- rename(Public.spending.on.health_New_2, c('Entity' = 'Data.Source', 'LOCATION' = 'World.Development.Indicators'))
+
+view(Public.spending.on.health_New_2)
+# We remove the unecessary columns, with no data corresponding.
+
+Public.spending.on.health_New_2<- Public.spending.on.health_New_2[,-c(5:44)]
+
+# We remove the unecessary columns with no relevant data.
+
+Public.spending.on.health_New_2$X.61 <- NULL
+Public.spending.on.health_New_2$Country <- NULL
+Public.spending.on.health_New_2$X <- NULL
+Public.spending.on.health_New_2$X.1 <- NULL
+Public.spending.on.health_New_2$X.62 <- NULL
+Public.spending.on.health_New_2$X.63 <- NULL
+
+Public.spending.on.health_New_2<- Public.spending.on.health_New_2[-2]
+
+# Our initial dataframe as for variables [(X.n),(X.n+1)...(X.m)], we need to transform them as Years. 
+
+Public.spending.on.health_New_2 <- rename(Public.spending.on.health_New_2, c('2000'='X.42','2001'='X.43','2002'='X.44','2003'='X.45', '2004'='X.46','2005'='X.47','2006'='X.48','2007'='X.49', '2008'='X.50','2009'='X.51','2010'='X.52', '2011'='X.53','2012'='X.54','2013'='X.55','2014'='X.56','2015'='X.57','2016'='X.58','2017'='X.59','2018'='X.60'))
+
+view(Public.spending.on.health_New_2)
+
+Public.spending.on.health_New_2 <- Public.spending.on.health_New_2 %>% 
+  pivot_longer(cols = c('2000','2001','2002','2003','2004','2005','2006','2007','2008','2009','2010','2011','2012','2013','2014','2015','2016','2017','2018'),names_to = 'Time', values_to = 'Value_Spending.on.health')
+
+# Finally we have a new dataframe of the Current health expenditure (% of GDP) of each countries attributed to the Time (from 2000 to 2018)
+view(Public.spending.on.health_New_2)
+
+Public.spending.on.health_New_2$Value_Spending.on.health <- as.numeric(Public.spending.on.health_New_2$Value_Spending.on.health)
 
 
+########## Mapping public spendings on health ###############
 
+mapdata3 <- map_data('world')
 
+mapdata3 <- rename(mapdata3,'Entity'='region')
 
+mapdata3 <- left_join(mapdata3, Public.spending.on.health_New_2 , by='Entity')
 
+map.3 <- ggplot(mapdata3, aes(x=long, y=lat, group=group))+
+  geom_polygon(aes(fill=Value_Spending.on.health), color='black') 
+
+map.3
