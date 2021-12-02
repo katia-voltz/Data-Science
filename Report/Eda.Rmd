@@ -180,32 +180,30 @@ Then, when we compare the average growth in consumption per year, to the growth 
 This shows that the consumption of antidepressants has increased in 2020, which could be explained by the covid crisis. 
 
 
-Due to lack of data on antidepressant use in 2020, we thought it would be more interesting to observe the rate of depression by country between 2000 and 2021. Here is the table of depression rate by selected countries in 2017 and 2021. This table was made because we could not find the data for the years 2018,2019 and 2020. So we wanted to compare these two dates to see if there was a significant difference. 
+Due to lack of data on antidepressant use in 2020, we thought it would be more interesting to observe the rate of depression by country between 2000 and 2021. Here is the table of depression rate by selected countries between 2000 and 2021. It is important to notice that we could not find the data for the years 2018,2019 and 2020. So we have no data available for these years. 
+
+
 
 ```{r, echo = FALSE, message = FALSE}
-ggplot(data = Depression2017_2021) +
-  geom_point(mapping = aes(x = TIME , y = Rate, group = LOCATION, color = LOCATION))+
-  geom_line(mapping = aes(x = TIME , y = Rate, group = LOCATION, color = LOCATION))
+
+Depression_Rate2000_2021 <- ddply(Depression_Rate2000_2021, .(LOCATION),
+                                  function (d) {
+                                    d$Growth <- c(NA, tail(d$Rate, -1) - head(d$Rate, -1))
+                                    d
+                                    }
+                                  )
 ```
-We can see well the increase between 2017 and 2021 for all countries. 
+Here we have calculated the growth each year until 2017, and between 2017 and 2021 of the depression rate by country. We can indeed observe a growth over the years, but this increase is smaller and smaller over time.  We can also see it on the following graph: 
 
 ```{r, echo = FALSE, message = FALSE}
-Depression_Rate2000_2017 <- ddply(Depression_Rate2000_2017, .(LOCATION),
-      function (d) {
-        d$Growth <- c(NA, tail(d$Rate, -1) - head(d$Rate, -1))
-        d
-      }
-)
-```
-Here we have calculated the growth each year until 2017 of the depression rate by country. We can indeed observe a growth over the years, but this increase is smaller and smaller over time.  We can also see it on the following graph: 
-
-```{r, echo = FALSE, message = FALSE}
-ggplot(data = Depression_Rate2000_2017) +
-  geom_point(mapping = aes(x = TIME , y = Rate, color = LOCATION))
+ggplot(data = Depression_Rate2000_2021)+
+  geom_point(mapping = aes(x = TIME , y = Rate, color = LOCATION))+
+  geom_line(mapping = aes(x = TIME , y = Rate, color = LOCATION))+
+  theme_bw()
  ```
   
-When we compare the depression rate in 2021 to the growth of previous years, we notice that there has been a strong increase in the depression rate in 2021.
-Now a table with all the data between 2000 and 2021 must be done to see if Covid could have had an impact on this growth. 
+When we compare the depression rate in 2021 to the growth of previous years, we notice that there has been a strong increase in the depression rate in 2021. We can see well the increase between 2017 and 2021 for all countries. 
+
 
 
 
