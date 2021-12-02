@@ -174,10 +174,13 @@ kabble(comparaison)
 
 ```
 
-We can see on the graph that consumption is increasing. However, by calculating the growth in antidepressant use each year and averaging it over time, when compared to the growth rate between 2019 and 2020, we cannot conclude for all countries that covid has had a significant impact on antidepressant use. Indeed, the value of growth between 2019 and 2020 is above average for 5 out of 8 countries, so covid have had an impact for them.  (Portugal, Italy, Iceland, Hungary and Greece)
+Moreover, when we calculate the average consumption from 2000 to 2019 and compare it to the consumption in 2020 we notice that the latter is for all countries higher than the average of the previous years. 
+Then, when we compare the average growth in consumption per year, to the growth between 2019 and 2020, we see that the latter is higher than the average for 5 of the 8 countries analyzed (Portugal, Italy, Iceland, Hungary and Greece). 
+
+This shows that the consumption of antidepressants has increased in 2020, which could be explained by the covid crisis. 
 
 
-Given the results, we thought it would be more interesting to observe the rate of depression by country between 2000 and 2021. Here is the table of depression rate by selected countries in 2017 and 2021. This table was made because we could not find the data for the years 2018,2019 and 2020. So we wanted to compare these two dates to see if there was a significant difference. 
+Due to lack of data on antidepressant use in 2020, we thought it would be more interesting to observe the rate of depression by country between 2000 and 2021. Here is the table of depression rate by selected countries in 2017 and 2021. This table was made because we could not find the data for the years 2018,2019 and 2020. So we wanted to compare these two dates to see if there was a significant difference. 
 
 ```{r, echo = FALSE, message = FALSE}
 ggplot(data = Depression2017_2021) +
