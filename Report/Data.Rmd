@@ -178,12 +178,15 @@ We had to add a column with the date 2020 for the covid data, because it was not
 ```{r, echo = FALSE, message = FALSE}
 Number_Covid19_cases_deaths <- read.csv2(here::here("Data/CasesDeathsCovid.csv"))
 attach(Number_Covid19_cases_deaths)
-Number_Covid19_cases_deaths <- Number_Covid19_cases_deaths[,-c(1,2,4:7,9:12)]
 Number_Covid19_cases_deaths <- Number_Covid19_cases_deaths[-1,] 
-Number_Covid19_cases_deaths <- rename(Number_Covid19_cases_deaths, c("LOCATION"="Code","Cases"="Cases...cumulative.total","Deaths"="Deaths...cumulative.total"))
+Number_Covid19_cases_deaths <- Number_Covid19_cases_deaths[,-c(1:3,5:8,10:12)]
+Number_Covid19_cases_deaths <- rename(Number_Covid19_cases_deaths, c("LOCATION"="Code","Cases"="Cases...cumulative.total.per.100000.population","Deaths"="Deaths...cumulative.total.per.100000.population"))
 Number_Covid19_cases_deaths <- Number_Covid19_cases_deaths %>% add_column(TIME = 2020, .after = "LOCATION") 
+Number_Covid19_cases_deaths$"Cases" <- as.numeric(Number_Covid19_cases_deaths$"Cases")
+Number_Covid19_cases_deaths$"Deaths" <- as.numeric(Number_Covid19_cases_deaths$"Deaths")
 Number_Covid19_cases_deaths <-  Number_Covid19_cases_deaths %>% filter(LOCATION %in% List.of.Countries)
 Number_Covid19_cases_deaths2 <-  Number_Covid19_cases_deaths %>% filter(LOCATION %in% List.of.Countries2)
+
 ```
 
 We can now form a table with all the data together, using the *full_join* function. 
