@@ -6,6 +6,21 @@ library(ggplot2)
 library(factoextra) 
 library(corrplot)
 library(openxlsx)
+install.packages('stargazer')
+install.packages('gghighlight')
+library(gghighlight)
+install.packages("plotly")
+library(plotly)
+options(digits = 5)
+
+############### DATA ##################################
+
+# List.of.countries
+
+tab.of.countries <- read.csv2('/Users/katiavoltz/Desktop/Entities_LOCATION_Region.csv')
+
+
+# 1: Cleaning Public spending on health
 
 # Importation of the data set Public.spending on health. This dataframe represent Current health expenditure (% of GDP) of each countries.
 
@@ -49,6 +64,7 @@ Public.spending.on.health_New <- Public.spending.on.health_New %>%
 
 ##########################################################################################
 
+# 2: Cleaning Mental Health
 
 ### Now we import the  share with mental and substance disorders data corresponding to a list of countries. 
 # Our goal is to compare the prevalence of mental health disorder in a population of a country with respect to the public investments on health.
@@ -96,11 +112,121 @@ Public.spending.on.health_New_2 <- Public.spending.on.health_New %>%
 # We merge the two dataframes into one single table named tab_1. We join them by LOCATION and Time.
 
 tab_1 <- merge(Public.spending.on.health_New_2, Mental_Health_2, by = c('LOCATION', 'Time'))
+tab_1 <- merge(tab_1, tab.of.countries, by=('LOCATION'))
+
 
 #We need the values as numeric and not as characters for the analysis
 
 tab_1$Value_Spending.on.health <- as.numeric(tab_1$Value_Spending.on.health)
 tab_1$Mental_health_Value <- as.numeric(tab_1$Mental_health_Value)
+tab_1$Time <- as.numeric(tab_1$Time)
+tab_1$LOCATION <- as.factor(tab_1$LOCATION)
+tab_1$Region <- as.factor(tab_1$Region)
+
+Mental_Health_2 <-  merge(Mental_Health_2,tab.of.countries, by='LOCATION')
+Public.spending.on.health_New_2 <- merge(Public.spending.on.health_New_2, tab.of.countries, by='LOCATION')
+
+Public.spending.on.health_New_2$Value_Spending.on.health <- as.numeric(Public.spending.on.health_New_2$Value_Spending.on.health)
+Mental_Health_2$Mental_health_Value <- as.numeric(Mental_Health_2$Mental_health_Value)
+
+
+
+
+
+
+###### Exploratory Data Analysis ############
+
+
+
+########## EDA ################################################################
+
+
+#### Primary analysis
+
+
+### Graphical observations and regression interpretation. 
+
+plot(tab_1)
+
+# In this general plot, we can assume that time is impacting the value spending in health. However, the impact on the mental health value seems close to zero.
+# Mental health and spendings on health looks positively correlated. 
+
+corrplot(cor(tab_1[2:4]), method = 'number')
+
+#With this corrplot, we can identify the correlation values for each variables. The mental health value, as our dependant variable (Y) as for coefficient value 0.6 with the value spending on health. As predicted with the initial plot, Time does not impact the mental healht because the value is close to 0 and does not appear on the graph.
+
+# Visualization of prevalence of mental health (% of the population) against Time for OCDE countries from 2000 to 2017 
+
+# Graph.1
+Mental_Health_2$Mental_health_Value <- as.numeric(Mental_Health_2$Mental_health_Value)
+
+Graph_Mental_Health <- Mental_Health_2 %>% ggplot(aes(
+  x = Time,
+  y = Mental_health_Value,
+  group = Entity,
+  color = Region
+)) +
+  geom_path() +
+  theme(axis.text.x = element_text(
+    angle = 360,
+    hjust = 1,
+    vjust = 0.5
+  )) +
+  ggtitle("Evolution of the prevalence of mental health disorder in OCDE countries from 2000 to 2017") +
+  xlab("Time") + ylab("Prevalence of mental health value in %") 
+ggplotly(Graph_Mental_Health)
+
+# Visually, the Time does not affect the value of our dependent variable.
+
+#Graph.2 : Visualization of the spendings in health (% of GDP) between the OCDE countries from 2000 to 2018
+Public.spending.on.health_New_2$Value_Spending.on.health <- as.numeric(Public.spending.on.health_New_2$Value_Spending.on.health)
+
+Graph_public.spending.on.health <- Public.spending.on.health_New_2 %>% ggplot(aes(
+  x = Time,
+  y = Value_Spending.on.health,
+  group = Entity,
+  color = Region
+)) +
+  geom_path() +
+  theme(axis.text.x = element_text(
+    angle = 360,
+    hjust = 1,
+    vjust = 0.5
+  )) +
+  ggtitle("Evolution of the public spending on health in OCDE countries from 2000 to 2018") +
+  xlab("Time") + ylab("Value spending on health in % of GDP") 
+ggplotly(Graph_public.spending.on.health)
+
+# We can see that the prevalence of mental health disorder does not rise through time. Indeed the variation appears small over time and the correlation negative.
+
+
+
+
+# Now we want to compare the two variable x=Value_Spending.on.health., y=Mental_health_Value In order to see if the expenditure of a country from the OCDE impacts the prevalence of mental illness in its population.
+
+Graph.region <- ggplot(tab_1, aes(x=Value_Spending.on.health, y=Mental_health_Value, colour=Region, group=Entity)) + geom_point()
+ggplotly(Graph.region)
+
+# We observe that the two variables are positively correlated. However it looks paradoxical, because 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
