@@ -137,9 +137,14 @@ This plot allows us to see how the variables we implemented affect mental health
 
 ## Covid
 
-For our second theme around Covid, we want to analyze if Covid had an impact on antidepressant 
-consumption in selected countries around the world. We found data on antidepressant consumption on the website : <https://www.oecd.org>, in the Pharmaceutical Market Section. 
-Regarding the Covid data, they come from the site : <https://coronavirus.jhu.edu>. 
+For our second theme around Covid, we want to analyze if Covid-19 has had an impact on the population's mental-health ? 
+We will consider several variables, in a selection of countries around the world: 
+- antidepressant consumption (defined daily dosage per 1 000 inhabitants per day),
+- unemployment rate (% of labour force),
+- teleworking (Employed persons working from home as a % of the total employment). 
+
+We found data on antidepressant consumption on the website : <https://www.oecd.org>, in the Pharmaceutical Market Section. 
+Regarding the Covid data, they come from the site : <https://coronavirus.jhu.edu>. The "cases" and "deaths" variables we will use are cases and deaths - cumulative total per 100000 population.
 
 Regression 2.1 : Antidepressant_consumption = a*Number_Covid-19_cases + b*Number_Covid-19_Death
 
@@ -174,7 +179,7 @@ Antidepressant_consumption <- Antidepressant_consumption %>% filter(LOCATION %in
 Antidepressant_consumption2 <- Antidepressant_consumption %>% filter(LOCATION %in% List.of.Countries2)
 ```
 
-We had to add a column with the date 2020 for the covid data, because it was not present. 
+We had to add a column with the date 2020 for the covid data, because it was not present, and rename columns in a simpler way.
 ```{r, echo = FALSE, message = FALSE}
 Number_Covid19_cases_deaths <- read.csv2(here::here("Data/CasesDeathsCovid.csv"))
 attach(Number_Covid19_cases_deaths)
@@ -204,7 +209,8 @@ tab_R2.1$Cases <- as.numeric(tab_R2.1$Cases)
 Our table on the use of antidepressants and the number of cases and deaths of covid is now ready to be used. 
 
 Given the little information we had on antidepressant consumption in 2020 (only for 8 countries) we decided to observe the rate of depression and finally include it in our research question.
-We therefore wanted to analyze the evolution of the depression rate between 2010 and 2017, and if the covid had an impact on it in 2021. Our data comes from the sites : <https://ourworldindata.org/mental-health#depression> and <https://worldpopulationreview.com/>. 
+We therefore wanted to analyze the evolution of the depression rate (prevalence of depressive disorders in % of the population) between 2010 and 2017, and if the covid had an impact on it in 2021. 
+Our data comes from the sites : <https://ourworldindata.org/mental-health#depression> and <https://worldpopulationreview.com/>. 
 
 ```{r, echo = FALSE, message = FALSE}
 Depression_Rate2000_2017 <- read.csv(here::here("Data/Depression_Rate2000_2017.csv"))
