@@ -186,6 +186,10 @@ Due to lack of data on antidepressant use in 2020, we thought it would be more i
 
 ```{r, echo = FALSE, message = FALSE}
 
+Depression_Rate2000_2021 <- Depression_Rate2000_2017 %>%
+  rbind(Depression_Rate2021)%>%
+  arrange(LOCATION,TIME)
+
 Depression_Rate2000_2021 <- ddply(Depression_Rate2000_2021, .(LOCATION),
                                   function (d) {
                                     d$Growth <- c(NA, tail(d$Rate, -1) - head(d$Rate, -1))
