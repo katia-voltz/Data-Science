@@ -655,3 +655,49 @@ map.3 <- ggplot(mapdata3, aes(x=long, y=lat, group=group))+
   geom_polygon(aes(fill=Value_Spending.on.health), color='black') 
 
 map.3
+
+
+
+########### Prendre toutes les valeurs de l'OCDE et les mettre dans une map du monde
+
+##### We want to create a map of the world to see the data of the prevalence of mental health disorder in the countries selected. In our case now, we focus on the Europe.
+share.with.mental.and.substance.disorders <- read.csv2('/Users/katiavoltz/Desktop/share-with-mental-and-substance-disorders.csv')
+tab.of.countries <- read.csv2('/Users/katiavoltz/Desktop/Entities_LOCATION_Region.csv')
+mental.health <- share.with.mental.and.substance.disorders
+
+
+mental.health <- mental.health %>%
+  filter(Entity %in% tab.of.countries$Entity )
+
+# Rename our mental variable.
+mental.health <- rename(mental.health, 'mental_health_Value' = 'Prevalence...Mental.and.substance.use.disorders...Sex..Both...Age..Age.standardized..Percent.')
+
+# We sort our data set.
+mental.health$mental_health_Value <- as.numeric(mental.health$mental_health_Value)
+
+mental.health <- mental.health[-2]
+
+mental.health.new <- mental.health %>%
+  group_by(Entity,mental_health_Value) %>%
+  filter(Year>1999)
+
+# importation of the data map.
+mapdata <- map_data('world')
+
+# Rename the region by Entity, like in our initial mental health data set.
+mapdata <- rename(mapdata,'Entity'='region')
+
+# After we join two data frames with a 'left_join' function.
+mapdata2 <- left_join(mapdata, mental.health , by='Entity')
+
+# Our first map: representation of the prevalence of mental health ddisorder in pourcentage in Europe. The darker it is the lower the value is.
+map.1 <- ggplot(mapdata2, aes(x=long, y=lat, group=group, labels=Entity))+
+  geom_polygon(aes(fill=mental_health_Value))+
+  scale_fill_gradient(low = '#56B1F7', high = '#132B43')
+
+
+ggplotly(map.1)
+
+
+
+
