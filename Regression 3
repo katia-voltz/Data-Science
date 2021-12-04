@@ -7,11 +7,11 @@ library(factoextra)
 library(corrplot)
 library(openxlsx)
 library(lme4) 
-library(arm)
-install.packages('stargazer')
-install.packages('gghighlight')
+#library(arm)
+#install.packages('stargazer')
+#install.packages('gghighlight')
 library(gghighlight)
-install.packages("plotly")
+#install.packages("plotly")
 library(plotly)
 options(digits = 5)
 
@@ -131,7 +131,9 @@ Public.spending.on.health_New_2 <- merge(Public.spending.on.health_New_2, tab.of
 Public.spending.on.health_New_2$Value_Spending.on.health <- as.numeric(Public.spending.on.health_New_2$Value_Spending.on.health)
 Mental_Health_2$Mental_health_Value <- as.numeric(Mental_Health_2$Mental_health_Value)
 
+tab_1 <- tab_1[c(1,5,6,2,3,4)]
 
+#Now our final table, tab_1, is arranged in the structure that will be used to make the analysis.
 
 
 
