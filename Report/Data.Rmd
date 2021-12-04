@@ -302,13 +302,23 @@ Our intitial question of research is:
 - The access to medication is a difficulte variable to quantify, we did not find data corresponding to that. Therefore, our analysis is focus on these two variables X and Y. 
 
 
+# List.of.countries
+
+```{r}
+tab.of.countries <- read.csv2(here::here('Data/Entities_LOCATION_Region.csv')
+kable(tab.of.countries)
+```
+This table corresponds to the countries that we selected in our analysis. They are part of the OCDE.
+
+# 1: Cleaning Public spending on health
+
 Importation of the dataset Public.spending on health. This dataframe represent Current health expenditure (% of GDP) of each countries.
 
 ```{r, echo = FALSE, message = FALSE}
 Public.spending.on.health_New <- read.csv2(here::here('Data/Public.spending.on.health.csv'))
 ```
                                        
-This dataet of Public sprending on health has a bad structure initialy.
+This dataset of Public sprending on health has a bad structure initially.
 We remove the 3 first rows and we rename the different variables in the columns to get the same structure as previously.
 
 ```{r,echo = FALSE, message = FALSE}
@@ -319,7 +329,7 @@ Public.spending.on.health_New <- rename(Public.spending.on.health_New, c('Countr
 
 Then we need to remove the unecessary columns, with no data corresponding, which means the missing values from 1960 to 1999 and from 2019-2020. Deleting this columns will not biais our analysis because there are NA for every observations. We believe that the data about the public health expenditures started to be recorded in 2000.
 
-Also, the **Indicator Name**, **Indicator Code** are unrelevant datas.
+Also, the 'Indicator Name', 'Indicator Code' are unrelevant datas.
 
 ```{r,echo = FALSE, message = FALSE}
 Public.spending.on.health_New <- Public.spending.on.health_New[,-c(5:44)]
@@ -331,7 +341,7 @@ Public.spending.on.health_New$X.62 <- NULL
 Public.spending.on.health_New$X.63 <- NULL
 ```
 
- Our initial dataframe as for variables names [(X.n),(X.n+1)...(X.m)], we need to transform them as Years (2000,2001...2018). 
+ Our initial dataframe as for variables names [(X.n),(X.n+1)...(X.m)], we need to transform them as Years, 'Time':[2000,2001...2018]. 
 
 ```{r,echo = FALSE, message = FALSE}
 Public.spending.on.health_New <- rename(Public.spending.on.health_New, c('2000'='X.42','2001'='X.43','2002'='X.44','2003'='X.45', '2004'='X.46','2005'='X.47','2006'='X.48','2007'='X.49', '2008'='X.50','2009'='X.51','2010'='X.52', '2011'='X.53','2012'='X.54','2013'='X.55','2014'='X.56','2015'='X.57','2016'='X.58','2017'='X.59','2018'='X.60'))
@@ -349,12 +359,14 @@ Public.spending.on.health_New <- Public.spending.on.health_New %>%
 Finally we have a new dataframe of the Current health expenditure (% of GDP) of each countries attributed to the Time (from 2000 to 2018).
 
 
+# 2: Cleaning Mental Health
+
 # Now we import the  share with mental and substance disorders data corresponding to a list of countries. Our goal is to compare the prevalence of mental health disorder in a population of a country with respect to the public investments on health.
 
 ```{r,echo = FALSE, message = FALSE}
 share.with.mental.and.substance.disorders <- read.csv2(here::here('Data/share-with-mental-and-substance-disorders.csv'))
 ```
-This dataset has already a good structure, the same as the others for our analysis. The value Y; *prevalence mental and substance use disorders.sex.both.age stanrdaized percent*, represents more clearly the proportion of the population in % sufuring from mental illness in a given country. 
+This dataset has already a good structure, the same as the others for our analysis. The value Y; 'prevalence mental and substance use disorders.sex.both.age stanrdaized percent', represents more clearly the proportion of the population in % sufuring from mental illness in a given country. 
 
 We rename our (share.with.mental.and.substance.disorders) dataframe into Mental_Health.
 
@@ -362,13 +374,13 @@ We rename our (share.with.mental.and.substance.disorders) dataframe into Mental_
 Mental_Health <- share.with.mental.and.substance.disorders                                                       
 ```
 
-We remove the *Entity* column. Indeed we refer only to the LOCATION as code.
+We remove the 'Entity' column. Indeed we refer only to the 'LOCATION' as code.
 ```{r,echo = FALSE, message = FALSE}
 Mental_Health <- Mental_Health[,-1]
 ```
 
-We rename the variable column of *year* with Time, the *Code* with LOCATION and
-*Prevalence...Mental.and.substance.use.disorders...Sex..Both...Age..Age.standardized..Percent.* with Mental_health_value.
+We rename the variable column of year with 'Time', the Code with 'LOCATION' and
+Prevalence...Mental.and.substance.use.disorders...Sex..Both...Age..Age.standardized..Percent. with 'Mental_health_value'.
 
 ```{r,echo = FALSE, message = FALSE}
 Mental_Health <- Mental_Health %>%
@@ -390,7 +402,7 @@ Mental_Health <- Mental_Health1 %>%
 ```
 
 Our analysis is focus on a specific list of countries. We consider it relevant to take a sample of 28 countries with different structural characteristics. 
-Here is the following selected countries: 'AUT','BEL','HRV', 'CZE', 'DNK', 'ENG', 'FIN', 'FRA', 'DEU', 'GRC', 'HUN', 'ISL', 'ITA', 'ROU', 'PRT', 'POL', 'NOR', 'NLD', 'CHE', 'SWE', 'ESP', 'AUS', 'BRA', 'CAN', 'CHN', 'JPN', 'NZL', 'USA'
+Here is the following selected countries: 'AUT','BEL','HRV', 'CZE', 'DNK', 'ENG', 'FIN', 'FRA','UK','DEU', 'GRC', 'HUN', 'ISL', 'ITA', 'ROU', 'PRT', 'POL', 'NOR', 'NLD', 'CHE', 'SWE', 'ESP', 'AUS', 'BRA', 'CAN', 'CHN', 'JPN', 'NZL', 'USA'
 
 The countries in this list our part of the OCDE. We make this selection because taking all the countries is the world would result to:
 - Too many observations 
@@ -398,7 +410,7 @@ The countries in this list our part of the OCDE. We make this selection because 
 - Unrelevant study 
 
 ```{r,echo = FALSE, message = FALSE}
-List.of.Countries = c('AUT','BEL','HRV', 'CZE', 'DNK', 'ENG', 'FIN', 'FRA', 'DEU', 'GRC', 'HUN', 'ISL', 'ITA', 'ROU', 'PRT', 'POL', 'NOR', 'NLD', 'CHE', 'SWE', 'ESP', 'AUS', 'BRA', 'CAN', 'CHN', 'JPN', 'NZL', 'USA')
+List.of.Countries = c('AUT','BEL','HRV', 'CZE', 'DNK', 'ENG', 'FIN', 'FRA', 'UK','DEU', 'GRC', 'HUN', 'ISL', 'ITA', 'ROU', 'PRT', 'POL', 'NOR', 'NLD', 'CHE', 'SWE', 'ESP', 'AUS', 'BRA', 'CAN', 'CHN', 'JPN', 'NZL', 'USA')
 
 Mental_Health_2 <-  Mental_Health %>%
   filter(LOCATION %in% List.of.Countries)
@@ -407,18 +419,26 @@ Public.spending.on.health_New_2 <- Public.spending.on.health_New %>%
   filter(LOCATION %in% List.of.Countries)
 ```
 
-We merge the two dataframes into one single table named tab_1. We join them by LOCATION and Time. 
+We merge the two dataframes into one single table named tab_1. We join them by LOCATION and Time. Moreover, we add the Region and the Entity from the table: list.of.countries
 
 ```{r,echo = FALSE, message = FALSE}
 tab_1 <- merge(Public.spending.on.health_New_2, Mental_Health_2, by = c('LOCATION', 'Time'))
+tab_1 <- merge(tab_1, tab.of.countries, by=('LOCATION'))
 ```
 
-We need the values as numeric and not as characters for the analysis
+We need the values as numeric and not as characters for the analysis. We characterise the regions and locations into factors for our future analysis.
 
 ```{r,echo = FALSE, message = FALSE}
 tab_1$Value_Spending.on.health <- as.numeric(tab_1$Value_Spending.on.health)
 tab_1$Mental_health_Value <- as.numeric(tab_1$Mental_health_Value)
+tab_1$Time <- as.numeric(tab_1$Time)
+tab_1$LOCATION <- as.factor(tab_1$LOCATION)
+tab_1$Region <- as.factor(tab_1$Region)
+tab_1 <- tab_1[c(1,5,6,2,3,4)]
 ```
+
+#Now our final table, tab_1, is arranged in the structure that will be used to make the analysis.
+
 ```{r}
 kable(tab_1)
 ```
