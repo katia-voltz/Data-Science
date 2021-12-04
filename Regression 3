@@ -71,7 +71,7 @@ Public.spending.on.health_New <- Public.spending.on.health_New %>%
 ### Now we import the  share with mental and substance disorders data corresponding to a list of countries. 
 # Our goal is to compare the prevalence of mental health disorder in a population of a country with respect to the public investments on health.
 
-share.with.mental.and.substance.disorders <- read.csv2('/Users/katiavoltz/Desktop/share-with-mental-and-substance-disorders copie.csv')
+share.with.mental.and.substance.disorders <- read.csv2('/Users/katiavoltz/Desktop/share-with-mental-and-substance-disorders.csv')
 
 # we rename the (share.with.mental.and.substance.disorders) dataframe into Mental_Health.
 
@@ -513,7 +513,7 @@ fviz_cluster(km.res, data=data_test_std, repel=TRUE)
 
 
 ##### We want to create a map of the world to see the data of the prevalence of mental health disorder in the countries selected. In our case now, we focus on the Europe.
-share.with.mental.and.substance.disorders <- read.csv2('/Users/katiavoltz/Desktop/share-with-mental-and-substance-disorders copie.csv')
+share.with.mental.and.substance.disorders <- read.csv2('/Users/katiavoltz/Desktop/share-with-mental-and-substance-disorders.csv')
 
 mental.health <- share.with.mental.and.substance.disorders
 
