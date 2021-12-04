@@ -429,6 +429,14 @@ tab_1 <- merge(tab_1, tab.of.countries, by=('LOCATION'))
 We need the values as numeric and not as characters for the analysis. We characterise the regions and locations into factors for our future analysis.
 
 ```{r,echo = FALSE, message = FALSE}
+Mental_Health_2 <-  merge(Mental_Health_2,tab.of.countries, by='LOCATION')
+Public.spending.on.health_New_2 <- merge(Public.spending.on.health_New_2, tab.of.countries, by='LOCATION')
+
+Public.spending.on.health_New_2$Value_Spending.on.health <- as.numeric(Public.spending.on.health_New_2$Value_Spending.on.health)
+Mental_Health_2$Mental_health_Value <- as.numeric(Mental_Health_2$Mental_health_Value)
+```
+
+```{r,echo = FALSE, message = FALSE}
 tab_1$Value_Spending.on.health <- as.numeric(tab_1$Value_Spending.on.health)
 tab_1$Mental_health_Value <- as.numeric(tab_1$Mental_health_Value)
 tab_1$Time <- as.numeric(tab_1$Time)
@@ -437,7 +445,7 @@ tab_1$Region <- as.factor(tab_1$Region)
 tab_1 <- tab_1[c(1,5,6,2,3,4)]
 ```
 
-#Now our final table, tab_1, is arranged in the structure that will be used to make the analysis.
+# Now our final table, tab_1, is arranged in the structure that will be used to make the analysis.
 
 ```{r}
 kable(tab_1)
