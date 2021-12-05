@@ -24,67 +24,114 @@ Now all our databases are clean and ready to be used.
 5/ Interpretation of regression and graphs
 
 
-## Work environment 
+### Work environment 
 
-### Analysis
+# Table 1 : Representation of the rate of mental health disorder by country and region
+# ATTENTION CHANGER TYPE DE GRAPHIQUE 
+```{r}
+g_countries <- ggplot(data = tab_mean, aes(y = MentalHealth_mean)) + 
+  geom_bar(mapping = aes( color = LOCATION))
 
-First, we will plot each of our variables according to its impact on mental health across countries to see more closely which ones have a significant impact and to analyze their distribution. 
+g_regions <- ggplot(data = tab_mean, aes(y = MentalHealth_mean)) + 
+  geom_bar(mapping = aes( color = Region))
 
-```{r, echo = FALSE, message = FALSE}
-# Income Inequality
-GG0 <- ggplot(data = tab_Tot, mapping = aes(x = Income_Inequality, y = Mental_Health)) +
-  geom_point(mapping = aes(color = LOCATION)) +
-  geom_smooth()+
-  geom_text(label = c(tab_Tot$LOCATION))
-
-# Wages
-GG1 <- ggplot(data = tab_Tot, mapping = aes(x = wages, y = Mental_Health)) +
-  geom_point(mapping = aes(color = LOCATION)) +
-  geom_smooth()+
-  geom_text(label = c(tab_Tot$LOCATION))
-
-# Unemployment
-GG2 <- ggplot(data = tab_Tot, mapping = aes(x = Unemployment, y = Mental_Health)) +
-  geom_point(mapping = aes(color = LOCATION)) +
-  geom_smooth()+
-  geom_text(label = c(tab_Tot$LOCATION))
-
-# Working Age
-GG3 <- ggplot(data = tab_Tot, mapping = aes(x = Working_Age, y = Mental_Health)) +
-  geom_point(mapping = aes(color = LOCATION)) +
-  geom_smooth()+
-  geom_text(label = c(tab_Tot$LOCATION))
-
-# Work Time
-GG4 <- ggplot(data = tab_Tot, mapping = aes(x = Work_Time, y = Mental_Health)) +
-  geom_point(mapping = aes(color = LOCATION)) +
-  geom_smooth()+
-  geom_text(label = c(tab_Tot$LOCATION))
-
-# GDP
-GG5 <- ggplot(data = tab_Tot, mapping = aes(x = GDP, y = Mental_Health)) +
-  geom_point(mapping = aes(color = LOCATION)) +
-  geom_smooth() +
-  geom_text(label = c(tab_Tot$LOCATION))
-
-plot_grid(GG0, GG1, GG2, GG3, GG4, GG5, labels=c("A","B","C","D","E","F"), ncol=3, nrow=2)
+plot_grid(g_countries, g_regions, labels=c("A","B"), ncol=2, nrow=1)
 ```
-1. We can see that the higher the income inequality, the higher the share of the population with mental health disorders is
-2. We can see that the higher the wages, the higher the share of the share of the population with mental health disorders is
-3. It doesn't seem to have any distinct correlation between this two variables 
-4. We can see that the share of the population with mental health disorders is higher when the working age is lower
-5. It doesn't seem to have any distinct correlation between this two variables 
-6. It seems that when the GDP tends to be high, the share of the population with mental health disorders also tends to be high
 
-# REGRESSION
+On this first table, we can see that the Oceanian countries (Australia, New Zealand) are the ones that have a bigger part of their population with a mental disorder, followed by North America (Canada, USA) and Western Europe (France, Norway, Netherlands, Spain, Germany, Portugal). While Eastern European (Poland, Romania, Hungary, Czech Republic, Croatia) and Asian (Japan) countries have the lowest rate.  
 
-In order to verify these first visual analyses, we will perform a regression analysis and a forward induction. This should orient our research and enable us to specify which aspects of the work environment have a significant impact on the mental health of a worker. 
+# Table 2 : Evolution of the prevalence of mental health disorder over time and by country
+```{r}
+ggplot(data = tab, mapping = aes(x = TIME, y = Mental_Health)) +
+  geom_point(mapping = aes(color = LOCATION)) +
+  geom_smooth()
+```
 
-```{r, echo = FALSE, message = FALSE}
-mod <- lm(tab_Tot$Mental_Health ~ tab_Tot$Income_Inequality + tab_Tot$wages + tab_Tot$Unemployment + tab_Tot$Working_Age + tab_Tot$Work_Time + tab_Tot$GDP)
+This second table shows that the prevalence of mental illness has hardly changed during the selected period from 2000 to 2017 for all countries in our database. Thus, we can conclude that time has no significant impact on the share of the population suffering from mental illness.
+
+We now want to start studying our regression, that is, to see how the work environment, through the variables that compose it, impacts the percentage of mental health disorder in a country. For this we will do correlation analyses like those in our table 3.
+
+# Table 3 : Correlation analyses between mental health and the work environment
+# ATTENTION REFAIRE GRAPHIQUES
+```{r}
+plot_tab <- plot(tab[3:9]) 
+corrplot_tab <- corrplot(tab[3:9])
+# MARCHE PAS ?
+plot_grid(plot_tab, corrplot_tab, labels=c("A","B"), ncol=2, nrow=1)
+```
+
+Faire analyse quand on a le bon graph de corrélation 
+
+We will check these hypotheses and the validity of our model by doing a regression.
+
+# Table 4 : Regression study
+```{r}
+mod <- lm(tab$Mental_Health ~ tab$Income_Inequality + tab$Wages + tab$Unemployment + tab$Working_Age + tab$Work_Time + tab$GDP)
 summary(mod)
 ```
-We have ** for Income_Inequality and Working_Age and 0 for the others
+
+As expected, on table 4, we can see that our model is 75.5% explained by the variables we have chosen. Moreover, we notice that our variables, income inequality, wages, unemployment, working age and GDP are very significant. On the other hand, the time an employee spends working does not seem to have an impact on the rate of mental health disorder. We will therefore not take it into account as an explanatory variable for our problem. 
+
+We will see more precisely with our table 5 how each of these variables impact these diseases, always according to the countries through 2000 and 2017.
+
+# Table 5 : Impact of work environment's variables on mental health disorders by country
+```{r}
+# Income Inequality Analysis 
+GG0 <- ggplot(data = tab, mapping = aes(x = tab$Income_Inequality, y = tab$Mental_Health)) +
+  geom_point(mapping = aes(color = LOCATION)) +
+  geom_smooth() +
+  ggtitle("Pas encore de titre") +
+  xlab("X") + ylab("Y") 
+
+# Wages Analysis
+GG1 <- ggplot(data = tab, mapping = aes(x = tab$Wages, y = tab$Mental_Health)) +
+  geom_point(mapping = aes(color = LOCATION)) +
+  geom_smooth()+
+  ggtitle("Pas encore de titre") +
+  xlab("X") + ylab("Y") 
+
+# Unemployment Analysis
+GG2 <- ggplot(data = tab, mapping = aes(x = tab$Unemployment, y = tab$Mental_Health)) +
+  geom_point(mapping = aes(color = LOCATION)) +
+  geom_smooth() +
+  ggtitle("Pas encore de titre") +
+  xlab("X") + ylab("Y") 
+
+#Working Age Analysis
+GG3 <- ggplot(data = tab, mapping = aes(x = tab$Working_Age, y = tab$Mental_Health)) +
+  geom_point(mapping = aes(color = LOCATION)) +
+  geom_smooth() +
+  ggtitle("Pas encore de titre") +
+  xlab("X") + ylab("Y") 
+
+# GDP Analysis
+GG4 <- ggplot(data = tab, mapping = aes(x = tab$GDP, y = tab$Mental_Health)) +
+  geom_point(mapping = aes(color = LOCATION)) +
+  geom_smooth() +
+  ggtitle("Pas encore de titre") +
+  xlab("X") + ylab("Y") 
+
+# Put all the graphs together
+plot_grid(GG0, GG1, GG2, GG3, GG4, labels=c("A","B","C","D","E","F"), ncol=2, nrow=3)
+```
+
+Using this graph and our table 4, we can make these important points about the impact of the work environment on mental health in a population:
+
+A: The higher the income inequality in a country, the more likely that country will have a high proportion of its population with mental disorders. (-)
+
+B: The higher the average wage in a country, the more likely that country will have a high proportion of its population with mental disorders. (-)
+
+C: The higher the unemployment rate in a country, the more likely that country will have a high proportion of its population with mental disorders. (-)
+
+D: The higher the percentage of a country's working-age population, the lower the proportion of its population with mental disorders. (+)
+
+E: The higher the GDP of a country, the more likely that country will have a high proportion of its population with mental disorders. (-)
+
+In summary, a country with a medium wage, high GDP does not promote good mental health of workers. Second, high unemployment and income inequality worsen the mental health of a population. Nevertheless, if a country has a high proportion of working age population, it will have less problems related to the mental health of its workers.
+
+
+
+
 
 
 
