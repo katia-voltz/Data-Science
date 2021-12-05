@@ -304,11 +304,13 @@ Our intitial question of research is:
 
 # List.of.countries
 
+First, here is the list of the selected countries. In continuation of our analysis, we keep the OECD countries to answer our research questions.
+
 ```{r}
 tab.of.countries <- read.csv2(here::here('Data/Entities_LOCATION_Region.csv')
 kable(tab.of.countries)
 ```
-This table corresponds to the countries that we selected in our analysis. They are part of the OCDE.
+
 
 # 1: Cleaning Public spending on health
 
@@ -407,7 +409,7 @@ Here is the following selected countries: 'AUT','BEL','HRV', 'CZE', 'DNK', 'ENG'
 The countries in this list our part of the OCDE. We make this selection because taking all the countries is the world would result to:
 - Too many observations 
 - Extreme values
-- Unrelevant study 
+- Unrelevant to the research question 
 
 ```{r,echo = FALSE, message = FALSE}
 List.of.Countries = c('AUT','BEL','HRV', 'CZE', 'DNK', 'ENG', 'FIN', 'FRA', 'UK','DEU', 'GRC', 'HUN', 'ISL', 'ITA', 'ROU', 'PRT', 'POL', 'NOR', 'NLD', 'CHE', 'SWE', 'ESP', 'AUS', 'BRA', 'CAN', 'CHN', 'JPN', 'NZL', 'USA')
@@ -419,14 +421,14 @@ Public.spending.on.health_New_2 <- Public.spending.on.health_New %>%
   filter(LOCATION %in% List.of.Countries)
 ```
 
-We merge the two dataframes into one single table named tab_1. We join them by LOCATION and Time. Moreover, we add the Region and the Entity from the table: list.of.countries
+We merge the two dataframes into one single table named tab_1. We join them by 'LOCATION' and 'Time'. Moreover, we add the 'Region' and the 'Entity' from the table: 'list.of.countries'
 
 ```{r,echo = FALSE, message = FALSE}
 tab_1 <- merge(Public.spending.on.health_New_2, Mental_Health_2, by = c('LOCATION', 'Time'))
 tab_1 <- merge(tab_1, tab.of.countries, by=('LOCATION'))
 ```
 
-We need the values as numeric and not as characters for the analysis. We characterise the regions and locations into factors for our future analysis.
+We need the values as numeric and not as characters for the analysis. We characterise the Regions and Locations into factors for our future analysis.
 
 ```{r,echo = FALSE, message = FALSE}
 Mental_Health_2 <-  merge(Mental_Health_2,tab.of.countries, by='LOCATION')
