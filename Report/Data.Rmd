@@ -11,11 +11,7 @@ source(here::here("scripts/Setup.R"))
 
 For our research, we are going to use different datasets for our three main themes. 
 
-
-
-## Work Environment
-
-First of all, for the database concerning the environment at work, we have extracted all the data from the sites : <https://www.oecd.org> and <https://ourworldindata.org>. 
+# Work Environment
 
 Our first resarch question was : Given the structure of the working environment in different countries, can we say that the mental health of the population is influenced by the working conditions and the situation of the country?
 
@@ -28,108 +24,142 @@ To see those effects, we have chosen the information of 6 independants variables
 - the average wages (US dollars)
 - the income inequalities (Gini coefficient, 0=complete equality and 1=complete inequality)
 
- --> Regression 1 : MentalHealth = x1*IncomeInequality + x2*wages + x3*Unemployment + x4*WorkingAgePopulation + x5*WorkTime + x6*GPD
+$$Analysis 1 : MentalHealth = a*IncomeInequality + b*wages + c*Unemployment + d*WorkingAgePopulation + e*WorkTime + f*GPD$$
 
 We have made a selection of several countries which are the following (To simplify, country codes have been used and not the full names) : Austria, Belgium, Croatia, Czechia, Denmark, Finland, France, Germany, Greece, Hungary, Iceland, Ireland, Italy, Romania, Portugal, Poland, Norway, Netherlands, Switzerland, Sweden, Spain, Australia, Brazil, Canada, Japan, New-Zealand and the USA.  
 
-```{r}
+```{r, echo = FALSE, message = FALSE}
 List.of.Countries = c('AUT','BEL','HRV', 'CZE', 'DNK', 'ENG', 'FIN', 'FRA', 'DEU', 'GRC', 'HUN', 'ISL', 'ITA', 'ROU', 'PRT', 'POL', 'NOR', 'NLD', 'CHE', 'SWE', 'ESP', 'AUS', 'BRA', 'CAN', 'JPN', 'NZL', 'USA')
+```
+
+We also sort these countries by their region.
+
+```{r, echo = FALSE, message = FALSE}
+tab_countries <- read.csv2('Data/Entities_LOCATION_Region.csv')
 ```
 
 Now that we have collected all our data, we need to sort, order and rename them in order to obtain only tables with three columns to have the value of our variable according to its country and its date. We took the data for each of these variables for a certain sample of countries and then chose to do an individual average over the years from 2000 to 2017.
 
-```{r}
-Mental_Health <- read.csv(here::here("Data/Mental_Health.csv"))
+
+```{r, echo = FALSE, message = FALSE}
+Mental_Health <- read.csv("Data/Mental_Health.csv")
 attach(Mental_Health)
 Mental_Health <- Mental_Health[,-1]
 Mental_Health <- rename(Mental_Health,c("LOCATION"="Code", "TIME"="Year","ValueH"="Prevalence...Mental.and.substance.use.disorders...Sex..Both...Age..Age.standardized..Percent."))
+List.of.Countries = c('AUT','BEL','HRV', 'CZE', 'DNK', 'ENG', 'FIN', 'FRA', 'DEU', 'GRC', 'HUN', 'ISL', 'ITA', 'ROU', 'PRT', 'POL', 'NOR', 'NLD', 'CHE', 'SWE', 'ESP', 'AUS', 'BRA', 'CAN', 'JPN', 'NZL', 'USA')
 Mental_Health <-  Mental_Health %>% filter(LOCATION %in% List.of.Countries)
 Mental_Health <- Mental_Health %>%
-  filter(TIME>1999, TIME< 2018)
-Mental_Health_m <- aggregate(Mental_Health[,3], list(Mental_Health$LOCATION), mean)
-Mental_Health_m <- rename(Mental_Health_m,c("LOCATION"="Group.1","Mean_1"="x"))
+  filter(TIME>1999, TIME< 2018) 
+Mental_Health <-  rename(Mental_Health,c("Mental_Health"="ValueH"))
+Mental_Health$"TIME" <- as.integer(Mental_Health$"TIME")
 
-Income_Inequality <- read.csv2(here::here("Data/Income_inequality-1.csv"))
+Income_Inequality <- read.csv2("Data/Income_inequality-1.csv")
 attach(Income_Inequality)
 Income_Inequality <- Income_Inequality[,-c(2:5,8)]
 Income_Inequality$Value <- as.numeric(Income_Inequality$Value)
+List.of.Countries = c('AUT','BEL','HRV', 'CZE', 'DNK', 'ENG', 'FIN', 'FRA', 'DEU', 'GRC', 'HUN', 'ISL', 'ITA', 'ROU', 'PRT', 'POL', 'NOR', 'NLD', 'CHE', 'SWE', 'ESP', 'AUS', 'BRA', 'CAN', 'JPN', 'NZL', 'USA')
 Income_Inequality <-  Income_Inequality %>% filter(LOCATION %in% List.of.Countries)
 Income_Inequality <- Income_Inequality %>%
   filter(TIME>1999, TIME< 2018)
-Income_Inequality_m <- aggregate(Income_Inequality[,3], list(Income_Inequality$LOCATION), mean)
-Income_Inequality_m <- rename(Income_Inequality_m,c("LOCATION"="Group.1","Mean_2"="x"))
+Income_Inequality <- rename(Income_Inequality,c("Income_Inequality"="Value"))
 
-wages <- read.csv(here::here("Data/Average_wages.csv"))
+wages <- read.csv("Data/Average_wages.csv")
 attach(wages)
 wages <- wages[,-c(2:5,8)]
+List.of.Countries = c('AUT','BEL','HRV', 'CZE', 'DNK', 'ENG', 'FIN', 'FRA', 'DEU', 'GRC', 'HUN', 'ISL', 'ITA', 'ROU', 'PRT', 'POL', 'NOR', 'NLD', 'CHE', 'SWE', 'ESP', 'AUS', 'BRA', 'CAN', 'JPN', 'NZL', 'USA')
 wages <-  wages %>% filter(LOCATION %in% List.of.Countries)
 wages <- wages %>%
   filter(TIME>1999, TIME< 2018)
-wages_m <- aggregate(wages[,3], list(wages$LOCATION), mean)
-wages_m <- rename(wages_m,c("LOCATION"="Group.1","Mean_3"="x"))
+wages <- rename(wages,c("Wages"="Value"))
 
-Unemployment <- read.csv(here::here("Data/Unemployement_Rate1.csv"))
+Unemployment <- read.csv("Data/Unemployement_Rate1.csv")
 attach(Unemployment)
 Unemployment <- Unemployment[,-c(2:5,8)]
+List.of.Countries = c('AUT','BEL','HRV', 'CZE', 'DNK', 'ENG', 'FIN', 'FRA', 'DEU', 'GRC', 'HUN', 'ISL', 'ITA', 'ROU', 'PRT', 'POL', 'NOR', 'NLD', 'CHE', 'SWE', 'ESP', 'AUS', 'BRA', 'CAN', 'JPN', 'NZL', 'USA')
 Unemployment <-  Unemployment %>% filter(LOCATION %in% List.of.Countries)
 Unemployment <- Unemployment %>%
   filter(TIME>1999, TIME< 2018)
-Unemployment_m <- aggregate(Unemployment[,3], list(Unemployment$LOCATION), mean)
-Unemployment_m <- rename(Unemployment_m,c("LOCATION"="Group.1","Mean_4"="x"))
+Unemployment <- rename(Unemployment,c("Unemployment"="Value"))
 
-Working_Age <- read.csv(here::here("Data/Working_age_population.csv"))
+Working_Age <- read.csv("Data/Working_age_population.csv")
 attach(Working_Age)
 Working_Age <- Working_Age[,-c(2:5,8)]
+List.of.Countries = c('AUT','BEL','HRV', 'CZE', 'DNK', 'ENG', 'FIN', 'FRA', 'DEU', 'GRC', 'HUN', 'ISL', 'ITA', 'ROU', 'PRT', 'POL', 'NOR', 'NLD', 'CHE', 'SWE', 'ESP', 'AUS', 'BRA', 'CAN', 'JPN', 'NZL', 'USA')
 Working_Age <-  Working_Age %>% filter(LOCATION %in% List.of.Countries)
-Working_Age_m <- aggregate(Working_Age[,3], list(Working_Age$LOCATION), mean)
-Working_Age_m <- rename(Working_Age_m,c("LOCATION"="Group.1","Mean_5"="x"))
+Working_Age <- rename(Working_Age,c("Working_Age"="Value"))
 
-Work_Time <- read.csv(here::here("Data/Avg_Work_Time.csv"))
+Work_Time <- read.csv("Data/Avg_Work_Time.csv")
 attach(Work_Time)
 Work_Time <- Work_Time[,-c(2:5,8)]
+List.of.Countries = c('AUT','BEL','HRV', 'CZE', 'DNK', 'ENG', 'FIN', 'FRA', 'DEU', 'GRC', 'HUN', 'ISL', 'ITA', 'ROU', 'PRT', 'POL', 'NOR', 'NLD', 'CHE', 'SWE', 'ESP', 'AUS', 'BRA', 'CAN', 'JPN', 'NZL', 'USA')
 Work_Time <-  Work_Time %>% filter(LOCATION %in% List.of.Countries)
 Work_Time <- Work_Time %>%
-  filter(TIME>1999, TIME< 2018)
-Work_Time_m <- aggregate(Work_Time[,3], list(Work_Time$LOCATION), mean)
-Work_Time_m <- rename(Work_Time_m,c("LOCATION"="Group.1","Mean_6"="x"))
+  filter(TIME>1999, TIME< 2018) 
+Work_Time <- rename(Work_Time,c("Work_Time"="Value"))
 
-GDP <- read.csv(here::here("Data/gdp-per-capita.csv"))
+GDP <- read.csv("Data/gdp-per-capita.csv")
 attach(GDP)
 GDP <- GDP[,-c(1,5)]
 GDP <- rename(GDP,c("LOCATION"="Code", "TIME"="Year"))
+List.of.Countries = c('AUT','BEL','HRV', 'CZE', 'DNK', 'ENG', 'FIN', 'FRA', 'DEU', 'GRC', 'HUN', 'ISL', 'ITA', 'ROU', 'PRT', 'POL', 'NOR', 'NLD', 'CHE', 'SWE', 'ESP', 'AUS', 'BRA', 'CAN', 'JPN', 'NZL', 'USA')
 GDP <-  GDP %>% filter(LOCATION %in% List.of.Countries)
 GDP <- GDP %>%
   filter(TIME>1999, TIME< 2018)
-GDP_m <- aggregate(GDP[,3], list(GDP$LOCATION), mean)
-GDP_m <- rename(GDP_m,c("LOCATION"="Group.1","Mean_7"="x"))
+GDP <- rename(GDP,c("GDP"="GDP.per.capita"))
 ```
 
 Now that we have all our variables in the right format, we need to put them in a common table so that we can have an overall representation and be able to observe and analyze the trends that emerge.
 
-```{r}
-tab0 <- full_join(Mental_Health_m, Income_Inequality_m, by = c("LOCATION"))
-tab1 <- full_join(tab0, wages_m, by = c("LOCATION"))
-tab2 <- full_join(tab1, Unemployment_m, by = c("LOCATION"))
-tab3 <- full_join(tab2, Working_Age_m, by = c("LOCATION"))
-tab4 <- full_join(tab3, Work_Time_m, by = c("LOCATION"))
-tab_R1 <- full_join(tab4, GDP_m, by = c("LOCATION"))
+```{r, echo = FALSE, message = FALSE}
+tab_0 <- left_join(Mental_Health, Income_Inequality, by = c("LOCATION", "TIME"))
+tab_1 <- left_join(tab_0, wages, by = c("LOCATION","TIME"))
+tab_2 <- left_join(tab_1, Unemployment, by = c("LOCATION","TIME"))
+tab_3 <- left_join(tab_2, Working_Age, by = c("LOCATION","TIME"))
+tab_4 <- left_join(tab_3, Work_Time, by = c("LOCATION","TIME"))
+tab_5 <- left_join(tab_4, GDP, by = c("LOCATION","TIME")) 
+tab <- left_join(tab_5, tab_countries, by=('LOCATION'))
+kable(tab)
 ```
-At this stage, we realized that for some of the countries we had selected (England, Hungary, Japan, Romania, Belgium, Brazil) the data was too insufficient to extract anything. And in order not to bias our results we chose to remove them from our analysis by using the "na.omit" function.
 
-````{r}
-tab_R1 <- na.omit(tab_R1)
-tab_R1 <- rename(tab_R1, c("Mental_Health"="Mean_1","Income_Inequality"="Mean_2","wages"="Mean_3","Unemployment"="Mean_4","Working_Age"="Mean_5","Work_Time"="Mean_6","GDP"="Mean_7"))
+We need the values as numeric and not as characters for the analysis
+```{r, echo = FALSE, message = FALSE}
+tab$LOCATION <- as.factor(tab$LOCATION)
+tab$TIME <- as.numeric(tab$TIME)
 ```
-This table allowed us to extract a plot and to start answering our questions. Unfortunately we could not see any real trend between our variables. So we decided to transform our data with the log function in order to reduce the range of our distribution. 
 
-````{r}
-tab_R1_log <- log(tab_R1[,2:8])
-tab_Tot <- cbind(tab_R1$LOCATION, tab_R1_log)
-tab_Tot <- rename(tab_Tot, c("LOCATION"="tab_R1$LOCATION"))
-kable(tab_Tot)
-plot(tab_Tot)
+To see some other effects and to use clusters we will need an other table with the mean of each variable from year 2000 to 2017
+
+```{r, echo = FALSE, message = FALSE}
+Mental_Health_m <- aggregate(Mental_Health[,3], list(Mental_Health$LOCATION), mean)
+Mental_Health_m <- rename(Mental_Health_m,c("LOCATION"="Group.1","MentalHealth_mean"="x"))
+Income_Inequality_m <- aggregate(Income_Inequality[,3], list(Income_Inequality$LOCATION), mean)
+Income_Inequality_m <- rename(Income_Inequality_m,c("LOCATION"="Group.1","IncomeInequality_mean"="x"))
+wages_m <- aggregate(wages[,3], list(wages$LOCATION), mean)
+wages_m <- rename(wages_m,c("LOCATION"="Group.1","Wages_mean"="x"))
+Unemployment_m <- aggregate(Unemployment[,3], list(Unemployment$LOCATION), mean)
+Unemployment_m <- rename(Unemployment_m,c("LOCATION"="Group.1","Unemployment_mean"="x"))
+Working_Age_m <- aggregate(Working_Age[,3], list(Working_Age$LOCATION), mean)
+Working_Age_m <- rename(Working_Age_m,c("LOCATION"="Group.1","WorkingAge_mean"="x"))
+Work_Time_m <- aggregate(Work_Time[,3], list(Work_Time$LOCATION), mean)
+Work_Time_m <- rename(Work_Time_m,c("LOCATION"="Group.1","WorkTime_mean"="x"))
+GDP_m <- aggregate(GDP[,3], list(GDP$LOCATION), mean)
+GDP_m <- rename(GDP_m,c("LOCATION"="Group.1","GDP_mean"="x"))
+
+tab0 <- left_join(Mental_Health_m, Income_Inequality_m, by = c("LOCATION"))
+tab1 <- left_join(tab0, wages_m, by = c("LOCATION"))
+tab2 <- left_join(tab1, Unemployment_m, by = c("LOCATION"))
+tab3 <- left_join(tab2, Working_Age_m, by = c("LOCATION"))
+tab4 <- left_join(tab3, Work_Time_m, by = c("LOCATION"))
+tab5 <- left_join(tab4, GDP_m, by = c("LOCATION"))
+tab_mean <- left_join(tab5, tab_countries, by=('LOCATION'))
+kable(tab_mean)
 ```
-This plot allows us to see how the variables we implemented affect mental health in these different countries. In spite of the use of the log function which improved our curves a little, the significance of our results is still not obvious. We will do further analysis later on but, at first sight, it does not seem that the work environment has a flagrant impact on the mental health of the population.
+
+So now we have two tables with which we can perform our analysis and draw information for this first regression.
+
+At this stage, we realized that for some of the countries we had selected (England, Hungary, Japan, Romania, Belgium, Brazil) the data was too insufficient to extract anything. Thus we will have to take this into account in our analysis in order not to bias our results.
+
+
 
 
 
