@@ -10,6 +10,7 @@ source(here::here("scripts/Setup.R"))
 ```
 
 For our research, we are going to use different datasets for our three main themes. 
+First of all, for the database concerning the environment at work, we have extracted all the data from the sites : <https://www.oecd.org> and <https://ourworldindata.org>. 
 
 # Work Environment
 
