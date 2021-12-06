@@ -141,7 +141,7 @@ In summary, a country with a medium wage, high GDP does not promote good mental 
 
 Firstly, we would like to know if there is a correlation between Cases of Covid and the Value of Antidepressant Consumption through the years. We want to observe whether there is a peak in the consumption of these medications because of the covid crisis. Indeed, we make the hypothesis that due to this crisis, the proportion of people suffering from depression has increased, which would have had a significant impact on this consumption in 2020. 
 
-# Graph1 : Antidepressant consumption per country from 2000 to 2020 
+# Graph1 : Antidepressant consumption per countries from 2000 to 2020 
 
 ```{r, echo = FALSE, message = FALSE}
 graph.antidepressant.consumption <- ggplot(data = Antidepressant_consumption) +
@@ -152,11 +152,7 @@ ggplotly(graph.antidepressant.consumption)
 By creating a graph of antidepressant consumption over time, we can see that, for our first selection of countries, antidepressant consumption is increasing. We will see later if Covid Cases or Deaths are correlated to this increase.  
 
 
-Moreover, when we calculate the average consumption from 2000 to 2019 and compare it to the consumption in 2020 we notice that the latter is for all countries higher than the average of the previous years. 
-Then, when we compare the average growth in consumption per year, to the growth between 2019 and 2020, we see that the latter is higher than the average for 5 of the 8 countries analyzed (Portugal, Italy, Iceland, Hungary and Greece). 
-
-This shows that the consumption of antidepressants has increased in 2020, which could be explained by the covid crisis. 
-
+# Graph2 : Depression Rate per countries from 2000 to 2021
 
 Due to lack of data on antidepressant use in 2020, it would be interesting to observe the rate of depression by country between 2000 and 2021. Here is the graph of depression rate by selected countries between 2000 and 2021. It is important to notice that we could not find the data for the years 2018,2019 and 2020. So we have no data available for these years. 
 
@@ -184,7 +180,7 @@ Here we have calculated the growth each year until 2017, and between 2017 and 20
 
 
 
-
+# Graph3 : Teleworker rate as a function of antidepressant use. 
 
 
 We will now focus on our second study, which is the evolution of antidepressant consumption as a function of teleworking and unemployment rate. 
