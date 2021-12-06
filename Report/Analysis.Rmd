@@ -200,7 +200,9 @@ We can give several explanations to this surprising observation.
 
 The first one is the lack of data. Indeed, we were able to study the evolution of antidepressant consumption in only 8 countries. Perhaps with more countries, we would have seen a more significant difference. 
 
-The second and the most likely, is that we can see that the number of cases (and deaths) related to covid are huge numbers, going from 0 to several millions (to thousands). However, compared to these numbers, the value of antidepressants consumption is increasing well as we can see in the graph below but not as much as the number of cases. The ratio is not the same. It would be interesting, later on, to calculate the value of the increase in consumption, by years and see if we can observe a difference between years or not. 
+The second and the most likely, is that we can see that the number of cases (and deaths) related to covid are huge numbers, going from 0 to several millions (to thousands). However, compared to these numbers, the value of antidepressants consumption is increasing well as we can see in the graph below but not as much as the number of cases. The ratio is not the same. 
+
+We will now calculate the value of the increase in consumption, by years and see if we can observe a difference between years or not, and compare it to the value of the consumption in 2020.  
 
 ```{r, echo = FALSE, message = FALSE}
 #Tableau antidepresseurs, croissance chaque année
@@ -255,6 +257,10 @@ comparaison <- rename(comparaison,"Consumption2020"="Consumption")
 kabble(comparaison)
 ```
 
+However, when we calculate the average consumption from 2000 to 2019 and compare it to the consumption in 2020 we notice that the latter is for all countries higher than the average of the previous years. 
+Then, when we compare the average growth in consumption per year, to the growth between 2019 and 2020, we see that the latter is higher than the average for 5 of the 8 countries analyzed (Portugal, Italy, Iceland, Hungary and Greece). 
+
+This shows that the consumption of antidepressants has increased in 2020, which could be explained by the covid crisis. 
 
 
 
