@@ -313,7 +313,10 @@ tab_R2.2 <- left_join(tab, UnemploymentCovid, by = c("LOCATION", "TIME"))
 tab_R2.2$Teleworking <- as.numeric(tab_R2.2$Teleworking)
 ```
 
-
+We now have three tables ready to be used and analyzed in the next parts: 
+- *tab_R2.1* with antidepressants consumption for countries where we have data on this consumption in 2020, and Covid Cases and deaths
+- *Depression_Rate2000_2021* table 
+- *tab_R2.2* with antidepressants consumption, teleworking, and the unemployment rate. 
 
 
 
