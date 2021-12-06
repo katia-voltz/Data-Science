@@ -149,7 +149,7 @@ graph.antidepressant.consumption <- ggplot(data = Antidepressant_consumption) +
   geom_line(mapping = aes(x = TIME, y = Consumption, color = LOCATION))
 ggplotly(graph.antidepressant.consumption)
 ```
-By creating a graph of antidepressant consumption over time, we can see that, for our second selection of countries, antidepressant consumption is increasing. We will see if Covid Cases or Deaths are correlated to this increase.  
+By creating a graph of antidepressant consumption over time, we can see that, for our first selection of countries, antidepressant consumption is increasing. We will see later if Covid Cases or Deaths are correlated to this increase.  
 
 ```{r, echo = FALSE, message = FALSE}
 
@@ -159,6 +159,7 @@ summary(Reg2)
 cor(tab_R2.1$Consumption, tab_R2.1$Deaths)
 cor(tab_R2.1$Consumption, tab_R2.1$Cases)
 ```
+
 
 We obtain a correlation of "0,0049" between antidepressant consumption and the number of deaths due to covid, and a correlation of "0,0453" between antidepressant consumption and Covid cases.  
 Unfortunately, we can see that there is no correlation between these variables, either with the number of cases or the number of deaths. 
@@ -229,7 +230,7 @@ Then, when we compare the average growth in consumption per year, to the growth 
 This shows that the consumption of antidepressants has increased in 2020, which could be explained by the covid crisis. 
 
 
-Due to lack of data on antidepressant use in 2020, we thought it would be more interesting to observe the rate of depression by country between 2000 and 2021. Here is the table of depression rate by selected countries between 2000 and 2021. It is important to notice that we could not find the data for the years 2018,2019 and 2020. So we have no data available for these years. 
+Due to lack of data on antidepressant use in 2020, it would be interesting to observe the rate of depression by country between 2000 and 2021. Here is the table of depression rate by selected countries between 2000 and 2021. It is important to notice that we could not find the data for the years 2018,2019 and 2020. So we have no data available for these years. 
 
 
 
@@ -246,7 +247,7 @@ Depression_Rate2000_2021 <- ddply(Depression_Rate2000_2021, .(LOCATION),
                                     }
                                   )
 ```
-Here we have calculated the growth each year until 2017, and between 2017 and 2021 of the depression rate by country. We can indeed observe a growth over the years, but this increase is smaller and smaller over time.  We can also see it on the following graph: 
+Here we have calculated the growth each year until 2017, and between 2017 and 2021 of the depression rate by country. We can indeed observe a growth over the years, but this increase is smaller and smaller over time. We can therefore make the assumption that this growth continues to decline through the years after 2017. Following this trend, we can well notice that the value in 2021 is unusual compared to previous years. We can also see it on the following graph: 
 
 ```{r, echo = FALSE, message = FALSE}
 ggplot(data = Depression_Rate2000_2021)+
