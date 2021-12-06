@@ -179,6 +179,85 @@ ggplotly(GG44)
 ````
 
 
+#### COVID 
+
+
+```{r, echo = FALSE, message = FALSE}
+Reg2 <- lm(tab_R2.1$Consumption~tab_R2.1$Cases)
+summary(Reg2)
+cor(tab_R2.1$Consumption, tab_R2.1$Deaths)
+cor(tab_R2.1$Consumption, tab_R2.1$Cases)
+```
+
+
+We obtain a correlation of "0,0049" between antidepressant consumption and the number of deaths due to covid, and a correlation of "0,0453" between antidepressant consumption and Covid cases.  
+Unfortunately, we can see that there is no correlation between these variables, either with the number of cases or the number of deaths. 
+We can give several explanations to this surprising observation.
+The first one is the lack of data. Indeed, we were able to study the evolution of antidepressant consumption in only 8 countries. Perhaps with more countries, we would have seen a more significant difference. 
+
+The second and the most likely, is that we can see that the number of cases (and deaths) related to covid are huge numbers, going from 0 to several millions (to thousands). However, compared to these numbers, the value of antidepressants consumption is increasing well as we can see in the graph below but not as much as the number of cases. The ratio is not the same. It would be interesting, later on, to calculate the value of the increase in consumption, by years and see if we can observe a difference between years or not. 
+
+```{r, echo = FALSE, message = FALSE}
+#Tableau antidepresseurs, croissance chaque année
+tab_R2.1G <- ddply(Antidepressant_consumption2, .(LOCATION),
+                                  function (d) {
+                                    d$Growth <- c(NA, tail(d$Consumption, -1) - head(d$Consumption, -1))
+                                    d
+                                  }
+)
+
+#Tableau croissance jusqu'en 2019
+tab_R2.1.2019 <- tab_R2.1G %>%
+  group_by(LOCATION,Growth) %>%
+  filter(TIME< 2020)
+
+#Moyenne croissance jusqu'en 2019
+tab_R2.1mean <-aggregate(tab_R2.1.2019[,4], list(tab_R2.1.2019$LOCATION), mean, na.rm=T)
+tab_R2.1mean <-rename(tab_R2.1mean, "LOCATION" = "Group.1")
+
+#Tableau conso 2020 et croissance entre 2019 et 2020
+tab_R2.1.G2020 <- tab_R2.1 %>%
+  group_by(LOCATION,Growth) %>%
+  filter(TIME == 2020)
+  
+#Tableau croissance entre 2019 et 2020
+tab_R2.1.G2020 <-tab_R2.1.G2020[-3]
+
+#Tableau moyenne croissance jusqu'en 2019 et croissance 2019/2020
+comparaison <- merge(tab_R2.1mean,tab_R2.1.G2020, by = c("LOCATION"))
+comparaison <- rename(comparaison, c("Growth_mean"="Growth.x","Growth2020"="Growth.y"))
+comparaison <- comparaison[-3]
+
+#Tableau moyenne conso jusqu'en 2019 
+consumptionMean <- aggregate(tab_R2.1.2019[,3], list(tab_R2.1.2019$LOCATION), mean)
+consumptionMean <-rename(consumptionMean, "LOCATION" = "Group.1")
+
+#On ajoute conso moyenne a comparaison
+comparaison <- merge(comparaison,consumptionMean, by = c("LOCATION"))
+comparaison <- rename(comparaison,"Consumption_mean"="Consumption")
+
+#Tableau Conso 2020
+consumption2020 <- tab_R2.1 %>%
+  group_by(LOCATION,Consumption) %>%
+  filter(TIME == 2020)
+consumption2020 <- consumption2020[-4]
+
+#On ajoute conso 2020 a comparaison 
+comparaison <- merge(comparaison,consumption2020, by = c("LOCATION"))
+comparaison <- comparaison[-5]
+comparaison <- rename(comparaison,"Consumption2020"="Consumption")
+
+kabble(comparaison)
+```
+
+
+
+
+
+
+
+
+
 
 
 
