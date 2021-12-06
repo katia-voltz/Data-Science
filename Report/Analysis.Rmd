@@ -257,10 +257,10 @@ comparaison <- rename(comparaison,"Consumption2020"="Consumption")
 kabble(comparaison)
 ```
 
-However, when we calculate the average consumption from 2000 to 2019 and compare it to the consumption in 2020 we notice that the latter is for all countries higher than the average of the previous years. 
+When we calculate the average consumption from 2000 to 2019 and compare it to the consumption in 2020 we notice that the latter is for all countries higher than the average of the previous years. 
 Then, when we compare the average growth in consumption per year, to the growth between 2019 and 2020, we see that the latter is higher than the average for 5 of the 8 countries analyzed (Portugal, Italy, Iceland, Hungary and Greece). 
 
-This shows that the consumption of antidepressants has increased in 2020, which could be explained by the covid crisis. 
+This shows that the consumption of antidepressants has increased in 2020, which could be well explained by the covid crisis. 
 
 
 
