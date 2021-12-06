@@ -181,10 +181,13 @@ ggplotly(GG44)
 
 #### COVID 
 
+# Regression Antidepressant Consumption / Covid Cases, Deaths + correlation
+
 
 ```{r, echo = FALSE, message = FALSE}
 Reg2 <- lm(tab_R2.1$Consumption~tab_R2.1$Cases)
 summary(Reg2)
+
 cor(tab_R2.1$Consumption, tab_R2.1$Deaths)
 cor(tab_R2.1$Consumption, tab_R2.1$Cases)
 ```
