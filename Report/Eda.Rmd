@@ -180,16 +180,20 @@ Here we have calculated the growth each year until 2017, and between 2017 and 20
 
 
 
-# Graph3 : Teleworker rate as a function of antidepressant use. 
+# Graph3 : Evolution of teleworking through years 
 
 
 We will now focus on our second study, which is the evolution of antidepressant consumption as a function of teleworking and unemployment rate. 
 
-The following graph shows the evolution of antidepressant consumption, which is increasing. 
+By making a graph of the evolution of the number of teleworkers compared to the number of workers per country, we can see an increase of this rate in 2020. This increase can be explained by the Covid crisis. So, if we find a potential correlation between the consumption of antidepressants and teleworking, we can then make a link with the Covid. 
+
 ```{r, echo = FALSE, message = FALSE}
 ggplot(data = tab_R2.2) +
-  geom_point(mapping = aes(x = TIME, y = Consumption, color = LOCATION))
+  geom_point(mapping = aes(x = TIME, y = Teleworking, color = LOCATION))+
+  geom_line(mapping = aes(x = TIME, y = Teleworking, color = LOCATION))
 ```
+
+# Graph4 : Antidepressant consumption according to teleworking ? 
 
 ```{r, echo = FALSE, message = FALSE}
 Reg2.2 <- lm(tab_R2.2$Consumption~tab_R2.2$Teleworking+tab_R2.2$Unemployment)
