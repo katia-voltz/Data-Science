@@ -3,8 +3,19 @@ title: "Conclusion"
 output: html_document
 ---
 
-
+# Conclusion
 ```{r, echo = FALSE, message = FALSE}
 source(here::here("scripts/Setup.R"))
 ```
 
+
+### Limitation
+
+- dans les données de mental health il y a toute la population et pas seulement les travailleurs
+- Mental health prend beaucoup de chose en compte (anxiety, depresssion,..) 
+- Donéées dans certains pays incomplètes donc anaylse par région/continent pas toujours très précise
+
+### Future work
+
+- Certains pays doivent avoir des éléments externes au work environment (politique, accès aux soins, ...) qui ont un impact sur celui ci et donc sur la santé mental des travailleurs.
+--> Il serait donc interresant de pouvoir analyser comment un pays ou une région organise sa société pour que les travailleurs aient les meilleures conditions possibles.
