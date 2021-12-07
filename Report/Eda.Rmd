@@ -15,7 +15,7 @@ Now all our databases are clean and ready to be used.
 
 Map representing the mental illness prevalence in the selected countries from the OCDE
 ```{r, echo = FALSE, message = FALSE}
-mental.health <- read.csv2(here::here("Data/share.with.mental.and.substance.disorders.csv))
+mental.health <- share.with.mental.and.substance.disorders.csv
 
 
 mental.health <- mental.health %>%
