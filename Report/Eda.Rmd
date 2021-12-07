@@ -13,8 +13,8 @@ Now all our databases are clean and ready to be used.
 
 # Exloratory data analysis:
 
-```{r, echo = FALSE, message = FALSE}
 Map representing the mental illness prevalence in the selected countries from the OCDE
+```{r, echo = FALSE, message = FALSE}
 mental.health <- share.with.mental.and.substance.disorders
 
 
