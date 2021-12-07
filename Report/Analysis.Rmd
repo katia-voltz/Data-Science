@@ -108,8 +108,6 @@ summary(mod2)
 
 
 ```{r, echo = FALSE, message = FALSE}
-Reg2 <- lm(tab_R2.1$Consumption~tab_R2.1$Cases)
-summary(Reg2)
 
 cor(tab_R2.1$Consumption, tab_R2.1$Deaths)
 cor(tab_R2.1$Consumption, tab_R2.1$Cases)
@@ -184,6 +182,253 @@ When we calculate the average consumption from 2000 to 2019 and compare it to th
 Then, when we compare the average growth in consumption per year, to the growth between 2019 and 2020, we see that the latter is higher than the average for 5 of the 8 countries analyzed (Portugal, Italy, Iceland, Hungary and Greece). 
 
 This shows that the consumption of antidepressants has increased in 2020, which could be well explained by the covid crisis. 
+
+# Countries with the highest and lowest deaths covid / Depression Rate 2021
+
+
+deaths <- Number_Covid19_cases_deaths %>%
+  filter(LOCATION %in% List.of.Countries)
+
+deaths.tophigh <- covid %>% arrange(desc(Deaths)) 
+deaths.tophigh <- deaths.tophigh[1:13,] %>% select(LOCATION,Deaths)
+
+deaths.toplow <- covid %>% arrange(Deaths) 
+deaths.toplow <- deaths.toplow[1:13,] %>% select(LOCATION,Deaths)
+
+
+kbl(
+  tibble(
+    'Top Countries' = deaths.tophigh$LOCATION,
+    "TCDeaths " = deaths.tophigh$Deaths,
+    'Low Countries' = deaths.toplow$LOCATION,
+    "LDeaths" = deaths.toplow$Deaths
+  ),
+  caption = "**Table 1**: countries with the most and least deaths of covid in 2020 .",
+  align = c("lclc")
+) %>%
+  kable_classic(full_width = T, html_font = "Cambria") %>%
+  kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'),table.envir = "table") %>%
+  column_spec(c(1,3), width = "8cm")
+
+
+
+
+List.top.deaths <- c("HUN","CZE","BRA","ROU","HRV","BEL","USA","ITA","POL","ESP","FRA","PRT","GRC")
+List.low.deaths <- c("CHN","NZL","AUS","ISL","JPN","NOR","FIN","CAN","NLD","DEU","AUT","CHE","SWE")
+
+tableau.top.deaths <-  Depression_Rate2021 [-3]%>%filter(LOCATION %in% List.top.deaths) 
+mean.top.rate.deaths <- mean(tableau.top.deaths$Rate)
+
+tableau.low.deaths <- Depression_Rate2021 [-3]%>% filter(LOCATION %in% List.low.deaths)
+mean.low.rate.deaths <- mean(tableau.low.deaths$Rate)
+
+plot3 <- ggplot(data=tableau.top.deaths)+
+  geom_bar(aes(x = Rate, y= LOCATION),fill = '#0099CC',stat = "identity")+
+  geom_text(aes(x = Rate, y = LOCATION, label = paste(round(Rate, digits = 2),"%")),
+            hjust = 1.15,color='white')+
+  ylab("top Covid Deaths")+
+  xlab("") +
+  xlim(c(0,6))
+
+
+plot4 <- ggplot(data=tableau.low.deaths)+
+  geom_bar(aes(x = Rate, y= LOCATION),fill = '#FF3399',stat = "identity")+
+  geom_text(aes(x = Rate, y = LOCATION, label = paste(round(Rate, digits = 2),"%")),
+            hjust = 1.15,color='white')+
+  ylab("low Covid Deaths")+
+  xlab("") +
+  xlim(c(0,6))
+
+ggarrange(plot3,plot4,nrow = 2,align = 'v') %>%
+  annotate_figure(top = text_grob("Depression Rate For Countries with The Most and Least deaths of Covid in 2020", 
+                                  size = 12),
+                  bottom = text_grob("Depression Rate"))
+
+kbl(tibble(
+  'Top Covid deaths'=mean.top.rate.deaths,
+  'Low Covid deaths'=mean.low.rate.deaths
+),
+caption = "**Average depression rate in countries with highest and lowest Covid-19 Deaths**",
+align = c("cc")
+) %>%
+  kable_classic(full_width = T, html_font = "Cambria") %>%
+  kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'),table.envir = "table")
+
+
+# Regression Antidepressant Consumption / Teleworking / Unemployment / TIME 
+
+Reg2.4 <- lm(tab_R2.2$Consumption~tab_R2.2$Teleworking+tab_R2.2$Unemployment+tab_R2.2$TIME)
+summary(Reg2.4)
+
+
+# Countries with the most and least teleworkers on AVERAGE compared to antidepressant consumption 
+
+#moyenne consommation antidepresseur par pays
+mean.conso <- aggregate(tab_R2.2.2010[, 3], list(tab_R2.2.2010$LOCATION), mean)
+mean.conso <- rename(mean.conso, c("LOCATION" = "Group.1","conso"="x"))
+
+#moyenne teleworking par pays 
+mean.teleworking <- aggregate(tab_R2.2.2010[, 4], list(tab_R2.2.2010$LOCATION), mean, na.rm=T)
+mean.teleworking <- rename(mean.teleworking, c("LOCATION" = "Group.1","teleworking"="x"))
+
+
+#pays avec le plus et le moins de telework 
+
+
+teleworking.tophigh <- mean.teleworking %>% arrange(desc(teleworking)) 
+teleworking.tophigh <- teleworking.tophigh[1:8,] %>% select(LOCATION,teleworking)
+
+teleworking.toplow <- mean.teleworking %>% arrange(teleworking) 
+teleworking.toplow <- teleworking.toplow[1:8,] %>% select(LOCATION,teleworking)
+view(teleworking.toplow)
+
+kbl(
+  tibble(
+    'Top Countries' = teleworking.tophigh$LOCATION,
+    "TTeleworking " = teleworking.tophigh$teleworking,
+    'Low Countries' = teleworking.toplow$LOCATION,
+    "LTeleworking" = teleworking.toplow$teleworking
+  ),
+  caption = "**Table 2**: countries with the most and least teleworkers on average from 2010 to 2019",
+  align = c("lclc")
+) %>%
+  kable_classic(full_width = T, html_font = "Cambria") %>%
+  kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'),table.envir = "table") %>%
+  column_spec(c(1,3), width = "8cm")
+
+#tableau antidepressant conso pour top tele
+
+List.top.telework <- c("NLD","FIN","DNK","AUT","BEL","ISL","PRT","SWE")
+List.low.telework <- c("HUN","GRC","CZE","DEU","ITA","ESP","NOR")
+
+tableau.top.conso2 <-  mean.conso %>%filter(LOCATION %in% List.top.telework) %>% arrange(desc(conso)) 
+view(tableau.low.conso2)
+mean.top.consumption <- mean(tableau.top.conso2$conso)
+
+tableau.low.conso2 <- mean.conso %>% filter(LOCATION %in% List.low.telework)  %>% arrange(desc(conso))
+mean.low.consumption <- mean(tableau.low.conso2$conso)
+
+#tableau.low.conso2 %>% mutate(LOCATION= fct_reorder(LOCATION,conso)) #mettre ordre décroissant ? 
+
+plot9 <-ggplot(data=tableau.top.conso2)+
+  geom_bar(aes(x = conso, y= LOCATION),fill = '#0099CC',stat = "identity")+
+  geom_text(aes(x = conso, y = LOCATION, label = paste(round(conso, digits = 2),"u")),
+            hjust = 1.15,color='white')+
+  ylab("top teleworking")+
+  xlab("") +
+  xlim(c(0,150))
+
+
+#tableau antidepressant conso pour low tele
+
+plot10 <-ggplot(data=tableau.low.conso2)+
+  geom_bar(aes(x = conso, y= LOCATION),fill = '#FF3399',stat = "identity")+
+  geom_text(aes(x = conso, y = LOCATION, label = paste(round(conso, digits = 2),"u")),
+            hjust = 1.15,color='white')+
+  ylab("low teleworking")+
+  xlab("") +
+  xlim(c(0,150))
+
+ggarrange(plot9,plot10,nrow = 2,align = 'v') %>%
+  annotate_figure(top = text_grob("Antidepressant consumption For Countries with The Most and Least teleworkers on average 2010/2019", 
+                                  size = 12),
+                  bottom = text_grob("Antidepressant consumption"))
+
+kbl(tibble(
+  'Top Teleworking countries'=mean.top.consumption,
+  'Low Teleworking countries'=mean.low.consumption
+),
+caption = "**Average Antidepressant consumption in countries with highest and lowest teleworking**",
+align = c("cc")
+) %>%
+  kable_classic(full_width = T, html_font = "Cambria") %>%
+  kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'),table.envir = "table")
+
+
+
+# Antidepressant consumption in countries with the most teleworkers and least teleworkers in  2020
+
+
+#consommation antidepresseur par pays
+conso2020 <- tab_R2.2.2010 %>% filter(TIME == 2020) %>% rename("conso2020"="Consumption")
+conso2020 <- conso2020[,-c(4:5,2)]
+
+#teleworking par pays 2019
+teleworking2020 <- tab_R2.2.2010 %>% filter(TIME == 2020) %>% rename("teleworking2020"="Teleworking")
+teleworking2020 <- teleworking2020[,-c(2:3,5)]
+view(teleworking2020)
+
+#pays avec le plus et le moins de telework 
+
+
+teleworking.tophigh <- teleworking2020 %>% arrange(desc(teleworking2020)) 
+teleworking.tophigh <- teleworking.tophigh[1:4,] %>% select(LOCATION,teleworking2020)
+view(teleworking.tophigh)
+
+teleworking.toplow <- teleworking2020 %>% arrange(teleworking2020) 
+teleworking.toplow <- teleworking.toplow[1:4,] %>% select(LOCATION,teleworking2020)
+view(teleworking.toplow)
+
+kbl(
+  tibble(
+    'Top Countries' = teleworking.tophigh$LOCATION,
+    "TTeleworking " = teleworking.tophigh$teleworking2020,
+    'Low Countries' = teleworking.toplow$LOCATION,
+    "LTeleworking" = teleworking.toplow$teleworking2020
+  ),
+  caption = "**Table 3**: countries with the most and least teleworkers 2020",
+  align = c("lclc")
+) %>%
+  kable_classic(full_width = T, html_font = "Cambria") %>%
+  kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'),table.envir = "table") %>%
+  column_spec(c(1,3), width = "8cm")
+
+
+#tableau antidepressant conso pour top tele
+
+List.top.telework <- c("PRT","ITA","ESP","ISL")
+List.low.telework <- c("HUN","NOR","GRC")
+
+tableau.top.conso4 <-  conso2020 %>%filter(LOCATION %in% List.top.telework) %>% arrange(desc(conso2020)) 
+mean.top.consumption2020 <- mean(tableau.top.conso4$conso2020)
+
+tableau.low.conso4 <- conso2020 %>% filter(LOCATION %in% List.low.telework)  %>% arrange(desc(conso2020))
+mean.low.consumption2020 <- mean(tableau.low.conso4$conso2020)
+
+
+#tableau.low.conso2 %>% mutate(LOCATION= fct_reorder(LOCATION,conso)) #mettre ordre décroissant ? 
+
+plot13 <-ggplot(data=tableau.top.conso4)+
+  geom_bar(aes(x = conso2020, y= LOCATION),fill = '#0099CC',stat = "identity")+
+  geom_text(aes(x = conso2020, y = LOCATION, label = paste(round(conso2020, digits = 2),"u")),
+            hjust = 1.15,color='white')+
+  ylab("top teleworking")+
+  xlab("") +
+  xlim(c(0,170))
+
+plot14 <-ggplot(data=tableau.low.conso4)+
+  geom_bar(aes(x = conso2020, y= LOCATION),fill = '#FF3399',stat = "identity")+
+  geom_text(aes(x = conso2020, y = LOCATION, label = paste(round(conso2020, digits = 2),"u")),
+            hjust = 1.15,color='white')+
+  ylab("low teleworking")+
+  xlab("") +
+  xlim(c(0,170))
+
+ggarrange(plot13,plot14,nrow = 2,align = 'v') %>%
+  annotate_figure(top = text_grob("Antidepressant consumption For Countries with The Most and Least teleworkers in 2020", 
+                                  size = 12),
+                  bottom = text_grob("Antidepressant consumption"))
+
+kbl(tibble(
+  'Top Teleworking countries'=mean.top.consumption2020,
+  'Low Teleworking countries'=mean.low.consumption2020
+),
+caption = "**Antidepressant consumption in countries with highest and lowest teleworking in 2020 **",
+align = c("cc")
+) %>%
+  kable_classic(full_width = T, html_font = "Cambria") %>%
+  kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'),table.envir = "table")
+
 
 
 
