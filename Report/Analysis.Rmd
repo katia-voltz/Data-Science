@@ -442,6 +442,114 @@ align = c("cc")
   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'),table.envir = "table")
 ```
 
+# Public Spending on health analysis
+First statistical analysis
+Study of the first regression
+
+```{r, echo = FALSE, message = FALSE}
+Regression.total.tab_1 <- lm(tab_1$Value_Spending.on.health ~ tab_1$Mental_health_Value + tab_1$Time + tab_1$Region) 
+```
+```{r}
+summary(Regression.total.tab_1)
+```
+As a result, we have a model that looks viable. The percentage of variance explained is 68%, and the p-value is extremely low. Moreover, the the dependent variable 'Value spending on health' is significantly correlated to:
+'Mental Health value', 
+'Time', 
+'RegionNorth America', 
+'RegionOceania', 
+‘RegionWestern Europe'
+
+TEST OF CLUSTERS
+To better understand the distribution of these values, we represent them by clusters.
+First we standardize the data
+Normalize data
+Computation of the euclidienne distance
+We create the Cluster Dendogram
+We calculate the average clusters
+
+```{r}
+data_test <- tab_2[-c(1,2,3)]
+data_test <- data_test[,c(2,1)]
+mean_data <-apply(data_test, 2, mean)
+mean_data
+std <- apply(data_test,2,sd)
+data_test_std <- scale(data_test, mean_data,std)
+row.names(data_test_std) <- tab_2[,2]
+data_test_std
+distance <- dist(data_test_std)
+distance
+print(distance, digits = 1)
+hc <- hclust(distance)
+plot(hc, labels= tab_2$Entity)
+```
+Then we use an average-linkage model on the scaled data and use 5 clusters to show the difference:
+Study what is the optimal number of clusters k that is relevant to use
+We conclude that a number of 5 clusters is optimal because the total within the sum of squares reduces only slightly from this point.
+Graphical representation of the clusters
+
+```{r}
+ct1 <- cutree(avclust, k=5)
+plot(avclust, labels=tab_2$Entity) 
+rect.hclust(avclust, k=5, border="red")
+fviz_nbclust(data_test_std, kmeans, method="wss")
+km.res <- kmeans(data_test_std, 5)
+fviz_cluster(km.res, data=data_test_std, repel=TRUE)
+```
+We can observe the different distribution of the values according to the country's structures. The countries are distributed according to the location
+
+Multilevel analysis
+This multilevel analysis gives the opportunity to observe how the model can adapt to clusters, in this case to the 'Region' from tab_1. 
+We want to add the regression to each Region.
+
+```{r}
+ggplot(tab_1, aes(x=Mental_health_Value, y=Value_Spending.on.health)) +
+  geom_point() +
+  facet_wrap(~Region)
+
+tab_1$Mental_health_Value2 <- scale(tab_1$Mental_health_Value, center=TRUE, scale=TRUE) 
+
+rd.int <- lmer(Value_Spending.on.health ~ Mental_health_Value2 + (1|Region), data=tab_1) 
+summary(rd.int)
+
+rd.int.sl <- lmer(Value_Spending.on.health ~ Mental_health_Value2 + (1 + Mental_health_Value2|Region), data = tab_1)
+
+summary(rd.int.sl)
+
+ggplot(tab_1, aes(x = Mental_health_Value, y = Value_Spending.on.health)) +
+  facet_wrap(~Region, nrow=2) +
+  geom_point(alpha = 0.5) +
+  geom_line(data = cbind(tab_1, pred = predict(rd.int.sl)), aes(y = pred), size = 1, color='red')
+
+
+lmtest <- lm(tab_1$Value_Spending.on.health ~ tab_1$Mental_health_Value2 + factor(tab_1$Region))
+
+summary(lmtest)
+```
+
+As specified and checked by these plots, the slopes are now varying across observations of regions and so are the respective intercepts. 
+We can really identify the clusters that are created with this analysis. Indeed we can observe that Oceania's countries have the highest prevalence of mental illness.
+That is really the value added of this model, in that we want to control for the fact that we have different populations in order to determine the “true” relationship between 'mental illness' proportion and 'public spending on health'.
+Looking at Asia, there  is a positive correlation between Mental health disorder prevalence and value spending on health.This aspect is also verified with Eastern Europe, and North America.
+However the interpretation of Northern Europe, Oceania, South America and Western Europe is different because the slope coefficient is close to zero. 
+In conclusion it means that indeed in overall, by pooling all the data together, our two variables X and Y are significantly, positively correlated.
+But after a multilevel analysis, by Region, we understand that the positive correlation is less present looking into one specific Region. It means that the location has a big impact on these values. 
+
+→ To conclude, The 'Value_Spending.on.health' is positively correlated to 'Mental_Health_Value' and to 'Time'. However the countries that are part of the same location are more likely to have the same values, especially in Northern Europe, Oceania, South America and Western Europe. 
+In these regions, it is more difficult to conclude about the impact of ‘mental health disorder prevalence’ on the ‘value spending on health’.
+
+
+→ Therefore, locality impacts Mental Health values and we cannot explain 100% of the variation in these values with the working environment of a country.
+
+
+
+
+
+
+
+
+
+
+
 
 
 
