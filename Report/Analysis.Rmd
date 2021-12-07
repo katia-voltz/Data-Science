@@ -11,7 +11,6 @@ source(here::here("scripts/Setup.R"))
 
 ### Work environment 
 
-
 We decide to do a cluster analysis to see if there is some prevalence of certain region compared to others, and also wanted to study our problem through another perspective, that of the countries. Indeed, we could notice on the first plots, some countries adopt more extreme behaviors (position separated from the others) and it is often the same across the different variables.  A good way to analyze this is to group our countries using clusters. The goal is to see if the work environment has more impact in some countries
 than in others on the mental health of its population. This is also where we will use our table of averages that we made for each of the variables.
 
@@ -95,88 +94,12 @@ This table ? shows us that, regardless of the work environment variable, we alwa
 
 It would therefore be interesting to see how these behave according to the regions. 
 
-# Table ?? : Impact of work environment's variables on mental health disorders by region 
 ```{r}
-GG00 <- tab %>% ggplot(aes(
-  x = Income_Inequality,
-  y = Mental_Health,
-  group = Entity,
-  color = Region
-)) +
-  geom_path() +
-  theme(axis.text.x = element_text(
-    angle = 360,
-    hjust = 1,
-    vjust = 0.5
-  )) +
-  ggtitle("Pas encore de titre") +
-  xlab("Income inequality") + ylab("Prevalence of mental health value in %") 
-ggplotly(GG00)
+mod2 <- lm(tab$Mental_Health ~ tab$Region + tab$TIME)
+summary(mod2)
+```
 
-GG11 <- tab %>% ggplot(aes(
-  x = Wages,
-  y = Mental_Health,
-  group = Entity,
-  color = Region
-)) +
-  geom_path() +
-  theme(axis.text.x = element_text(
-    angle = 360,
-    hjust = 1,
-    vjust = 0.5
-  )) +
-  ggtitle("Pas encore de titre") +
-  xlab("wage") + ylab("Prevalence of mental health value in %") 
-ggplotly(GG11)
 
-GG22 <- tab %>% ggplot(aes(
-  x = Unemployment,
-  y = Mental_Health,
-  group = Entity,
-  color = Region
-)) +
-  geom_path() +
-  theme(axis.text.x = element_text(
-    angle = 360,
-    hjust = 1,
-    vjust = 0.5
-  )) +
-  ggtitle("Pas encore de titre") +
-  xlab("Unemployment") + ylab("Prevalence of mental health value in %") 
-ggplotly(GG22)
-
-GG33 <- tab %>% ggplot(aes(
-  x = Working_Age,
-  y = Mental_Health,
-  group = Entity,
-  color = Region
-)) +
-  geom_path() +
-  theme(axis.text.x = element_text(
-    angle = 360,
-    hjust = 1,
-    vjust = 0.5
-  )) +
-  ggtitle("Pas encore de titre") +
-  xlab("Working age") + ylab("Prevalence of mental health value in %") 
-ggplotly(GG33)
-
-GG44 <- tab %>% ggplot(aes(
-  x = GDP,
-  y = Mental_Health,
-  group = Entity,
-  color = Region
-)) +
-  geom_path() +
-  theme(axis.text.x = element_text(
-    angle = 360,
-    hjust = 1,
-    vjust = 0.5
-  )) +
-  ggtitle("Pas encore de titre") +
-  xlab("GDP") + ylab("Prevalence of mental health value in %") 
-ggplotly(GG44)
-````
 
 
 #### COVID 
