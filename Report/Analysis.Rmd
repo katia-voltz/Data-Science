@@ -144,7 +144,7 @@ tab_R2.1mean <-aggregate(tab_R2.1.2019[,4], list(tab_R2.1.2019$LOCATION), mean, 
 tab_R2.1mean <-rename(tab_R2.1mean, "LOCATION" = "Group.1")
 
 #Tableau conso 2020 et croissance entre 2019 et 2020
-tab_R2.1.G2020 <- tab_R2.1 %>%
+tab_R2.1.G2020 <- tab_R2.1G %>%
   group_by(LOCATION,Growth) %>%
   filter(TIME == 2020)
   
@@ -175,7 +175,7 @@ comparaison <- merge(comparaison,consumption2020, by = c("LOCATION"))
 comparaison <- comparaison[-5]
 comparaison <- rename(comparaison,"Consumption2020"="Consumption")
 
-kabble(comparaison)
+kable(comparaison)
 ```
 
 When we calculate the average consumption from 2000 to 2019 and compare it to the consumption in 2020 we notice that the latter is for all countries higher than the average of the previous years. 
@@ -186,7 +186,7 @@ This shows that the consumption of antidepressants has increased in 2020, which 
 # Countries with the highest and lowest deaths covid / Depression Rate 2021
 
 ```{r, echo = FALSE, message = FALSE}
-deaths <- Number_Covid19_cases_deaths %>%
+covid <- Number_Covid19_cases_deaths %>%
   filter(LOCATION %in% List.of.Countries)
 
 deaths.tophigh <- covid %>% arrange(desc(Deaths)) 
@@ -274,6 +274,7 @@ Given the results, and that the variable "unemployment" has not a significant im
 # Countries with the most and least teleworkers on AVERAGE compared to antidepressant consumption 
 
 ```{r, echo = FALSE, message = FALSE}
+tab_R2.2.2010 <- tab_R2.2 %>% filter(TIME > 2009)
 #moyenne consommation antidepresseur par pays
 mean.conso <- aggregate(tab_R2.2.2010[, 3], list(tab_R2.2.2010$LOCATION), mean)
 mean.conso <- rename(mean.conso, c("LOCATION" = "Group.1","conso"="x"))
@@ -291,7 +292,7 @@ teleworking.tophigh <- teleworking.tophigh[1:8,] %>% select(LOCATION,teleworking
 
 teleworking.toplow <- mean.teleworking %>% arrange(teleworking) 
 teleworking.toplow <- teleworking.toplow[1:8,] %>% select(LOCATION,teleworking)
-view(teleworking.toplow)
+
 
 kbl(
   tibble(
@@ -313,7 +314,7 @@ List.top.telework <- c("NLD","FIN","DNK","AUT","BEL","ISL","PRT","SWE")
 List.low.telework <- c("HUN","GRC","CZE","DEU","ITA","ESP","NOR")
 
 tableau.top.conso2 <-  mean.conso %>%filter(LOCATION %in% List.top.telework) %>% arrange(desc(conso)) 
-view(tableau.low.conso2)
+
 mean.top.consumption <- mean(tableau.top.conso2$conso)
 
 tableau.low.conso2 <- mean.conso %>% filter(LOCATION %in% List.low.telework)  %>% arrange(desc(conso))
@@ -368,18 +369,18 @@ conso2020 <- conso2020[,-c(4:5,2)]
 #teleworking par pays 2019
 teleworking2020 <- tab_R2.2.2010 %>% filter(TIME == 2020) %>% rename("teleworking2020"="Teleworking")
 teleworking2020 <- teleworking2020[,-c(2:3,5)]
-view(teleworking2020)
+
 
 #pays avec le plus et le moins de telework 
 
 
 teleworking.tophigh <- teleworking2020 %>% arrange(desc(teleworking2020)) 
 teleworking.tophigh <- teleworking.tophigh[1:4,] %>% select(LOCATION,teleworking2020)
-view(teleworking.tophigh)
+
 
 teleworking.toplow <- teleworking2020 %>% arrange(teleworking2020) 
 teleworking.toplow <- teleworking.toplow[1:4,] %>% select(LOCATION,teleworking2020)
-view(teleworking.toplow)
+
 
 kbl(
   tibble(
@@ -488,6 +489,9 @@ We conclude that a number of 5 clusters is optimal because the total within the 
 Graphical representation of the clusters
 
 ```{r}
+avclust <- hclust(distance, method='average')
+plot(avclust, labels=tab_2$Entity)
+
 ct1 <- cutree(avclust, k=5)
 plot(avclust, labels=tab_2$Entity) 
 rect.hclust(avclust, k=5, border="red")
