@@ -338,13 +338,14 @@ Our intitial question of research is:
 
 # List.of.countries
 
-First, here is the list of the selected countries. In continuation of our analysis, we keep the OECD countries to answer our research questions.
+First, here is the list of the selected countries. In continuation of our analysis, we keep the OECD countries to answer our research question.
 
-```{r}
+```{r, echo = FALSE, message = FALSE}
 tab.of.countries <- read.csv2(here::here('Data/Entities_LOCATION_Region.csv')
+```
+```{r}
 kable(tab.of.countries)
 ```
-
 
 # 1: Cleaning Public spending on health
 
@@ -481,10 +482,34 @@ tab_1$Region <- as.factor(tab_1$Region)
 tab_1 <- tab_1[c(1,5,6,2,3,4)]
 ```
 
-# Now our final table, tab_1, is arranged in the structure that will be used to make the analysis.
+Now our final table, tab_1, is arranged in the structure that will be used to make the analysis.
 
 ```{r}
-kable(tab_1)
+kable(tab_1[1:5,])
 ```
+For further analysis, for instance cluster analysis, we decide to sort the dataset (tab_1) with the aggregated values.
+
+```{r,echo = FALSE, message = FALSE}
+tab_Mean_Value_Spending.on.health <- aggregate(tab_1$Value_Spending.on.health, list(tab_1$LOCATION,tab_1$Entity,tab_1$Region), mean)
+
+tab_Mean_Value_Spending.on.health <- rename(tab_Mean_Value_Spending.on.health,c("LOCATION"="Group.1","Entity"="Group.2","Region"="Group.3","Mean_Value_Spending.on.health"="x"))
+```
+
+Aggregate the Mental_health_Value
+```{r,echo = FALSE, message = FALSE}
+tab_Mean_Mental_health_Value <- aggregate(tab_1$Mental_health_Value, list(tab_1$LOCATION,tab_1$Entity,tab_1$Region), mean)
+
+tab_Mean_Mental_health_Value <- rename(tab_Mean_Mental_health_Value,c("LOCATION"="Group.1","Entity"="Group.2","Region"="Group.3", "Mean_Mental_health_Value"="x"))
+```
+
+We merge the table into a new dataframe representing the mean values with respect to the countries and Region into: tab_2
+
+```{r,echo = FALSE, message = FALSE}
+tab_2 <- merge(tab_Mean_Value_Spending.on.health, tab_Mean_Mental_health_Value, by = c('LOCATION','Entity','Region'))
+```
+```{r}
+kable(tab_2)
+```
+
 
 
