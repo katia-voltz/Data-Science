@@ -194,7 +194,7 @@ ggplot(data = Depression_Rate2000_2021)+
   geom_point(mapping = aes(x = TIME , y = Rate, color = LOCATION))+
   geom_line(mapping = aes(x = TIME , y = Rate, color = LOCATION))+
   theme_bw()
- ```
+```
 
 ```{r, echo = FALSE, message = FALSE}
 
@@ -209,7 +209,7 @@ Depression_Rate2000_2021 <- ddply(Depression_Rate2000_2021, .(LOCATION),
                                     }
                                   )
                                   
-kabble(Depression_Rate2000_2021)
+kable(Depression_Rate2000_2021)
 
 ```
 Here we have calculated the growth each year until 2017, and between 2017 and 2021 of the depression rate by country. We can indeed observe a growth over the years, but this increase is smaller and smaller over time. We can therefore make the assumption that this growth continues to decline through the years after 2017. Following this trend, we can well notice that the value in 2021 is unusual compared to previous years. There has been a strong increase in the depression rate in 2021, that we can well observe on the graph. 
@@ -268,8 +268,8 @@ corrplot(cor(tab_1[4:6]), method = 'number')
 ```
 With this corrplot, we can identify the correlation values for each variable. The mental health value, as our dependent variable (Y) as for coefficient value 0.6 with the value spending on health. As predicted with the initial plot, Time does not impact mental health because the value is close to 0 and does not appear on the graph.
 
-```{r}
 Graph.1 : Visualization of prevalence of mental health (% of the population) against Time for OCDE countries from 2000 to 2017 
+```{r}
 Graph_Mental_Health <- Mental_Health_2 %>% ggplot(aes(
   x = Time,
   y = Mental_health_Value,
