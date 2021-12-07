@@ -6,3 +6,12 @@ packages <- c(
 purrr::walk(packages, library, character.only = TRUE)
 
 options(digits = 5)
+
+opts_chunk$set(collapse = TRUE,
+               cache = FALSE,
+               message = FALSE,
+               echo = FALSE,
+               warning=FALSE
+)
+
+              
