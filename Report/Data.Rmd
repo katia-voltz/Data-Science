@@ -36,14 +36,14 @@ List.of.Countries = c('AUT','BEL','HRV', 'CZE', 'DNK', 'ENG', 'FIN', 'FRA', 'DEU
 We also sort these countries by their region.
 
 ```{r, echo = FALSE, message = FALSE}
-tab_countries <- read.csv2('Data/Entities_LOCATION_Region.csv')
+tab_countries <- read.csv2(here::here("Data/Entities_LOCATION_Region.csv'))
 ```
 
 Now that we have collected all our data, we need to sort, order and rename them in order to obtain only tables with three columns to have the value of our variable according to its country and its date. We took the data for each of these variables for a certain sample of countries and then chose to do an individual average over the years from 2000 to 2017.
 
 
 ```{r, echo = FALSE, message = FALSE}
-Mental_Health <- read.csv("Data/Mental_Health.csv")
+Mental_Health <- read.csv(here::here("Data/Mental_Health.csv"))
 attach(Mental_Health)
 Mental_Health <- Mental_Health[,-1]
 Mental_Health <- rename(Mental_Health,c("LOCATION"="Code", "TIME"="Year","ValueH"="Prevalence...Mental.and.substance.use.disorders...Sex..Both...Age..Age.standardized..Percent."))
@@ -54,7 +54,7 @@ Mental_Health <- Mental_Health %>%
 Mental_Health <-  rename(Mental_Health,c("Mental_Health"="ValueH"))
 Mental_Health$"TIME" <- as.integer(Mental_Health$"TIME")
 
-Income_Inequality <- read.csv2("Data/Income_inequality-1.csv")
+Income_Inequality <- read.csv2(here::here("Data/Income_inequality-1.csv"))
 attach(Income_Inequality)
 Income_Inequality <- Income_Inequality[,-c(2:5,8)]
 Income_Inequality$Value <- as.numeric(Income_Inequality$Value)
@@ -64,7 +64,7 @@ Income_Inequality <- Income_Inequality %>%
   filter(TIME>1999, TIME< 2018)
 Income_Inequality <- rename(Income_Inequality,c("Income_Inequality"="Value"))
 
-wages <- read.csv("Data/Average_wages.csv")
+wages <- read.csv(here::here("Data/Average_wages.csv"))
 attach(wages)
 wages <- wages[,-c(2:5,8)]
 List.of.Countries = c('AUT','BEL','HRV', 'CZE', 'DNK', 'ENG', 'FIN', 'FRA', 'DEU', 'GRC', 'HUN', 'ISL', 'ITA', 'ROU', 'PRT', 'POL', 'NOR', 'NLD', 'CHE', 'SWE', 'ESP', 'AUS', 'BRA', 'CAN', 'JPN', 'NZL', 'USA')
@@ -73,7 +73,7 @@ wages <- wages %>%
   filter(TIME>1999, TIME< 2018)
 wages <- rename(wages,c("Wages"="Value"))
 
-Unemployment <- read.csv("Data/Unemployement_Rate1.csv")
+Unemployment <- read.csv(here::here("Data/Unemployement_Rate1.csv"))
 attach(Unemployment)
 Unemployment <- Unemployment[,-c(2:5,8)]
 List.of.Countries = c('AUT','BEL','HRV', 'CZE', 'DNK', 'ENG', 'FIN', 'FRA', 'DEU', 'GRC', 'HUN', 'ISL', 'ITA', 'ROU', 'PRT', 'POL', 'NOR', 'NLD', 'CHE', 'SWE', 'ESP', 'AUS', 'BRA', 'CAN', 'JPN', 'NZL', 'USA')
@@ -82,14 +82,14 @@ Unemployment <- Unemployment %>%
   filter(TIME>1999, TIME< 2018)
 Unemployment <- rename(Unemployment,c("Unemployment"="Value"))
 
-Working_Age <- read.csv("Data/Working_age_population.csv")
+Working_Age <- read.csv(here::here("Data/Working_age_population.csv"))
 attach(Working_Age)
 Working_Age <- Working_Age[,-c(2:5,8)]
 List.of.Countries = c('AUT','BEL','HRV', 'CZE', 'DNK', 'ENG', 'FIN', 'FRA', 'DEU', 'GRC', 'HUN', 'ISL', 'ITA', 'ROU', 'PRT', 'POL', 'NOR', 'NLD', 'CHE', 'SWE', 'ESP', 'AUS', 'BRA', 'CAN', 'JPN', 'NZL', 'USA')
 Working_Age <-  Working_Age %>% filter(LOCATION %in% List.of.Countries)
 Working_Age <- rename(Working_Age,c("Working_Age"="Value"))
 
-Work_Time <- read.csv("Data/Avg_Work_Time.csv")
+Work_Time <- read.csv(here::here("Data/Avg_Work_Time.csv"))
 attach(Work_Time)
 Work_Time <- Work_Time[,-c(2:5,8)]
 List.of.Countries = c('AUT','BEL','HRV', 'CZE', 'DNK', 'ENG', 'FIN', 'FRA', 'DEU', 'GRC', 'HUN', 'ISL', 'ITA', 'ROU', 'PRT', 'POL', 'NOR', 'NLD', 'CHE', 'SWE', 'ESP', 'AUS', 'BRA', 'CAN', 'JPN', 'NZL', 'USA')
@@ -98,7 +98,7 @@ Work_Time <- Work_Time %>%
   filter(TIME>1999, TIME< 2018) 
 Work_Time <- rename(Work_Time,c("Work_Time"="Value"))
 
-GDP <- read.csv("Data/gdp-per-capita.csv")
+GDP <- read.csv(here::here("Data/gdp-per-capita.csv"))
 attach(GDP)
 GDP <- GDP[,-c(1,5)]
 GDP <- rename(GDP,c("LOCATION"="Code", "TIME"="Year"))
