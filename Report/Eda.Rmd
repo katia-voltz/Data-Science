@@ -29,7 +29,7 @@ Now all our databases are clean and ready to be used.
 
 # Table 1 : Representation of the rate of mental health disorder by country and region
 # ATTENTION mettre dans ordre décroissant + enlever NA
-```{r}
+```{r, echo = FALSE, message = FALSE}
 ggplot(data = tab_mean, aes(x = MentalHealth_mean, y=LOCATION)) + 
   geom_bar(stat='identity',fill="#DB7093",color="#DB7093",alpha=0.8) +
   geom_text(aes(label=round(MentalHealth_mean)),hjust=1,color='#4F2F4F') +
@@ -40,7 +40,7 @@ ggplot(data = tab_mean, aes(x = MentalHealth_mean, y=LOCATION)) +
 On this first table, we can see that the Oceanian countries (Australia, New Zealand) are the ones that have a bigger part of their population with a mental disorder, followed by North America (Canada, USA) and Western Europe (France, Norway, Netherlands, Spain, Germany, Portugal). While Eastern European (Poland, Romania, Hungary, Czech Republic, Croatia) and Asian (Japan) countries have the lowest rate.  
 
 # Table 2 : Evolution of the prevalence of mental health disorder over time and by country
-```{r}
+```{r, echo = FALSE, message = FALSE}
 Graph_MH <- tab %>% ggplot(aes(
   x = TIME,
   y = Mental_Health,
@@ -64,7 +64,7 @@ We now want to start studying our regression, that is, to see how the work envir
 
 # Table 3 : Correlation analyses between mental health and the work environment
 # ATTENTION REFAIRE GRAPHIQUES
-```{r}
+```{r, echo = FALSE, message = FALSE}
 plot_tab <- plot(tab[3:9]) 
 corrplot_tab <- corrplot(tab[3:9])
 # MARCHE PAS ?
@@ -76,7 +76,7 @@ Faire analyse quand on a le bon graph de corrélation
 We will check these hypotheses and the validity of our model by doing a regression.
 
 # Table 4 : Regression study
-```{r}
+```{r, echo = FALSE, message = FALSE}
 mod <- lm(tab$Mental_Health ~ tab$Income_Inequality + tab$Wages + tab$Unemployment + tab$Working_Age + tab$Work_Time + tab$GDP)
 summary(mod)
 ```
@@ -86,7 +86,7 @@ As expected, on table 4, we can see that our model is 75.5% explained by the var
 We will see more precisely with our table 5 how each of these variables impact these diseases, always according to the countries through 2000 and 2017.
 
 # Table 5 : Impact of work environment's variables on mental health disorders by country
-```{r}
+```{r, echo = FALSE, message = FALSE}
 # Income Inequality Analysis 
 GG0 <- ggplot(data = tab, mapping = aes(x = tab$Income_Inequality, y = tab$Mental_Health)) +
   geom_point(mapping = aes(color = LOCATION)) +
