@@ -36,7 +36,7 @@ List.of.Countries = c('AUT','BEL','HRV', 'CZE', 'DNK', 'ENG', 'FIN', 'FRA', 'DEU
 We also sort these countries by their region.
 
 ```{r, echo = FALSE, message = FALSE}
-tab_countries <- read.csv2(here::here("Data/Entities_LOCATION_Region.csv'))
+tab_countries <- read.csv2(here::here("Data/Entities_LOCATION_Region.csv"))
 ```
 
 Now that we have collected all our data, we need to sort, order and rename them in order to obtain only tables with three columns to have the value of our variable according to its country and its date. We took the data for each of these variables for a certain sample of countries and then chose to do an individual average over the years from 2000 to 2017.
@@ -261,7 +261,7 @@ Depression_Rate2000_2017 <- Depression_Rate2000_2017 %>%
 
 We did exactly the same thing for the depression rate in 2021. 
 ```{r, echo = FALSE, message = FALSE}
-Depression_Rate2021 <- read.csv2("Depression Rate 2021.csv")
+Depression_Rate2021 <- read.csv2(here::here("Data/Depression_Rate2021.csv"))
 attach(Depression_Rate2021)
 
 Depression_Rate2021 <- Depression_Rate2021[,-c(1,3:4)]
