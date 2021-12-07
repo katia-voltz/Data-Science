@@ -13,15 +13,39 @@ Now all our databases are clean and ready to be used.
 
 # Exloratory data analysis:
 
-- Visualization and representation of tables 
-- Identification of relevant variables
-- Interpretation of graphs and regressions
+```{r, echo = FALSE, message = FALSE}
+Map representing the mental illness prevalence in the selected countries from the OCDE
+mental.health <- share.with.mental.and.substance.disorders
 
-1/ Plot the all Tab
-2/ Make assumptions about correlations between Y and Xi (by visualization of plot)
-3/ Deeper visualization with ggplot between Y and Xi
-4/ Create a linear regression
-5/ Interpretation of regression and graphs
+
+mental.health <- mental.health %>%
+  filter(Entity %in% tab.of.countries$Entity )
+
+
+mental.health <- rename(mental.health, 'mental_health_Value' = 'Prevalence...Mental.and.substance.use.disorders...Sex..Both...Age..Age.standardized..Percent.')
+
+
+mental.health$mental_health_Value <- as.numeric(mental.health$mental_health_Value)
+
+mental.health <- mental.health[-2]
+
+mental.health.new <- mental.health %>%
+  group_by(Entity,mental_health_Value) %>%
+  filter(Year>1999)
+mapdata <- map_data('world')
+mapdata <- rename(mapdata,'Entity'='region')
+
+mapdata2 <- left_join(mapdata, mental.health , by='Entity')
+
+map.1 <- ggplot(mapdata2, aes(x=long, y=lat, group=group, labels=Entity))+
+  geom_polygon(aes(fill=mental_health_Value))+
+  scale_fill_gradient(low = '#56B1F7', high = '#132B43')
+```
+
+```{r}
+ggplotly(map.1)
+```
+
 
 
 ### Work environment 
