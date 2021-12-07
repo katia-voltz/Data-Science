@@ -308,8 +308,8 @@ With the *full_join* function we have gathered the data of these three variables
 For the good functioning of the table for further analysis, it was necessary to remove the NA values, and to convert the variable "teleworking" in numerical (which was in character). 
 
 ```{r, echo = FALSE, message = FALSE}
-tab <- left_join(Antidepressant_consumption, Teleworking, by=c("LOCATION", "TIME"))
-tab_R2.2 <- left_join(tab, UnemploymentCovid, by = c("LOCATION", "TIME"))
+Data <- left_join(Antidepressant_consumption, Teleworking, by=c("LOCATION", "TIME"))
+tab_R2.2 <- left_join(Data, UnemploymentCovid, by = c("LOCATION", "TIME"))
 tab_R2.2$Teleworking <- as.numeric(tab_R2.2$Teleworking)
 ```
 
