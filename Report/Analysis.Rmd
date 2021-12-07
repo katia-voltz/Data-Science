@@ -185,7 +185,7 @@ This shows that the consumption of antidepressants has increased in 2020, which 
 
 # Countries with the highest and lowest deaths covid / Depression Rate 2021
 
-
+```{r, echo = FALSE, message = FALSE}
 deaths <- Number_Covid19_cases_deaths %>%
   filter(LOCATION %in% List.of.Countries)
 
@@ -253,16 +253,27 @@ align = c("cc")
 ) %>%
   kable_classic(full_width = T, html_font = "Cambria") %>%
   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'),table.envir = "table")
+```
+
 
 
 # Regression Antidepressant Consumption / Teleworking / Unemployment / TIME 
 
-Reg2.4 <- lm(tab_R2.2$Consumption~tab_R2.2$Teleworking+tab_R2.2$Unemployment+tab_R2.2$TIME)
-summary(Reg2.4)
+
+```{r, echo = FALSE, message = FALSE}
+Reg2.2 <- lm(tab_R2.2$Consumption~tab_R2.2$Teleworking+tab_R2.2$Unemployment+tab_R2.2$TIME)
+summary(Reg2.2)
+```
+
+With the *summary* function we can see a significant increase for one unit of  1.70310 * ValueAntidepressantConsumption for "Teleworking". This variable is significant with 2 stars wich is satisfying. However, "Unemployment" is not significant as it represents an increase for one unit of 0.04958 * ValueAntidepressantConsumption. 
+However, R^2 is equal to 0,0867 which means that our model is explained by 8,7% of the variance, which is not very satisfying. This means that variables we don't know, have a more significant impact on antidepressant consumption in a country.
+
+Given the results, and that the variable "unemployment" has not a significant impact on antidepressant consumption, we will remove this variable for the rest of our analysis. We will now now focus on teleworking and analize the link between this variable and antidepressant consumption with different graphs. 
 
 
 # Countries with the most and least teleworkers on AVERAGE compared to antidepressant consumption 
 
+```{r, echo = FALSE, message = FALSE}
 #moyenne consommation antidepresseur par pays
 mean.conso <- aggregate(tab_R2.2.2010[, 3], list(tab_R2.2.2010$LOCATION), mean)
 mean.conso <- rename(mean.conso, c("LOCATION" = "Group.1","conso"="x"))
@@ -343,12 +354,13 @@ align = c("cc")
 ) %>%
   kable_classic(full_width = T, html_font = "Cambria") %>%
   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'),table.envir = "table")
+```
 
 
 
 # Antidepressant consumption in countries with the most teleworkers and least teleworkers in  2020
 
-
+```{r, echo = FALSE, message = FALSE}
 #consommation antidepresseur par pays
 conso2020 <- tab_R2.2.2010 %>% filter(TIME == 2020) %>% rename("conso2020"="Consumption")
 conso2020 <- conso2020[,-c(4:5,2)]
@@ -428,6 +440,7 @@ align = c("cc")
 ) %>%
   kable_classic(full_width = T, html_font = "Cambria") %>%
   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'),table.envir = "table")
+```
 
 
 
