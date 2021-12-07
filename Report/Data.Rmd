@@ -341,7 +341,7 @@ Our intitial question of research is:
 First, here is the list of the selected countries. In continuation of our analysis, we keep the OECD countries to answer our research question.
 
 ```{r, echo = FALSE, message = FALSE}
-tab.of.countries <- read.csv2(here::here('Data/Entities_LOCATION_Region.csv')
+tab.of.countries <- read.csv2(here::here('Data/Entities_LOCATION_Region.csv'))
 ```
 ```{r}
 kable(tab.of.countries)
