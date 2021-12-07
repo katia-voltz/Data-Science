@@ -90,9 +90,9 @@ We now want to start studying our regression, that is, to see how the work envir
 # ATTENTION REFAIRE GRAPHIQUES
 ```{r, echo = FALSE, message = FALSE}
 plot_tab <- plot(tab[3:9]) 
-corrplot_tab <- corrplot(tab[3:9])
+#corrplot_tab <- corrplot(tab[3:9])
 # MARCHE PAS ?
-plot_grid(plot_tab, corrplot_tab, labels=c("A","B"), ncol=2, nrow=1)
+#plot_grid(plot_tab, corrplot_tab, labels=c("A","B"), ncol=2, nrow=1)
 ```
 
 Faire analyse quand on a le bon graph de corrélation 
