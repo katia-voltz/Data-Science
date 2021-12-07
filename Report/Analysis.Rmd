@@ -16,7 +16,7 @@ than in others on the mental health of its population. This is also where we wil
 
 
 # ATTENTION MARCHE PAS SI NA DONC JE LES ENLEVE POUR L'INSTANT
-```{r}
+```{r, echo = FALSE, message = FALSE}
 tab_mean_na <- na.omit(tab_mean)
 ```
 # Table ? : Cluster analysis for each of our explanatory variables
@@ -94,7 +94,7 @@ This table ? shows us that, regardless of the work environment variable, we alwa
 
 It would therefore be interesting to see how these behave according to the regions. 
 
-```{r}
+```{r, echo = FALSE, message = FALSE}
 mod2 <- lm(tab$Mental_Health ~ tab$Region + tab$TIME)
 summary(mod2)
 ```
