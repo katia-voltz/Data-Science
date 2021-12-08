@@ -109,8 +109,8 @@ summary(mod2)
 
 ```{r, echo = FALSE, message = FALSE}
 
-cor(tab_R2.1$Consumption, tab_R2.1$Deaths)
-cor(tab_R2.1$Consumption, tab_R2.1$Cases)
+cor(tab_R2.1$Antidepressant_Consumption, tab_R2.1$Deaths)
+cor(tab_R2.1$Antidepressant_Consumption, tab_R2.1$Cases)
 ```
 
 We obtain a correlation of "0,0049" between antidepressant consumption and the number of deaths due to covid, and a correlation of "0,0453" between antidepressant consumption and Covid cases.  
