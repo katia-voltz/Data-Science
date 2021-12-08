@@ -179,8 +179,8 @@ Firstly, we would like to know if there is a correlation between Cases of Covid 
 
 ```{r, echo = FALSE, message = FALSE}
 graph.antidepressant.consumption <- ggplot(data = Antidepressant_consumption) +
-  geom_point(mapping = aes(x = TIME, y = Consumption, color = LOCATION))+
-  geom_line(mapping = aes(x = TIME, y = Consumption, color = LOCATION))
+  geom_point(mapping = aes(x = TIME, y = Antidepressant_Consumption, color = LOCATION))+
+  geom_line(mapping = aes(x = TIME, y = Antidepressant_Consumption, color = LOCATION))
 ggplotly(graph.antidepressant.consumption)
 ```
 By creating a graph of antidepressant consumption over time, we can see that, for our first selection of countries, antidepressant consumption is increasing. We will see later if Covid Cases or Deaths are correlated to this increase.  
@@ -192,8 +192,8 @@ Due to lack of data on antidepressant use in 2020, it would be interesting to ob
 
 ```{r, echo = FALSE, message = FALSE}
 ggplot(data = Depression_Rate2000_2021)+
-  geom_point(mapping = aes(x = TIME , y = Rate, color = LOCATION))+
-  geom_line(mapping = aes(x = TIME , y = Rate, color = LOCATION))+
+  geom_point(mapping = aes(x = TIME , y = Depression_Rate, color = LOCATION))+
+  geom_line(mapping = aes(x = TIME , y = Depression_Rate, color = LOCATION))+
   theme_bw()
 ```
 
@@ -246,7 +246,7 @@ Given the results, and that the variable "unemployment" has not a significant im
 
 Here is a graph that shows the increase in the value of the consumption according to the teleworking. 
 ```{r, echo = FALSE, message = FALSE}
-ggplot(data = tab_R2.2, mapping = aes(x = Consumption, y = Teleworking)) +
+ggplot(data = tab_R2.2, mapping = aes(x = Antidepressant_Consumption, y = Teleworking)) +
   geom_point(mapping = aes(color = LOCATION)) +
   geom_smooth()
 ```
