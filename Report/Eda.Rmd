@@ -171,9 +171,9 @@ In summary, a country with a medium wage, high GDP does not promote good mental 
 
 ## Covid-19
 
-### Analysis 
 
-Firstly, we would like to know if there is a correlation between Cases of Covid and the Value of Antidepressant Consumption through the years. We want to observe whether there is a peak in the consumption of these medications because of the covid crisis. Indeed, we make the hypothesis that due to this crisis, the proportion of people suffering from depression has increased, which would have had a significant impact on this consumption in 2020. 
+
+Firstly, we would like to know if there is a correlation between Cases or Deaths of Covid and the Value of Antidepressant Consumption through the years. We want to observe whether there is a peak in the consumption of these medications because of the covid crisis. Indeed, we make the hypothesis that due to this crisis, the proportion of people suffering from depression has increased, which would have had a significant impact on this consumption in 2020. 
 
 # Graph1 : Antidepressant consumption per countries from 2000 to 2020 
 
@@ -183,12 +183,12 @@ graph.antidepressant.consumption <- ggplot(data = Antidepressant_consumption) +
   geom_line(mapping = aes(x = TIME, y = Antidepressant_Consumption, color = LOCATION))
 ggplotly(graph.antidepressant.consumption)
 ```
-By creating a graph of antidepressant consumption over time, we can see that, for our first selection of countries, antidepressant consumption is increasing. We will see later if Covid Cases or Deaths are correlated to this increase.  
+By creating a graph of antidepressant consumption over time, we can see that, for our first selection of countries, antidepressant consumption is increasing over the years. We will see, in the analysis, if Covid Cases or Deaths are correlated to this increase.  
 
 
 # Graph2 : Depression Rate per countries from 2000 to 2021
 
-Due to lack of data on antidepressant use in 2020, it would be interesting to observe the rate of depression by country between 2000 and 2021. Here is the graph of depression rate by selected countries between 2000 and 2021. It is important to notice that we could not find the data for the years 2018,2019 and 2020. So we have no data available for these years. 
+Due to lack of data on antidepressant use in 2020, it would be interesting to observe the rate of depression by country between 2000 and 2021. Here is the graph of depression rate by selected countries between 2000 and 2021. It is important to notice that we could not find the data for the years 2018, 2019 and 2020. So we have no data available for these years. 
 
 ```{r, echo = FALSE, message = FALSE}
 ggplot(data = Depression_Rate2000_2021)+
@@ -215,7 +215,9 @@ kbl(Depression_Rate2000_2021[1:38,],caption = "**Table of depression rate and it
   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))
 
 ```
-Here we have calculated the growth each year until 2017, and between 2017 and 2021 of the depression rate by country. We can indeed observe a growth over the years, but this increase is smaller and smaller over time. We can therefore make the assumption that this growth continues to decline through the years after 2017. Following this trend, we can well notice that the value in 2021 is unusual compared to previous years. There has been a strong increase in the depression rate in 2021, that we can well observe on the graph. 
+Here we have calculated the growth each year until 2017, and between 2017 and 2021 of the depression rate by country. The table above shows only the first two countries in the list, Australia and Austria. 
+We can indeed observe a growth over the years, but this increase is smaller and smaller or almost constant over time, when observing the above values for this two countries. We can therefore make the assumption that this growth continues to decline through the years after 2017. Following this trend, we can well notice that the value in 2021 is unusual compared to previous years. For example, Austria recorded a depression rate of 5.1% in 2021, an increase of 1.84% between 2017 and 2021.
+There has been a strong increase in the depression rate in 2021, that we can well observe on the graph too. 
 
 
 
@@ -223,16 +225,6 @@ Here we have calculated the growth each year until 2017, and between 2017 and 20
 
 
 We will now focus on our second study, which is the evolution of antidepressant consumption as a function of teleworking and unemployment rate. 
-
-By making a graph of the evolution of the number of teleworkers compared to the number of workers per country, we can see an increase of this rate in 2020. This increase can be explained by the Covid crisis. So, if we find a potential correlation between the consumption of antidepressants and teleworking, we can then make a link with the Covid. 
-
-```{r, echo = FALSE, message = FALSE}
-ggplot(data = tab_R2.2) +
-  geom_point(mapping = aes(x = TIME, y = Teleworking, color = LOCATION))+
-  geom_line(mapping = aes(x = TIME, y = Teleworking, color = LOCATION))
-```
-
-# Graph4 : Antidepressant consumption according to teleworking
 
 ```{r, echo = FALSE, message = FALSE}
 Reg2.2 <- lm(tab_R2.2$Antidepressant_Consumption~tab_R2.2$Teleworking+tab_R2.2$Unemployment+tab_R2.2$TIME)
@@ -242,14 +234,18 @@ summary(Reg2.2)
 With the *summary* function we can see a significant increase for one unit of  1.70310 * ValueAntidepressantConsumption for "Teleworking". This variable is significant with 2 stars wich is satisfying. However, "Unemployment" is not significant as it represents an increase for one unit of 0.04958 * ValueAntidepressantConsumption. 
 However, R^2 is equal to 0,0867 which means that our model is explained by 8,7% of the variance, which is not very satisfying. This means that variables we don't know, have a more significant impact on antidepressant consumption in a country.
 
-Given the results, and that the variable "unemployment" has not a significant impact on antidepressant consumption, we will remove this variable for the rest of our analysis. We will now now focus on teleworking and analize the link between this variable and antidepressant consumption with different graphs. 
+Given the results, and that the variable "unemployment" has not a significant impact on antidepressant consumption, we will remove this variable for the rest of our analysis. We will now now focus on teleworking and analyze the link between this variable and antidepressant consumption with different graphs.
 
-Here is a graph that shows the increase in the value of the consumption according to the teleworking. 
+
 ```{r, echo = FALSE, message = FALSE}
-ggplot(data = tab_R2.2, mapping = aes(x = Antidepressant_Consumption, y = Teleworking)) +
-  geom_point(mapping = aes(color = LOCATION)) +
-  geom_smooth()
+ggplot(data = tab_R2.2) +
+  geom_point(mapping = aes(x = TIME, y = Teleworking, color = LOCATION))+
+  geom_line(mapping = aes(x = TIME, y = Teleworking, color = LOCATION))+
+  xlim(c(2010,2020))
 ```
+By making a graph of the evolution of the number of teleworkers compared to the number of workers per country, we can see an increase of this rate in 2020. This increase can be explained by the Covid crisis. So, if we find a potential correlation between the consumption of antidepressants and teleworking, we could then make a link with the Covid. 
+
+
 
 
 ## Public spendings on health
