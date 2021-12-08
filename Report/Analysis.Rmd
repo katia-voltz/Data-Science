@@ -162,7 +162,7 @@ consumptionMean <-rename(consumptionMean, "LOCATION" = "Group.1")
 
 #On ajoute conso moyenne a comparaison
 comparaison <- merge(comparaison,consumptionMean, by = c("LOCATION"))
-comparaison <- rename(comparaison,"Consumption_mean"="Consumption")
+comparaison <- rename(comparaison,"Consumption_mean"="Antidepressant_Consumption")
 
 #Tableau Conso 2020
 consumption2020 <- tab_R2.1 %>%
