@@ -109,7 +109,7 @@ As expected, on table 4, we can see that our model is 75.5% explained by the var
 We will see more precisely with our table 5 how each of these variables impact these diseases, always according to the countries through 2000 and 2017.
 
 # Table 5 : Impact of work environment's variables on mental health disorders by country
-```{r, echo = FALSE, message = FALSE}
+```{r, echo = FALSE, message = FALSE, warning=FALSE}
 # Income Inequality Analysis 
 GG0 <- ggplot(data = tab, mapping = aes(x = tab$Income_Inequality, y = tab$Mental_Health)) +
   geom_point(mapping = aes(color = LOCATION)) +
