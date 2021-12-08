@@ -188,6 +188,7 @@ At this stage, we realized that for some of the countries we had selected (Engla
 
 For our second theme around Covid, we want to analyze if Covid-19 has had an impact on the population's mental-health ? 
 We will consider several variables, in a selection of countries around the world: 
+
 - antidepressant consumption (defined daily dosage per 1 000 inhabitants per day),
 - unemployment rate (% of labour force),
 - teleworking (Employed persons working from home as a % of the total employment). 
@@ -223,7 +224,7 @@ It was also often necessary to rename the columns so that they all follow the sc
 
 ```{r, echo = FALSE, message = FALSE}
 Antidepressant_consumption <- Antidepressant_consumption[,-c(1:4,6:7,10:11)]
-Antidepressant_consumption <- rename(Antidepressant_consumption,c("LOCATION"="COU","TIME"="Year","Consumption"="Value"))
+Antidepressant_consumption <- rename(Antidepressant_consumption,c("LOCATION"="COU","TIME"="Year","Antidepressant_Consumption"="Value"))
 Antidepressant_consumption <- Antidepressant_consumption %>% filter(LOCATION %in% List.of.Countries)
 Antidepressant_consumption2 <- Antidepressant_consumption %>% filter(LOCATION %in% List.of.Countries2)
 ```
@@ -289,7 +290,7 @@ Here too we have only kept the country, the year and the value, and renamed the 
 ```{r, echo = FALSE, message = FALSE}
 
 Depression_Rate2000_2017 <- Depression_Rate2000_2017[-1]
-Depression_Rate2000_2017 <- rename(Depression_Rate2000_2017,c("LOCATION"="Code","TIME"="Year","Rate"="Prevalence...Depressive.disorders...Sex..Both...Age..Age.standardized..Percent."))
+Depression_Rate2000_2017 <- rename(Depression_Rate2000_2017,c("LOCATION"="Code","TIME"="Year","Depression_Rate"="Prevalence...Depressive.disorders...Sex..Both...Age..Age.standardized..Percent."))
 Depression_Rate2000_2017 <- Depression_Rate2000_2017 %>% filter(LOCATION %in% List.of.Countries)
 Depression_Rate2000_2017 <- Depression_Rate2000_2017 %>%
   filter(TIME>1999)
@@ -301,10 +302,10 @@ Depression_Rate2021 <- read.csv2(here::here("Data/Depression_Rate2021.csv"))
 attach(Depression_Rate2021)
 
 Depression_Rate2021 <- Depression_Rate2021[,-c(1,3:4)]
-Depression_Rate2021 <- rename(Depression_Rate2021,c("Rate"="prevalence"))
+Depression_Rate2021 <- rename(Depression_Rate2021,c("Depression_Rate"="prevalence"))
 Depression_Rate2021 <- Depression_Rate2021 %>% filter(LOCATION %in% List.of.Countries)
 Depression_Rate2021 <- Depression_Rate2021 %>% add_column(TIME = 2021, .after = "LOCATION") 
-Depression_Rate2021$"Rate" <- as.numeric(Depression_Rate2021$"Rate")
+Depression_Rate2021$"Depression_Rate" <- as.numeric(Depression_Rate2021$"Depression_Rate")
 ```
 
 Then, we had to join the two tables into one, using both *inner_join* and *pivot_longer* in order to obtain a table that we could use correctly afterwards to do analyses. 
