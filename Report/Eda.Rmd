@@ -205,7 +205,7 @@ Depression_Rate2000_2021 <- Depression_Rate2000_2017 %>%
 
 Depression_Rate2000_2021 <- ddply(Depression_Rate2000_2021, .(LOCATION),
                                   function (d) {
-                                    d$Growth <- c(NA, tail(d$Rate, -1) - head(d$Rate, -1))
+                                    d$Growth <- c(NA, tail(d$Depression_Rate, -1) - head(d$Depression_Rate, -1))
                                     d
                                     }
                                   )
