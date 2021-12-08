@@ -54,7 +54,7 @@ ggplotly(map.1)
 # Table 1 : Representation of the rate of mental health disorder by country and region
 # ATTENTION mettre dans ordre décroissant + enlever NA
 ```{r, echo = FALSE, message = FALSE}
-ggplot(data = tab_mean, aes(x = MentalHealth_mean, y=LOCATION)) + 
+ggplot(data = tab_mean, aes(x = MentalHealth_mean, y=reorder(LOCATION,MentalHealth_mean))) + 
   geom_bar(stat='identity',fill="#DB7093",color="#DB7093",alpha=0.8) +
   geom_text(aes(label=round(MentalHealth_mean)),hjust=1,color='#4F2F4F') +
   xlab("Mental Health mean 2000-2017")+ ylab("Country")+
@@ -87,13 +87,17 @@ We now want to start studying our regression, that is, to see how the work envir
 
 # Table 3 : Correlation analyses between mental health and the work environment
 # ATTENTION REFAIRE GRAPHIQUES
+
 ```{r, echo = FALSE, message = FALSE}
 plot_tab <- plot(tab[3:9]) 
-#corrplot_tab <- corrplot(tab[3:9])
-# MARCHE PAS ?
-#plot_grid(plot_tab, corrplot_tab, labels=c("A","B"), ncol=2, nrow=1)
 ```
+```{r, echo = FALSE, message = FALSE, eval=TRUE}
+plot_tab <- plot(tab[3:9]) 
 
+Correlation <- cor(tab[3:9], use="pairwise.complete.obs")
+
+corrplot_tab <- corrplot(Correlation, type = 'upper', method = 'number')
+```
 Faire analyse quand on a le bon graph de corrélation 
 
 We will check these hypotheses and the validity of our model by doing a regression.
