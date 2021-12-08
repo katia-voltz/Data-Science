@@ -30,17 +30,17 @@ $$Analysis 1 : MentalHealth = a*IncomeInequality + b*wages + c*Unemployment + d*
 We have made a selection of several countries which are the following (To simplify, country codes have been used and not the full names) : Austria, Belgium, Croatia, Czechia, Denmark, Finland, France, Germany, Greece, Hungary, Iceland, Ireland, Italy, Romania, Portugal, Poland, Norway, Netherlands, Switzerland, Sweden, Spain, Australia, Brazil, Canada, Japan, New-Zealand and the USA.  
 
 ```{r, echo = FALSE, message = FALSE}
-List.of.Countries = c('AUT','BEL','HRV', 'CZE', 'DNK', 'ENG', 'FIN', 'FRA', 'DEU', 'GRC', 'HUN', 'ISL', 'ITA', 'ROU', 'PRT', 'POL', 'NOR', 'NLD', 'CHE', 'SWE', 'ESP', 'AUS', 'BRA', 'CAN', 'JPN', 'NZL', 'USA')
+tab_countries <- read.csv2(here::here("Data/Entities_LOCATION_Region.csv"))
 ```
-
 We also sort these countries by their region.
 
 ```{r, echo = FALSE, message = FALSE}
-tab_countries <- read.csv2(here::here("Data/Entities_LOCATION_Region.csv"))
+List.of.Countries = c('AUT','BEL','HRV', 'CZE', 'DNK', 'ENG', 'FIN', 'FRA', 'DEU', 'GRC', 'HUN', 'ISL', 'ITA', 'ROU', 'PRT', 'POL', 'NOR', 'NLD', 'CHE', 'SWE', 'ESP', 'AUS', 'BRA', 'CAN', 'JPN', 'NZL', 'USA')
 ```
 
+
 ```{r}
-kbl(tab.of.countries,caption = "**Table of OCDE countries**: `tab.of.countries`, list of OCDE countries availabe in our dataset.") %>%
+kbl(tab_countries,caption = "**Table of OCDE countries**: `tab_countries`, list of OCDE countries availabe in our dataset.") %>%
   kable_classic(full_width = T, html_font = "Cambria") %>%
   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))
 rm(v)
