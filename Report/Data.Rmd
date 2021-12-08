@@ -456,9 +456,9 @@ Public.spending.on.health_New <- Public.spending.on.health_New %>%
 Finally we have a new dataframe of the Current health expenditure (% of GDP) of each countries attributed to the Time (from 2000 to 2018).
 
 
-# 2: Cleaning Mental Health
+#### 2: Cleaning Mental Health
 
-# Now we import the  share with mental and substance disorders data corresponding to a list of countries. Our goal is to compare the prevalence of mental health disorder in a population of a country with respect to the public investments on health.
+Now we import the  share with mental and substance disorders data corresponding to a list of countries. Our goal is to compare the prevalence of mental health disorder in a population of a country with respect to the public investments on health.
 
 ```{r,echo = FALSE, message = FALSE}
 share.with.mental.and.substance.disorders <- read.csv2(here::here('Data/share-with-mental-and-substance-disorders.csv'))
