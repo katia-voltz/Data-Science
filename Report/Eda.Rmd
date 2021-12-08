@@ -88,9 +88,7 @@ We now want to start studying our regression, that is, to see how the work envir
 # Table 3 : Correlation analyses between mental health and the work environment
 # ATTENTION REFAIRE GRAPHIQUES
 
-```{r, echo = FALSE, message = FALSE}
-plot_tab <- plot(tab[3:9]) 
-```
+
 ```{r, echo = FALSE, message = FALSE, eval=TRUE}
 plot_tab <- plot(tab[3:9]) 
 
