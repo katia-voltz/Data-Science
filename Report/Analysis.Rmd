@@ -261,7 +261,7 @@ align = c("cc")
 
 
 ```{r, echo = FALSE, message = FALSE}
-Reg2.2 <- lm(tab_R2.2$Consumption~tab_R2.2$Teleworking+tab_R2.2$Unemployment+tab_R2.2$TIME)
+Reg2.2 <- lm(tab_R2.2$Antidepressant_Consumption~tab_R2.2$Teleworking+tab_R2.2$Unemployment+tab_R2.2$TIME)
 summary(Reg2.2)
 ```
 
