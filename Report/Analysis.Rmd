@@ -114,7 +114,6 @@ cor(tab_R2.1$Antidepressant_Consumption, tab_R2.1$Cases)
 ```
 
 We obtain a correlation of "0,0049" between antidepressant consumption and the number of deaths due to covid, and a correlation of "0,0453" between antidepressant consumption and Covid cases.  
-Moreover, for the regression between consumption and the number of covid cases, we obtain an R^2 = 0.024. This means that the "cases" variable explains 2.4% of the variance of the model, which is not a good result. 
 
 Unfortunately, we can see that there is no correlation between these variables, either with the number of cases or the number of deaths. 
 We can give several explanations to this surprising observation.
@@ -123,7 +122,7 @@ The first one is the lack of data. Indeed, we were able to study the evolution o
 
 The second and the most likely, is that we can see that the number of cases (and deaths) related to covid are huge numbers, going from 0 to several millions (to thousands). However, compared to these numbers, the value of antidepressants consumption is increasing well as we can see in the graph below but not as much as the number of cases. The ratio is not the same. 
 
-We will now calculate the value of the increase in consumption, by years and see if we can observe a difference between years or not, and compare it to the value of the consumption in 2020.  
+We will now calculate the value of the increase in antidepressant consumption, by years and see if we can observe a difference between years or not, and compare it to the value of the consumption in 2020.  
 
 ```{r, echo = FALSE, message = FALSE}
 #Tableau antidepresseurs, croissance chaque année
@@ -178,10 +177,14 @@ comparaison <- rename(comparaison,"Consumption2020"="Antidepressant_Consumption"
 kable(comparaison)
 ```
 
-When we calculate the average consumption from 2000 to 2019 and compare it to the consumption in 2020 we notice that the latter is for all countries higher than the average of the previous years. 
+When we calculate the average antidepressant consumption from 2000 to 2019 and compare it to the consumption in 2020 we notice that the latter is for all countries higher than the average of the previous years. 
 Then, when we compare the average growth in consumption per year, to the growth between 2019 and 2020, we see that the latter is higher than the average for 5 of the 8 countries analyzed (Portugal, Italy, Iceland, Hungary and Greece). 
 
 This shows that the consumption of antidepressants has increased in 2020, which could be well explained by the covid crisis. 
+
+We will try to demonstrate a link between the Covid crisis and the depression rate in the following countries. It is true that in this table we are comparing data from 2 different years : we only have the depression rate in 2021, and the Covid data we have is only in 2020.
+However, for our study, we did not consider this as a problem, on the contrary. Indeed, knowing that the Covid crisis is still happening today and that the effects of a crisis are often felt some time afterwards, we believe that the analysis of the 2021 depression rate is relevant to show if there are any effects of the covid crisis.
+
 
 # Countries with the highest and lowest deaths covid / Depression Rate 2021
 
@@ -223,8 +226,8 @@ tableau.low.deaths <- Depression_Rate2021 [-3]%>% filter(LOCATION %in% List.low.
 mean.low.rate.deaths <- mean(tableau.low.deaths$Depression_Rate)
 
 plot3 <- ggplot(data=tableau.top.deaths)+
-  geom_bar(aes(x = Depression_Rate, y= LOCATION),fill = '#0099CC',stat = "identity")+
-  geom_text(aes(x = Depression_Rate, y = LOCATION, label = paste(round(Depression_Rate, digits = 2),"%")),
+  geom_bar(aes(x = Depression_Rate, y= reorder(LOCATION,Depression_Rate)),fill = '#0099CC',stat = "identity")+
+  geom_text(aes(x = Depression_Rate, y = reorder(LOCATION,Depression_Rate), label = paste(round(Depression_Rate, digits = 2),"%")),
             hjust = 1.15,color='white')+
   ylab("top Covid Deaths")+
   xlab("") +
@@ -232,8 +235,8 @@ plot3 <- ggplot(data=tableau.top.deaths)+
 
 
 plot4 <- ggplot(data=tableau.low.deaths)+
-  geom_bar(aes(x = Depression_Rate, y= LOCATION),fill = '#FF3399',stat = "identity")+
-  geom_text(aes(x = Depression_Rate, y = LOCATION, label = paste(round(Depression_Rate, digits = 2),"%")),
+  geom_bar(aes(x = Depression_Rate, y= reorder(LOCATION,Depression_Rate)),fill = '#FF3399',stat = "identity")+
+  geom_text(aes(x = Depression_Rate, y = reorder(LOCATION,Depression_Rate), label = paste(round(Depression_Rate, digits = 2),"%")),
             hjust = 1.15,color='white')+
   ylab("low Covid Deaths")+
   xlab("") +
@@ -257,18 +260,16 @@ align = c("cc")
 
 
 
-# Regression Antidepressant Consumption / Teleworking / Unemployment / TIME 
+# Graph4: Consumption according to teleworking 
 
+Here is a graph that shows how the value of antidepressant consumption varies with teleworking. Each color represents a country. There is no evidence of an increase in antidepressant use when there are more teleworkers, for all countries, but for some there is.
+Indeed, we can observe an increase in …
 
 ```{r, echo = FALSE, message = FALSE}
-Reg2.2 <- lm(tab_R2.2$Antidepressant_Consumption~tab_R2.2$Teleworking+tab_R2.2$Unemployment+tab_R2.2$TIME)
-summary(Reg2.2)
+ggplot(data = tab_R2.2, mapping = aes(x = Teleworking, y = Consumption)) +
+  geom_point(mapping = aes(color = LOCATION)) +
+  geom_smooth()
 ```
-
-With the *summary* function we can see a significant increase for one unit of  1.70310 * ValueAntidepressantConsumption for "Teleworking". This variable is significant with 2 stars wich is satisfying. However, "Unemployment" is not significant as it represents an increase for one unit of 0.04958 * ValueAntidepressantConsumption. 
-However, R^2 is equal to 0,0867 which means that our model is explained by 8,7% of the variance, which is not very satisfying. This means that variables we don't know, have a more significant impact on antidepressant consumption in a country.
-
-Given the results, and that the variable "unemployment" has not a significant impact on antidepressant consumption, we will remove this variable for the rest of our analysis. We will now now focus on teleworking and analize the link between this variable and antidepressant consumption with different graphs. 
 
 
 # Countries with the most and least teleworkers on AVERAGE compared to antidepressant consumption 
@@ -323,8 +324,8 @@ mean.low.consumption <- mean(tableau.low.conso2$conso)
 #tableau.low.conso2 %>% mutate(LOCATION= fct_reorder(LOCATION,conso)) #mettre ordre décroissant ? 
 
 plot9 <-ggplot(data=tableau.top.conso2)+
-  geom_bar(aes(x = conso, y= LOCATION),fill = '#0099CC',stat = "identity")+
-  geom_text(aes(x = conso, y = LOCATION, label = paste(round(conso, digits = 2),"u")),
+  geom_bar(aes(x = conso, y= reorder(LOCATION,conso)),fill = '#0099CC',stat = "identity")+
+  geom_text(aes(x = conso, y = reorder(LOCATION,conso), label = paste(round(conso, digits = 2),"u")),
             hjust = 1.15,color='white')+
   ylab("top teleworking")+
   xlab("") +
@@ -334,8 +335,8 @@ plot9 <-ggplot(data=tableau.top.conso2)+
 #tableau antidepressant conso pour low tele
 
 plot10 <-ggplot(data=tableau.low.conso2)+
-  geom_bar(aes(x = conso, y= LOCATION),fill = '#FF3399',stat = "identity")+
-  geom_text(aes(x = conso, y = LOCATION, label = paste(round(conso, digits = 2),"u")),
+  geom_bar(aes(x = conso, y= reorder(LOCATION,conso)),fill = '#FF3399',stat = "identity")+
+  geom_text(aes(x = conso, y = reorder(LOCATION,conso), label = paste(round(conso, digits = 2),"u")),
             hjust = 1.15,color='white')+
   ylab("low teleworking")+
   xlab("") +
@@ -412,16 +413,16 @@ mean.low.consumption2020 <- mean(tableau.low.conso4$conso2020)
 #tableau.low.conso2 %>% mutate(LOCATION= fct_reorder(LOCATION,conso)) #mettre ordre décroissant ? 
 
 plot13 <-ggplot(data=tableau.top.conso4)+
-  geom_bar(aes(x = conso2020, y= LOCATION),fill = '#0099CC',stat = "identity")+
-  geom_text(aes(x = conso2020, y = LOCATION, label = paste(round(conso2020, digits = 2),"u")),
+  geom_bar(aes(x = conso2020, y= reorder(LOCATION,conso2020)),fill = '#0099CC',stat = "identity")+
+  geom_text(aes(x = conso2020, y = reorder(LOCATION,conso2020), label = paste(round(conso2020, digits = 2),"u")),
             hjust = 1.15,color='white')+
   ylab("top teleworking")+
   xlab("") +
   xlim(c(0,170))
 
 plot14 <-ggplot(data=tableau.low.conso4)+
-  geom_bar(aes(x = conso2020, y= LOCATION),fill = '#FF3399',stat = "identity")+
-  geom_text(aes(x = conso2020, y = LOCATION, label = paste(round(conso2020, digits = 2),"u")),
+  geom_bar(aes(x = conso2020, y= reorder(LOCATION,conso2020)),fill = '#FF3399',stat = "identity")+
+  geom_text(aes(x = conso2020, y = reorder(LOCATION,conso2020), label = paste(round(conso2020, digits = 2),"u")),
             hjust = 1.15,color='white')+
   ylab("low teleworking")+
   xlab("") +
