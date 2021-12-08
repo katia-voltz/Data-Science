@@ -87,7 +87,7 @@ km.res <- kmeans(data_t5_std, 5)
 C4 <- fviz_cluster(km.res, data=data_t5_std, repel = TRUE)
 
 # Put all the graphs together
-plot_grid(C0, C1, C2, C3, C4, labels=c("A","B","C","D","E","F"), ncol=2, nrow=3)
+plot_grid(C0, C1, C2, C3, C4, labels=c("A","B","C","D","E","F"), ncol=3, nrow=2)
 ```
 
 This table ? shows us that, regardless of the work environment variable, we always have a clear demarcation. Indeed, it is always the same countries in the same places. We can therefore conclude that each region has its own specificities related to the work environment that impact the rate of mental health disorders. 
