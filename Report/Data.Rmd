@@ -39,6 +39,13 @@ We also sort these countries by their region.
 tab_countries <- read.csv2(here::here("Data/Entities_LOCATION_Region.csv"))
 ```
 
+```{r}
+kbl(tab.of.countries,caption = "**Table of OCDE countries**: `tab.of.countries`, list of OCDE countries availabe in our dataset.") %>%
+  kable_classic(full_width = T, html_font = "Cambria") %>%
+  kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))
+rm(v)
+```
+
 Now that we have collected all our data, we need to sort, order and rename them in order to obtain only tables with three columns to have the value of our variable according to its country and its date. We took the data for each of these variables for a certain sample of countries and then chose to do an individual average over the years from 2000 to 2017.
 
 
@@ -153,7 +160,13 @@ tab3 <- left_join(tab2, Working_Age_m, by = c("LOCATION"))
 tab4 <- left_join(tab3, Work_Time_m, by = c("LOCATION"))
 tab5 <- left_join(tab4, GDP_m, by = c("LOCATION"))
 tab_mean <- left_join(tab5, tab_countries, by=('LOCATION'))
-kable(tab_mean)
+```
+
+```{r, echo = FALSE, message = FALSE}
+kbl(tab[1:20,],caption = "**Table 1 Working Environment**: `tab`, Mettre un titre") %>%
+  kable_classic(full_width = T, html_font = "Cambria") %>%
+  kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))
+rm(v)
 ```
 
 So now we have two tables with which we can perform our analysis and draw information for this first regression.
@@ -237,6 +250,16 @@ As the data of cases and death of the covid for the years before 2020 were displ
 tab_R2.1[is.na(tab_R2.1)] <- 0 
 tab_R2.1$Cases <- as.numeric(tab_R2.1$Cases)
 ```
+
+```{r, echo = FALSE, message = FALSE}
+kbl(tab_R2.1[1:10,],caption = "**Table of antidepressant consumption and covid-19 cases**: `tab_R2.1`, ...") %>%
+  kable_classic(full_width = T, html_font = "Cambria") %>%
+  kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))
+rm(v)
+```
+
+
+
 Our table on the use of antidepressants and the number of cases and deaths of covid is now ready to be used. 
 
 Given the little information we had on antidepressant consumption in 2020 (only for 8 countries) we decided to observe the rate of depression and finally include it in our research question.
@@ -276,9 +299,16 @@ Then, we had to join the two tables into one, using both *inner_join* and *pivot
 ```{r, echo = FALSE, message = FALSE}
 Depression_Rate2000_2021 <- Depression_Rate2000_2017 %>%
   rbind(Depression_Rate2021)%>%
-  arrange(LOCATION,TIME)
-  
+  arrange(LOCATION,TIME)  
 ```
+
+```{r, echo = FALSE, message = FALSE}
+kbl(Depression_Rate2000_2021[1:10,],caption = "**Depression Rate from 2000 to 2021**: `Depression_Rate2000_2021`, ...") %>%
+  kable_classic(full_width = T, html_font = "Cambria") %>%
+  kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))
+rm(v)
+```
+
 
 For the second study of this theme, we want to see whether teleworking and unemployment rates can affect antidepressant use in selected countries. Information on Teleworking and Unemployment rate were extracted respectively from the sites : <https://ec.europa.eu/eurostat> and <https://data.oecd.org>. 
 
@@ -293,6 +323,12 @@ Teleworking <- Teleworking[,-c(1:8,12)]
 Teleworking <- rename(Teleworking,c("LOCATION"="geo","TIME"="TIME_PERIOD","Teleworking"="OBS_VALUE"))
 Teleworking <-  Teleworking %>% filter(LOCATION %in% List.of.Countries)
 ```
+```{r, echo = FALSE, message = FALSE}
+kbl(Teleworking[1:10,],caption = "**Teleworking**: `Teleworking`, ...") %>%
+  kable_classic(full_width = T, html_font = "Cambria") %>%
+  kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))
+rm(v)
+```
 
 We also did this for the unemployment rate. 
 
@@ -303,6 +339,13 @@ UnemploymentCovid <- UnemploymentCovid[,-c(2:5,8)]
 UnemploymentCovid <- rename(UnemploymentCovid, c("Unemployment"="Value"))
 UnemploymentCovid <-  UnemploymentCovid %>% filter(LOCATION %in% List.of.Countries)
 ```
+```{r, echo = FALSE, message = FALSE}
+kbl(UnemploymentCovid[1:10,],caption = "*UnemploymentCovid**: `UnemploymentCovid`, ...") %>%
+  kable_classic(full_width = T, html_font = "Cambria") %>%
+  kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))
+rm(v)
+```
+----
 
 With the *full_join* function we have gathered the data of these three variables in a single table.
 For the good functioning of the table for further analysis, it was necessary to remove the NA values, and to convert the variable "teleworking" in numerical (which was in character). 
@@ -318,9 +361,15 @@ We now have three tables ready to be used and analyzed in the next parts:
 - *Depression_Rate2000_2021* table 
 - *tab_R2.2* with antidepressants consumption, teleworking, and the unemployment rate. 
 
+```{r, echo = FALSE, message = FALSE}
+kbl(tab_R2.2[1:20,],caption = "*tab_R2.2**: `tab_R2.2`, ...") %>%
+  kable_classic(full_width = T, html_font = "Cambria") %>%
+  kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))
+rm(v)
+```
 
 
-### Public spendings on health 
+# Public spendings on health 
 
 
 In this thrid analysis of datasets,  we are going to compare the prevalence of mental health disorder (% of the population (age-standardaized)) in a population of a country and the current health expenditure (% of GDP). Particularly focus on the countries of the OCDE that is The Organisation for Economic Co-operation and Development.
@@ -336,18 +385,16 @@ Our intitial question of research is:
 - The access to medication is a difficulte variable to quantify, we did not find data corresponding to that. Therefore, our analysis is focus on these two variables X and Y. 
 
 
-# List.of.countries
+### List.of.countries
 
-First, here is the list of the selected countries. In continuation of our analysis, we keep the OECD countries to answer our research question.
+In continuation of our analysis, we keep the OECD countries to answer our research question.
 
 ```{r, echo = FALSE, message = FALSE}
 tab.of.countries <- read.csv2(here::here('Data/Entities_LOCATION_Region.csv'))
 ```
-```{r}
-kable(tab.of.countries)
-```
 
-# 1: Cleaning Public spending on health
+
+### 1: Cleaning Public spending on health
 
 Importation of the dataset Public.spending on health. This dataframe represent Current health expenditure (% of GDP) of each countries.
 
@@ -455,6 +502,10 @@ Mental_Health_2 <-  Mental_Health %>%
 Public.spending.on.health_New_2 <- Public.spending.on.health_New %>% 
   filter(LOCATION %in% List.of.Countries)
 ```
+----
+
+
+### 3: Merge the datasets
 
 We merge the two dataframes into one single table named tab_1. We join them by 'LOCATION' and 'Time'. Moreover, we add the 'Region' and the 'Entity' from the table: 'list.of.countries'
 
@@ -484,9 +535,13 @@ tab_1 <- tab_1[c(1,5,6,2,3,4)]
 
 Now our final table, tab_1, is arranged in the structure that will be used to make the analysis.
 
-```{r}
-kable(tab_1[1:5,])
+```{r, echo = FALSE, message = FALSE}
+kbl(tab_1[1:20,],caption = "*Table of Public spending on health and mental health**: `tab_1`, ...") %>%
+  kable_classic(full_width = T, html_font = "Cambria") %>%
+  kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))
+rm(v)
 ```
+
 For further analysis, for instance cluster analysis, we decide to sort the dataset (tab_1) with the aggregated values.
 
 ```{r,echo = FALSE, message = FALSE}
@@ -507,9 +562,14 @@ We merge the table into a new dataframe representing the mean values with respec
 ```{r,echo = FALSE, message = FALSE}
 tab_2 <- merge(tab_Mean_Value_Spending.on.health, tab_Mean_Mental_health_Value, by = c('LOCATION','Entity','Region'))
 ```
-```{r}
-kable(tab_2)
+
+```{r, echo = FALSE, message = FALSE}
+kbl(tab_2[1:20,],caption = "*Table aggregated of Public spending on health and mental health**: `tab_2`, ...") %>%
+  kable_classic(full_width = T, html_font = "Cambria") %>%
+  kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))
+rm(v)
 ```
+
 
 
 
