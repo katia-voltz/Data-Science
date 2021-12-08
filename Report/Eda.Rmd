@@ -208,7 +208,9 @@ Depression_Rate2000_2021 <- ddply(Depression_Rate2000_2021, .(LOCATION),
                                     }
                                   )
                                   
-kable(Depression_Rate2000_2021)
+kbl(Depression_Rate2000_2021[1:38,],caption = "**Table of depression rate and its growth over the years**") %>%
+  kable_classic(full_width = T, html_font = "Cambria") %>%
+  kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))
 
 ```
 Here we have calculated the growth each year until 2017, and between 2017 and 2021 of the depression rate by country. We can indeed observe a growth over the years, but this increase is smaller and smaller over time. We can therefore make the assumption that this growth continues to decline through the years after 2017. Following this trend, we can well notice that the value in 2021 is unusual compared to previous years. There has been a strong increase in the depression rate in 2021, that we can well observe on the graph. 
