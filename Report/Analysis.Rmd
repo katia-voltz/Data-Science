@@ -129,7 +129,7 @@ We will now calculate the value of the increase in consumption, by years and see
 #Tableau antidepresseurs, croissance chaque année
 tab_R2.1G <- ddply(Antidepressant_consumption2, .(LOCATION),
                                   function (d) {
-                                    d$Growth <- c(NA, tail(d$Consumption, -1) - head(d$Consumption, -1))
+                                    d$Growth <- c(NA, tail(d$Antidepressant_Consumption, -1) - head(d$Antidepressant_Consumption, -1))
                                     d
                                   }
 )
@@ -166,14 +166,14 @@ comparaison <- rename(comparaison,"Consumption_mean"="Consumption")
 
 #Tableau Conso 2020
 consumption2020 <- tab_R2.1 %>%
-  group_by(LOCATION,Consumption) %>%
+  group_by(LOCATION,Antidepressant_Consumption) %>%
   filter(TIME == 2020)
 consumption2020 <- consumption2020[-4]
 
 #On ajoute conso 2020 a comparaison 
 comparaison <- merge(comparaison,consumption2020, by = c("LOCATION"))
 comparaison <- comparaison[-5]
-comparaison <- rename(comparaison,"Consumption2020"="Consumption")
+comparaison <- rename(comparaison,"Consumption2020"="Antidepressant_Consumption")
 
 kable(comparaison)
 ```
@@ -217,14 +217,14 @@ List.top.deaths <- c("HUN","CZE","BRA","ROU","HRV","BEL","USA","ITA","POL","ESP"
 List.low.deaths <- c("CHN","NZL","AUS","ISL","JPN","NOR","FIN","CAN","NLD","DEU","AUT","CHE","SWE")
 
 tableau.top.deaths <-  Depression_Rate2021 [-3]%>%filter(LOCATION %in% List.top.deaths) 
-mean.top.rate.deaths <- mean(tableau.top.deaths$Rate)
+mean.top.rate.deaths <- mean(tableau.top.deaths$Depression_Rate)
 
 tableau.low.deaths <- Depression_Rate2021 [-3]%>% filter(LOCATION %in% List.low.deaths)
-mean.low.rate.deaths <- mean(tableau.low.deaths$Rate)
+mean.low.rate.deaths <- mean(tableau.low.deaths$Depression_Rate)
 
 plot3 <- ggplot(data=tableau.top.deaths)+
-  geom_bar(aes(x = Rate, y= LOCATION),fill = '#0099CC',stat = "identity")+
-  geom_text(aes(x = Rate, y = LOCATION, label = paste(round(Rate, digits = 2),"%")),
+  geom_bar(aes(x = Depression_Rate, y= LOCATION),fill = '#0099CC',stat = "identity")+
+  geom_text(aes(x = Depression_Rate, y = LOCATION, label = paste(round(Depression_Rate, digits = 2),"%")),
             hjust = 1.15,color='white')+
   ylab("top Covid Deaths")+
   xlab("") +
@@ -232,8 +232,8 @@ plot3 <- ggplot(data=tableau.top.deaths)+
 
 
 plot4 <- ggplot(data=tableau.low.deaths)+
-  geom_bar(aes(x = Rate, y= LOCATION),fill = '#FF3399',stat = "identity")+
-  geom_text(aes(x = Rate, y = LOCATION, label = paste(round(Rate, digits = 2),"%")),
+  geom_bar(aes(x = Depression_Rate, y= LOCATION),fill = '#FF3399',stat = "identity")+
+  geom_text(aes(x = Depression_Rate, y = LOCATION, label = paste(round(Depression_Rate, digits = 2),"%")),
             hjust = 1.15,color='white')+
   ylab("low Covid Deaths")+
   xlab("") +
@@ -363,7 +363,7 @@ align = c("cc")
 
 ```{r, echo = FALSE, message = FALSE}
 #consommation antidepresseur par pays
-conso2020 <- tab_R2.2.2010 %>% filter(TIME == 2020) %>% rename("conso2020"="Consumption")
+conso2020 <- tab_R2.2.2010 %>% filter(TIME == 2020) %>% rename("conso2020"="Antidepressant_Consumption")
 conso2020 <- conso2020[,-c(4:5,2)]
 
 #teleworking par pays 2019
