@@ -100,6 +100,12 @@ Faire analyse quand on a le bon graph de corrélation
 
 We will check these hypotheses and the validity of our model by doing a regression.
 
+Also use a VIF to verify colinearity
+
+```{r}
+vif(mod)
+```
+
 # Table 4 : Regression study
 ```{r, echo = FALSE, message = FALSE}
 mod <- lm(tab$Mental_Health ~ tab$Income_Inequality + tab$Wages + tab$Unemployment + tab$Working_Age + tab$Work_Time + tab$GDP)
