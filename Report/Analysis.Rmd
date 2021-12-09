@@ -275,7 +275,8 @@ align = c("cc")
   kable_classic(full_width = T, html_font = "Cambria") %>%
   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'),table.envir = "table")
 ```
-
+Our results do not show a clearly visible difference graphically since the highest value for both graphs is 5.9%. The scope, however, is different. For countries with the most covid deaths the value goes down to 4.8% for Belgium while it goes down to 4.1% for Iceland in the second graph.
+Moreover, when calculating the average of the depression rates of countries classified in the category with the most and least Covid deaths, we can see a slight difference. Indeed, countries that were "most affected by Covid" (with the most deaths), have, on average, a higher depression rate (5,27%) than countries with the fewest deaths from Covid (4,9%). 
 
 
 # Graph4: Consumption according to teleworking 
