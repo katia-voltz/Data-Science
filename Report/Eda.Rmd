@@ -149,7 +149,8 @@ GG4 <- ggplot(data = tab, mapping = aes(x = tab$GDP, y = tab$Mental_Health)) +
   xlab("GDP (US dollars/capita)") + ylab("Prevalence of mental health (in %)") 
 
 # Put all the graphs together
-plot_grid(GG0, GG1, GG2, GG3, GG4, labels=c("A","B","C","D","E","F"), ncol=3, nrow=2)
+plot_grid(GG0, GG1, GG2, labels=c("A","B","C"), ncol=3, nrow=1)
+plot_grid(GG3, GG4, labels=c("E","F"), ncol=2, nrow=1)
 ```
 
 Using this graph and our table 4, we can make these important points about the impact of the work environment on mental health in a population:
