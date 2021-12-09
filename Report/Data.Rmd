@@ -186,7 +186,7 @@ At this stage, we realized that for some of the countries we had selected (Engla
 
 ## Covid
 
-For our second theme around Covid, we want to analyze if Covid-19 has had an impact on the population's mental-health ? 
+For our second theme around Covid, we want to analyze if Covid-19 has had an impact on the population's mental-health.
 We will consider several variables, in a selection of countries around the world: 
 
 - antidepressant consumption (defined daily dosage per 1 000 inhabitants per day),
@@ -194,9 +194,8 @@ We will consider several variables, in a selection of countries around the world
 - teleworking (Employed persons working from home as a % of the total employment). 
 
 We found data on antidepressant consumption on the website : <https://www.oecd.org>, in the Pharmaceutical Market Section. 
-Regarding the Covid data, they come from the site : <https://coronavirus.jhu.edu>. The "cases" and "deaths" variables we will use are cases and deaths - cumulative total per 100000 population.
+Regarding the Covid data, they come from the site : <https://coronavirus.jhu.edu>. The `Cases` and `Deaths` variables we will use are cases and deaths - cumulative total per 100000 population.
 
-Regression 2.1 : Antidepressant_consumption = a*Number_Covid-19_cases + b*Number_Covid-19_Death
 
 Once again, we have made a selection of several countries which are the following : Austria, Belgium, Croatia, Czechia, Denmark, Finland, France, Germany, Greece, Hungary, Iceland, Ireland, Italy, Romania, Portugal, Poland, Norway, Netherlands, Switzerland, Sweden, Spain, Australia, Brazil, Canada, China, Japan, New-Zealand and the USA. 
 
@@ -207,7 +206,7 @@ List.of.Countries = c('AUT','BEL','HRV', 'CZE', 'DNK', 'ENG', 'FIN', 'FRA', 'DEU
                       'CAN', 'CHN', 'JPN', 'NZL', 'USA')
 ```
 
-For this first analysis related to the impact of Covid, R2.1, we quickly realized that the data available for antidepressant consumption in 2020 was very limited. We had to make a second selection of countries for this regression in order to observe only the countries with data in 2020, during the covid year. 
+For this first analysis related to the impact of Covid, R2.1, we quickly realized that the data available for antidepressant consumption in 2020 was very limited. We had to make a second selection of countries (`List.of.Countries2`) for this analysis in order to observe only the countries with data in 2020, during the covid year. 
 
 ```{r, echo = FALSE, message = FALSE}
 List.of.Countries2 = c('GRC', 'HUN', 'ISL', 'ITA', 'NOR','PRT', 'SWE', 'ESP')
@@ -220,7 +219,8 @@ attach(Antidepressant_consumption)
 ```
 
 For all the variables we only kept the columns on the country, the date and the value of the variable, because they were the only ones that interested us. All the others have therefore been deleted.
-It was also often necessary to rename the columns so that they all follow the scheme: LOCATION, TIME and VALUE. 
+It was also often necessary to rename the columns so that they all follow the scheme: LOCATION, TIME and VALUE.
+Here is the table with data on antidepressant consumption between 2000 and 2020, for countries with data in 2020 (using the `List.of.Countries2`).
 
 ```{r, echo = FALSE, message = FALSE}
 Antidepressant_consumption <- Antidepressant_consumption[,-c(1:4,6:7,10:11)]
@@ -229,10 +229,15 @@ Antidepressant_consumption <- Antidepressant_consumption %>% filter(LOCATION %in
 Antidepressant_consumption2 <- Antidepressant_consumption %>% filter(LOCATION %in% List.of.Countries2)
 ```
 ```{r, echo = FALSE, message = FALSE}
-kbl(Antidepressant_consumption2[1:15,],caption = "**Table of antidepressant consumption**: `Antidepressant_consumption2`, ...") %>%
+kbl(Antidepressant_consumption2[1:15,],caption = "**Table 2**^a^: `Antidepressant_consumption2` dataset") %>%
   kable_classic(full_width = T, html_font = "Cambria") %>%
-  kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))
-rm(v)
+  kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))%>%
+  add_footnote(
+      paste(
+         "Representation of the first 15 observation of the dataset. Total observations : ",
+         nrow(Antidepressant_consumption2)
+      )
+   )
 ```
 
 
@@ -258,7 +263,7 @@ We can now form a table with all the data together, using the *full_join* functi
 tab_R2.1 <- full_join(Number_Covid19_cases_deaths2, Antidepressant_consumption2, by= c("LOCATION","TIME"))
 ```
 
-As the data of cases and death of the covid for the years before 2020 were displayed in NA, we assumed that its values were equal to 0. Also, the "cases" variable was output in character, we converted it to numeric.
+As the data of cases and death of the covid for the years before 2020 were displayed in NA, we assumed that its values were equal to 0. Also, the 'Cases' variable was output in character, we converted it to numeric.
 
 ```{r, echo = FALSE, message = FALSE}
 tab_R2.1[is.na(tab_R2.1)] <- 0 
@@ -266,10 +271,15 @@ tab_R2.1$Cases <- as.numeric(tab_R2.1$Cases)
 ```
 
 ```{r, echo = FALSE, message = FALSE}
-kbl(tab_R2.1[1:10,],caption = "**Table of antidepressant consumption and covid-19 cases**: `tab_R2.1`, ...") %>%
+kbl(tab_R2.1[1:10,],caption = "**Table 2**^b^: `tab_R2.1`, Table of `Antidepressant_consumption2` and `Number_Covid19_cases_deaths2`") %>%
   kable_classic(full_width = T, html_font = "Cambria") %>%
-  kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))
-rm(v)
+  kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))%>%
+  add_footnote(
+      paste(
+         "Representation of the first 10 observation of the dataset. Total observations : ",
+         nrow(tab_R2.1)
+      )
+   )
 ```
 
 
@@ -317,18 +327,23 @@ Depression_Rate2000_2021 <- Depression_Rate2000_2017 %>%
 ```
 
 ```{r, echo = FALSE, message = FALSE}
-kbl(Depression_Rate2000_2021[1:10,],caption = "**Depression Rate from 2000 to 2021**: `Depression_Rate2000_2021`, ...") %>%
+kbl(Depression_Rate2000_2021[1:10,],caption = "**Table 2**^c^: `Depression_Rate2000_2021` dataset") %>%
   kable_classic(full_width = T, html_font = "Cambria") %>%
-  kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))
-rm(v)
+  kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))%>%
+  add_footnote(
+      paste(
+         "Representation of the first 10 observation of the dataset. Total observations : ",
+         nrow(Depression_Rate2000_2021)
+      )
+   )
 ```
 
 
 For the second study of this theme, we want to see whether teleworking and unemployment rates can affect antidepressant use in selected countries. Information on Teleworking and Unemployment rate were extracted respectively from the sites : <https://ec.europa.eu/eurostat> and <https://data.oecd.org>. 
 
-We will now use the data of antidepressant according to the first selected country list. 
+We will now use the data of antidepressant according to the first selected country list (`List.of.Countries`). 
 
-As above, we have kept only the columns we were interested in, i.e. value, date and country, and we have renamed some inadequate columns. 
+As above, we have kept only the columns we were interested in, i.e. value, time and country, and we have renamed some inadequate columns. 
 
 ```{r, echo = FALSE, message = FALSE}
 Teleworking <- read.csv2(here::here("Data/Teleworking.csv"))
@@ -338,10 +353,15 @@ Teleworking <- rename(Teleworking,c("LOCATION"="geo","TIME"="TIME_PERIOD","Telew
 Teleworking <-  Teleworking %>% filter(LOCATION %in% List.of.Countries)
 ```
 ```{r, echo = FALSE, message = FALSE}
-kbl(Teleworking[1:10,],caption = "**Teleworking**: `Teleworking`, ...") %>%
+kbl(Teleworking[1:10,],caption = "**Table 2**^d^: `Teleworking` dataset") %>%
   kable_classic(full_width = T, html_font = "Cambria") %>%
-  kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))
-rm(v)
+  kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))%>%
+  add_footnote(
+      paste(
+         "Representation of the first 10 observation of the dataset. Total observations : ",
+         nrow(Teleworking)
+      )
+   )
 ```
 
 We also did this for the unemployment rate. 
@@ -354,10 +374,15 @@ UnemploymentCovid <- rename(UnemploymentCovid, c("Unemployment"="Value"))
 UnemploymentCovid <-  UnemploymentCovid %>% filter(LOCATION %in% List.of.Countries)
 ```
 ```{r, echo = FALSE, message = FALSE}
-kbl(UnemploymentCovid[1:10,],caption = "*UnemploymentCovid**: `UnemploymentCovid`, ...") %>%
+kbl(UnemploymentCovid[1:10,],caption = "**Table 2**^e^: `UnemploymentCovid` dataset, Unemployment rate from 2000 to 2020 (covid year)") %>%
   kable_classic(full_width = T, html_font = "Cambria") %>%
-  kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))
-rm(v)
+  kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))%>%
+  add_footnote(
+      paste(
+         "Representation of the first 10 observation of the dataset. Total observations : ",
+         nrow(UnemploymentCovid)
+      )
+   )
 ```
 ----
 
@@ -368,6 +393,16 @@ For the good functioning of the table for further analysis, it was necessary to 
 Data <- left_join(Antidepressant_consumption, Teleworking, by=c("LOCATION", "TIME"))
 tab_R2.2 <- left_join(Data, UnemploymentCovid, by = c("LOCATION", "TIME"))
 tab_R2.2$Teleworking <- as.numeric(tab_R2.2$Teleworking)
+
+kbl(tab_R2.2[1:20,],caption = "**Table 2**^f^: `tab_R2.2`, Table of `Antidepressant_consumption`, `Teleworking` and `UnemploymentCovid`") %>%
+  kable_classic(full_width = T, html_font = "Cambria") %>%
+  kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))%>%
+  add_footnote(
+      paste(
+         "Representation of the first 10 observation of the dataset. Total observations : ",
+         nrow(tab_R2.2)
+      )
+   )
 ```
 
 We now have three tables ready to be used and analyzed in the next parts: 
@@ -375,12 +410,6 @@ We now have three tables ready to be used and analyzed in the next parts:
 - *Depression_Rate2000_2021* table 
 - *tab_R2.2* with antidepressants consumption, teleworking, and the unemployment rate. 
 
-```{r, echo = FALSE, message = FALSE}
-kbl(tab_R2.2[1:20,],caption = "*tab_R2.2**: `tab_R2.2`, ...") %>%
-  kable_classic(full_width = T, html_font = "Cambria") %>%
-  kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))
-rm(v)
-```
 
 
 # Public spendings on health 
