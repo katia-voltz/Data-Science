@@ -43,7 +43,6 @@ List.of.Countries = c('AUT','BEL','HRV', 'CZE', 'DNK', 'ENG', 'FIN', 'FRA', 'DEU
 kbl(tab_countries,caption = "**Table of OCDE countries**: `tab_countries`, list of OCDE countries availabe in our dataset.") %>%
   kable_classic(full_width = T, html_font = "Cambria") %>%
   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))
-rm(v)
 ```
 
 Now that we have collected all our data, we need to sort, order and rename them in order to obtain only tables with three columns to have the value of our variable according to its country and its date. We took the data for each of these variables for a certain sample of countries and then chose to do an individual average over the years from 2000 to 2017.
@@ -138,7 +137,6 @@ tab$TIME <- as.numeric(tab$TIME)
 kbl(tab[1:20,],caption = "**Table 1.a : List of OECD countries common for all our data **: `tab`") %>%
   kable_classic(full_width = T, html_font = "Cambria") %>%
   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))
-rm(v)
 ```
 
 To see some other effects and to use clusters we will need an other table with the mean of each variable from year 2000 to 2017
@@ -170,7 +168,6 @@ tab_mean <- left_join(tab5, tab_countries, by=('LOCATION'))
 kbl(tab_mean,caption = "**Table 1.b : List of OECD countries common for all our data's mean from 2000 to 2017 **: `tab_mean`") %>%
   kable_classic(full_width = T, html_font = "Cambria") %>%
   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))
-rm(v)
 ```
 
 
@@ -384,7 +381,6 @@ kbl(UnemploymentCovid[1:10,],caption = "**Table 2**^e^: `UnemploymentCovid` data
       )
    )
 ```
-----
 
 With the *full_join* function we have gathered the data of these three variables in a single table.
 For the good functioning of the table for further analysis, it was necessary to remove the NA values, and to convert the variable "teleworking" in numerical (which was in character). 
@@ -410,7 +406,7 @@ We now have three tables ready to be used and analyzed in the next parts:
 - *Depression_Rate2000_2021* table 
 - *tab_R2.2* with antidepressants consumption, teleworking, and the unemployment rate. 
 
-
+----
 
 # Public spendings on health 
 
@@ -582,7 +578,6 @@ Now our final table, tab_1, is arranged in the structure that will be used to ma
 kbl(tab_1[1:20,],caption = "*Table of Public spending on health and mental health**: `tab_1`, ...") %>%
   kable_classic(full_width = T, html_font = "Cambria") %>%
   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))
-rm(v)
 ```
 
 For further analysis, for instance cluster analysis, we decide to sort the dataset (tab_1) with the aggregated values.
@@ -610,7 +605,6 @@ tab_2 <- merge(tab_Mean_Value_Spending.on.health, tab_Mean_Mental_health_Value, 
 kbl(tab_2[1:20,],caption = "*Table aggregated of Public spending on health and mental health**: `tab_2`, ...") %>%
   kable_classic(full_width = T, html_font = "Cambria") %>%
   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))
-rm(v)
 ```
 
 
