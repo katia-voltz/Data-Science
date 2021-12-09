@@ -279,7 +279,7 @@ Our results do not show a clearly visible difference graphically since the highe
 Moreover, when calculating the average of the depression rates of countries classified in the category with the most and least Covid deaths, we can see a slight difference. Indeed, countries that were "most affected by Covid" (with the most deaths), have, on average, a higher depression rate (5,27%) than countries with the fewest deaths from Covid (4,9%). 
 
 
-# Graph4: Consumption according to teleworking 
+We will now focus our analysis on changes in antidepressant use as a function of telecommuting. We will see if there is a relationship between these variables.
 
 Here is a graph that shows how the value of antidepressant consumption varies with teleworking. Each color represents a country. There is no evidence of an increase in antidepressant use when there are more teleworkers, for all countries, but for some there is.
 Indeed, we can observe an increase in …
@@ -289,10 +289,13 @@ g.teleworking.consumption <- ggplot(data = tab_R2.2, mapping = aes(x = Teleworki
   geom_point(mapping = aes(color = LOCATION)) +
   #geom_smooth()+
   ylim(0,160)+
-  xlim(0,15)
+  xlim(0,15)+
+  ggtitle("Evolution of antidepressant consumption according to the percentage of teleworking by country") +
+  xlab("Teleworking in % of workers") + ylab("Antidepressant Consumption") 
 ggplotly(g.teleworking.consumption)
 ```
-
+Here is a graph that shows how the value of antidepressant consumption varies with teleworking. Each color represents a country. There is no evidence of an increase in antidepressant use when there are more teleworkers, for all countries, but for some there is.
+Indeed, we can observe an increase in …
 
 # Countries with the most and least teleworkers on AVERAGE compared to antidepressant consumption 
 
