@@ -51,19 +51,18 @@ ggplotly(map.1)
 ### Work environment 
 
 
-# Table 1 : Representation of the rate of mental health disorder by country and region
-# ATTENTION mettre dans ordre décroissant + enlever NA
+
 ```{r, echo = FALSE, message = FALSE}
 ggplot(data = tab_mean, aes(x = MentalHealth_mean, y=reorder(LOCATION,MentalHealth_mean))) + 
   geom_bar(stat='identity',fill="#DB7093",color="#DB7093",alpha=0.8) +
   geom_text(aes(label=round(MentalHealth_mean)),hjust=1,color='#4F2F4F') +
   xlab("Mental Health mean 2000-2017")+ ylab("Country")+
-  ggtitle("Pas encore de titre")
+  ggtitle("Representation of the rate of mental health disorder by country and region")
 ```
 
 On this first table, we can see that the Oceanian countries (Australia, New Zealand) are the ones that have a bigger part of their population with a mental disorder, followed by North America (Canada, USA) and Western Europe (France, Norway, Netherlands, Spain, Germany, Portugal). While Eastern European (Poland, Romania, Hungary, Czech Republic, Croatia) and Asian (Japan) countries have the lowest rate.  
 
-# Table 2 : Evolution of the prevalence of mental health disorder over time and by country
+
 ```{r, echo = FALSE, message = FALSE}
 Graph_MH <- tab %>% ggplot(aes(
   x = TIME,
@@ -77,6 +76,7 @@ Graph_MH <- tab %>% ggplot(aes(
     hjust = 1,
     vjust = 0.5
   )) +
+  ggtitle("Evolution of the prevalence of mental health disorder over time and by country") +
   xlab("Time") + ylab("Prevalence of mental health value in %") 
 ggplotly(Graph_MH)
 ```
@@ -86,8 +86,6 @@ This second table shows that the prevalence of mental illness has hardly changed
 We now want to start studying our regression, that is, to see how the work environment, through the variables that compose it, impacts the percentage of mental health disorder in a country. For this we will do correlation analyses like those in our table 3.
 
 # Table 3 : Correlation analyses between mental health and the work environment
-# ATTENTION REFAIRE GRAPHIQUES
-
 
 ```{r, echo = FALSE, message = FALSE, eval=TRUE}
 plot_tab <- plot(tab[3:9]) 
@@ -106,7 +104,7 @@ Also use a VIF to verify colinearity
 vif(mod)
 ```
 
-# Table 4 : Regression study
+# Regression study
 ```{r, echo = FALSE, message = FALSE}
 mod <- lm(tab$Mental_Health ~ tab$Income_Inequality + tab$Wages + tab$Unemployment + tab$Working_Age + tab$Work_Time + tab$GDP)
 summary(mod)
@@ -116,41 +114,36 @@ As expected, on table 4, we can see that our model is 75.5% explained by the var
 
 We will see more precisely with our table 5 how each of these variables impact these diseases, always according to the countries through 2000 and 2017.
 
-# Table 5 : Impact of work environment's variables on mental health disorders by country
+# Impact of work environment's variables on mental health disorders by country
 ```{r, echo = FALSE, message = FALSE, warning=FALSE}
 # Income Inequality Analysis 
-GG0 <- ggplot(data = tab, mapping = aes(x = tab$Income_Inequality, y = tab$Mental_Health)) +
+ggplot(data = tab, mapping = aes(x = tab$Income_Inequality, y = tab$Mental_Health)) +
   geom_point(mapping = aes(color = LOCATION)) +
   geom_smooth() +
   xlab("Income inequality (Gini coef.") + ylab("Prevalence of mental health (in %)") 
 
 # Wages Analysis
-GG1 <- ggplot(data = tab, mapping = aes(x = tab$Wages, y = tab$Mental_Health)) +
+ggplot(data = tab, mapping = aes(x = tab$Wages, y = tab$Mental_Health)) +
   geom_point(mapping = aes(color = LOCATION)) +
   geom_smooth()+
   xlab("Average wages (US$") + ylab("Prevalence of mental health (in %)") 
 
-# Unemployment Analysis
-GG2 <- ggplot(data = tab, mapping = aes(x = tab$Unemployment, y = tab$Mental_Health)) +
+ggplot(data = tab, mapping = aes(x = tab$Unemployment, y = tab$Mental_Health)) +
   geom_point(mapping = aes(color = LOCATION)) +
   geom_smooth() +
   xlab("Unemployment rate (in %)") + ylab("Prevalence of mental health (in %)") 
 
 #Working Age Analysis
-GG3 <- ggplot(data = tab, mapping = aes(x = tab$Working_Age, y = tab$Mental_Health)) +
+ggplot(data = tab, mapping = aes(x = tab$Working_Age, y = tab$Mental_Health)) +
   geom_point(mapping = aes(color = LOCATION)) +
   geom_smooth() +
   xlab("Working age population (in %)") + ylab("Prevalence of mental health (in %)") 
 
 # GDP Analysis
-GG4 <- ggplot(data = tab, mapping = aes(x = tab$GDP, y = tab$Mental_Health)) +
+ggplot(data = tab, mapping = aes(x = tab$GDP, y = tab$Mental_Health)) +
   geom_point(mapping = aes(color = LOCATION)) +
   geom_smooth() +
   xlab("GDP (US dollars/capita)") + ylab("Prevalence of mental health (in %)") 
-
-# Put all the graphs together
-plot_grid(GG0, GG1, GG2, labels=c("A","B","C"), ncol=3, nrow=1)
-plot_grid(GG3, GG4, labels=c("E","F"), ncol=2, nrow=1)
 ```
 
 Using this graph and our table 4, we can make these important points about the impact of the work environment on mental health in a population:
