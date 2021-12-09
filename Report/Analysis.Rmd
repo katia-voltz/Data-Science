@@ -266,7 +266,7 @@ Here is a graph that shows how the value of antidepressant consumption varies wi
 Indeed, we can observe an increase in …
 
 ```{r, echo = FALSE, message = FALSE}
-ggplot(data = tab_R2.2, mapping = aes(x = Teleworking, y = Consumption)) +
+ggplot(data = tab_R2.2, mapping = aes(x = Teleworking, y = Antidepressant_Consumption)) +
   geom_point(mapping = aes(color = LOCATION)) +
   geom_smooth()
 ```
