@@ -5,14 +5,14 @@ output: html_document
 
 
 First, we need to install different packages. 
-```{r, echo = FALSE, message = FALSE}
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
 source(here::here("scripts/Setup.R"))
 ```
 
 For our research, we are going to use different datasets for our three main themes. 
 First of all, for the database concerning the environment at work, we have extracted all the data from the sites : <https://www.oecd.org> and <https://ourworldindata.org>. 
 
-# Work Environment
+# Question 1 : Mental health through the work environment 
 
 Our first resarch question was : Given the structure of the working environment in different countries, can we say that the mental health of the population is influenced by the working conditions and the situation of the country?
 
@@ -139,7 +139,7 @@ kbl(tab[1:20,],caption = "**Table 1.a : List of OECD countries common for all ou
   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) %>%
   add_footnote(
       paste(
-         "Representation of the first 10 observation of the dataset. Total observations : ",
+         "Representation of the first 20 observation of the dataset. Total observations : ",
          nrow(tab)
 ```
 
