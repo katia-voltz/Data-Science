@@ -9,17 +9,16 @@ source(here::here("scripts/Setup.R"))
 ```
 
 
-### Work environment 
+### Question 1 : Mental health through the work environment
 
 We decide to do a cluster analysis to see if there is some prevalence of certain region compared to others, and also wanted to study our problem through another perspective, that of the countries. Indeed, we could notice on the first plots, some countries adopt more extreme behaviors (position separated from the others) and it is often the same across the different variables.  A good way to analyze this is to group our countries using clusters. The goal is to see if the work environment has more impact in some countries
 than in others on the mental health of its population. This is also where we will use our table of averages that we made for each of the variables.
 
-
-# ATTENTION MARCHE PAS SI NA DONC JE LES ENLEVE POUR L'INSTANT
 ```{r, echo = FALSE, message = FALSE}
+# We remove the NA because we don't want to have biais in our cluster analysis 
 tab_mean_na <- na.omit(tab_mean)
 ```
-# Table ? : Cluster analysis for each of our explanatory variables
+# Cluster analysis for each of our explanatory variables
 ```{r}
 # Income Inequality
 data_t0 <- tab_mean_na[-1]
