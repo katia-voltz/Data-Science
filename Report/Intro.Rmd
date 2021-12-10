@@ -6,10 +6,6 @@ output: html_document
 
 # Introduction
 
-## Title of our project 
-
-Mental Health:  An analysis of mental health related to the work environment. The impact of the covid-19 and the different health care systems in different countries.
-
 ## Background and motivation 
 
 It has been more than a year and a half since we have been living through a global health crisis and it was important to us to work on a subject that directly affects us. We had to drastically reduce our social contacts, leaving us alone with ourselves and our thoughts. Therefore, we are very interested to know how work environment and structure can affect the mental health in a country. 
