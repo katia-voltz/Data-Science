@@ -48,7 +48,7 @@ ggplotly(map.1)
 
 
 
-### Work environment 
+### Question 1 : Mental health through the work environment
 
 
 
@@ -76,7 +76,7 @@ Graph_MH <- tab %>% ggplot(aes(
     hjust = 1,
     vjust = 0.5
   )) +
-  ggtitle("Evolution of the prevalence of mental health disorder over time and by country") +
+  ggtitle("Evolution of mental health disorder over time and by country") +
   xlab("Time") + ylab("Prevalence of mental health value in %") 
 ggplotly(Graph_MH)
 ```
@@ -85,7 +85,7 @@ This second table shows that the prevalence of mental illness has hardly changed
 
 We now want to start studying our regression, that is, to see how the work environment, through the variables that compose it, impacts the percentage of mental health disorder in a country. For this we will do correlation analyses like those in our table 3.
 
-# Table 3 : Correlation analyses between mental health and the work environment
+# Correlation analyses between mental health and the work environment
 
 ```{r, echo = FALSE, message = FALSE, eval=TRUE}
 plot_tab <- plot(tab[3:9]) 
