@@ -98,11 +98,6 @@ Faire analyse quand on a le bon graph de corrélation
 
 We will check these hypotheses and the validity of our model by doing a regression.
 
-Also use a VIF to verify colinearity
-
-```{r}
-vif(mod)
-```
 
 # Regression study
 ```{r, echo = FALSE, message = FALSE}
@@ -111,6 +106,12 @@ summary(mod)
 ```
 
 As expected, on table 4, we can see that our model is 75.5% explained by the variables we have chosen. Moreover, we notice that our variables, income inequality, wages, unemployment, working age and GDP are very significant. On the other hand, the time an employee spends working does not seem to have an impact on the rate of mental health disorder. We will therefore not take it into account as an explanatory variable for our problem. 
+
+Also use a VIF to verify colinearity
+
+```{r}
+vif(mod)
+```
 
 We will see more precisely with our table 5 how each of these variables impact these diseases, always according to the countries through 2000 and 2017.
 
