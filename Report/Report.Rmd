@@ -1,6 +1,5 @@
 ---
-title: "Report : $$Mental Health:  An analysis of mental health related to the work environment. 
-The impact of the covid-19 and the different health care systems in different countries.$$"
+title: "Mental Health:  An analysis of mental health related to the work environment.The impact of the covid-19 and the different health care systems in different countries"
 author: "Nina Bidet, Armance Larfeuille and Katia Voltz"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output: html_document
