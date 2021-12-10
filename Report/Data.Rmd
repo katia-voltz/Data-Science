@@ -140,7 +140,7 @@ kbl(tab[1:20,],caption = "**Table 1.a : List of OECD countries common for all ou
   add_footnote(
       paste(
          "Representation of the first 20 observation of the dataset. Total observations : ",
-         nrow(tab)
+         nrow(tab)))
 ```
 
 To see some other effects and to use clusters we will need an other table with the mean of each variable from year 2000 to 2017
