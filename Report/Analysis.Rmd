@@ -98,12 +98,12 @@ mod2 <- lm(tab$Mental_Health ~ tab$Region + tab$TIME)
 summary(mod2)
 ```
 
-
+----
 
 
 ## Covid 
 
-# Regression Antidepressant Consumption / Covid Cases, Deaths + correlation
+##### Antidepressant use and Covid
 
 
 ```{r, echo = FALSE, message = FALSE}
@@ -112,7 +112,7 @@ cor(tab_R2.1$Antidepressant_Consumption, tab_R2.1$Deaths)
 cor(tab_R2.1$Antidepressant_Consumption, tab_R2.1$Cases)
 ```
 
-We obtain a correlation of "0,0049" between antidepressant consumption and the number of deaths due to covid, and a correlation of "0,0453" between antidepressant consumption and Covid cases.  
+We obtain a correlation of "0,049" between antidepressant consumption and the number of deaths due to covid, and a correlation of "0,0453" between antidepressant consumption and Covid cases.  
 
 Unfortunately, we can see that there is no correlation between these variables, either with the number of cases or the number of deaths. 
 We can give several explanations to this surprising observation.
@@ -166,12 +166,12 @@ comparaison <- rename(comparaison,"Consumption_mean"="Antidepressant_Consumption
 consumption2020 <- tab_R2.1 %>%
   group_by(LOCATION,Antidepressant_Consumption) %>%
   filter(TIME == 2020)
-consumption2020 <- consumption2020[-4]
+
 
 #On ajoute conso 2020 a comparaison 
 comparaison <- merge(comparaison,consumption2020, by = c("LOCATION"))
-comparaison <- comparaison[-5]
 comparaison <- rename(comparaison,"Consumption2020"="Antidepressant_Consumption")
+comparaison <- comparaison[,-c(5,6,7)]
 
 kbl(comparaison,caption = "**Table 1: **Table by country of antidepressant consumption in 2020, its growth between 2019 and 2020, compared to the average antidepressant consumption and growth of previous years.") %>%
   kable_classic(full_width = T, html_font = "Cambria") %>%
@@ -203,7 +203,7 @@ We will try to demonstrate a link between the Covid crisis and the depression ra
 However, for our study, we did not consider this as a problem, on the contrary. Indeed, knowing that the Covid crisis is still happening today and that the effects of a crisis are often felt some time afterwards, we believe that the analysis of the 2021 depression rate is relevant to show if there are any effects of the covid crisis.
 
 
-# Countries with the highest and lowest deaths covid / Depression Rate 2021
+##### Depression Rate and Covid
 
 ```{r, echo = FALSE, message = FALSE}
 covid <- Number_Covid19_cases_deaths %>%
@@ -278,6 +278,8 @@ Our results do not show a clearly visible difference graphically since the highe
 Moreover, when calculating the average of the depression rates of countries classified in the category with the most and least Covid deaths, we can see a slight difference. Indeed, countries that were "most affected by Covid" (with the most deaths), have, on average, a higher depression rate (5,27%) than countries with the fewest deaths from Covid (4,9%). 
 
 
+##### Antidepressant consumption and teleworking
+
 We will now focus our analysis on changes in antidepressant use as a function of telecommuting. We will see if there is a relationship between these variables.
 
 Here is a graph that shows how the value of antidepressant consumption varies with teleworking. Each color represents a country. There is no evidence of an increase in antidepressant use when there are more teleworkers, for all countries, but for some there is.
@@ -326,7 +328,7 @@ kbl(
     'Low Countries' = teleworking.toplow$LOCATION,
     "LTeleworking" = teleworking.toplow$teleworking
   ),
-  caption = "**Table 2**: countries with the most and least teleworkers on average from 2010 to 2019",
+  caption = "**Table 2**: countries with the most and least teleworkers **on average** from 2010 to 2019",
   align = c("lclc")
 ) %>%
   kable_classic(full_width = T, html_font = "Cambria") %>%
@@ -345,7 +347,7 @@ mean.top.consumption <- mean(tableau.top.conso2$conso)
 tableau.low.conso2 <- mean.conso %>% filter(LOCATION %in% List.low.telework)  %>% arrange(desc(conso))
 mean.low.consumption <- mean(tableau.low.conso2$conso)
 
-#tableau.low.conso2 %>% mutate(LOCATION= fct_reorder(LOCATION,conso)) #mettre ordre décroissant ? 
+
 
 plot9 <-ggplot(data=tableau.top.conso2)+
   geom_bar(aes(x = conso, y= reorder(LOCATION,conso)),fill = '#0099CC',stat = "identity")+
@@ -368,7 +370,7 @@ plot10 <-ggplot(data=tableau.low.conso2)+
 
 ggarrange(plot9,plot10,nrow = 2,align = 'v') %>%
   annotate_figure(top = text_grob("Antidepressant consumption For Countries with The Most and Least teleworkers on average 2010/2019", 
-                                  size = 12),
+                                  size = 9),
                   bottom = text_grob("Antidepressant consumption"))
 
 kbl(tibble(
@@ -384,7 +386,7 @@ align = c("cc")
 
 
 
-# Antidepressant consumption in countries with the most teleworkers and least teleworkers in  2020
+
 
 ```{r, echo = FALSE, message = FALSE}
 #consommation antidepresseur par pays
@@ -434,7 +436,6 @@ tableau.low.conso4 <- conso2020 %>% filter(LOCATION %in% List.low.telework)  %>%
 mean.low.consumption2020 <- mean(tableau.low.conso4$conso2020)
 
 
-#tableau.low.conso2 %>% mutate(LOCATION= fct_reorder(LOCATION,conso)) #mettre ordre décroissant ? 
 
 plot13 <-ggplot(data=tableau.top.conso4)+
   geom_bar(aes(x = conso2020, y= reorder(LOCATION,conso2020)),fill = '#0099CC',stat = "identity")+
@@ -453,7 +454,7 @@ plot14 <-ggplot(data=tableau.low.conso4)+
   xlim(c(0,170))
 
 ggarrange(plot13,plot14,nrow = 2,align = 'v') %>%
-  annotate_figure(top = text_grob("Antidepressant consumption For Countries with The Most and Least teleworkers in 2020", 
+  annotate_figure(top = text_grob("Antidepressant consumption For Countries with The Most and Least teleworkers **in 2020**", 
                                   size = 12),
                   bottom = text_grob("Antidepressant consumption"))
 
@@ -467,6 +468,8 @@ align = c("cc")
   kable_classic(full_width = T, html_font = "Cambria") %>%
   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'),table.envir = "table")
 ```
+
+----
 
 # Public Spending on health analysis
 First statistical analysis
