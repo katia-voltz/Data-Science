@@ -11,7 +11,7 @@ source(here::here("scripts/Setup.R"))
 
 Now all our databases are clean and ready to be used. 
 
-# Exloratory data analysis:
+# Exploratory data analysis
 
 Map representing the mental illness prevalence in the selected countries from the OCDE
 ```{r, echo = FALSE, message = FALSE}
@@ -47,7 +47,7 @@ ggplotly(map.1)
 ```
 
 
-
+## Work environment
 ### Question 1 : Mental health through the work environment
 
 
