@@ -2,17 +2,18 @@
 title: "Data"
 output: html_document
 ---
-
+# Data
 
 First, we need to install different packages. 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE}
 source(here::here("scripts/Setup.R"))
 ```
+For our research, we are going to use different databases around our three themes: mental health in the work environment, during the covid period, and public spending on health. 
 
-For our research, we are going to use different datasets for our three main themes. 
+## Question 1 : Mental health through the work environment 
+
 First of all, for the database concerning the environment at work, we have extracted all the data from the sites : <https://www.oecd.org> and <https://ourworldindata.org>. 
 
-# Question 1 : Mental health through the work environment 
 
 Our first resarch question was : Given the structure of the working environment in different countries, can we say that the mental health of the population is influenced by the working conditions and the situation of the country?
 
@@ -412,7 +413,7 @@ We now have three tables ready to be used and analyzed in the next parts:
 
 ----
 
-# Public spendings on health 
+## Public spendings on health 
 
 
 In this thrid analysis of datasets,  we are going to compare the prevalence of mental health disorder (% of the population (age-standardaized)) in a population of a country and the current health expenditure (% of GDP). Particularly focus on the countries of the OCDE that is The Organisation for Economic Co-operation and Development.
