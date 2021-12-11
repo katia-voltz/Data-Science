@@ -166,7 +166,7 @@ In summary, a country with a medium wage, high GDP does not promote good mental 
 
 
 
-
+----
 
 
 
@@ -176,20 +176,21 @@ In summary, a country with a medium wage, high GDP does not promote good mental 
 
 Firstly, we would like to know if there is a correlation between Cases or Deaths of Covid and the Value of Antidepressant Consumption through the years. We want to observe whether there is a peak in the consumption of these medications because of the covid crisis. Indeed, we make the hypothesis that due to this crisis, the proportion of people suffering from depression has increased, which would have had a significant impact on this consumption in 2020. 
 
-# Graph1 : Antidepressant consumption per countries from 2000 to 2020 
 
 ```{r, echo = FALSE, message = FALSE}
 graph.antidepressant.consumption <- ggplot(data = Antidepressant_consumption) +
   geom_point(mapping = aes(x = TIME, y = Antidepressant_Consumption, color = LOCATION))+
   geom_line(mapping = aes(x = TIME, y = Antidepressant_Consumption, color = LOCATION))+
   annotate("rect", xmin = 2019, xmax = 2021, ymin = -1, ymax = max(Antidepressant_consumption$Antidepressant_Consumption),
-           alpha = .2, fill = "orange")
+           alpha = .2, fill = "orange")+
+  xlab("Time")+ ylab("Antidepressant consumption")+
+  ggtitle("Evolution of antidepressant consumption by country from 2000 to 2020")
 ggplotly(graph.antidepressant.consumption)
 ```
 By creating a graph of antidepressant consumption over time, we can see that, for our first selection of countries, antidepressant consumption is increasing over the years. We will see, in the analysis, if Covid Cases or Deaths are correlated to this increase.  
 
 
-# Graph2 : Depression Rate per countries from 2000 to 2021
+
 
 Due to lack of data on antidepressant use in 2020, it would be interesting to observe the rate of depression by country between 2000 and 2021. Here is the graph of depression rate by selected countries between 2000 and 2021. It is important to notice that we could not find the data for the years 2018, 2019 and 2020. So we have no data available for these years. 
 
@@ -199,7 +200,9 @@ graph.depression.rate <- ggplot(data = Depression_Rate2000_2021)+
   geom_line(mapping = aes(x = TIME , y = Depression_Rate, color = LOCATION))+
   theme_bw()+
   annotate("rect", xmin = 2019, xmax = 2021, ymin = 0, ymax = max(Depression_Rate2000_2021$Depression_Rate),
-           alpha = .2, fill = "orange")
+           alpha = .2, fill = "orange")+
+  xlab("Time")+ ylab("Depression Rate")+
+  ggtitle("Evolution of the depression rate by country from 2000 to 2020")
  ggplotly(graph.depression.rate)          
 ```
 
@@ -218,7 +221,13 @@ Depression_Rate2000_2021 <- ddply(Depression_Rate2000_2021, .(LOCATION),
                                   
 kbl(Depression_Rate2000_2021[1:38,],caption = "**Table of depression rate and its growth over the years**") %>%
   kable_classic(full_width = T, html_font = "Cambria") %>%
-  kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))
+  kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))%>%
+  add_footnote(
+      paste(
+         "Representation of the first 38 observation of the dataset. Total observations : ",
+         nrow(Depression_Rate2000_2021)
+      )
+   )
 
 ```
 Here we have calculated the growth each year until 2017, and between 2017 and 2021 of the depression rate by country. The table above shows only the first two countries in the list, Australia and Austria. 
@@ -227,7 +236,7 @@ There has been a strong increase in the depression rate in 2021, that we can wel
 
 
 
-# Graph3 : Evolution of teleworking through years 
+
 
 
 We will now focus on our second study, which is the evolution of antidepressant consumption as a function of teleworking and unemployment rate. 
@@ -248,13 +257,18 @@ graph.teleworking <- ggplot(data = tab_R2.2) +
   geom_point(mapping = aes(x = TIME, y = Teleworking, color = LOCATION))+
   geom_line(mapping = aes(x = TIME, y = Teleworking, color = LOCATION))+
   annotate("rect", xmin = 2019, xmax = 2021, ymin = -1, ymax = 16, na.rm = T,
-           alpha = .2, fill = "orange")
+           alpha = .2, fill = "orange")+
+  xlab("Time")+ ylab("Teleworking")+
+  ggtitle("Evolution of teleworking by country from 2000 to 2020")
 ggplotly(graph.teleworking)
 ```
+
+It is important to note that all our analysis is done between the years 2000 and 2020, which is why the graph above starts in 2000. However, data we have on teleworking only starts in 2010. 
+
 By making a graph of the evolution of teleworking per country, between 2010 and 2020, given the data available for this variable, we can see an increase of this rate in 2020. This increase can be explained by the Covid crisis. So, if we find a potential correlation between the consumption of antidepressants and teleworking, we could then make a link with the Covid. 
 
 
-
+----
 
 ## Public spendings on health
 
