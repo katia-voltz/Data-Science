@@ -272,18 +272,18 @@ By making a graph of the evolution of teleworking per country, between 2010 and 
 
 ## Public spendings on health
 
- Primary analysis
+ In this primary analysis, we are going to determine the relationship between the *mental health disorder prevalence*, which is represented in percent, and the *Public spendings on health* that represent the current expenditures in public health of a country, in pourcent.
  
 - Graphical observations and regression interpretation. 
 
 ```{r, echo = FALSE, message = FALSE}
  plot(tab_1)
 ```
-In this general plot, we can assume that time is impacting the value spending on health. However, the impact on the mental health value seems close to zero.
-Mental health and spendings on health looks positively correlated. 
+In this general plot, we can assume that *Time* is impacting the *value spending on health*. However, the impact on the *mental health value* seems close to zero. Furthermore, *Mental health* and *spendings on health* look positively correlated. 
 
 
-Creation of a corrplot in order to identify directly the correlation coefficient between the variables.
+- Creation of a corrplot in order to identify directly the correlation coefficient between the variables.
+
 ```{r}
 corrplot(cor(tab_1[4:6]), method = 'number')
 ```
@@ -311,16 +311,17 @@ Visually, the Time does not affect the value of our dependent variable and it ap
 We can see that the prevalence of mental health disorder does not rise through time. Indeed the variation appears small over time and the correlation negative.
 
 - Statistical analysis of Mental health value evolution and the time:
+
 ```{r, echo = FALSE, message = FALSE}
 Regression.1.Time <- lm(tab_1$Mental_health_Value ~ tab_1$Time)
 ```
 ```{r}
 summary(Regression.1.Time)
 ```
-As visually analysed, the time does not impact our Y. The coefficient is not significant, the variance of the model is explained at 0.03% which is extremely low. The p-value is also high.
+As visually analysed, the time does not impact our Y. The coefficient is not significant, the variance of the model is explained at 0.03% which is extremely low. The p-value is also high (0.7).
 We conclude that this first model based only on ‘Time’ is bad. 
 
--Graph.2 : Visualization of the P) between the OCDE countries from 2000 to 2018
+-Graph.2 : Visualization of *Public spending on health* evolution between the OCDE countries from 2000 to 2018
 ```{r}
 Graph_public.spending.on.health <- Public.spending.on.health_New_2 %>% ggplot(aes(
   x = Time,
@@ -338,9 +339,10 @@ Graph_public.spending.on.health <- Public.spending.on.health_New_2 %>% ggplot(ae
   xlab("Time") + ylab("Value spending on health in % of GDP") 
 ggplotly(Graph_public.spending.on.health)
 ```
- It appears that the distribution of values is based on location, like mental health. And also, the values according to each country seems to slightly increase through Time.
+It appears that the distribution of values is based on *Location*, like *Mental health*. And also, the values according to each country seems to slightly increase through Time.
 
-Comparison of the 2 variables 
+
+- Comparison of the 2 variables: 
 Now we want to compare the two variables: x = Value_Spending.on.health., y = Mental_health_Value In order to see if the expenditure on health of a country from the OCDE impacts the prevalence of mental illness in its population.
 
 ```{r}
@@ -348,9 +350,17 @@ Graph.region <- ggplot(tab_1, aes(x=Value_Spending.on.health, y=Mental_health_Va
 ggplotly(Graph.region)
 ```
 
-We observe that the two variables are positively correlated. However, it looks paradoxical, because the more a country invests on public health, the more there is the prevalence of mental illness.
+We observe that the two variables are positively correlated. However, it looks paradoxical, because the more a country invests on public health, the more there is the prevalence of mental illness. 
+
+This result is not relevant and satisfactory for several reasons:
+The first is that when comparing the mental health of a country with only health investment data, we omit variables in our model.
+
+- Omitted variable bias: If we take the example of GDP, this variable influences not only health expenditure but also mental health problems as seen earlier with the first research question 'work environment'. 
+
+- simultaneity bias: secondly, we are probably facing a simultaneity bias! Public spending on health cannot be considered as an exogenous variable. x also varies in reaction to y.
+
 Therefore, we decide to observe the opposite. Is a country suffering from a big proportion of mental illness, a country that invests the most on public health?
-We decide to reverse the research question for this analysis because it is more logical to put  x = Mental_health_Value , y = Value_Spending.on.health.
+We decide to reverse the research question for this analysis because it is more logical to put  x = Mental_health_Value , y = Value_Spending.on.health. We stay aware of this suniltaneity problem. 
 
 ```{r}
 Graph.region2 <- ggplot(tab_1, aes( x = Mental_health_Value , y = Value_Spending.on.health, colour=Region, group=Entity, labels=Time)) +
