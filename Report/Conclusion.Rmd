@@ -7,7 +7,12 @@ output: html_document
 ```{r, echo = FALSE, message = FALSE}
 source(here::here("scripts/Setup.R"))
 ```
+Regarding our study on Covid, we were able to see that the Covid crisis had an impact on the mental health of a country's population. Indeed, we proved that there was a link between the rate of teleworking of a country and the consumption of antidepressants of its population. Countries with more teleworkers on average are also countries with higher consumption of antidepressants per day per 100 inhabitants. This was also the case in 2020 when Covid arrived. 
+Moreover, we know that Covid, especially in 2020, significantly increased the number of teleworkers per country (see Figure 3, covid part) and thus the consumption of antidepressants. So there is a link between mental health and teleworking. Unfortunately, we cannot show that teleworkers use antidepressants. 
 
+We can also see from the study of the depression rate of the countries that Covid must have had an impact on it, since it increased significantly that year. However, we could not prove with certainty that the countries most affected by Covid were also the countries with the highest depression rates. 
+
+To conclude, Covid has had an impact on the mental health of the countries' populations, but it is also about everything involved in this crisis that has impacted people's mental illness. Indeed, the increase in telecommuting is a consequence of Covid which is then linked to mental health. However, there are many other variables caused by Covid that have not been taken into account, for example, loss of a loved one, physical illness, lack of work, decreased social interaction, etc., and it would have been interesting to observe these variables. 
 
 ### Limitation
 
@@ -15,7 +20,12 @@ source(here::here("scripts/Setup.R"))
 - Mental health prend beaucoup de chose en compte (anxiety, depresssion,..) 
 - Donéées dans certains pays incomplètes donc anaylse par région/continent pas toujours très précise
 
+One of the limitations of our work was the lack of recent data. Indeed, for the covid part, we had very little data in 2020. 
+Moreover, it seems that some information is biased, especially concerning the figures related to Covid (numbers of cases and deaths in some countries like China for example, seem to be underestimated). 
+
 ### Future work
 
 - Certains pays doivent avoir des éléments externes au work environment (politique, accès aux soins, ...) qui ont un impact sur celui ci et donc sur la santé mental des travailleurs.
 --> Il serait donc interresant de pouvoir analyser comment un pays ou une région organise sa société pour que les travailleurs aient les meilleures conditions possibles.
+
+It would have been interesting to observe what part of a country's population consumes the most antidepressants and whether it is indeed the working population. In this way, we could have shown that people who telework use antidepressants.
