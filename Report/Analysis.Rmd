@@ -199,11 +199,13 @@ Then, when we compare the average growth in consumption per year, to the growth 
 
 This shows that the consumption of antidepressants has increased in 2020, which could be well explained by the covid crisis. 
 
-We will try to demonstrate a link between the Covid crisis and the depression rate in the following countries. It is true that in this table we are comparing data from 2 different years : we only have the depression rate in 2021, and the Covid data we have is only in 2020.
+##### Depression Rate and Covid
+
+We will try to demonstrate a link between the Covid crisis and the depression rate in our selection of countries. 
+To do this, we classified the countries into two categories: the countries with the most Covid deaths (which we therefore consider the most affected by the crisis) and the countries with the least Covid deaths. Next, we will compare the depression rates of countries in 2021 according to these two categories. 
+It is true that in this table we are comparing data from 2 different years : we only have the depression rate in 2021, and the Covid data we have is only in 2020.
 However, for our study, we did not consider this as a problem, on the contrary. Indeed, knowing that the Covid crisis is still happening today and that the effects of a crisis are often felt some time afterwards, we believe that the analysis of the 2021 depression rate is relevant to show if there are any effects of the covid crisis.
 
-
-##### Depression Rate and Covid
 
 ```{r, echo = FALSE, message = FALSE}
 covid <- Number_Covid19_cases_deaths %>%
@@ -278,12 +280,10 @@ Our results do not show a clearly visible difference graphically since the highe
 Moreover, when calculating the average of the depression rates of countries classified in the category with the most and least Covid deaths, we can see a slight difference. Indeed, countries that were "most affected by Covid" (with the most deaths), have, on average, a higher depression rate (5,27%) than countries with the fewest deaths from Covid (4,9%). 
 
 
+
 ##### Antidepressant consumption and teleworking
 
 We will now focus our analysis on changes in antidepressant use as a function of telecommuting. We will see if there is a relationship between these variables.
-
-Here is a graph that shows how the value of antidepressant consumption varies with teleworking. Each color represents a country. There is no evidence of an increase in antidepressant use when there are more teleworkers, for all countries, but for some there is.
-Indeed, we can observe an increase in …
 
 ```{r, echo = FALSE, message = FALSE}
 g.teleworking.consumption <- ggplot(data = tab_R2.2, mapping = aes(x = Teleworking, y = Antidepressant_Consumption)) +
@@ -295,8 +295,11 @@ g.teleworking.consumption <- ggplot(data = tab_R2.2, mapping = aes(x = Teleworki
   xlab("Teleworking in % of workers") + ylab("Antidepressant Consumption") 
 ggplotly(g.teleworking.consumption)
 ```
+
 Here is a graph that shows how the value of antidepressant consumption varies with teleworking. Each color represents a country. There is no evidence of an increase in antidepressant use when there are more teleworkers, for all countries, but for some there is.
-Indeed, we can observe an increase in …
+Indeed, we can observe an increase for the Netherlands, Switzerland or Spain for example but there is no upward trend for all.  
+
+Therefore, for the rest of the analysis, we will determine two lists of countries. The first list will contain the countries with the most teleworkers in % of the active population, on average between 2010 and 2020 (above 5%) and the second one, the countries with a lower average rate.
 
 # Countries with the most and least teleworkers on AVERAGE compared to antidepressant consumption 
 
@@ -334,6 +337,12 @@ kbl(
   kable_classic(full_width = T, html_font = "Cambria") %>%
   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'),table.envir = "table") %>%
   column_spec(c(1,3), width = "8cm")
+
+```
+
+The table above includes Sweden in both lists (top and low teleworking) because we have 15 countries (an odd number) and it is not possible to build a table with a different number of rows for the 2 columns. When this is the case, we assume that the top list includes one more country. So, Sweden (SWE) will be counted only in the first list (top teleworking) to realize the following bar plot. 
+
+```{r, echo = FALSE, message = FALSE}
 
 #tableau antidepressant conso pour top tele
 
@@ -384,8 +393,12 @@ align = c("cc")
   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'),table.envir = "table")
 ```
 
+The two graphs above show a significant difference between the two country selections. Indeed, the average antidepressant consumption of the countries with the most teleworking is 80.4 compared to only 51.5 for the average of the countries with the least teleworking.
+Moreover, in the second list of countries (low teleworking), all countries (7 countries) have a consumption of antidepressants lower than 72.87 while in the first list only 3 have a consumption lower than this figure. In fact, the majority (5 out of 8) have a consumption of more than 70, with Iceland recording a consumption of 125 doses per day.  
 
+With this 10 year average, we can already see a potential connection between these two variables. Indeed, the countries with the most teleworkers also seem to be the countries with the highest consumption of antidepressants per 100 inhabitants per day. 
 
+To complete our analysis, and to avoid potentially biased results by the average, we will also focus on a single year. We will compare antidepressant use in the countries with the highest and lowest rates of teleworking in 2020, the year of the covid.
 
 
 ```{r, echo = FALSE, message = FALSE}
@@ -421,9 +434,13 @@ kbl(
 ) %>%
   kable_classic(full_width = T, html_font = "Cambria") %>%
   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'),table.envir = "table") %>%
-  column_spec(c(1,3), width = "8cm")
+  column_spec(c(1,3), width = "8cm") 
+```
+
+The table above includes Iceland in both lists (top and low teleworking) because we have again an odd number of countries (7) and it is not possible to build a table with a different number of rows for the 2 columns. We therefore assume that the top list includes one more country. So, Iceland (ISL) will be counted only in the first list (top teleworking) to realize the following bar plot. 
 
 
+```{r, echo = FALSE, message = FALSE}
 #tableau antidepressant conso pour top tele
 
 List.top.telework <- c("PRT","ITA","ESP","ISL")
@@ -468,6 +485,11 @@ align = c("cc")
   kable_classic(full_width = T, html_font = "Cambria") %>%
   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'),table.envir = "table")
 ```
+
+Despite the lack of data (observation only possible on 7 countries instead of 15 above), the results of this second analysis confirm what we thought. Indeed, the two averages are even further apart and the average antidepressant consumption for the countries with the highest teleworking rate (top teleworking) is twice as high as the average of this consumption for the second list (low teleworking).
+Moreover, except for Italy, all countries in the first list (top teleworking) have a higher consumption of antidepressants than all the countries in the second list (low teleworking). 
+
+Countries with the most teleworkers are therefore also the countries with the highest consumption of antidepressants per day. 
 
 ----
 
