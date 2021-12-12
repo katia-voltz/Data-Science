@@ -177,21 +177,6 @@ kbl(comparaison,caption = "**Table 1: **Table by country of antidepressant consu
   kable_classic(full_width = T, html_font = "Cambria") %>%
   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))
 
-
-reactable(comparaison, columns = list(
-  Growth2020 = colDef(
-    style = function(value) {
-      if (value > 1) {
-        color <- "#008000"
-      } else if (value < 0) {
-        color <- "#e00000"
-      } else {
-        color <- "#777"
-      }
-      list(color = color, fontWeight = "bold")
-    }
-  )
-))
 ```
 
 When we calculate the average antidepressant consumption from 2000 to 2019 and compare it to the consumption in 2020 we notice that the latter is for all countries higher than the average of the previous years. 
