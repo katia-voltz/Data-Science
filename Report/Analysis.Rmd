@@ -9,7 +9,7 @@ source(here::here("scripts/Setup.R"))
 ```
 
  
-# Question 1 : Mental health through the work environment
+## Question 1 : Mental health through the work environment
 
 We decide to do a cluster analysis to see if there is some prevalence of certain region compared to others, and also wanted to study our problem through another perspective, that of the countries. Indeed, we could notice on the first plots, some countries adopt more extreme behaviors (position separated from the others) and it is often the same across the different variables.  A good way to analyze this is to group our countries using clusters. The goal is to see if the work environment has more impact in some countries
 than in others on the mental health of its population. This is also where we will use our table of averages that we made for each of the variables.
@@ -18,7 +18,7 @@ than in others on the mental health of its population. This is also where we wil
 # We remove the NA because we don't want to have biais in our cluster analysis 
 tab_mean_na <- na.omit(tab_mean)
 ```
-## Cluster analysis for each of our explanatory variables
+### Cluster analysis for each of our explanatory variables
 ```{r}
 # Income Inequality
 data_t0 <- tab_mean_na[-1]
@@ -103,9 +103,9 @@ Our model is significant in all regions studied.
 ----
 
 
-## Covid 
+## Question 2 : ??? Covid 
 
-##### Antidepressant use and Covid
+#### Antidepressant use and Covid
 
 
 ```{r, echo = FALSE, message = FALSE}
@@ -288,7 +288,7 @@ Indeed, we can observe an increase for the Netherlands, Switzerland or Spain for
 
 Therefore, for the rest of the analysis, we will determine two lists of countries. The first list will contain the countries with the most teleworkers in % of the active population, on average between 2010 and 2020 (above 5%) and the second one, the countries with a lower average rate.
 
-# Countries with the most and least teleworkers on AVERAGE compared to antidepressant consumption 
+### Countries with the most and least teleworkers on AVERAGE compared to antidepressant consumption 
 
 ```{r, echo = FALSE, message = FALSE}
 tab_R2.2.2010 <- tab_R2.2 %>% filter(TIME > 2009)
@@ -480,7 +480,7 @@ Countries with the most teleworkers are therefore also the countries with the hi
 
 ----
 
-# Public Spending on health analysis
+## Question 3 : ??? Public Spending on health analysis
 First statistical analysis
 Study of the first regression
 
