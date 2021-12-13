@@ -47,8 +47,7 @@ ggplotly(map.1)
 ```
 
 
-## Work environment
-### Question 1 : Mental health through the work environment
+## Question 1 : Mental health through the work environment
 
 
 
@@ -85,21 +84,22 @@ This second table shows that the prevalence of mental illness has hardly changed
 
 We now want to start studying our regression, that is, to see how the work environment, through the variables that compose it, impacts the percentage of mental health disorder in a country. For this we will do correlation analyses like those in our table 3.
 
-# Correlation analyses between mental health and the work environment
+### Correlation analyses between mental health and the work environment
 
 ```{r, echo = FALSE, message = FALSE, eval=TRUE}
-plot_tab <- plot(tab[3:9]) 
+plot_tab <- plot(tab[1:9]) 
+```
 
+
+```{r, echo = FALSE, message = FALSE, eval=TRUE}
 Correlation <- cor(tab[3:9], use="pairwise.complete.obs")
-
 corrplot_tab <- corrplot(Correlation, type = 'upper', method = 'number')
 ```
-Faire analyse quand on a le bon graph de corrélation 
+
 
 We will check these hypotheses and the validity of our model by doing a regression.
 
-
-# Regression study
+### Regression study
 ```{r, echo = FALSE, message = FALSE}
 mod <- lm(tab$Mental_Health ~ tab$Income_Inequality + tab$Wages + tab$Unemployment + tab$Working_Age + tab$Work_Time + tab$GDP)
 summary(mod)
