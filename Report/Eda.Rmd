@@ -49,7 +49,7 @@ ggplotly(map.1)
 
 ## Question 1 : Mental health through the work environment
 
-
+We will begin this analysis with a descending ranking of countries with the highest proportion of their population with mental health disorders. This will allow us to explain certain differences or similarities. 
 
 ```{r, echo = FALSE, message = FALSE}
 ggplot(data = tab_mean, aes(x = MentalHealth_mean, y=reorder(LOCATION,MentalHealth_mean))) + 
