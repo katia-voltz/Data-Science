@@ -8,8 +8,8 @@ output: html_document
 source(here::here("scripts/Setup.R"))
 ```
 
-## Work environment 
-### Question 1 : Mental health through the work environment
+ 
+# Question 1 : Mental health through the work environment
 
 We decide to do a cluster analysis to see if there is some prevalence of certain region compared to others, and also wanted to study our problem through another perspective, that of the countries. Indeed, we could notice on the first plots, some countries adopt more extreme behaviors (position separated from the others) and it is often the same across the different variables.  A good way to analyze this is to group our countries using clusters. The goal is to see if the work environment has more impact in some countries
 than in others on the mental health of its population. This is also where we will use our table of averages that we made for each of the variables.
@@ -18,7 +18,7 @@ than in others on the mental health of its population. This is also where we wil
 # We remove the NA because we don't want to have biais in our cluster analysis 
 tab_mean_na <- na.omit(tab_mean)
 ```
-# Cluster analysis for each of our explanatory variables
+## Cluster analysis for each of our explanatory variables
 ```{r}
 # Income Inequality
 data_t0 <- tab_mean_na[-1]
@@ -89,7 +89,7 @@ C4 <- fviz_cluster(km.res, data=data_t5_std, repel = TRUE)
 plot_grid(C0, C1, C2, C3, C4, labels=c("A","B","C","D","E","F"), ncol=3, nrow=2)
 ```
 
-This table ? shows us that, regardless of the work environment variable, we always have a clear demarcation. Indeed, it is always the same countries in the same places. We can therefore conclude that each region has its own specificities related to the work environment that impact the rate of mental health disorders. 
+This graph shows us that, regardless of the work environment variable, we always have a clear demarcation. Indeed, it is always the same countries in the same places. We can therefore conclude that each region has its own specificities related to the work environment that impact the rate of mental health disorders. 
 
 It would therefore be interesting to see how these behave according to the regions. 
 
@@ -97,6 +97,8 @@ It would therefore be interesting to see how these behave according to the regio
 mod2 <- lm(tab$Mental_Health ~ tab$Region + tab$TIME)
 summary(mod2)
 ```
+
+Our model is significant in all regions studied. 
 
 ----
 
