@@ -87,25 +87,29 @@ We now want to start studying our regression, that is, to see how the work envir
 ### Correlation analyses between mental health and the work environment
 
 ```{r, echo = FALSE, message = FALSE, eval=TRUE}
-plot_tab <- plot(tab[1:9]) 
+plot_tab <- plot(tab[3:9]) 
 ```
-
+This plot does not allow us to make any conclusions about the implication of our variables on mental health. Indeed, we do not see any particular increase or decrease. Nevertheless, we can see a certain tendency translated by a linearity of the points which are not scattered in space either.
+We will use a correlation matrix to put numbers on our hypotheses. 
 
 ```{r, echo = FALSE, message = FALSE, eval=TRUE}
 Correlation <- cor(tab[3:9], use="pairwise.complete.obs")
 corrplot_tab <- corrplot(Correlation, type = 'upper', method = 'number')
 ```
+In this matrix, we see that none of our variables were strongly correlated with our dependent variable (y) mental health.
 
+???
 
-We will check these hypotheses and the validity of our model by doing a regression.
+We will also check the validity of our model by doing a regression.
 
 ### Regression study
 ```{r, echo = FALSE, message = FALSE}
-mod <- lm(tab$Mental_Health ~ tab$Income_Inequality + tab$Wages + tab$Unemployment + tab$Working_Age + tab$Work_Time + tab$GDP)
+mod <- lm(tab$Mental_Health ~ tab$Income_Inequality + tab$Wages + tab$Unemployment + tab$Working_Age + tab$Work_Time + tab$GDP + tab$TIME)
 summary(mod)
 ```
 
-As expected, on table 4, we can see that our model is 75.5% explained by the variables we have chosen. Moreover, we notice that our variables, income inequality, wages, unemployment, working age and GDP are very significant. On the other hand, the time an employee spends working does not seem to have an impact on the rate of mental health disorder. We will therefore not take it into account as an explanatory variable for our problem. 
+On table 4, we can see that our model is 75.5% explained by the variables we have chosen. Moreover, we notice that our variables, income inequality, wages, unemployment, working age and GDP are very significant. On the other hand, the time an employee spends working does not seem to have an impact on the rate of mental health disorder. We will therefore not take it into account as an explanatory variable for our problem. 
+
 
 In the correlation matrix we could see that some of our explanatory variables were particularly correlated. We will therefore check that there is not too much multicollinearity which could bias our results.
 
