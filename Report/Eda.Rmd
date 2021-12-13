@@ -110,8 +110,8 @@ As expected, on table 4, we can see that our model is 75.5% explained by the var
 In the correlation matrix we could see that some of our explanatory variables were particularly correlated. We will therefore check that there is not too much multicollinearity which could bias our results.
 
 ```{r}
-vif(mod)
-summary(mod) 
+vifR1 <- vif(mod)
+summary(vifR1) 
 ```
 We can see that none of these value is higer than 5 so we can conclude that our model is ready to be analysed more precisly. 
 
