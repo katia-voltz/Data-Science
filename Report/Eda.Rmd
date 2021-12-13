@@ -117,7 +117,7 @@ We can see that none of these value is higer than 5 so we can conclude that our 
 
 We will see more precisely with our table 5 how each of these variables impact these diseases, always according to the countries through 2000 and 2017.
 
-# Impact of work environment's variables on mental health disorders by country
+### Impact of work environment's variables on mental health disorders by country
 ```{r, echo = FALSE, message = FALSE, warning=FALSE}
 # Income Inequality Analysis 
 ggplot(data = tab, mapping = aes(x = tab$Income_Inequality, y = tab$Mental_Health)) +
@@ -172,7 +172,7 @@ In summary, a country with a medium wage, high GDP does not promote good mental 
 
 
 
-## Covid-19
+## Question 2 : ??? Covid-19
 
 
 
@@ -272,7 +272,7 @@ By making a graph of the evolution of teleworking per country, between 2010 and 
 
 ----
 
-## Public spendings on health
+## Question 3 : ??? Public spendings on health
 
  In this primary analysis, we are going to determine the relationship between the *mental health disorder prevalence*, which is represented in percent, and the *Public spendings on health* that represent the current expenditures in public health of a country, in pourcent.
  
