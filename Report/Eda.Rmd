@@ -107,11 +107,13 @@ summary(mod)
 
 As expected, on table 4, we can see that our model is 75.5% explained by the variables we have chosen. Moreover, we notice that our variables, income inequality, wages, unemployment, working age and GDP are very significant. On the other hand, the time an employee spends working does not seem to have an impact on the rate of mental health disorder. We will therefore not take it into account as an explanatory variable for our problem. 
 
-Also use a VIF to verify colinearity
+In the correlation matrix we could see that some of our explanatory variables were particularly correlated. We will therefore check that there is not too much multicollinearity which could bias our results.
 
 ```{r}
 vif(mod)
+summary(mod) 
 ```
+We can see that none of these value is higer than 5 so we can conclude that our model is ready to be analysed more precisly. 
 
 We will see more precisely with our table 5 how each of these variables impact these diseases, always according to the countries through 2000 and 2017.
 
