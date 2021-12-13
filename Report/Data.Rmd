@@ -186,7 +186,7 @@ At this stage, we realized that for some of the countries we had selected (Engla
 ----
 
 
-## Covid
+## Question 2 : ???? Covid
 
 For our second theme around Covid, we want to analyze if Covid-19 has had an impact on the population's mental-health.
 We will consider several variables, in a selection of countries around the world: 
@@ -413,7 +413,7 @@ We now have three tables ready to be used and analyzed in the next parts:
 
 ----
 
-## Public spendings on health 
+## Question 3 : ??? Public spendings on health 
 
 
 In this thrid analysis of datasets,  we are going to compare the prevalence of mental health disorder (% of the population (age-standardaized)) in a population of a country and the current health expenditure (% of GDP). Particularly focus on the countries of the OCDE that is The Organisation for Economic Co-operation and Development.
