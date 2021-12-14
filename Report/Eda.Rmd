@@ -307,8 +307,7 @@ Graph_Mental_Health <- Mental_Health_2 %>% ggplot(aes(
     vjust = 0.5
   )) +
   ggtitle("Evolution of the prevalence of mental health disorder in OCDE countries from 2000 to 2017") +
-  xlab("Time") + ylab("Prevalence of mental health value in %")+
-  ylim(0,20)
+  xlab("Time") + ylab("Prevalence of mental health value in %")
 ggplotly(Graph_Mental_Health)
 ```
 Visually, the Time does not affect the value of our dependent variable and it appears that the distribution of values is based on the location.
