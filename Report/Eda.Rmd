@@ -299,7 +299,7 @@ Graph_Mental_Health <- Mental_Health_2 %>% ggplot(aes(
   y = Mental_health_Value,
   group = Entity,
   color = Region
-)+ ylim(0,20)) +
++ ylim(0,20))) +
   geom_path() +
   theme(axis.text.x = element_text(
     angle = 360,
@@ -331,7 +331,7 @@ Graph_public.spending.on.health <- Public.spending.on.health_New_2 %>% ggplot(ae
   y = Value_Spending.on.health,
   group = Entity,
   color = Region
-)+ ylim(0,20)) +
++ ylim(0,20))) +
   geom_path() +
   theme(axis.text.x = element_text(
     angle = 360,
@@ -352,7 +352,7 @@ Now we want to compare the two variables: x = Value_Spending.on.health., y = Men
 
 Graph.3
 ```{r}
-Graph.region <- ggplot(tab_1, aes(x=Value_Spending.on.health, y=Mental_health_Value, colour=Region, group=Entity, labels=Time)+ ylim(0, 20)) + geom_point() 
+Graph.region <- ggplot(tab_1, aes(x=Value_Spending.on.health, y=Mental_health_Value, colour=Region, group=Entity, labels=Time)+ ylim(0,20))) + geom_point() 
 ggplotly(Graph.region)
 ```
 
@@ -370,7 +370,7 @@ We decide to reverse the research question for this analysis because it is more 
 
 Graph.4
 ```{r}
-Graph.region2 <- ggplot(tab_1, aes( x = Mental_health_Value , y = Value_Spending.on.health, colour=Region, group=Entity, labels=Time) + ylim(0, 20)) +
+Graph.region2 <- ggplot(tab_1, aes( x = Mental_health_Value , y = Value_Spending.on.health, colour=Region, group=Entity, labels=Time+ ylim(0,20))) +
   geom_point()
 ggplotly(Graph.region2)
 ```
