@@ -5,7 +5,7 @@ output: html_document
 # Data
 
 First, we need to install different packages. 
-```{r, echo = FALSE, message = FALSE, warning = FALSE}
+```{r}
 source(here::here("scripts/Setup.R"))
 ```
 For our research, we are going to use different databases around our three themes: mental health in the work environment, during the covid period, and public spending on health. 
@@ -30,12 +30,12 @@ $$Analysis 1 : MentalHealth = a*IncomeInequality + b*wages + c*Unemployment + d*
 
 We have made a selection of several countries which are the following (To simplify, country codes have been used and not the full names) : Austria, Belgium, Croatia, Czechia, Denmark, Finland, France, Germany, Greece, Hungary, Iceland, Ireland, Italy, Romania, Portugal, Poland, Norway, Netherlands, Switzerland, Sweden, Spain, Australia, Brazil, Canada, Japan, New-Zealand and the USA.  
 
-```{r, echo = FALSE, message = FALSE}
+```{r}
 tab_countries <- read.csv2(here::here("Data/Entities_LOCATION_Region.csv"))
 ```
 We also sort these countries by their region.
 
-```{r, echo = FALSE, message = FALSE}
+```{r}
 List.of.Countries = c('AUT','BEL','HRV', 'CZE', 'DNK', 'ENG', 'FIN', 'FRA', 'DEU', 'GRC', 'HUN', 'ISL', 'ITA', 'ROU', 'PRT', 'POL', 'NOR', 'NLD', 'CHE', 'SWE', 'ESP', 'AUS', 'BRA', 'CAN', 'JPN', 'NZL', 'USA')
 ```
 
@@ -49,7 +49,7 @@ kbl(tab_countries,caption = "**Table of OCDE countries**: `tab_countries`, list 
 Now that we have collected all our data, we need to sort, order and rename them in order to obtain only tables with three columns to have the value of our variable according to its country and its date. We took the data for each of these variables for a certain sample of countries and then chose to do an individual average over the years from 2000 to 2017.
 
 
-```{r, echo = FALSE, message = FALSE}
+```{r}
 Mental_Health <- read.csv(here::here("Data/Mental_Health.csv"))
 attach(Mental_Health)
 Mental_Health <- Mental_Health[,-1]
@@ -118,7 +118,7 @@ GDP <- rename(GDP,c("GDP"="GDP.per.capita"))
 
 Now that we have all our variables in the right format, we need to put them in a common table so that we can have an overall representation and be able to observe and analyze the trends that emerge.
 
-```{r, echo = FALSE, message = FALSE}
+```{r}
 tab_0 <- left_join(Mental_Health, Income_Inequality, by = c("LOCATION", "TIME"))
 tab_1 <- left_join(tab_0, wages, by = c("LOCATION","TIME"))
 tab_2 <- left_join(tab_1, Unemployment, by = c("LOCATION","TIME"))
@@ -129,12 +129,12 @@ tab <- left_join(tab_5, tab_countries, by=('LOCATION'))
 ```
 
 We need the values as numeric and not as characters for the analysis
-```{r, echo = FALSE, message = FALSE}
+```{r}
 tab$LOCATION <- as.factor(tab$LOCATION)
 tab$TIME <- as.numeric(tab$TIME)
 ```
 
-```{r, echo = FALSE, message = FALSE}
+```{r}
 kbl(tab[1:20,],caption = "**Table 1.a : List of OECD countries common for all our data **: `tab`") %>%
   kable_classic(full_width = T, html_font = "Cambria") %>%
   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) %>%
@@ -146,7 +146,7 @@ kbl(tab[1:20,],caption = "**Table 1.a : List of OECD countries common for all ou
 
 To see some other effects and to use clusters we will need an other table with the mean of each variable from year 2000 to 2017
 
-```{r, echo = FALSE, message = FALSE}
+```{r}
 Mental_Health_m <- aggregate(Mental_Health[,3], list(Mental_Health$LOCATION), mean)
 Mental_Health_m <- rename(Mental_Health_m,c("LOCATION"="Group.1","MentalHealth_mean"="x"))
 Income_Inequality_m <- aggregate(Income_Inequality[,3], list(Income_Inequality$LOCATION), mean)
@@ -202,7 +202,7 @@ Regarding the Covid data, they come from the site : <https://coronavirus.jhu.edu
 Once again, we have made a selection of several countries which are the following : Austria, Belgium, Croatia, Czechia, Denmark, Finland, France, Germany, Greece, Hungary, Iceland, Ireland, Italy, Romania, Portugal, Poland, Norway, Netherlands, Switzerland, Sweden, Spain, Australia, Brazil, Canada, China, Japan, New-Zealand and the USA. 
 
 
-```{r, echo = FALSE, message = FALSE}
+```{r}
 List.of.Countries = c('AUT','BEL','HRV', 'CZE', 'DNK', 'ENG', 'FIN', 'FRA', 'DEU', 'GRC', 'HUN','ISL',
                       'ITA', 'ROU', 'PRT', 'POL', 'NOR', 'NLD', 'CHE', 'SWE', 'ESP', 'AUS', 'BRA',
                       'CAN', 'CHN', 'JPN', 'NZL', 'USA')
@@ -210,12 +210,12 @@ List.of.Countries = c('AUT','BEL','HRV', 'CZE', 'DNK', 'ENG', 'FIN', 'FRA', 'DEU
 
 For this first analysis related to the impact of Covid, R2.1, we quickly realized that the data available for antidepressant consumption in 2020 was very limited. We had to make a second selection of countries (`List.of.Countries2`) for this analysis in order to observe only the countries with data in 2020, during the covid year. 
 
-```{r, echo = FALSE, message = FALSE}
+```{r}
 List.of.Countries2 = c('GRC', 'HUN', 'ISL', 'ITA', 'NOR','PRT', 'SWE', 'ESP')
 ```
 
 Now we can select and sort the data. 
-```{r, echo = FALSE, message = FALSE}
+```{r}
 Antidepressant_consumption <- read.csv(here::here("Data/Conso_Antidepressant.csv"))
 attach(Antidepressant_consumption)
 ```
@@ -224,13 +224,13 @@ For all the variables we only kept the columns on the country, the date and the 
 It was also often necessary to rename the columns so that they all follow the scheme: LOCATION, TIME and VALUE.
 Here is the table with data on antidepressant consumption between 2000 and 2020, for countries with data in 2020 (using the `List.of.Countries2`).
 
-```{r, echo = FALSE, message = FALSE}
+```{r}
 Antidepressant_consumption <- Antidepressant_consumption[,-c(1:4,6:7,10:11)]
 Antidepressant_consumption <- rename(Antidepressant_consumption,c("LOCATION"="COU","TIME"="Year","Antidepressant_Consumption"="Value"))
 Antidepressant_consumption <- Antidepressant_consumption %>% filter(LOCATION %in% List.of.Countries)
 Antidepressant_consumption2 <- Antidepressant_consumption %>% filter(LOCATION %in% List.of.Countries2)
 ```
-```{r, echo = FALSE, message = FALSE}
+```{r}
 kbl(Antidepressant_consumption2[1:15,],caption = "**Table 2**^a^: `Antidepressant_consumption2` dataset") %>%
   kable_classic(full_width = T, html_font = "Cambria") %>%
   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))%>%
@@ -245,7 +245,7 @@ kbl(Antidepressant_consumption2[1:15,],caption = "**Table 2**^a^: `Antidepressan
 
 We had to add a column with the date 2020 for the covid data, because it was not present, and rename columns in a simpler way.
 
-```{r, echo = FALSE, message = FALSE}
+```{r}
 Number_Covid19_cases_deaths <- read.csv2(here::here("Data/CasesDeathsCovid.csv"))
 attach(Number_Covid19_cases_deaths)
 Number_Covid19_cases_deaths <- Number_Covid19_cases_deaths[-1,] 
@@ -261,18 +261,18 @@ Number_Covid19_cases_deaths2 <-  Number_Covid19_cases_deaths %>% filter(LOCATION
 
 We can now form a table with all the data together, using the *full_join* function. 
 
-```{r, echo = FALSE, message = FALSE}
+```{r}
 tab_R2.1 <- full_join(Number_Covid19_cases_deaths2, Antidepressant_consumption2, by= c("LOCATION","TIME"))
 ```
 
 As the data of cases and death of the covid for the years before 2020 were displayed in NA, we assumed that its values were equal to 0. Also, the 'Cases' variable was output in character, we converted it to numeric.
 
-```{r, echo = FALSE, message = FALSE}
+```{r}
 tab_R2.1[is.na(tab_R2.1)] <- 0 
 tab_R2.1$Cases <- as.numeric(tab_R2.1$Cases)
 ```
 
-```{r, echo = FALSE, message = FALSE}
+```{r}
 kbl(tab_R2.1[1:10,],caption = "**Table 2**^b^: `tab_R2.1`, Table of `Antidepressant_consumption2` and `Number_Covid19_cases_deaths2`") %>%
   kable_classic(full_width = T, html_font = "Cambria") %>%
   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))%>%
@@ -292,14 +292,14 @@ Given the little information we had on antidepressant consumption in 2020 (only 
 We therefore wanted to analyze the evolution of the depression rate (prevalence of depressive disorders in % of the population) between 2010 and 2017, and if the covid had an impact on it in 2021. 
 Our data comes from the sites : <https://ourworldindata.org/mental-health#depression> and <https://worldpopulationreview.com/>. 
 
-```{r, echo = FALSE, message = FALSE}
+```{r}
 Depression_Rate2000_2017 <- read.csv(here::here("Data/Depression_Rate2000_2017.csv"))
 attach(Depression_Rate2000_2017)
 ```
 
 Here too we have only kept the country, the year and the value, and renamed the columns.As the years start before 2000, we have to make a selection of the years after 1999, to keep only what interests us. 
 
-```{r, echo = FALSE, message = FALSE}
+```{r}
 
 Depression_Rate2000_2017 <- Depression_Rate2000_2017[-1]
 Depression_Rate2000_2017 <- rename(Depression_Rate2000_2017,c("LOCATION"="Code","TIME"="Year","Depression_Rate"="Prevalence...Depressive.disorders...Sex..Both...Age..Age.standardized..Percent."))
@@ -309,7 +309,7 @@ Depression_Rate2000_2017 <- Depression_Rate2000_2017 %>%
 ```
 
 We did exactly the same thing for the depression rate in 2021. 
-```{r, echo = FALSE, message = FALSE}
+```{r}
 Depression_Rate2021 <- read.csv2(here::here("Data/Depression_Rate2021.csv"))
 attach(Depression_Rate2021)
 
@@ -322,13 +322,13 @@ Depression_Rate2021$"Depression_Rate" <- as.numeric(Depression_Rate2021$"Depress
 
 Then, we had to join the two tables into one, using both *inner_join* and *pivot_longer* in order to obtain a table that we could use correctly afterwards to do analyses. 
 
-```{r, echo = FALSE, message = FALSE}
+```{r}
 Depression_Rate2000_2021 <- Depression_Rate2000_2017 %>%
   rbind(Depression_Rate2021)%>%
   arrange(LOCATION,TIME)  
 ```
 
-```{r, echo = FALSE, message = FALSE}
+```{r}
 kbl(Depression_Rate2000_2021[1:10,],caption = "**Table 2**^c^: `Depression_Rate2000_2021` dataset") %>%
   kable_classic(full_width = T, html_font = "Cambria") %>%
   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))%>%
@@ -347,14 +347,14 @@ We will now use the data of antidepressant according to the first selected count
 
 As above, we have kept only the columns we were interested in, i.e. value, time and country, and we have renamed some inadequate columns. 
 
-```{r, echo = FALSE, message = FALSE}
+```{r}
 Teleworking <- read.csv2(here::here("Data/Teleworking.csv"))
 attach(Teleworking)
 Teleworking <- Teleworking[,-c(1:8,12)]
 Teleworking <- rename(Teleworking,c("LOCATION"="geo","TIME"="TIME_PERIOD","Teleworking"="OBS_VALUE"))
 Teleworking <-  Teleworking %>% filter(LOCATION %in% List.of.Countries)
 ```
-```{r, echo = FALSE, message = FALSE}
+```{r}
 kbl(Teleworking[1:10,],caption = "**Table 2**^d^: `Teleworking` dataset") %>%
   kable_classic(full_width = T, html_font = "Cambria") %>%
   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))%>%
@@ -368,14 +368,14 @@ kbl(Teleworking[1:10,],caption = "**Table 2**^d^: `Teleworking` dataset") %>%
 
 We also did this for the unemployment rate. 
 
-```{r, echo = FALSE, message = FALSE}
+```{r}
 UnemploymentCovid <- read.csv(here::here("Data/Unemployement_Rate2.csv"))
 attach(UnemploymentCovid)
 UnemploymentCovid <- UnemploymentCovid[,-c(2:5,8)]
 UnemploymentCovid <- rename(UnemploymentCovid, c("Unemployment"="Value"))
 UnemploymentCovid <-  UnemploymentCovid %>% filter(LOCATION %in% List.of.Countries)
 ```
-```{r, echo = FALSE, message = FALSE}
+```{r}
 kbl(UnemploymentCovid[1:10,],caption = "**Table 2**^e^: `UnemploymentCovid` dataset, Unemployment rate from 2000 to 2020 (covid year)") %>%
   kable_classic(full_width = T, html_font = "Cambria") %>%
   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))%>%
@@ -390,7 +390,7 @@ kbl(UnemploymentCovid[1:10,],caption = "**Table 2**^e^: `UnemploymentCovid` data
 With the *full_join* function we have gathered the data of these three variables in a single table.
 For the good functioning of the table for further analysis, it was necessary to remove the NA values, and to convert the variable "teleworking" in numerical (which was in character). 
 
-```{r, echo = FALSE, message = FALSE}
+```{r}
 Data <- left_join(Antidepressant_consumption, Teleworking, by=c("LOCATION", "TIME"))
 tab_R2.2 <- left_join(Data, UnemploymentCovid, by = c("LOCATION", "TIME"))
 tab_R2.2$Teleworking <- as.numeric(tab_R2.2$Teleworking)
@@ -433,7 +433,7 @@ Our intitial question of research is:
 
 In continuation of our analysis, we keep the OECD countries to answer our research question.
 
-```{r, echo = FALSE, message = FALSE}
+```{r}
 tab.of.countries <- read.csv2(here::here('Data/Entities_LOCATION_Region.csv'))
 ```
 
@@ -442,14 +442,14 @@ tab.of.countries <- read.csv2(here::here('Data/Entities_LOCATION_Region.csv'))
 
 Importation of the dataset Public.spending on health. This dataframe represent Current health expenditure (% of GDP) of each countries.
 
-```{r, echo = FALSE, message = FALSE}
+```{r}
 Public.spending.on.health_New <- read.csv2(here::here('Data/Public.spending.on.health.csv'))
 ```
                                        
 This dataset of Public sprending on health has a bad structure initially.
 We remove the 3 first rows and we rename the different variables in the columns to get the same structure as previously.
 
-```{r,echo = FALSE, message = FALSE}
+```{r}
 Public.spending.on.health_New <- Public.spending.on.health_New[-c(1:3),]
 
 Public.spending.on.health_New <- rename(Public.spending.on.health_New, c('Country' = 'Data.Source', 'LOCATION' = 'World.Development.Indicators'))
@@ -459,7 +459,7 @@ Then we need to remove the unecessary columns, with no data corresponding, which
 
 Also, the 'Indicator Name', 'Indicator Code' are unrelevant datas.
 
-```{r,echo = FALSE, message = FALSE}
+```{r}
 Public.spending.on.health_New <- Public.spending.on.health_New[,-c(5:44)]
 Public.spending.on.health_New$X.61 <- NULL
 Public.spending.on.health_New$Country <- NULL
@@ -471,7 +471,7 @@ Public.spending.on.health_New$X.63 <- NULL
 
  Our initial dataframe as for variables names [(X.n),(X.n+1)...(X.m)], we need to transform them as Years, 'Time':[2000,2001...2018]. 
 
-```{r,echo = FALSE, message = FALSE}
+```{r}
 Public.spending.on.health_New <- rename(Public.spending.on.health_New, c('2000'='X.42','2001'='X.43','2002'='X.44','2003'='X.45', '2004'='X.46','2005'='X.47','2006'='X.48','2007'='X.49', '2008'='X.50','2009'='X.51','2010'='X.52', '2011'='X.53','2012'='X.54','2013'='X.55','2014'='X.56','2015'='X.57','2016'='X.58','2017'='X.59','2018'='X.60'))
 
 Public.spending.on.health_New <- Public.spending.on.health_New[-1,]
@@ -479,7 +479,7 @@ Public.spending.on.health_New <- Public.spending.on.health_New[-1,]
 
 Then, we use **pivot_longer** to attribute each value (Value_Spending.on.health) to the corresponding 'Time' (the year) and 'LOCATION'(the code of the country). This will transform our dataframe with the years in rows and not in columns.
 
-```{r,echo = FALSE, message = FALSE}
+```{r}
 Public.spending.on.health_New <- Public.spending.on.health_New %>% 
   pivot_longer(cols = c('2000','2001','2002','2003','2004','2005','2006','2007','2008','2009','2010','2011','2012','2013','2014','2015','2016','2017','2018'),names_to = 'Time', values_to = 'Value_Spending.on.health')
 ```
@@ -491,26 +491,26 @@ Finally we have a new dataframe of the Current health expenditure (% of GDP) of 
 
 Now we import the  share with mental and substance disorders data corresponding to a list of countries. Our goal is to compare the prevalence of mental health disorder in a population of a country with respect to the public investments on health.
 
-```{r,echo = FALSE, message = FALSE}
+```{r}
 share.with.mental.and.substance.disorders <- read.csv2(here::here('Data/share-with-mental-and-substance-disorders.csv'))
 ```
 This dataset has already a good structure, the same as the others for our analysis. The value Y; 'prevalence mental and substance use disorders.sex.both.age stanrdaized percent', represents more clearly the proportion of the population in % sufuring from mental illness in a given country. 
 
 We rename our (share.with.mental.and.substance.disorders) dataframe into Mental_Health.
 
-```{r,echo = FALSE, message = FALSE}
+```{r}
 Mental_Health <- share.with.mental.and.substance.disorders                                                       
 ```
 
 We remove the 'Entity' column. Indeed we refer only to the 'LOCATION' as code.
-```{r,echo = FALSE, message = FALSE}
+```{r}
 Mental_Health <- Mental_Health[,-1]
 ```
 
 We rename the variable column of year with 'Time', the Code with 'LOCATION' and
 Prevalence...Mental.and.substance.use.disorders...Sex..Both...Age..Age.standardized..Percent. with 'Mental_health_value'.
 
-```{r,echo = FALSE, message = FALSE}
+```{r}
 Mental_Health <- Mental_Health %>%
   rename(Time=Year)
 
@@ -523,7 +523,7 @@ Mental_Health1 <- rename(Mental_Health, 'Mental_health_Value' = 'Prevalence...Me
 After this, we want to filter the data with the value going from 2000 to 2017. Why do we keep only these values?
 Because we consider it as a relevant horizon of time and we will need to fit these values to the public spendinds on health for our final table. So we must keep the same strucure.
 
-```{r,echo = FALSE, message = FALSE}
+```{r}
 Mental_Health <- Mental_Health1 %>%
   group_by(LOCATION,Mental_health_Value) %>%
   filter(Time>1999)
@@ -537,7 +537,7 @@ The countries in this list our part of the OCDE. We make this selection because 
 - Extreme values
 - Unrelevant to the research question 
 
-```{r,echo = FALSE, message = FALSE}
+```{r}
 List.of.Countries = c('AUT','BEL','HRV', 'CZE', 'DNK', 'ENG', 'FIN', 'FRA', 'UK','DEU', 'GRC', 'HUN', 'ISL', 'ITA', 'ROU', 'PRT', 'POL', 'NOR', 'NLD', 'CHE', 'SWE', 'ESP', 'AUS', 'BRA', 'CAN', 'CHN', 'JPN', 'NZL', 'USA')
 
 Mental_Health_2 <-  Mental_Health %>%
@@ -553,14 +553,14 @@ Public.spending.on.health_New_2 <- Public.spending.on.health_New %>%
 
 We merge the two dataframes into one single table named tab_1. We join them by 'LOCATION' and 'Time'. Moreover, we add the 'Region' and the 'Entity' from the table: 'list.of.countries'
 
-```{r,echo = FALSE, message = FALSE}
+```{r}
 tab_1 <- merge(Public.spending.on.health_New_2, Mental_Health_2, by = c('LOCATION', 'Time'))
 tab_1 <- merge(tab_1, tab.of.countries, by=('LOCATION'))
 ```
 
 We need the values as numeric and not as characters for the analysis. We characterise the Regions and Locations into factors for our future analysis.
 
-```{r,echo = FALSE, message = FALSE}
+```{r}
 Mental_Health_2 <-  merge(Mental_Health_2,tab.of.countries, by='LOCATION')
 Public.spending.on.health_New_2 <- merge(Public.spending.on.health_New_2, tab.of.countries, by='LOCATION')
 
@@ -568,7 +568,7 @@ Public.spending.on.health_New_2$Value_Spending.on.health <- as.numeric(Public.sp
 Mental_Health_2$Mental_health_Value <- as.numeric(Mental_Health_2$Mental_health_Value)
 ```
 
-```{r,echo = FALSE, message = FALSE}
+```{r}
 tab_1$Value_Spending.on.health <- as.numeric(tab_1$Value_Spending.on.health)
 tab_1$Mental_health_Value <- as.numeric(tab_1$Mental_health_Value)
 tab_1$Time <- as.numeric(tab_1$Time)
@@ -579,7 +579,7 @@ tab_1 <- tab_1[c(1,5,6,2,3,4)]
 
 Now our final table, tab_1, is arranged in the structure that will be used to make the analysis.
 
-```{r, echo = FALSE, message = FALSE}
+```{r}
 kbl(tab_1[1:20,],caption = "*Table of Public spending on health and mental health**: `tab_1`, ...") %>%
   kable_classic(full_width = T, html_font = "Cambria") %>%
   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))
@@ -587,14 +587,14 @@ kbl(tab_1[1:20,],caption = "*Table of Public spending on health and mental healt
 
 For further analysis, for instance cluster analysis, we decide to sort the dataset (tab_1) with the aggregated values.
 
-```{r,echo = FALSE, message = FALSE}
+```{r}
 tab_Mean_Value_Spending.on.health <- aggregate(tab_1$Value_Spending.on.health, list(tab_1$LOCATION,tab_1$Entity,tab_1$Region), mean)
 
 tab_Mean_Value_Spending.on.health <- rename(tab_Mean_Value_Spending.on.health,c("LOCATION"="Group.1","Entity"="Group.2","Region"="Group.3","Mean_Value_Spending.on.health"="x"))
 ```
 
 Aggregate the Mental_health_Value
-```{r,echo = FALSE, message = FALSE}
+```{r}
 tab_Mean_Mental_health_Value <- aggregate(tab_1$Mental_health_Value, list(tab_1$LOCATION,tab_1$Entity,tab_1$Region), mean)
 
 tab_Mean_Mental_health_Value <- rename(tab_Mean_Mental_health_Value,c("LOCATION"="Group.1","Entity"="Group.2","Region"="Group.3", "Mean_Mental_health_Value"="x"))
@@ -602,11 +602,11 @@ tab_Mean_Mental_health_Value <- rename(tab_Mean_Mental_health_Value,c("LOCATION"
 
 We merge the table into a new dataframe representing the mean values with respect to the countries and Region into: tab_2
 
-```{r,echo = FALSE, message = FALSE}
+```{r}
 tab_2 <- merge(tab_Mean_Value_Spending.on.health, tab_Mean_Mental_health_Value, by = c('LOCATION','Entity','Region'))
 ```
 
-```{r, echo = FALSE, message = FALSE}
+```{r}
 kbl(tab_2[1:20,],caption = "*Table aggregated of Public spending on health and mental health**: `tab_2`, ...") %>%
   kable_classic(full_width = T, html_font = "Cambria") %>%
   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))
