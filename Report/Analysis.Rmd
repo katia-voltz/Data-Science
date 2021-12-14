@@ -566,7 +566,7 @@ Graphical interpretation and visualization of these regressions
 
 ```{r}
 #We want to add the regression to each Region.
-ggplot(tab_1, aes(x = Mental_health_Value, y = Value_Spending.on.health)) +
+ggplot(tab_1, aes(x = Mental_health_Value, y = Value_Spending.on.health + ylim(0,20))) +
   facet_wrap(~Region, nrow=2) +
   geom_point(alpha = 0.5) +
   geom_line(data = cbind(tab_1, pred = predict(rd.int.sl)), aes(y = pred), size = 1, color='red')
