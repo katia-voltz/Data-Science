@@ -507,7 +507,7 @@ Computation of the euclidienne distance
 We create the Cluster Dendogram
 We calculate the average clusters
 
-```{r}
+```{r, results = 'hide'}
 data_test <- tab_2[-c(1,2,3)]
 data_test <- data_test[,c(2,1)]
 mean_data <-apply(data_test, 2, mean)
@@ -517,8 +517,6 @@ data_test_std <- scale(data_test, mean_data,std)
 row.names(data_test_std) <- tab_2[,2]
 data_test_std
 distance <- dist(data_test_std)
-distance
-print(distance, digits = 1)
 hc <- hclust(distance)
 plot(hc, labels= tab_2$Entity)
 ```
@@ -530,7 +528,6 @@ Graphical representation of the clusters
 ```{r}
 avclust <- hclust(distance, method='average')
 plot(avclust, labels=tab_2$Entity)
-
 ct1 <- cutree(avclust, k=5)
 plot(avclust, labels=tab_2$Entity) 
 rect.hclust(avclust, k=5, border="red")
@@ -540,9 +537,11 @@ fviz_cluster(km.res, data=data_test_std, repel=TRUE)
 ```
 We can observe the different distribution of the values according to the country's structures. The countries are distributed according to the location
 
+
+
 Multilevel analysis
 This multilevel analysis gives the opportunity to observe how the model can adapt to clusters, in this case to the 'Region' from tab_1. 
-We want to add the regression to each Region.
+
 
 ```{r}
 ggplot(tab_1, aes(x=Mental_health_Value, y=Value_Spending.on.health)) +
@@ -564,6 +563,7 @@ stargazer(lmtest)
 ```
 
 ```{r}
+#We want to add the regression to each Region.
 ggplot(tab_1, aes(x = Mental_health_Value, y = Value_Spending.on.health)) +
   facet_wrap(~Region, nrow=2) +
   geom_point(alpha = 0.5) +
