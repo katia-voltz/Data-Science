@@ -481,9 +481,9 @@ Countries with the most teleworkers are therefore also the countries with the hi
 
 ----
 
-## Question 3 : ??? Public Spending on health analysis
+## Question 3 : How public spending on health impacts mental health in OECD countries
 
-- First statistical analysis
+#### First statistical analysis
 Study of the first regression
 
 ```{r}
@@ -499,13 +499,14 @@ As a result, we have a model that looks viable. The percentage of variance expla
 'RegionOceania', 
 ‘RegionWestern Europe'
 
-TEST OF CLUSTERS
-To better understand the distribution of these values, we represent them by clusters.
-First we standardize the data
-Normalize data
-Computation of the euclidienne distance
-We create the Cluster Dendogram
-We calculate the average clusters
+#### TEST OF CLUSTERS
+
+-To better understand the distribution of these values, we represent them by clusters.
+-First we standardize the data
+-Normalize data
+-Computation of the euclidienne distance
+-We create the Cluster Dendogram
+-We calculate the average clusters
 
 ```{r, results = 'hide'}
 data_test <- tab_2[-c(1,2,3)]
@@ -527,7 +528,6 @@ Graphical representation of the clusters
 
 ```{r}
 avclust <- hclust(distance, method='average')
-plot(avclust, labels=tab_2$Entity)
 ct1 <- cutree(avclust, k=5)
 plot(avclust, labels=tab_2$Entity) 
 rect.hclust(avclust, k=5, border="red")
@@ -539,7 +539,7 @@ We can observe the different distribution of the values according to the country
 
 
 
-Multilevel analysis
+#### Multilevel analysis
 This multilevel analysis gives the opportunity to observe how the model can adapt to clusters, in this case to the 'Region' from tab_1. 
 
 
@@ -551,7 +551,7 @@ ggplot(tab_1, aes(x=Mental_health_Value, y=Value_Spending.on.health)) +
 tab_1$Mental_health_Value2 <- scale(tab_1$Mental_health_Value, center=TRUE, scale=TRUE) 
 
 rd.int <- lmer(Value_Spending.on.health ~ Mental_health_Value2 + (1|Region), data=tab_1) 
-stargazer(rd.int)
+stargazer(rd.int, type = 'text')
 
 rd.int.sl <- lmer(Value_Spending.on.health ~ Mental_health_Value2 + (1 + Mental_health_Value2|Region), data = tab_1)
 
@@ -561,6 +561,8 @@ lmtest <- lm(tab_1$Value_Spending.on.health ~ tab_1$Mental_health_Value2 + facto
 
 stargazer(lmtest, type = 'text')
 ```
+
+Graphical interpretation and visualization of these regressions
 
 ```{r}
 #We want to add the regression to each Region.
