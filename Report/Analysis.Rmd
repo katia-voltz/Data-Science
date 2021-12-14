@@ -93,7 +93,7 @@ This graph shows us that, regardless of the work environment variable, we always
 
 It would therefore be interesting to see how these behave according to the regions. 
 
-```{r, echo = FALSE, message = FALSE}
+```{r}
 mod2 <- lm(tab$Mental_Health ~ tab$Region + tab$TIME)
 stargazer(mod2)
 ```
@@ -108,7 +108,7 @@ Our model is significant in all regions studied.
 #### Antidepressant use and Covid
 
 
-```{r, echo = FALSE, message = FALSE}
+```{r}
 
 cor(tab_R2.1$Antidepressant_Consumption, tab_R2.1$Deaths)
 cor(tab_R2.1$Antidepressant_Consumption, tab_R2.1$Cases)
@@ -194,7 +194,7 @@ It is true that in this table we are comparing data from 2 different years : we 
 However, for our study, we did not consider this as a problem, on the contrary. Indeed, knowing that the Covid crisis is still happening today and that the effects of a crisis are often felt some time afterwards, we believe that the analysis of the 2021 depression rate is relevant to show if there are any effects of the covid crisis.
 
 
-```{r, echo = FALSE, message = FALSE}
+```{r}
 covid <- Number_Covid19_cases_deaths %>%
   filter(LOCATION %in% List.of.Countries)
 
@@ -263,6 +263,7 @@ align = c("cc")
   kable_classic(full_width = T, html_font = "Cambria") %>%
   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'),table.envir = "table")
 ```
+
 Our results do not show a clearly visible difference graphically since the highest value for both graphs is 5.9%. The scope, however, is different. For countries with the most covid deaths the value goes down to 4.8% for Belgium while it goes down to 4.1% for Iceland in the second graph.
 Moreover, when calculating the average of the depression rates of countries classified in the category with the most and least Covid deaths, we can see a slight difference. Indeed, countries that were "most affected by Covid" (with the most deaths), have, on average, a higher depression rate (5,27%) than countries with the fewest deaths from Covid (4,9%). 
 
@@ -272,7 +273,7 @@ Moreover, when calculating the average of the depression rates of countries clas
 
 We will now focus our analysis on changes in antidepressant use as a function of telecommuting. We will see if there is a relationship between these variables.
 
-```{r, echo = FALSE, message = FALSE}
+```{r}
 g.teleworking.consumption <- ggplot(data = tab_R2.2, mapping = aes(x = Teleworking, y = Antidepressant_Consumption)) +
   geom_point(mapping = aes(color = LOCATION)) +
   #geom_smooth()+
@@ -290,7 +291,7 @@ Therefore, for the rest of the analysis, we will determine two lists of countrie
 
 ### Countries with the most and least teleworkers on AVERAGE compared to antidepressant consumption 
 
-```{r, echo = FALSE, message = FALSE}
+```{r}
 tab_R2.2.2010 <- tab_R2.2 %>% filter(TIME > 2009)
 #moyenne consommation antidepresseur par pays
 mean.conso <- aggregate(tab_R2.2.2010[, 3], list(tab_R2.2.2010$LOCATION), mean)
@@ -329,7 +330,7 @@ kbl(
 
 The table above includes Sweden in both lists (top and low teleworking) because we have 15 countries (an odd number) and it is not possible to build a table with a different number of rows for the 2 columns. When this is the case, we assume that the top list includes one more country. So, Sweden (SWE) will be counted only in the first list (top teleworking) to realize the following bar plot. 
 
-```{r, echo = FALSE, message = FALSE}
+```{r}
 
 #tableau antidepressant conso pour top tele
 
@@ -388,7 +389,7 @@ With this 10 year average, we can already see a potential connection between the
 To complete our analysis, and to avoid potentially biased results by the average, we will also focus on a single year. We will compare antidepressant use in the countries with the highest and lowest rates of teleworking in 2020, the year of the covid.
 
 
-```{r, echo = FALSE, message = FALSE}
+```{r}
 #consommation antidepresseur par pays
 conso2020 <- tab_R2.2.2010 %>% filter(TIME == 2020) %>% rename("conso2020"="Antidepressant_Consumption")
 conso2020 <- conso2020[,-c(4:5,2)]
@@ -427,7 +428,7 @@ kbl(
 The table above includes Iceland in both lists (top and low teleworking) because we have again an odd number of countries (7) and it is not possible to build a table with a different number of rows for the 2 columns. We therefore assume that the top list includes one more country. So, Iceland (ISL) will be counted only in the first list (top teleworking) to realize the following bar plot. 
 
 
-```{r, echo = FALSE, message = FALSE}
+```{r}
 #tableau antidepressant conso pour top tele
 
 List.top.telework <- c("PRT","ITA","ESP","ISL")
@@ -481,10 +482,11 @@ Countries with the most teleworkers are therefore also the countries with the hi
 ----
 
 ## Question 3 : ??? Public Spending on health analysis
-First statistical analysis
+
+- First statistical analysis
 Study of the first regression
 
-```{r, echo = FALSE, message = FALSE}
+```{r}
 Regression.total.tab_1 <- lm(tab_1$Value_Spending.on.health ~ tab_1$Mental_health_Value + tab_1$Time + tab_1$Region) 
 ```
 ```{r}
