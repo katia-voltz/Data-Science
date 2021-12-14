@@ -95,7 +95,7 @@ It would therefore be interesting to see how these behave according to the regio
 
 ```{r}
 mod2 <- lm(tab$Mental_Health ~ tab$Region + tab$TIME)
-stargazer(mod2)
+stargazer(mod2, type = 'text')
 ```
 
 Our model is significant in all regions studied. 
@@ -490,7 +490,7 @@ Study of the first regression
 Regression.total.tab_1 <- lm(tab_1$Value_Spending.on.health ~ tab_1$Mental_health_Value + tab_1$Time + tab_1$Region) 
 ```
 ```{r}
-stargazer(Regression.total.tab_1)
+stargazer(Regression.total.tab_1, type = 'text')
 ```
 As a result, we have a model that looks viable. The percentage of variance explained is 68%, and the p-value is extremely low. Moreover, the the dependent variable 'Value spending on health' is significantly correlated to:
 'Mental Health value', 
@@ -555,11 +555,11 @@ stargazer(rd.int)
 
 rd.int.sl <- lmer(Value_Spending.on.health ~ Mental_health_Value2 + (1 + Mental_health_Value2|Region), data = tab_1)
 
-stargazer(rd.int.sl)
+stargazer(rd.int.sl, type = 'text')
 
 lmtest <- lm(tab_1$Value_Spending.on.health ~ tab_1$Mental_health_Value2 + factor(tab_1$Region))
 
-stargazer(lmtest)
+stargazer(lmtest, type = 'text')
 ```
 
 ```{r}
