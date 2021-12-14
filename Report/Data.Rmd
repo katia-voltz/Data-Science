@@ -10,7 +10,7 @@ source(here::here("scripts/Setup.R"))
 ```
 For our research, we are going to use different databases around our three themes: mental health in the work environment, during the covid period, and public spending on health. 
 
-## Question 1 : Mental health through the work environment 
+## Mental health through the work environment 
 
 First of all, for the database concerning the environment at work, we have extracted all the data from the sites : <https://www.oecd.org> and <https://ourworldindata.org>. 
 
