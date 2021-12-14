@@ -413,7 +413,7 @@ We now have three tables ready to be used and analyzed in the next parts:
 
 ----
 
-## Question 3 : ??? Public spendings on health 
+## Question 3 : How public spending affects the mental health of OECD countries
 
 
 In this thrid analysis of datasets,  we are going to compare the prevalence of mental health disorder (% of the population (age-standardaized)) in a population of a country and the current health expenditure (% of GDP). Particularly focus on the countries of the OCDE that is The Organisation for Economic Co-operation and Development.
