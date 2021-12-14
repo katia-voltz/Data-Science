@@ -1,7 +1,9 @@
 
 # load the required packages
 packages <- c(
-  "here","plyr","dplyr","tidyverse","tibble","corrplot","car","ggplot2","FactoMineR","factoextra","openxlsx","knitr","kableExtra", "bookdown", "rmarkdown","leaflet","plotly","cowplot","lme4","maps","ggpubr","ggrepel","carData","stargazer")
+  "here","plyr","dplyr","tidyverse","tibble","corrplot","car","ggplot2",
+  "FactoMineR","factoextra","openxlsx","knitr","kableExtra", "bookdown", "rmarkdown",
+  "plotly","cowplot","lme4","maps","ggpubr","ggrepel","carData","stargazer")
 
 purrr::walk(packages, library, character.only = TRUE)
 
@@ -11,7 +13,11 @@ opts_chunk$set(collapse = TRUE,
                cache = FALSE,
                message = FALSE,
                echo = FALSE,
-               warning=FALSE
+               warning=FALSE,
+               fig.align = "center",
+               fig.width = 8,
+               fig.asp = 0.618,
+               fig.show = "hold"
 )
 
               
