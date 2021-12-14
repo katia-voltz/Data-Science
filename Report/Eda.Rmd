@@ -45,7 +45,7 @@ ggplotly(map.1)
 ```
 
 
-## Question 1 : Mental health through the work environment
+## Mental health through the work environment
 
 We will begin this analysis with a descending ranking of countries with the highest proportion of their population with mental health disorders. This will allow us to explain certain differences or similarities. 
 
@@ -183,7 +183,7 @@ In summary, a country with a medium wage, high GDP does not promote good mental 
 
 
 
-## Question 2 : ??? Covid-19
+## Impact of Covid-19
 
 
 
@@ -283,7 +283,7 @@ By making a graph of the evolution of teleworking per country, between 2010 and 
 
 ----
 
-## Question 3 : How public spending on health impacts mental health in OECD countries
+## How public spending on health impacts mental health in OECD countries
 
  In this primary analysis, we are going to determine the relationship between the *mental health disorder prevalence*, which is represented in percent, and the *Public spendings on health* that represent the current expenditures in public health of a country, in pourcent.
  
