@@ -13,17 +13,15 @@ Now all our databases are clean and ready to be used.
 
 # Exploratory data analysis
 
-Map representing the mental illness prevalence in the selected countries from the OCDE
+### Map representing the mental illness prevalence in the selected countries from the OCDE
+
 ```{r}
 mental.health <- share.with.mental.and.substance.disorders
-
 
 mental.health <- mental.health %>%
   filter(Entity %in% tab.of.countries$Entity )
 
-
 mental.health <- rename(mental.health, 'mental_health_Value' = 'Prevalence...Mental.and.substance.use.disorders...Sex..Both...Age..Age.standardized..Percent.')
-
 
 mental.health$mental_health_Value <- as.numeric(mental.health$mental_health_Value)
 
@@ -42,7 +40,7 @@ map.1 <- ggplot(mapdata2, aes(x=long, y=lat, group=group, labels=Entity))+
   scale_fill_gradient(low = '#56B1F7', high = '#132B43')
 ```
 
-```{r}
+```{r, fig.align="center"}
 ggplotly(map.1)
 ```
 
@@ -275,7 +273,7 @@ By making a graph of the evolution of teleworking per country, between 2010 and 
 
 ----
 
-## Question 3 : ??? Public spendings on health
+## Question 3 : How public spending on health impacts mental health in OECD countries
 
  In this primary analysis, we are going to determine the relationship between the *mental health disorder prevalence*, which is represented in percent, and the *Public spendings on health* that represent the current expenditures in public health of a country, in pourcent.
  
