@@ -556,20 +556,25 @@ rd.int.sl <- lmer(Value_Spending.on.health ~ Mental_health_Value2 + (1 + Mental_
 
 summary(rd.int.sl)
 
-ggplot(tab_1, aes(x = Mental_health_Value, y = Value_Spending.on.health)) +
-  facet_wrap(~Region, nrow=2) +
-  geom_point(alpha = 0.5) +
-  geom_line(data = cbind(tab_1, pred = predict(rd.int.sl)), aes(y = pred), size = 1, color='red')
-
-
 lmtest <- lm(tab_1$Value_Spending.on.health ~ tab_1$Mental_health_Value2 + factor(tab_1$Region))
 
 summary(lmtest)
 ```
 
+```{r}
+ggplot(tab_1, aes(x = Mental_health_Value, y = Value_Spending.on.health)) +
+  facet_wrap(~Region, nrow=2) +
+  geom_point(alpha = 0.5) +
+  geom_line(data = cbind(tab_1, pred = predict(rd.int.sl)), aes(y = pred), size = 1, color='red')
+
+```
+
 As specified and checked by these plots, the slopes are now varying across observations of regions and so are the respective intercepts. 
 We can really identify the clusters that are created with this analysis. Indeed we can observe that Oceania's countries have the highest prevalence of mental illness.
 That is really the value added of this model, in that we want to control for the fact that we have different populations in order to determine the “true” relationship between 'mental illness' proportion and 'public spending on health'.
+
+To interpret this table (summary of rd.int.sl), consider the Regions(i) variables as dummy variables. The value takes 1 * coefficient when we analyse the region in question and 0 otherwise. For instance, if we focus on North America, the value takes 1 * 3.2304. It means that if we increase the mental health value of 1% in North america, according to these datas, the value of the senpding on health is increasing significantly by 3.2304%.
+
 Looking at Asia, there  is a positive correlation between Mental health disorder prevalence and value spending on health.This aspect is also verified with Eastern Europe, and North America.
 However the interpretation of Northern Europe, Oceania, South America and Western Europe is different because the slope coefficient is close to zero. 
 In conclusion it means that indeed in overall, by pooling all the data together, our two variables X and Y are significantly, positively correlated.
@@ -579,8 +584,7 @@ But after a multilevel analysis, by Region, we understand that the positive corr
 In these regions, it is more difficult to conclude about the impact of ‘mental health disorder prevalence’ on the ‘value spending on health’.
 
 
-→ Therefore, locality impacts Mental Health values and we cannot explain 100% of the variation in these values with the working environment of a country.
-
+→ Therefore, locality impacts Mental Health values and we cannot explain 100% of the variation in these values with the working environment of a country.Finally, given that these two variables are not exogenous and positively correlated, we cannot say that there is a causal effect.
 
 
 
