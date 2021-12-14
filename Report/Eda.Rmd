@@ -299,7 +299,7 @@ Graph_Mental_Health <- Mental_Health_2 %>% ggplot(aes(
   y = Mental_health_Value,
   group = Entity,
   color = Region
-+ ylim(0,20))) +
+)) +
   geom_path() +
   theme(axis.text.x = element_text(
     angle = 360,
@@ -307,7 +307,7 @@ Graph_Mental_Health <- Mental_Health_2 %>% ggplot(aes(
     vjust = 0.5
   )) +
   ggtitle("Evolution of the prevalence of mental health disorder in OCDE countries from 2000 to 2017") +
-  xlab("Time") + ylab("Prevalence of mental health value in %")
+  xlab("Time") + ylab("Prevalence of mental health value in %")+ ylim(0,20)
 ggplotly(Graph_Mental_Health)
 ```
 Visually, the Time does not affect the value of our dependent variable and it appears that the distribution of values is based on the location.
@@ -331,7 +331,7 @@ Graph_public.spending.on.health <- Public.spending.on.health_New_2 %>% ggplot(ae
   y = Value_Spending.on.health,
   group = Entity,
   color = Region
-+ ylim(0,20))) +
+))) +
   geom_path() +
   theme(axis.text.x = element_text(
     angle = 360,
@@ -339,7 +339,7 @@ Graph_public.spending.on.health <- Public.spending.on.health_New_2 %>% ggplot(ae
     vjust = 0.5
   )) +
   ggtitle("Evolution of the public spending on health in OCDE countries from 2000 to 2018") +
-  xlab("Time") + ylab("Value spending on health in % of GDP")
+  xlab("Time") + ylab("Value spending on health in % of GDP")+ ylim(0,20)
   
 
 ggplotly(Graph_public.spending.on.health)
@@ -352,7 +352,7 @@ Now we want to compare the two variables: x = Value_Spending.on.health., y = Men
 
 Graph.3
 ```{r}
-Graph.region <- ggplot(tab_1, aes(x=Value_Spending.on.health, y=Mental_health_Value, colour=Region, group=Entity, labels=Time)+ ylim(0,20))) + geom_point() 
+Graph.region <- ggplot(tab_1, aes(x=Value_Spending.on.health, y=Mental_health_Value, colour=Region, group=Entity, labels=Time))) + geom_point() + ylim(0,20)
 ggplotly(Graph.region)
 ```
 
@@ -370,8 +370,8 @@ We decide to reverse the research question for this analysis because it is more 
 
 Graph.4
 ```{r}
-Graph.region2 <- ggplot(tab_1, aes( x = Mental_health_Value , y = Value_Spending.on.health, colour=Region, group=Entity, labels=Time+ ylim(0,20))) +
-  geom_point()
+Graph.region2 <- ggplot(tab_1, aes( x = Mental_health_Value , y = Value_Spending.on.health, colour=Region, group=Entity)) +
+  geom_point()+ ylim(0,20)
 ggplotly(Graph.region2)
 ```
 The fact that we allocate the colors to the region of the country is to shed the light on the distributions of the values according to the location in the world.
