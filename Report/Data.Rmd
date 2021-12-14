@@ -5,7 +5,7 @@ output: html_document
 # Data
 
 First, we need to install different packages. 
-```{r}
+```{r, echo = FALSE, message = FALSE}
 source(here::here("scripts/Setup.R"))
 ```
 For our research, we are going to use different databases around our three themes: mental health in the work environment, during the covid period, and public spending on health. 
