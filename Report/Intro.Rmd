@@ -23,16 +23,16 @@ We select the countries of the OCDE, the Organisation for Economic Co-operation 
 
 ## Related work
 
-* Work environment
-<https://www.erudit.org/en/journals/smq/1900-v1-n1-smq01302/1023997ar/>
-* Teleworking
-<https://youtu.be/z9OpWQnohZk>
-* Covid-19
-<https://www.letemps.ch/sciences/confinement-un-impact-sante-mentale>
-<https://www.unicef.org/fr/communiqués-de-presse/les-effets-nefastes-de-la-covid-19-sur-la-sante-mentale-des-enfants-et-des-enfants-et-des-jeunes>
-* Public spendings on health
-<https://www.lesechos.fr/2017/05/les-depenses-de-sante-en-hausse-marquees-par-le-cout-des-maladies-mentales-169407>
-<https://www.oecd.org/fr/sante/les-troubles-de-la-sante-mentale-representent-un-lourd-fardeau-economique-pour-les-pays-europeens.htm>
+#### Work environment
+- <https://www.erudit.org/en/journals/smq/1900-v1-n1-smq01302/1023997ar/>
+#### Teleworking
+- <https://youtu.be/z9OpWQnohZk>
+#### Covid-19
+- <https://www.letemps.ch/sciences/confinement-un-impact-sante-mentale>
+- <https://www.unicef.org/fr/communiqués-de-presse/les-effets-nefastes-de-la-covid-19-sur-la-sante-mentale-des-enfants-et-des-enfants-et-des-jeunes>
+#### Public spendings on health
+- <https://www.lesechos.fr/2017/05/les-depenses-de-sante-en-hausse-marquees-par-le-cout-des-maladies-mentales-169407>
+- <https://www.oecd.org/fr/sante/les-troubles-de-la-sante-mentale-representent-un-lourd-fardeau-economique-pour-les-pays-europeens.htm>
 
 
 
@@ -57,5 +57,25 @@ What is the Covid-19 impact on the population's mental-health ? Can we show an i
 3. About public spendings on health 
 
 Can health care systems such as financial investments in overall health, access to medication explain and predict cross-country differences in mental disorders in the population?
+
+## Structure of the report
+
+1/ Data: Sorting and cleaning of the 3 datasets for our 3 research questions.
+- Work environment 
+- Covid-19
+- Public spending on health
+
+2/ EDA: Exploratory data analysis.
+- Study of the relevant variables
+- Visualization
+- Interpretation
+
+3/ Analysis: Answer the research questions.
+
+4/ Conclusion: Summary, limitations, future work
+
+
+
+
 
 
