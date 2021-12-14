@@ -14,7 +14,7 @@ Now all our databases are clean and ready to be used.
 # Exploratory data analysis
 
 Map representing the mental illness prevalence in the selected countries from the OCDE
-```{r, echo = FALSE, message = FALSE}
+```{r}
 mental.health <- share.with.mental.and.substance.disorders
 
 
@@ -51,7 +51,7 @@ ggplotly(map.1)
 
 We will begin this analysis with a descending ranking of countries with the highest proportion of their population with mental health disorders. This will allow us to explain certain differences or similarities. 
 
-```{r, echo = FALSE, message = FALSE}
+```{r}
 ggplot(data = tab_mean, aes(x = MentalHealth_mean, y=reorder(LOCATION,MentalHealth_mean))) + 
   geom_bar(stat='identity',fill="#DB7093",color="#DB7093",alpha=0.8) +
   geom_text(aes(label=round(MentalHealth_mean)),hjust=1,color='#4F2F4F') +
@@ -62,7 +62,7 @@ ggplot(data = tab_mean, aes(x = MentalHealth_mean, y=reorder(LOCATION,MentalHeal
 On this first table, we can see that the Oceanian countries (Australia, New Zealand) are the ones that have a bigger part of their population with a mental disorder, followed by North America (Canada, USA) and Western Europe (France, Norway, Netherlands, Spain, Germany, Portugal). While Eastern European (Poland, Romania, Hungary, Czech Republic, Croatia) and Asian (Japan) countries have the lowest rate.  
 
 
-```{r, echo = FALSE, message = FALSE}
+```{r}
 Graph_MH <- tab %>% ggplot(aes(
   x = TIME,
   y = Mental_Health,
@@ -103,7 +103,7 @@ In this matrix, we see that none of our variables were strongly correlated with 
 We will also check the validity of our model by doing a regression.
 
 ### Regression study
-```{r, echo = FALSE, message = FALSE}
+```{r}
 mod <- lm(tab$Mental_Health ~ tab$Income_Inequality + tab$Wages + tab$Unemployment + tab$Working_Age + tab$Work_Time + tab$GDP + tab$TIME)
 stargazer(mod)
 ```
@@ -121,7 +121,7 @@ We can see that none of these value is higer than 5 so we can conclude that our 
 We will see more precisely with our table 5 how each of these variables impact these diseases, always according to the countries through 2000 and 2017.
 
 ### Impact of work environment's variables on mental health disorders by country
-```{r, echo = FALSE, message = FALSE, warning=FALSE}
+```{r, warning=FALSE}
 # Income Inequality Analysis 
 ggplot(data = tab, mapping = aes(x = tab$Income_Inequality, y = tab$Mental_Health)) +
   geom_point(mapping = aes(color = LOCATION)) +
@@ -182,7 +182,7 @@ In summary, a country with a medium wage, high GDP does not promote good mental 
 Firstly, we would like to know if there is a correlation between Cases or Deaths of Covid and the Value of Antidepressant Consumption through the years. We want to observe whether there is a peak in the consumption of these medications because of the covid crisis. Indeed, we make the hypothesis that due to this crisis, the proportion of people suffering from depression has increased, which would have had a significant impact on this consumption in 2020. 
 
 
-```{r, echo = FALSE, message = FALSE}
+```{r}
 graph.antidepressant.consumption <- ggplot(data = Antidepressant_consumption) +
   geom_point(mapping = aes(x = TIME, y = Antidepressant_Consumption, color = LOCATION))+
   geom_line(mapping = aes(x = TIME, y = Antidepressant_Consumption, color = LOCATION))+
@@ -199,7 +199,7 @@ By creating a graph of antidepressant consumption over time, we can see that, fo
 
 Due to lack of data on antidepressant use in 2020, it would be interesting to observe the rate of depression by country between 2000 and 2021. Here is the graph of depression rate by selected countries between 2000 and 2021. It is important to notice that we could not find the data for the years 2018, 2019 and 2020. So we have no data available for these years. 
 
-```{r, echo = FALSE, message = FALSE}
+```{r}
 graph.depression.rate <- ggplot(data = Depression_Rate2000_2021)+
   geom_point(mapping = aes(x = TIME , y = Depression_Rate, color = LOCATION))+
   geom_line(mapping = aes(x = TIME , y = Depression_Rate, color = LOCATION))+
@@ -211,7 +211,7 @@ graph.depression.rate <- ggplot(data = Depression_Rate2000_2021)+
  ggplotly(graph.depression.rate)          
 ```
 
-```{r, echo = FALSE, message = FALSE}
+```{r}
 
 Depression_Rate2000_2021 <- Depression_Rate2000_2017 %>%
   rbind(Depression_Rate2021)%>%
@@ -246,18 +246,18 @@ There has been a strong increase in the depression rate in 2021, that we can wel
 
 We will now focus on our second study, which is the evolution of antidepressant consumption as a function of teleworking and unemployment rate. 
 
-```{r, echo = FALSE, message = FALSE}
+```{r}
 Reg2.2 <- lm(tab_R2.2$Antidepressant_Consumption~tab_R2.2$Teleworking+tab_R2.2$Unemployment+tab_R2.2$TIME)
-summary(Reg2.2)
+stargazer(Reg2.2)
 ```
 
-With the *summary* function we can see a significant increase for one unit of  1.70310 * ValueAntidepressantConsumption for "Teleworking". This variable is significant with 2 stars wich is satisfying. However, "Unemployment" is not significant as it represents an increase for one unit of 0.04958 * ValueAntidepressantConsumption. 
+With the *stargazer* function we can see a significant increase for one unit of  1.70310 * ValueAntidepressantConsumption for "Teleworking". This variable is significant with 2 stars wich is satisfying. However, "Unemployment" is not significant as it represents an increase for one unit of 0.04958 * ValueAntidepressantConsumption. 
 However, R^2 is equal to 0,0867 which means that our model is explained by 8,7% of the variance, which is not very satisfying. This means that variables we don't know, have a more significant impact on antidepressant consumption in a country.
 
 Given the results, and that the variable "unemployment" has not a significant impact on antidepressant consumption, we will remove this variable for the rest of our analysis. We will now now focus on teleworking and analyze the link between this variable and antidepressant consumption with different graphs.
 
 
-```{r, echo = FALSE, message = FALSE}
+```{r}
 graph.teleworking <- ggplot(data = tab_R2.2) +
   geom_point(mapping = aes(x = TIME, y = Teleworking, color = LOCATION))+
   geom_line(mapping = aes(x = TIME, y = Teleworking, color = LOCATION))+
@@ -281,7 +281,7 @@ By making a graph of the evolution of teleworking per country, between 2010 and 
  
 - Graphical observations and regression interpretation. 
 
-```{r, echo = FALSE, message = FALSE}
+```{r}
  plot(tab_1)
 ```
 In this general plot, we can assume that *Time* is impacting the *value spending on health*. However, the impact on the *mental health value* seems close to zero. Furthermore, *Mental health* and *spendings on health* look positively correlated. 
@@ -317,11 +317,11 @@ We can see that the prevalence of mental health disorder does not rise through t
 
 - Statistical analysis of Mental health value evolution and the time:
 
-```{r, echo = FALSE, message = FALSE}
+```{r}
 Regression.1.Time <- lm(tab_1$Mental_health_Value ~ tab_1$Time)
 ```
 ```{r}
-summary(Regression.1.Time)
+stargazer(Regression.1.Time)
 ```
 As visually analysed, the time does not impact our Y. The coefficient is not significant, the variance of the model is explained at 0.03% which is extremely low. The p-value is also high (0.7).
 We conclude that this first model based only on ‘Time’ is bad. 
