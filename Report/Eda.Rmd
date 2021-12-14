@@ -369,6 +369,7 @@ The first is that when comparing the mental health of a country with only health
 Therefore, we decide to observe the opposite. Is a country suffering from a big proportion of mental illness, a country that invests the most on public health?
 We decide to reverse the research question for this analysis because it is more logical to put  x = Mental_health_Value , y = Value_Spending.on.health. We stay aware of this suniltaneity problem. 
 
+Graph.4
 ```{r}
 Graph.region2 <- ggplot(tab_1, aes( x = Mental_health_Value , y = Value_Spending.on.health, colour=Region, group=Entity, labels=Time) + ylim(0, 20)) +
   geom_point()
