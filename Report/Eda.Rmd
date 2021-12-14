@@ -73,6 +73,7 @@ Graph_MH <- tab %>% ggplot(aes(
     hjust = 1,
     vjust = 0.5
   )) +
+  ylim(0,20)+
   ggtitle("Evolution of mental health disorder over time and by country") +
   xlab("Time") + ylab("Prevalence of mental health value in %") 
 ggplotly(Graph_MH)
@@ -124,29 +125,38 @@ We will see more precisely with our table 5 how each of these variables impact t
 ggplot(data = tab, mapping = aes(x = tab$Income_Inequality, y = tab$Mental_Health)) +
   geom_point(mapping = aes(color = LOCATION)) +
   geom_smooth() +
+  xlim(0,0.5) + 
+  ylim(0,20)+
   xlab("Income inequality (Gini coef.") + ylab("Prevalence of mental health (in %)") 
 
 # Wages Analysis
 ggplot(data = tab, mapping = aes(x = tab$Wages, y = tab$Mental_Health)) +
   geom_point(mapping = aes(color = LOCATION)) +
   geom_smooth()+
+  xlim(0,70000) + 
+  ylim(0,20)+
   xlab("Average wages (US$") + ylab("Prevalence of mental health (in %)") 
 
 ggplot(data = tab, mapping = aes(x = tab$Unemployment, y = tab$Mental_Health)) +
   geom_point(mapping = aes(color = LOCATION)) +
   geom_smooth() +
+  xlim(0,28.0) + 
+  ylim(0,20)+
   xlab("Unemployment rate (in %)") + ylab("Prevalence of mental health (in %)") 
 
 #Working Age Analysis
 ggplot(data = tab, mapping = aes(x = tab$Working_Age, y = tab$Mental_Health)) +
   geom_point(mapping = aes(color = LOCATION)) +
   geom_smooth() +
+  ylim(0,20)+
   xlab("Working age population (in %)") + ylab("Prevalence of mental health (in %)") 
 
 # GDP Analysis
 ggplot(data = tab, mapping = aes(x = tab$GDP, y = tab$Mental_Health)) +
   geom_point(mapping = aes(color = LOCATION)) +
   geom_smooth() +
+  xlim(0,84057) + 
+  ylim(0,20)+
   xlab("GDP (US dollars/capita)") + ylab("Prevalence of mental health (in %)") 
 ```
 
