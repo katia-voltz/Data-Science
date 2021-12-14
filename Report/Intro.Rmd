@@ -21,6 +21,21 @@ The objectives of this project are to make a link between the characteristics of
 
 We select the countries of the OCDE, the Organisation for Economic Co-operation and Development for our study. Indeed the countries that are part of this organisation are developed or developing. Therefore, we want to understand why there are these differences through these countries in term of mental illness prelavence, knowing they are part of the OCDE.  
 
+## Related work
+
+* Work environment
+<https://www.erudit.org/en/journals/smq/1900-v1-n1-smq01302/1023997ar/>
+* Teleworking
+<https://youtu.be/z9OpWQnohZk>
+* Covid-19
+<https://www.letemps.ch/sciences/confinement-un-impact-sante-mentale>
+<https://www.unicef.org/fr/communiqués-de-presse/les-effets-nefastes-de-la-covid-19-sur-la-sante-mentale-des-enfants-et-des-enfants-et-des-jeunes>
+* Public spendings on health
+<https://www.lesechos.fr/2017/05/les-depenses-de-sante-en-hausse-marquees-par-le-cout-des-maladies-mentales-169407>
+<https://www.oecd.org/fr/sante/les-troubles-de-la-sante-mentale-representent-un-lourd-fardeau-economique-pour-les-pays-europeens.htm>
+
+
+
 ## Research questions
 
 We have decided to focus our research and analysis on three different themes presented below.
