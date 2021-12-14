@@ -29,7 +29,7 @@ We have decided to focus our research and analysis on three different themes pre
 
 Given the structure of the working environment in different countries, can we say that the mental health of the population is influenced by the working conditions and the situation of the country?
 
---> Can we explain the number of people with mental health disorder in a country with the average work-time, the working age population, the unemployment rate, the GDP, the salaries, and the income inequalities? 
+Can we explain the number of people with mental health disorder in a country with the average work-time, the working age population, the unemployment rate, the GDP, the salaries, and the income inequalities? 
 
 2. About the Covid-19
 
