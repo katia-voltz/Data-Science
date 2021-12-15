@@ -10,11 +10,13 @@ source(here::here("scripts/Setup.R"))
 The work environment in which an employee evolves has an impact on his/her mental health. This is true in all the countries studied, although there are differences between regions which are probably related to another domain (politics, access to health care, etc.).
 
 Regarding our study on Covid, we were able to see that the Covid crisis had an impact on the mental health of a country's population. Indeed, we proved that there was a link between the rate of teleworking of a country and the consumption of antidepressants of its population. Countries with more teleworkers on average are also countries with higher consumption of antidepressants per day per 100 inhabitants. This was also the case in 2020 when Covid arrived. 
-Moreover, we know that Covid, especially in 2020, significantly increased the number of teleworkers per country (see Figure 3, covid part) and thus the consumption of antidepressants. So there is a link between mental health and teleworking. Unfortunately, we cannot show that teleworkers use antidepressants. 
-
+However, it doesn't prove that teleworkers use more antidepressants than other people. 
+Indeed, the year of covid, teleworking increased a lot in many countries, leading us to the conclusion that antidepressant consumption has increased in part because of that and thus because of Covid.
+ 
 We can also see from the study of the depression rate of the countries that Covid must have had an impact on it, since it increased significantly that year. However, we could not prove with certainty that the countries most affected by Covid were also the countries with the highest depression rates. 
 
-To conclude, Covid has had an impact on the mental health of the countries' populations, but it is also about everything involved in this crisis that has impacted people's mental illness. Indeed, the increase in telecommuting is a consequence of Covid which is then linked to mental health. However, there are many other variables caused by Covid that have not been taken into account, for example, loss of a loved one, physical illness, lack of work, decreased social interaction, etc., and it would have been interesting to observe these variables. 
+To conclude, Covid has had an impact on the mental health of the countries' populations, but it is also about everything involved in this crisis that has impacted people's mental illness. Indeed, the increase in telecommuting is a consequence of Covid which is then linked to mental health. However, there are many other variables caused by Covid that have not been taken into account, such as isolation, physical health (due to covid) or loss of relatives etc., and it would have been interesting to observe these variables.
+
 
 ### Limitation
 
