@@ -595,7 +595,6 @@ In these regions, it is more difficult to conclude about the impact of ‘mental
 
 
 
-
 Therefore, locality impacts Mental Health values and we cannot explain 100% of the variation in these values with the working environment of a country.Finally, given that these two variables are not exogenous and positively correlated, we cannot say that there is a causal effect.
 
 
