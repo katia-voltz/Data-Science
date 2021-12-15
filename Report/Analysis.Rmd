@@ -502,12 +502,22 @@ As a result, we have a model that looks viable. The percentage of variance expla
 
 #### TEST OF CLUSTERS
 
--To better understand the distribution of these values, we represent them by clusters.
--First we standardize the data
--Normalize data
--Computation of the euclidienne distance
--We create the Cluster Dendogram
--We calculate the average clusters
+- To better understand the distribution of these values, we represent them by clusters.
+
+- First we standardize the data
+
+- Normalize data
+
+- Computation of the euclidienne distance
+
+- We create the Cluster Dendogram
+
+- We calculate the average clusters
+
+Then we use an average-linkage model on the scaled data and use 5 clusters to show the difference:
+Study what is the optimal number of clusters k that is relevant to use
+We conclude that a number of 5 clusters is optimal because the total within the sum of squares reduces only slightly from this point.
+Graphical representation of the clusters
 
 ```{r, results = 'hide'}
 data_test <- tab_2[-c(1,2,3)]
@@ -522,10 +532,7 @@ distance <- dist(data_test_std)
 hc <- hclust(distance)
 plot(hc, labels= tab_2$Entity)
 ```
-Then we use an average-linkage model on the scaled data and use 5 clusters to show the difference:
-Study what is the optimal number of clusters k that is relevant to use
-We conclude that a number of 5 clusters is optimal because the total within the sum of squares reduces only slightly from this point.
-Graphical representation of the clusters
+Here is the distrubution of the each country according to spending on health values and mental health disorder prevalence.
 
 ```{r}
 avclust <- hclust(distance, method='average')
