@@ -9,7 +9,7 @@ source(here::here("scripts/Setup.R"))
 ```
 
  
-## Mental health through the work environment
+## 1/ Mental health through the work environment
 
 We decide to do a cluster analysis to see if there is some prevalence of certain region compared to others, and also wanted to study our problem through another perspective, that of the countries. Indeed, we could notice on the first plots, some countries adopt more extreme behaviors (position separated from the others) and it is often the same across the different variables.  A good way to analyze this is to group our countries using clusters. The goal is to see if the work environment has more impact in some countries
 than in others on the mental health of its population. This is also where we will use our table of averages that we made for each of the variables.
@@ -104,7 +104,7 @@ Our model is significant in all regions studied.
 ----
 
 
-## Impact of Covid-19
+## 2/ Impact of Covid-19
 
 #### Antidepressant use and Covid
 
@@ -482,7 +482,7 @@ Countries with the most teleworkers are therefore also the countries with the hi
 
 ----
 
-## How public spending on health impacts mental health in OECD countries
+## 3/ How public spending on health impacts mental health in OECD countries
 
 #### First statistical analysis
 Study of the first regression
