@@ -3,7 +3,7 @@
 packages <- c(
   "here","plyr","dplyr","tidyverse","tibble","corrplot","car","ggplot2",
   "FactoMineR","factoextra","openxlsx","knitr","kableExtra", "bookdown", "rmarkdown",
-  "plotly","cowplot","lme4","maps","ggpubr","ggrepel","carData","stargazer")
+  "plotly","cowplot","lme4","maps","ggpubr","ggrepel","carData","sjPlot")
 
 purrr::walk(packages, library, character.only = TRUE)
 
