@@ -548,9 +548,10 @@ fviz_cluster(km.res, data=data_test_std, repel=TRUE)
 ```
 We can observe the different distribution of the values according to the country's structures. The countries are distributed according to the location. It is why we want to analyse, what is the 'real' correlation between these variables, inside the regions.
 
-
+By aggregating all the data, we analyse that the prevalence of mental health problems has a real impact on public expenditure in OECD countries. However, by looking at these distributions that appear to be correlated by region, we will proceed to a more complete analysis, which will allow us to identify whether there is also a correlation within a certain locality or not. 
 
 #### Multilevel analysis
+
 This multilevel analysis gives the opportunity to observe how the model can adapt to clusters, in this case to the 'Region' from tab_1. 
 
 
