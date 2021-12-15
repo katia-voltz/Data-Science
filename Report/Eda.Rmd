@@ -103,8 +103,8 @@ We will also check the validity of our model by doing a regression.
 
 ### Regression study
 ```{r}
-mod <- lm(tab$Mental_Health ~ tab$Income_Inequality + tab$Wages + tab$Unemployment + tab$Working_Age + tab$Work_Time + tab$GDP + tab$TIME)
-stargazer(mod, type = 'text')
+mod <- lm(Mental_Health ~ Income_Inequality + Wages + Unemployment + Working_Age + Work_Time + tab$GDP + TIME, data = tab)
+tab_model(mod,p.style = "stars",show.ci = FALSE, string.pred = "Coeffcient")
 ```
 
 On table 4, we can see that our model is 75.5% explained by the variables we have chosen. Moreover, we notice that our variables, income inequality, wages, unemployment, working age and GDP are very significant. On the other hand, the time an employee spends working does not seem to have an impact on the rate of mental health disorder. We will therefore not take it into account as an explanatory variable for our problem. 
@@ -255,8 +255,8 @@ There has been a strong increase in the depression rate in 2021, that we can wel
 We will now focus on our second study, which is the evolution of antidepressant consumption as a function of teleworking and unemployment rate. 
 
 ```{r}
-Reg2.2 <- lm(tab_R2.2$Antidepressant_Consumption~tab_R2.2$Teleworking+tab_R2.2$Unemployment+tab_R2.2$TIME)
-stargazer(Reg2.2, type = 'text')
+Reg2.2 <- lm(Antidepressant_Consumption~Teleworking+Unemployment+TIME, data = tab_R2.2)
+tab_model(Reg2.2, p.style = "stars",show.ci = FALSE, string.pred = "Coeffcient")
 ```
 
 With the *stargazer* function we can see a significant increase for one unit of  1.70310 * ValueAntidepressantConsumption for "Teleworking". This variable is significant with 2 stars wich is satisfying. However, "Unemployment" is not significant as it represents an increase for one unit of 0.04958 * ValueAntidepressantConsumption. 
@@ -328,10 +328,10 @@ We can see that the prevalence of mental health disorder does not rise through t
 - Statistical analysis of Mental health value evolution and the time:
 
 ```{r}
-Regression.1.Time <- lm(tab_1$Mental_health_Value ~ tab_1$Time)
+Regression.1.Time <- lm(Mental_health_Value ~ Time, data = tab_1)
 ```
 ```{r}
-stargazer(Regression.1.Time, type = 'text')
+tab_model(Regression.1.Time, p.style = "stars",show.ci = FALSE, string.pred = "Coeffcient")
 ```
 As visually analysed, the time does not impact our Y. The coefficient is not significant, the variance of the model is explained at 0.03% which is extremely low. The p-value is also high (0.7).
 We conclude that this first model based only on ‘Time’ is bad. 
