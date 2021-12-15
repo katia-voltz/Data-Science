@@ -580,7 +580,7 @@ tab_1 <- tab_1[c(1,5,6,2,3,4)]
 Now our final table, tab_1, is arranged in the structure that will be used to make the analysis.
 
 ```{r}
-kbl(tab_1[1:20,],caption = "**Table of Public spending on health and mental health**: `tab_1`, ...") %>%
+kbl(tab_1[1:20,],caption = "**Table of Public spending on health and mental health**: `tab_1`") %>%
   kable_classic(full_width = T, html_font = "Cambria") %>%
   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))
 ```
@@ -607,7 +607,7 @@ tab_2 <- merge(tab_Mean_Value_Spending.on.health, tab_Mean_Mental_health_Value, 
 ```
 
 ```{r}
-kbl(tab_2[1:20,],caption = "**Table aggregated of Public spending on health and mental health**: `tab_2`, ...") %>%
+kbl(tab_2[1:20,],caption = "**Table aggregated of Public spending on health and mental health**: `tab_2`") %>%
   kable_classic(full_width = T, html_font = "Cambria") %>%
   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))
 ```
