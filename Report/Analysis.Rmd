@@ -94,8 +94,8 @@ This graph shows us that, regardless of the work environment variable, we always
 It would therefore be interesting to see how these behave according to the regions. 
 
 ```{r}
-mod2 <- lm(tab$Mental_Health ~ tab$Region + tab$TIME)
-stargazer(mod2, type = 'text')
+mod2 <- lm(Mental_Health ~ Region + TIME, data = tab)
+tab_model(mod2,p.style = "stars",show.ci = FALSE, string.pred = "Coeffcient")
 ```
 
 Our model is significant in all regions studied. 
@@ -487,10 +487,10 @@ Countries with the most teleworkers are therefore also the countries with the hi
 Study of the first regression
 
 ```{r}
-Regression.total.tab_1 <- lm(tab_1$Value_Spending.on.health ~ tab_1$Mental_health_Value + tab_1$Time + tab_1$Region) 
+Regression.total.tab_1 <- lm(Value_Spending.on.health ~ Mental_health_Value + Time + Region, data = tab_1) 
 ```
 ```{r}
-stargazer(Regression.total.tab_1, type = 'text')
+tab_model(Regression.total.tab_1, p.style = "stars",show.ci = FALSE, string.pred = "Coeffcient")
 ```
 As a result, we have a model that looks viable. The percentage of variance explained is 68%, and the p-value is extremely low. Moreover, the the dependent variable 'Value spending on health' is significantly correlated to:
 'Mental Health value', 
@@ -551,15 +551,12 @@ ggplot(tab_1, aes(x=Mental_health_Value, y=Value_Spending.on.health)) +
 tab_1$Mental_health_Value2 <- scale(tab_1$Mental_health_Value, center=TRUE, scale=TRUE) 
 
 rd.int <- lmer(Value_Spending.on.health ~ Mental_health_Value2 + (1|Region), data=tab_1) 
-stargazer(rd.int, type = 'text')
 
 rd.int.sl <- lmer(Value_Spending.on.health ~ Mental_health_Value2 + (1 + Mental_health_Value2|Region), data = tab_1)
 
-stargazer(rd.int.sl, type = 'text')
-
 lmtest <- lm(tab_1$Value_Spending.on.health ~ tab_1$Mental_health_Value2 + factor(tab_1$Region))
 
-stargazer(lmtest, type = 'text')
+tab_model(lmtest, p.style = "stars",show.ci = FALSE, string.pred = "Coeffcient")
 ```
 
 Graphical interpretation and visualization of these regressions
