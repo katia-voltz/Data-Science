@@ -115,7 +115,7 @@ cor(tab_R2.1$Antidepressant_Consumption, tab_R2.1$Deaths)
 cor(tab_R2.1$Antidepressant_Consumption, tab_R2.1$Cases)
 ```
 
-We obtain a correlation of "0,049" between antidepressant consumption and the number of deaths due to covid, and a correlation of "0,0453" between antidepressant consumption and Covid cases.  
+We obtain a correlation of "0,049" between antidepressant consumption and the number of deaths due to covid, and a correlation of "0,155" between antidepressant consumption and Covid cases.  
 
 Unfortunately, we can see that there is no correlation between these variables, either with the number of cases or the number of deaths. 
 We can give several explanations to this surprising observation.
