@@ -258,8 +258,8 @@ Reg2.2 <- lm(Antidepressant_Consumption~Teleworking+Unemployment+TIME, data = ta
 tab_model(Reg2.2, p.style = "stars",show.ci = FALSE, string.pred = "Coeffcient")
 ```
 
-With the *stargazer* function we can see a significant increase for one unit of  1.70310 * ValueAntidepressantConsumption for "Teleworking". This variable is significant with 2 stars wich is satisfying. However, "Unemployment" is not significant as it represents an increase for one unit of 0.04958 * ValueAntidepressantConsumption. 
-However, R^2 is equal to 0,0867 which means that our model is explained by 8,7% of the variance, which is not very satisfying. This means that variables we don't know, have a more significant impact on antidepressant consumption in a country.
+With the *stargazer* function we can see a significant increase for one unit of  1.70310 * ValueAntidepressantConsumption for "Teleworking". This variable is significant with 2 stars wich is satisfying. However, "Unemployment" is not significant as it represents an increase for one unit of 0.16 * ValueAntidepressantConsumption. 
+Moreover, R^2 is equal to 0,0867 which means that our model is explained by 8,7% of the variance, which is not very satisfying. This means that variables we don't know, have a more significant impact on antidepressant consumption in a country.
 
 Given the results, and that the variable "unemployment" has not a significant impact on antidepressant consumption, we will remove this variable for the rest of our analysis. We will now now focus on teleworking and analyze the link between this variable and antidepressant consumption with different graphs.
 
