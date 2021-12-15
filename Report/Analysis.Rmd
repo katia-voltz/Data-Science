@@ -86,7 +86,8 @@ km.res <- kmeans(data_t5_std, 5)
 C4 <- fviz_cluster(km.res, data=data_t5_std, repel = TRUE)
 
 # Put all the graphs together
-plot_grid(C0, C1, C2, C3, C4, labels=c("A","B","C","D","E","F"), ncol=3, nrow=2)
+plist <- list(C0,C1, C2, C3, C4)
+grid.arrange(grobs = plist, ncol = 2)
 ```
 
 This graph shows us that, regardless of the work environment variable, we always have a clear demarcation. Indeed, it is always the same countries in the same places. We can therefore conclude that each region has its own specificities related to the work environment that impact the rate of mental health disorders. 
@@ -543,6 +544,8 @@ We can observe the different distribution of the values according to the country
 This multilevel analysis gives the opportunity to observe how the model can adapt to clusters, in this case to the 'Region' from tab_1. 
 
 
+Graphical interpretation and visualization with regression
+
 ```{r}
 ggplot(tab_1, aes(x=Mental_health_Value, y=Value_Spending.on.health)) +
   geom_point() +
@@ -554,20 +557,15 @@ rd.int <- lmer(Value_Spending.on.health ~ Mental_health_Value2 + (1|Region), dat
 
 rd.int.sl <- lmer(Value_Spending.on.health ~ Mental_health_Value2 + (1 + Mental_health_Value2|Region), data = tab_1)
 
-lmtest <- lm(tab_1$Value_Spending.on.health ~ tab_1$Mental_health_Value2 + factor(tab_1$Region))
+lmtest <- lm(Value_Spending.on.health ~ Mental_health_Value2 + factor(Region), data = tab_1)
 
 tab_model(lmtest, p.style = "stars",show.ci = FALSE, string.pred = "Coeffcient")
-```
 
-Graphical interpretation and visualization of these regressions
-
-```{r}
 #We want to add the regression to each Region.
-ggplot(tab_1, aes(x = Mental_health_Value, y = Value_Spending.on.health + ylim(0,20))) +
+ggplot(tab_1, aes(x = Mental_health_Value, y = Value_Spending.on.health)) +
   facet_wrap(~Region, nrow=2) +
   geom_point(alpha = 0.5) +
-  geom_line(data = cbind(tab_1, pred = predict(rd.int.sl)), aes(y = pred), size = 1, color='red')
-
+  geom_line(data = cbind(tab_1, pred = predict(rd.int.sl)), aes(y = pred), size = 1, color='red')+ ylim(0,20)
 ```
 
 As specified and checked by these plots, the slopes are now varying across observations of regions and so are the respective intercepts. 
