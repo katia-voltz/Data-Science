@@ -591,7 +591,9 @@ In conclusion it means that indeed in overall, by pooling all the data together,
 But after a multilevel analysis, by Region, we understand that the positive correlation is less present looking into one specific Region. It means that the location has a big impact on these values. 
 
 To conclude, The 'Value_Spending.on.health' is positively correlated to 'Mental_Health_Value' and to 'Time'. However the countries that are part of the same location are more likely to have the same values, especially in Northern Europe, Oceania, South America and Western Europe. 
-In these regions, it is more difficult to conclude about the impact of ‘mental health disorder prevalence’ on the ‘value spending on health’.
+In these regions, it is more difficult to conclude about the impact of ‘mental health disorder prevalence’ on the ‘value spending on health’. In addition, we must remain vigilant about a potential simultaneity bias. 
+
+
 
 
 Therefore, locality impacts Mental Health values and we cannot explain 100% of the variation in these values with the working environment of a country.Finally, given that these two variables are not exogenous and positively correlated, we cannot say that there is a causal effect.
