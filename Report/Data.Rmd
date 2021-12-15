@@ -407,6 +407,7 @@ kbl(tab_R2.2[1:20,],caption = "**Table 2**^f^: `tab_R2.2`, Table of `Antidepress
 ```
 
 We now have three tables ready to be used and analyzed in the next parts: 
+
 - *tab_R2.1* with antidepressants consumption for countries where we have data on this consumption in 2020, and Covid Cases and deaths
 - *Depression_Rate2000_2021* table 
 - *tab_R2.2* with antidepressants consumption, teleworking, and the unemployment rate. 
