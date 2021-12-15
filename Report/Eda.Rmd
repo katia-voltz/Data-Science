@@ -365,7 +365,7 @@ Now we want to compare the two variables: x = Value_Spending.on.health., y = Men
 
 Graph.3
 ```{r}
-Graph.region <- ggplot(tab_1, aes(x=Value_Spending.on.health, y=Mental_health_Value, colour=Region, group=Entity, labels=Time))) + geom_point() + ylim(0,20)
+Graph.region <- ggplot(tab_1, aes(x=Value_Spending.on.health, y=Mental_health_Value, colour=Region, group=Entity, labels=Time)) + geom_point() + ylim(0,20)
 ggplotly(Graph.region)
 ```
 
