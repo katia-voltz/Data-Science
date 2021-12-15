@@ -533,6 +533,9 @@ hc <- hclust(distance)
 plot(hc, labels= tab_2$Entity)
 ```
 Here is the distrubution of the each country according to spending on health values and mental health disorder prevalence.
+By looking at these distributions, we can clearly see which countries cluster together the most and if it is possible to make some connection based on their location and characteristics. 
+
+Indeed, the Eastern European countries seem to be grouped together. So do Australia and New Zealand. We assume that there are social-economic and cultural factors that come into play depending on the region. 
 
 ```{r}
 avclust <- hclust(distance, method='average')
@@ -543,7 +546,7 @@ fviz_nbclust(data_test_std, kmeans, method="wss")
 km.res <- kmeans(data_test_std, 5)
 fviz_cluster(km.res, data=data_test_std, repel=TRUE)
 ```
-We can observe the different distribution of the values according to the country's structures. The countries are distributed according to the location
+We can observe the different distribution of the values according to the country's structures. The countries are distributed according to the location. It is why we want to analyse, what is the 'real' correlation between these variables, inside the regions.
 
 
 
