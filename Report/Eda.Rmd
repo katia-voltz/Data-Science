@@ -304,7 +304,7 @@ With this corrplot, we can identify the correlation values for each variable. Th
 
 Graph.1 : Visualization of prevalence of mental health (% of the population) against Time for OCDE countries from 2000 to 2017 
 ```{r}
-Graph_Mental_Health <- Mental_Health_2 %>% ggplot(aes(
+Graph_mental_health<- Mental_Health_2 %>% ggplot(aes(
   x = Time,
   y = Mental_health_Value,
   group = Entity,
@@ -315,13 +315,12 @@ Graph_Mental_Health <- Mental_Health_2 %>% ggplot(aes(
     angle = 360,
     hjust = 1,
     vjust = 0.5
-  )) +
+)) +
   ylim(0,20)+
-  ggtitle("Evolution of the prevalence of mental health disorder in OCDE countries from 2000 to 2017") +
   xlab("Time") + ylab("Prevalence of mental health value in %")+
+  ggtitle("Evolution of the prevalence of mental health disorder in OCDE countries from 2000 to 2017")
   
-
-ggplotly(Graph_Mental_Health)
+ggplotly(Graph_mental_health)
 ```
 Visually, the Time does not affect the value of our dependent variable and it appears that the distribution of values is based on the location.
 We can see that the prevalence of mental health disorder does not rise through time. Indeed the variation appears small over time and the correlation negative.
@@ -344,16 +343,16 @@ Graph_public.spending.on.health <- Public.spending.on.health_New_2 %>% ggplot(ae
   y = Value_Spending.on.health,
   group = Entity,
   color = Region
-))) +
+)) +
   geom_path() +
   theme(axis.text.x = element_text(
     angle = 360,
     hjust = 1,
     vjust = 0.5
-  )) +
+)) +
   ylim(0,20)+
-  ggtitle("Evolution of the public spending on health in OCDE countries from 2000 to 2018") +
-  xlab("Time") + ylab("Value spending on health in % of GDP")
+  xlab("Time") + ylab("Value spending on health in % of GDP")+
+  ggtitle("Evolution of the public spending on health in OCDE countries from 2000 to 2018")
   
 
 ggplotly(Graph_public.spending.on.health)
