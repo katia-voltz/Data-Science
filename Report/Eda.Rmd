@@ -211,7 +211,6 @@ Due to lack of data on antidepressant use in 2020, it would be interesting to ob
 graph.depression.rate <- ggplot(data = Depression_Rate2000_2021)+
   geom_point(mapping = aes(x = TIME , y = Depression_Rate, color = LOCATION))+
   geom_line(mapping = aes(x = TIME , y = Depression_Rate, color = LOCATION))+
-  theme_bw()+
   annotate("rect", xmin = 2019, xmax = 2021, ymin = 0, ymax = max(Depression_Rate2000_2021$Depression_Rate),
            alpha = .2, fill = "orange")+
   xlab("Time")+ ylab("Depression Rate")+
