@@ -11,7 +11,7 @@ source(here::here("scripts/Setup.R"))
 
 Now all our databases are clean and ready to be used. 
 
-# Exploratory data analysis
+# 2 / Exploratory data analysis
 
 ### Map representing the mental illness prevalence in the selected countries from the OCDE
 
