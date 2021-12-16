@@ -38,6 +38,8 @@ Finally, the results for public expenditure on health show that, as with the wor
 - Limitation of the OECD countries, this is not representative of the all world.
 - Focalisation on 'Mental Health' in the work environment but this is a variable very complex that take into account a lot of other aspects.
 
+One of the limitations of our work was the lack of recent data. Indeed, for the covid part, we had very little data in 2020. 
+Moreover, it seems that some information is biased, especially concerning the figures related to Covid (numbers of cases and deaths in some countries like China for example, seem to be underestimated). 
 
 ### Future work
 
