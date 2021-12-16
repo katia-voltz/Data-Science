@@ -1,5 +1,3 @@
-# README.txt
-
 In order to knit our report, the following packages are neeeded: 
 
 "here","plyr","dplyr","tidyverse","tibble","corrplot","car","ggplot2",
