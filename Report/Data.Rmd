@@ -26,7 +26,7 @@ To see those effects, we have chosen the information of 6 independants variables
 - the average wages (US dollars)
 - the income inequalities (Gini coefficient, 0=complete equality and 1=complete inequality)
 
-$$Analysis 1 : MentalHealth = a*IncomeInequality + b*wages + c*Unemployment + d*WorkingAgePopulation + e*WorkTime + f*GPD$$
+$$Analysis 1 : MentalHealth = a*IncomeInequality + b*wages + c*Unemployment + d*WorkingAgePopulation + e*WorkTime + f*GPD + ε$$
 
 We have made a selection of several countries which are the following (To simplify, country codes have been used and not the full names) : Austria, Belgium, Croatia, Czechia, Denmark, Finland, France, Germany, Greece, Hungary, Iceland, Ireland, Italy, Romania, Portugal, Poland, Norway, Netherlands, Switzerland, Sweden, Spain, Australia, Brazil, Canada, Japan, New-Zealand and the USA.  
 
@@ -428,6 +428,8 @@ Our intitial question of research is:
 - Our influenced variable Y is therefore the prevalence of mental health disorder (% of the population)
 - our independant variable X is the current health expenditure (% of the GDP)
 - The access to medication is a difficulte variable to quantify, we did not find data corresponding to that. Therefore, our analysis is focus on these two variables X and Y. 
+
+
 
 
 ### List.of.countries
