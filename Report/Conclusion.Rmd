@@ -32,16 +32,16 @@ Finally, the results for public expenditure on health show that, as with the wor
 
 ### Limitation
 
-- dans les données de mental health il y a toute la population et pas seulement les travailleurs
-- Mental health prend beaucoup de chose en compte (anxiety, depresssion,..) 
-- Donéées dans certains pays incomplètes donc anaylse par région/continent pas toujours très précise
+- Data quantification and precision(ex: China with numbers of cases and deaths that seem to be underestimated).
+- Large population sample on 'Mental Health' (ex: Children included).
+- Lack of data over the years and especially for the covid part.
+- Limitation of the OECD countries, this is not representative of the all world.
+- Focalisation on 'Mental Health' in the work environment but this is a variable very complex that take into account a lot of other aspects.
 
-One of the limitations of our work was the lack of recent data. Indeed, for the covid part, we had very little data in 2020. 
-Moreover, it seems that some information is biased, especially concerning the figures related to Covid (numbers of cases and deaths in some countries like China for example, seem to be underestimated). 
 
 ### Future work
 
-- Certains pays doivent avoir des éléments externes au work environment (politique, accès aux soins, ...) qui ont un impact sur celui ci et donc sur la santé mental des travailleurs.
---> Il serait donc interresant de pouvoir analyser comment un pays ou une région organise sa société pour que les travailleurs aient les meilleures conditions possibles.
+Some countries must have elements external to the work environment (policy, access to healthcare, etc.) which have an impact on it and therefore on the mental health of workers.
+So, it would therefore be interesting to be able to analyze how a country or a region organizes its company so that workers have the best possible conditions.
 
 It would have been interesting to observe what part of a country's population consumes the most antidepressants and whether it is indeed the working population. In this way, we could have shown that people who telework use antidepressants.
