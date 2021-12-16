@@ -5,6 +5,7 @@ packages <- c(
   "FactoMineR","factoextra","openxlsx","knitr","kableExtra", "bookdown", "rmarkdown",
   "plotly","cowplot","lme4","maps","ggpubr","ggrepel","carData","sjPlot",'gridExtra')
 
+
 purrr::walk(packages, library, character.only = TRUE)
 
 options(digits = 5)
