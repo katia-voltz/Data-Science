@@ -120,7 +120,9 @@ ggplot(data = tab, mapping = aes(x = tab$Income_Inequality, y = tab$Mental_Healt
   ylim(0,20)+
   xlab("Income inequality (Gini coef.") + ylab("Prevalence of mental health (in %)") 
 ```
+
 The higher the income inequality in a country, the more likely that country will have a high proportion of its population with mental disorders. (-)
+
 
 ##### Average wages Analysis
 ```{r, warning=FALSE}
@@ -131,7 +133,9 @@ ggplot(data = tab, mapping = aes(x = tab$Wages, y = tab$Mental_Health)) +
   ylim(0,20)+
   xlab("Average wages (US$") + ylab("Prevalence of mental health (in %)") 
 ```
+
 The higher the average wage in a country, the more likely that country will have a high proportion of its population with mental disorders. (-)
+
 
 ##### Unemployment rate Analysis
 ```{r, warning=FALSE}
@@ -142,7 +146,9 @@ ggplot(data = tab, mapping = aes(x = tab$Unemployment, y = tab$Mental_Health)) +
   ylim(0,20)+
   xlab("Unemployment rate (in %)") + ylab("Prevalence of mental health (in %)") 
 ```
+
 The higher the unemployment rate in a country, the more likely that country will have a high proportion of its population with mental disorders. (-)
+
 
 ##### Working age of a population Analysis
 ```{r, warning=FALSE}
@@ -152,7 +158,9 @@ ggplot(data = tab, mapping = aes(x = tab$Working_Age, y = tab$Mental_Health)) +
   ylim(0,20)+
   xlab("Working age population (in %)") + ylab("Prevalence of mental health (in %)") 
 ```
+
 The higher the percentage of a country's working-age population, the lower the proportion of its population with mental disorders. (+)
+
 
 ##### GDP Analysis
 ```{r, warning=FALSE}
@@ -163,6 +171,7 @@ ggplot(data = tab, mapping = aes(x = tab$GDP, y = tab$Mental_Health)) +
   ylim(0,20)+
   xlab("GDP (US dollars/capita)") + ylab("Prevalence of mental health (in %)") 
 ```
+
 The higher the GDP of a country, the more likely that country will have a high proportion of its population with mental disorders. (-)
 
 By using a correlation matrix, we will be able to put numbers on these connections.
