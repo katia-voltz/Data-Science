@@ -166,10 +166,12 @@ ggplot(data = tab, mapping = aes(x = tab$GDP, y = tab$Mental_Health)) +
 The higher the GDP of a country, the more likely that country will have a high proportion of its population with mental disorders. (-)
 
 By using a correlation matrix, we will be able to put numbers on these connections.
+
 ```{r, echo = FALSE, message = FALSE, eval=TRUE}
 Correlation <- cor(tab[3:9], use="pairwise.complete.obs")
 corrplot_tab <- corrplot(Correlation, type = 'upper', method = 'number')
 ```
+
 This confirms the assumptions formed by our first graphs, the positive coefficients indicating an increase in mental health and a contrario for the negative coefficient. 
 
 Finally, In the correlation matrix we could see that some of our explanatory variables were particularly correlated. We will therefore check that there is not too much multicollinearity which could bias our results.
