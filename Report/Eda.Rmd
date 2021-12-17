@@ -174,7 +174,7 @@ P2 <- ggplot(data = tab, mapping = aes(x = Wages, y = Mental_Health)) +
   geom_smooth()+
   xlim(0,70000) + 
   ylim(0,20)+
-  xlab("Average wages (US$") + ylab("Prevalence of mental health (in %)") 
+  xlab("Average wages (US$)") + ylab("Prevalence of mental health (in %)") 
 ggplotly(P2)
 ```
 
