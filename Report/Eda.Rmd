@@ -83,6 +83,7 @@ This table shows that the prevalence of mental illness has hardly changed during
 
 We now want to start studying our regression, that is, to see how the work environment, through the variables that compose it, impacts the percentage of mental health disorder in a country. For this we will do correlation analyses.
 
+
 ### Correlation analyses between mental health and the work environment
 
 ```{r, echo = FALSE, message = FALSE, eval=TRUE}
@@ -91,9 +92,46 @@ plot_tab <- plot(tab[3:9])
 This plot does not allow us to make any conclusions about the implication of our variables on mental health. Indeed, we do not see any particular increase or decrease. Nevertheless, we can see a certain tendency translated by a linearity of the points which are not scattered in space either.
 We will use a correlation matrix to put numbers on our hypotheses. 
 
+### Corrplot
+
+By using a correlation matrix, we will be able to put numbers on these connections.
+
+```{r, echo = FALSE, message = FALSE, eval=TRUE}
+Correlation <- cor(tab[3:9], use="pairwise.complete.obs")
+corrplot_tab <- corrplot(Correlation, type = 'upper', method = 'number')
+```
+
+This confirms the assumptions formed by our first graphs, the positive coefficients indicating an increase in mental health and a contrario for the negative coefficient. 
+
+In this corrplot, we can identify separently each correlation between our dependent variable Mental Health and the working environment independent ones.
+
+Positive correlation observed:
+- The highest correlation determined is the GDP; 0.51. It means if we increase by one unity the GDP (US dollars/capital) the prevalence of mental health is increase by 0.51.
+
+- Mental health - Wages : a correlation of 0.48 shows a slightly increase. It is quite similar as the GDP impact. We can also doubt about a multicolinearity between GDP and wages (correlation of 0.76). That is why, we will check a little after the VIF. 
+
+- Mental health - Income inequality : a correlation of 0.22 shows a slightly increase 
+
+The variables left have a negative impact on the Mental health prevalence.
+
+- Working age demonstrates a decrease of -0.34: As a reminder the working age population is the percentage of the population that is able to work in %, (15-65 years). It means if the working age proportion increases by 1%, the mental health value decreases by -0.34%.
+
+- Same effect for the Work-time. The more a worker workers on average, the less a population suffers from mental illness. 
+
+- Surprisingly, the Unemployment rate has no correlation with mental health. The slope coefficient is -0.06, close to zero.
+
+Finally, In the correlation matrix we could see that some of our explanatory variables were particularly correlated. We will therefore check that there is not too much multicollinearity which could bias our results.
+
+```{r}
+vif(mod) 
+```
+We can see that none of these value is higer than 5 so we can conclude that our model is ready to be analysed more precisly.
+
 We will also check the validity of our model by doing a regression.
 
 ### Regression study
+
+
 ```{r}
 mod <- lm(Mental_Health ~ Income_Inequality + Wages + Unemployment + Working_Age + Work_Time + GDP + TIME, data = tab)
 tab_model(mod,p.style = "stars",show.ci = FALSE, string.pred = "Coeffcient")
@@ -174,21 +212,6 @@ ggplot(data = tab, mapping = aes(x = tab$GDP, y = tab$Mental_Health)) +
 
 The higher the GDP of a country, the more likely that country will have a high proportion of its population with mental disorders. (-)
 
-By using a correlation matrix, we will be able to put numbers on these connections.
-
-```{r, echo = FALSE, message = FALSE, eval=TRUE}
-Correlation <- cor(tab[3:9], use="pairwise.complete.obs")
-corrplot_tab <- corrplot(Correlation, type = 'upper', method = 'number')
-```
-
-This confirms the assumptions formed by our first graphs, the positive coefficients indicating an increase in mental health and a contrario for the negative coefficient. 
-
-Finally, In the correlation matrix we could see that some of our explanatory variables were particularly correlated. We will therefore check that there is not too much multicollinearity which could bias our results.
-
-```{r}
-vif(mod) 
-```
-We can see that none of these value is higer than 5 so we can conclude that our model is ready to be analysed more precisly.
 
 In summary, a country with a medium wage, high GDP does not promote good mental health of workers. Second, high unemployment and income inequality worsen the mental health of a population. Nevertheless, if a country has a high proportion of working age population, it will have less problems related to the mental health of its workers.
 
