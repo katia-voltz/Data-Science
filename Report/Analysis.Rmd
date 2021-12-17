@@ -178,7 +178,7 @@ comparaison <- merge(comparaison,consumption2020, by = c("LOCATION"))
 comparaison <- rename(comparaison,"Consumption2020"="Antidepressant_Consumption")
 comparaison <- comparaison[,-c(5,6,7)]
 
-kbl(comparaison,caption = "**Table 1: **Table by country of antidepressant consumption in 2020, its growth between 2019 and 2020, compared to the average antidepressant consumption and growth of previous years.") %>%
+kbl(comparaison,caption = "**Table 13**: Table by country of antidepressant consumption in 2020, its growth between 2019 and 2020, compared to the average antidepressant consumption and growth of previous years.") %>%
   kable_classic(full_width = T, html_font = "Cambria") %>%
   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))
 
@@ -215,7 +215,7 @@ kbl(
     'Low Countries' = deaths.toplow$LOCATION,
     "LDeaths" = deaths.toplow$Deaths
   ),
-  caption = "**Table 1**: countries with the most and least deaths of covid in 2020 .",
+  caption = "**Table 14**: countries with the most and least deaths of covid in 2020 .",
   align = c("lclc")
 ) %>%
   kable_classic(full_width = T, html_font = "Cambria") %>%
@@ -292,7 +292,7 @@ Indeed, we can observe an increase for the Netherlands, Switzerland or Spain for
 
 Therefore, for the rest of the analysis, we will determine two lists of countries. The first list will contain the countries with the most teleworkers in % of the active population, on average between 2010 and 2020 (above 5%) and the second one, the countries with a lower average rate.
 
-### Countries with the most and least teleworkers on AVERAGE compared to antidepressant consumption 
+
 
 ```{r}
 tab_R2.2.2010 <- tab_R2.2 %>% filter(TIME > 2009)
@@ -322,7 +322,7 @@ kbl(
     'Low Countries' = teleworking.toplow$LOCATION,
     "LTeleworking" = teleworking.toplow$teleworking
   ),
-  caption = "**Table 2**: countries with the most and least teleworkers **on average** from 2010 to 2019",
+  caption = "**Table 15**: countries with the most and least teleworkers **on average** from 2010 to 2019",
   align = c("lclc")
 ) %>%
   kable_classic(full_width = T, html_font = "Cambria") %>%
@@ -420,7 +420,7 @@ kbl(
     'Low Countries' = teleworking.toplow$LOCATION,
     "LTeleworking" = teleworking.toplow$teleworking2020
   ),
-  caption = "**Table 3**: countries with the most and least teleworkers 2020",
+  caption = "**Table 16**: countries with the most and least teleworkers 2020",
   align = c("lclc")
 ) %>%
   kable_classic(full_width = T, html_font = "Cambria") %>%
