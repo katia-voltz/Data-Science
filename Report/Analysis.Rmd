@@ -104,7 +104,7 @@ mod2 <- lm(Mental_Health ~ Region + TIME, data = tab)
 tab_model(mod2,p.style = "stars",show.ci = FALSE, string.pred = "Coeffcient")
 ```
 
-
+For all regions studied, mental health is positively correlated with the population in that region. The higher the (positive) coefficient, the more the region indicates a population with a high rate of mental disorders. Moreover, here again we have confirmation that the countries of Oceania and North America have the most problems with the mental health of their population. 
 
 ----
 
