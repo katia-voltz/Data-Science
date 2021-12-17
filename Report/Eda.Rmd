@@ -197,7 +197,7 @@ ggplot(data = tab, mapping = aes(x = tab$Working_Age, y = tab$Mental_Health)) +
   ylim(0,20)+
   xlab("Working age population (in %)") + ylab("Prevalence of mental health (in %)") 
 ```
-
+--> Decrire l'axe qui commence a 60% 
 The higher the percentage of a country's working-age population, the lower the proportion of its population with mental disorders. (+)
 
 
