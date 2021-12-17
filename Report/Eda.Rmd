@@ -120,12 +120,7 @@ The variables left have a negative impact on the Mental health prevalence.
 
 - Surprisingly, the Unemployment rate has no correlation with mental health. The slope coefficient is -0.06, close to zero.
 
-Finally, In the correlation matrix we could see that some of our explanatory variables were particularly correlated. We will therefore check that there is not too much multicollinearity which could bias our results.
 
-```{r}
-vif(mod) 
-```
-We can see that none of these value is higer than 5 so we can conclude that our model is ready to be analysed more precisly.
 
 We will also check the validity of our model by doing a regression.
 
@@ -141,6 +136,14 @@ tab_model(mod,p.style = "stars",show.ci = FALSE, string.pred = "Coeffcient")
 On this model, we can see that our model is approximately 80% explained by the variables we have chosen. Moreover, we notice that our variables, income inequality, wages, unemployment, working age and GDP are very significant. In fact, two variables show a real impact on mental health, they are income inequality and working age. Indeed, their coefficients of 25.42 and -0.41 are significantly high while that of our other variables is closer to 0. 
 On the other hand, the time an employee spends working does not seem to have an impact on the rate of mental health disorder. We will therefore not take it into account as an explanatory variable for our problem. 
 Another variable that is checked here is 'Time'. We see in the regression that it is significant and that its coefficient is close to 0, which confirms our first plot. Indeed, the proportion of population with a mental disorder can be calculated every year but it is rather constant through the years. 
+
+Finally, In the correlation matrix we could see that some of our explanatory variables were particularly correlated. We will therefore check that there is not too much multicollinearity which could bias our results.
+
+```{r}
+vif(mod) 
+```
+
+We can see that none of these value is higer than 5 so we can conclude that our model is ready to be analysed more precisly.
 
 We can conclude that our model is rather reliable and that the working environment considered has a moderate to low impact on the mental health of workers in the OECD countries.  
 
