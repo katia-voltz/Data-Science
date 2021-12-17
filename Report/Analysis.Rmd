@@ -90,7 +90,7 @@ plist <- list(C0,C1, C2, C3, C4)
 grid.arrange(grobs = plist, ncol = 2)
 ```
 
-This graph shows us that, regardless of the work environment variable, we always have a clear demarcation. Indeed, it is always the same countries in the same places. We can therefore conclude that each region has its own specificities related to the work environment that impact the rate of mental health disorders. 
+
 
 It would therefore be interesting to see how these behave according to the regions through a regression. 
 
@@ -101,7 +101,7 @@ mod2 <- lm(Mental_Health ~ Region + TIME, data = tab)
 tab_model(mod2,p.style = "stars",show.ci = FALSE, string.pred = "Coeffcient")
 ```
 
-Our model is significant in all regions studied. So ????
+
 
 ----
 
