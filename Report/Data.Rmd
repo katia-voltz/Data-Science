@@ -41,7 +41,7 @@ List.of.Countries = c('AUT','BEL','HRV', 'CZE', 'DNK', 'ENG', 'FIN', 'FRA', 'DEU
 
 
 ```{r}
-kbl(tab_countries,caption = "**Table of OCDE countries**: `tab_countries`, list of OCDE countries availabe in our dataset.") %>%
+kbl(tab_countries,caption = "**Table 1**: `tab_countries`, list of OCDE countries availabe in our dataset.") %>%
   kable_classic(full_width = T, html_font = "Cambria") %>%
   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))
 ```
@@ -135,7 +135,7 @@ tab$TIME <- as.numeric(tab$TIME)
 ```
 
 ```{r}
-kbl(tab[1:20,],caption = "**Table 1**^a^ : List of OECD countries common for all our data: `tab`") %>%
+kbl(tab[1:20,],caption = "**Table 2** : List of OECD countries common for all our data: `tab`") %>%
   kable_classic(full_width = T, html_font = "Cambria") %>%
   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) %>%
   add_footnote(
@@ -171,7 +171,7 @@ tab5 <- left_join(tab4, GDP_m, by = c("LOCATION"))
 tab_mean <- left_join(tab5, tab_countries, by=('LOCATION'))
 
 #Representation of the 10 first rows
-kbl(tab_mean[1:10,],caption = "**Table 1**^b^ : List of OECD countries common for all our data's mean from 2000 to 2017: `tab_mean`") %>%
+kbl(tab_mean[1:10,],caption = "**Table 3** : List of OECD countries common for all our data's mean from 2000 to 2017: `tab_mean`") %>%
   kable_classic(full_width = T, html_font = "Cambria") %>%
   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))%>%
   add_footnote(paste("Representation of the 10 first rows of the dataset. Total observation: ", nrow(tab_mean)))
@@ -235,7 +235,7 @@ Antidepressant_consumption <- Antidepressant_consumption %>% filter(LOCATION %in
 Antidepressant_consumption2 <- Antidepressant_consumption %>% filter(LOCATION %in% List.of.Countries2)
 ```
 ```{r}
-kbl(Antidepressant_consumption2[1:15,],caption = "**Table 2**^a^: `Antidepressant_consumption2` dataset") %>%
+kbl(Antidepressant_consumption2[1:15,],caption = "**Table 4**: `Antidepressant_consumption2` dataset") %>%
   kable_classic(full_width = T, html_font = "Cambria") %>%
   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))%>%
   add_footnote(
@@ -277,7 +277,7 @@ tab_R2.1$Cases <- as.numeric(tab_R2.1$Cases)
 ```
 
 ```{r}
-kbl(tab_R2.1[1:10,],caption = "**Table 2**^b^: `tab_R2.1`, Table of `Antidepressant_consumption2` and `Number_Covid19_cases_deaths2`") %>%
+kbl(tab_R2.1[1:10,],caption = "**Table 5**: `tab_R2.1`, Table of `Antidepressant_consumption2` and `Number_Covid19_cases_deaths2`") %>%
   kable_classic(full_width = T, html_font = "Cambria") %>%
   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))%>%
   add_footnote(
@@ -333,7 +333,7 @@ Depression_Rate2000_2021 <- Depression_Rate2000_2017 %>%
 ```
 
 ```{r}
-kbl(Depression_Rate2000_2021[1:10,],caption = "**Table 2**^c^: `Depression_Rate2000_2021` dataset") %>%
+kbl(Depression_Rate2000_2021[1:10,],caption = "**Table 6**: `Depression_Rate2000_2021` dataset") %>%
   kable_classic(full_width = T, html_font = "Cambria") %>%
   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))%>%
   add_footnote(
@@ -359,7 +359,7 @@ Teleworking <- rename(Teleworking,c("LOCATION"="geo","TIME"="TIME_PERIOD","Telew
 Teleworking <-  Teleworking %>% filter(LOCATION %in% List.of.Countries)
 ```
 ```{r}
-kbl(Teleworking[1:10,],caption = "**Table 2**^d^: `Teleworking` dataset") %>%
+kbl(Teleworking[1:10,],caption = "**Table 7**: `Teleworking` dataset") %>%
   kable_classic(full_width = T, html_font = "Cambria") %>%
   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))%>%
   add_footnote(
@@ -380,7 +380,7 @@ UnemploymentCovid <- rename(UnemploymentCovid, c("Unemployment"="Value"))
 UnemploymentCovid <-  UnemploymentCovid %>% filter(LOCATION %in% List.of.Countries)
 ```
 ```{r}
-kbl(UnemploymentCovid[1:10,],caption = "**Table 2**^e^: `UnemploymentCovid` dataset, Unemployment rate from 2000 to 2020 (covid year)") %>%
+kbl(UnemploymentCovid[1:10,],caption = "**Table 8**: `UnemploymentCovid` dataset, Unemployment rate from 2000 to 2020 (covid year)") %>%
   kable_classic(full_width = T, html_font = "Cambria") %>%
   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))%>%
   add_footnote(
@@ -399,7 +399,7 @@ Data <- left_join(Antidepressant_consumption, Teleworking, by=c("LOCATION", "TIM
 tab_R2.2 <- left_join(Data, UnemploymentCovid, by = c("LOCATION", "TIME"))
 tab_R2.2$Teleworking <- as.numeric(tab_R2.2$Teleworking)
 
-kbl(tab_R2.2[1:20,],caption = "**Table 2**^f^: `tab_R2.2`, Table of `Antidepressant_consumption`, `Teleworking` and `UnemploymentCovid`") %>%
+kbl(tab_R2.2[1:20,],caption = "**Table 9**: `tab_R2.2`, Table of `Antidepressant_consumption`, `Teleworking` and `UnemploymentCovid`") %>%
   kable_classic(full_width = T, html_font = "Cambria") %>%
   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))%>%
   add_footnote(
@@ -587,7 +587,7 @@ tab_1 <- tab_1[c(1,5,6,2,3,4)]
 Now our final table, tab_1, is arranged in the structure that will be used to make the analysis.
 
 ```{r}
-kbl(tab_1[1:20,],caption = "**Table 3**^a^: Table of Public spending on health and mental health: `tab_1`") %>%
+kbl(tab_1[1:20,],caption = "**Table 10**: Table of Public spending on health and mental health, `tab_1`") %>%
   kable_classic(full_width = T, html_font = "Cambria") %>%
   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) %>%
   add_footnote(
@@ -618,7 +618,7 @@ tab_2 <- merge(tab_Mean_Value_Spending.on.health, tab_Mean_Mental_health_Value, 
 ```
 
 ```{r}
-kbl(tab_2[1:20,],caption = "**Table 3**^b^Table aggregated of Public spending on health and mental health: `tab_2`") %>%
+kbl(tab_2[1:20,],caption = "**Table 11**: Table aggregated of Public spending on health and mental health, `tab_2`") %>%
   kable_classic(full_width = T, html_font = "Cambria") %>%
   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) %>%
   add_footnote(
