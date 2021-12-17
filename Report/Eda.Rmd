@@ -324,14 +324,14 @@ By making a graph of the evolution of teleworking per country, between 2010 and 
 
 ## How public spending on health impacts mental health in OECD countries
 
- In this primary analysis, we are going to determine the relationship between the *mental health disorder prevalence*, which is represented in percent, and the *Public spendings on health* that represent the current expenditures in public health of a country, in pourcent.
+ In this primary analysis, we are going to determine the relationship between the *mental health disorder prevalence*, which is represented in percent, and the *Public spending on health* that represent the current expenditures in public health of a country, in percent.
  
 - Graphical observations and regression interpretation. 
 
 ```{r}
  plot(tab_1)
 ```
-In this general plot, we can assume that *Time* is impacting the *value spending on health*. However, the impact on the *mental health value* seems close to zero. Furthermore, *Mental health* and *spendings on health* look positively correlated. 
+In this general plot, we can assume that *Time* is impacting the *value spending on health*. However, the impact on the *mental health value* seems close to zero. Furthermore, *Mental health* and *spending on health* look positively correlated. 
 
 
 - Creation of a corrplot in order to identify directly the correlation coefficient between the variables.
@@ -362,7 +362,7 @@ Graph_mental_health<- Mental_Health_2 %>% ggplot(aes(
 ggplotly(Graph_mental_health)
 ```
 Visually, the Time does not affect the value of our dependent variable and it appears that the distribution of values is based on the location.
-We can see that the prevalence of mental health disorder does not rise through time. Indeed the variation appears small over time and the correlation negative.
+We can see that the prevalence of mental health disorder does not rise through time. Indeed, the variation appears small over time and the correlation negative.
 
 - Statistical analysis of Mental health value evolution and the time:
 
@@ -418,7 +418,7 @@ The first is that when comparing the mental health of a country with only health
 - simultaneity bias: secondly, we are probably facing a simultaneity bias! Public spending on health cannot be considered as an exogenous variable. x also varies in reaction to y.
 
 Therefore, we decide to observe the opposite. Is a country suffering from a big proportion of mental illness, a country that invests the most on public health?
-We decide to reverse the research question for this analysis because it is more logical to put  x = Mental_health_Value , y = Value_Spending.on.health. We stay aware of this suniltaneity problem. 
+We decide to reverse the research question for this analysis because it is more logical to put  x = Mental_health_Value , y = Value_Spending.on.health. We stay aware of this simultaneity problem. 
 
 Graph.4
 ```{r}
