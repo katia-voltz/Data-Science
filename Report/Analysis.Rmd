@@ -482,6 +482,10 @@ Moreover, except for Italy, all countries in the first list (top teleworking) ha
 
 Countries with the most teleworkers are therefore also the countries with the highest consumption of antidepressants per day. 
 
+Regarding our study on Covid, we were able to see that the Covid crisis had an impact on the mental health of a country’s population. Indeed, we proved that there was a link between the rate of teleworking of a country and the consumption of antidepressants of its population. Countries with more teleworkers on average are also countries with higher consumption of antidepressants per day per 100 inhabitants. This was also the case in 2020 when Covid arrived. However, it doesn’t prove that teleworkers use more antidepressants than other people. Indeed, the year of covid, teleworking increased a lot in many countries, leading us to the conclusion that antidepressant consumption has increased in part because of that and thus because of Covid.
+
+We can also see from the study of the depression rate of the countries that Covid must have had an impact on it, since it increased significantly that year. However, we could not prove with certainty that the countries most affected by Covid were also the countries with the highest depression rates.
+
 ----
 
 ## How public spending on health impacts mental health in OECD countries
