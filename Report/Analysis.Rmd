@@ -420,7 +420,7 @@ kbl(
     'Low Countries' = teleworking.toplow$LOCATION,
     "LTeleworking" = teleworking.toplow$teleworking2020
   ),
-  caption = "**Table 16**: countries with the most and least teleworkers 2020",
+  caption = "**Table 16**: countries with the most and least teleworkers **in 2020**",
   align = c("lclc")
 ) %>%
   kable_classic(full_width = T, html_font = "Cambria") %>%
@@ -462,7 +462,7 @@ plot14 <-ggplot(data=tableau.low.conso4)+
   xlim(c(0,170))
 
 ggarrange(plot13,plot14,nrow = 2,align = 'v') %>%
-  annotate_figure(top = text_grob("Antidepressant consumption For Countries with The Most and Least teleworkers **in 2020**", 
+  annotate_figure(top = text_grob("Antidepressant consumption For Countries with The Most and Least teleworkers in 2020", 
                                   size = 12),
                   bottom = text_grob("Antidepressant consumption"))
 
@@ -470,7 +470,7 @@ kbl(tibble(
   'Top Teleworking countries'=mean.top.consumption2020,
   'Low Teleworking countries'=mean.low.consumption2020
 ),
-caption = "**Antidepressant consumption in countries with highest and lowest teleworking in 2020 **",
+caption = "**Average Antidepressant consumption in countries with highest and lowest teleworking in 2020 **",
 align = c("cc")
 ) %>%
   kable_classic(full_width = T, html_font = "Cambria") %>%
