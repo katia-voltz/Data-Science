@@ -94,6 +94,8 @@ This graph shows us that, regardless of the work environment variable, we always
 
 It would therefore be interesting to see how these behave according to the regions through a regression. 
 
+$$Analysis 1 : MentalHealth = a*Regions + b*TIME + ε$$
+
 ```{r}
 mod2 <- lm(Mental_Health ~ Region + TIME, data = tab)
 tab_model(mod2,p.style = "stars",show.ci = FALSE, string.pred = "Coeffcient")
