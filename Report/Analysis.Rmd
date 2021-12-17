@@ -11,13 +11,13 @@ source(here::here("scripts/Setup.R"))
  
 ## Mental health through the work environment
 
-We decide to do a cluster analysis to see if there is some prevalence of certain region compared to others, and also wanted to study our problem through another perspective, that of the countries. Indeed, we could notice on the first plots, some countries adopt more extreme behaviors (position separated from the others) and it is often the same across the different variables.  A good way to analyze this is to group our countries using clusters. The goal is to see if the work environment has more impact in some countries
-than in others on the mental health of its population. This is also where we will use our table of averages that we made for each of the variables.
+We decide to do a cluster analysis to see if there is some prevalence of certain region compared to others, and also wanted to study our problem through another perspective, that of the countries. Indeed, we could notice on the first plots, some countries adopt more extreme behaviors (position separated from the others) and it is often the same across the different variables.  A good way to analyze this is to group our countries using clusters. The goal is to see if the work environment has more impact in some countries than in others on the mental health of its population. This is also where we will use our table of averages that we made for each of the variables.
 
 ```{r}
 # We remove the NA because we don't want to have biais in our cluster analysis 
 tab_mean_na <- na.omit(tab_mean)
 ```
+
 ### Cluster analysis for each of our explanatory variables
 ```{r}
 # Income Inequality
@@ -89,12 +89,14 @@ C4 <- fviz_cluster(km.res, data=data_t5_std, repel = TRUE)
 plist <- list(C0,C1, C2, C3, C4)
 grid.arrange(grobs = plist, ncol = 2)
 ```
-
+For each of the explanatory variables, the clusters are more or less identical and, these are countries that border or are close to each other.
+This is interesting because it tells us that there are probably other variables, not necessarily related to the environment
+but strongly correlated to a region, that significantly influence our variables and so the rate of mental health disorder such as culture, politics, and so on.
 
 
 It would therefore be interesting to see how these behave according to the regions through a regression. 
 
-$$Analysis 1 : MentalHealth = a*Regions + b*TIME + ε$$
+$$Analysis : MentalHealth = a*Regions + b*TIME + ε$$
 
 ```{r}
 mod2 <- lm(Mental_Health ~ Region + TIME, data = tab)
@@ -604,24 +606,5 @@ But after a multilevel analysis, by Region, we understand that the positive corr
 
 To conclude, The 'Value_Spending.on.health' is positively correlated to 'Mental_Health_Value' and to 'Time'. However, the countries that are part of the same location are more likely to have the same values, especially in Northern Europe, Oceania, South America and Western Europe. 
 In these regions, it is more difficult to conclude about the impact of ‘mental health disorder prevalence’ on the ‘value spending on health’. In addition, we must remain vigilant about a potential simultaneity bias. Therefore, locality impacts Mental Health values and we cannot explain 100% of the variation in these values. Finally, given that these two variables are not exogenous and positively correlated, we cannot say that there is a causal effect.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
