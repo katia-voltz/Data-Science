@@ -160,7 +160,7 @@ P1 <- ggplot(data = tab, mapping = aes(x = tab$Income_Inequality, y = tab$Mental
   geom_smooth() +
   xlim(0,0.5) + 
   ylim(0,20)+
-  xlab("Income inequality (Gini coef.") + ylab("Prevalence of mental health (in %)") 
+  xlab("Income inequality (Gini coef.)") + ylab("Prevalence of mental health (in %)") 
  ggplotly(P1)
 ```
 
