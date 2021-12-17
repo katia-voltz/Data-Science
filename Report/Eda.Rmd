@@ -131,6 +131,7 @@ We will also check the validity of our model by doing a regression.
 
 ### Regression study
 
+$$Analysis 1 : MentalHealth = a*IncomeInequality + b*wages + c*Unemployment + d*WorkingAgePopulation + e*WorkTime + f*GPD + ε$$
 
 ```{r}
 mod <- lm(Mental_Health ~ Income_Inequality + Wages + Unemployment + Working_Age + Work_Time + GDP + TIME, data = tab)
