@@ -140,7 +140,7 @@ kbl(tab[1:20,],caption = "**Table 1**^a^ : List of OECD countries common for all
   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) %>%
   add_footnote(
       paste(
-         "Representation of the first 20 observation of the dataset. Total observations : ",
+         "Representation of the first 20 observations of the dataset. Total observations : ",
          nrow(tab)))
 ```
 
@@ -240,7 +240,7 @@ kbl(Antidepressant_consumption2[1:15,],caption = "**Table 2**^a^: `Antidepressan
   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))%>%
   add_footnote(
       paste(
-         "Representation of the first 15 observation of the dataset. Total observations : ",
+         "Representation of the first 15 observations of the dataset. Total observations : ",
          nrow(Antidepressant_consumption2)
       )
    )
@@ -282,7 +282,7 @@ kbl(tab_R2.1[1:10,],caption = "**Table 2**^b^: `tab_R2.1`, Table of `Antidepress
   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))%>%
   add_footnote(
       paste(
-         "Representation of the first 10 observation of the dataset. Total observations : ",
+         "Representation of the first 10 observations of the dataset. Total observations : ",
          nrow(tab_R2.1)
       )
    )
@@ -338,7 +338,7 @@ kbl(Depression_Rate2000_2021[1:10,],caption = "**Table 2**^c^: `Depression_Rate2
   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))%>%
   add_footnote(
       paste(
-         "Representation of the first 10 observation of the dataset. Total observations : ",
+         "Representation of the first 10 observations of the dataset. Total observations : ",
          nrow(Depression_Rate2000_2021)
       )
    )
@@ -364,7 +364,7 @@ kbl(Teleworking[1:10,],caption = "**Table 2**^d^: `Teleworking` dataset") %>%
   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))%>%
   add_footnote(
       paste(
-         "Representation of the first 10 observation of the dataset. Total observations : ",
+         "Representation of the first 10 observations of the dataset. Total observations : ",
          nrow(Teleworking)
       )
    )
@@ -385,7 +385,7 @@ kbl(UnemploymentCovid[1:10,],caption = "**Table 2**^e^: `UnemploymentCovid` data
   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))%>%
   add_footnote(
       paste(
-         "Representation of the first 10 observation of the dataset. Total observations : ",
+         "Representation of the first 10 observations of the dataset. Total observations : ",
          nrow(UnemploymentCovid)
       )
    )
@@ -404,7 +404,7 @@ kbl(tab_R2.2[1:20,],caption = "**Table 2**^f^: `tab_R2.2`, Table of `Antidepress
   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))%>%
   add_footnote(
       paste(
-         "Representation of the first 10 observation of the dataset. Total observations : ",
+         "Representation of the first 20 observations of the dataset. Total observations : ",
          nrow(tab_R2.2)
       )
    )
@@ -445,7 +445,7 @@ tab.of.countries <- read.csv2(here::here('Data/Entities_LOCATION_Region.csv'))
 ```
 
 
-### 1: Cleaning Public spending on health
+### Cleaning Public spending on health
 
 Importation of the dataset Public.spending on health. This dataframe represent Current health expenditure (% of GDP) of each countries.
 
@@ -587,9 +587,13 @@ tab_1 <- tab_1[c(1,5,6,2,3,4)]
 Now our final table, tab_1, is arranged in the structure that will be used to make the analysis.
 
 ```{r}
-kbl(tab_1[1:20,],caption = "**Table of Public spending on health and mental health**: `tab_1`") %>%
+kbl(tab_1[1:20,],caption = "**Table 3**^a^: Table of Public spending on health and mental health: `tab_1`") %>%
   kable_classic(full_width = T, html_font = "Cambria") %>%
-  kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))
+  kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) %>%
+  add_footnote(
+      paste(
+         "Representation of the first 20 observations of the dataset. Total observations : ",
+         nrow(tab)))
 ```
 
 For further analysis, for instance cluster analysis, we decide to sort the dataset (tab_1) with the aggregated values.
@@ -614,9 +618,13 @@ tab_2 <- merge(tab_Mean_Value_Spending.on.health, tab_Mean_Mental_health_Value, 
 ```
 
 ```{r}
-kbl(tab_2[1:20,],caption = "**Table aggregated of Public spending on health and mental health**: `tab_2`") %>%
+kbl(tab_2[1:20,],caption = "**Table 3**^b^Table aggregated of Public spending on health and mental health: `tab_2`") %>%
   kable_classic(full_width = T, html_font = "Cambria") %>%
-  kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))
+  kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) %>%
+  add_footnote(
+      paste(
+         "Representation of the first 20 observations of the dataset. Total observations : ",
+         nrow(tab)))
 ```
 
 
