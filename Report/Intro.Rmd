@@ -48,7 +48,7 @@ Public spendings on health
 
 We have decided to focus our research and analysis on three different themes presented below.
 
-1.  About the work environnement 
+1.  About the work environment  
 
 Given the structure of the working environment in different countries, can we say that the mental health of the population is influenced by the working conditions and the situation of the country?
 
@@ -62,7 +62,7 @@ What is the Covid-19 impact on the population's mental-health ? Can we show an i
  
  2.2 Is a population from a country with high covid mortality more affected by mental health disorders? 
  
-3. About public spendings on health 
+3. About public spending on health 
 
 Can health care systems such as financial investments in overall health, access to medication explain and predict cross-country differences in mental disorders in the population?
 
