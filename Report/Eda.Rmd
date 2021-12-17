@@ -79,9 +79,9 @@ Graph_MH <- tab %>% ggplot(aes(
 ggplotly(Graph_MH)
 ```
 
-This second table shows that the prevalence of mental illness has hardly changed during the selected period from 2000 to 2017 for all countries in our database. Thus, we can conclude that time has no significant impact on the share of the population suffering from mental illness.
+This table shows that the prevalence of mental illness has hardly changed during the selected period from 2000 to 2017 for all countries in our database. Thus, we can conclude that time has no significant impact on the share of the population suffering from mental illness.
 
-We now want to start studying our regression, that is, to see how the work environment, through the variables that compose it, impacts the percentage of mental health disorder in a country. For this we will do correlation analyses like those in our table 3.
+We now want to start studying our regression, that is, to see how the work environment, through the variables that compose it, impacts the percentage of mental health disorder in a country. For this we will do correlation analyses.
 
 ### Correlation analyses between mental health and the work environment
 
@@ -91,14 +91,6 @@ plot_tab <- plot(tab[3:9])
 This plot does not allow us to make any conclusions about the implication of our variables on mental health. Indeed, we do not see any particular increase or decrease. Nevertheless, we can see a certain tendency translated by a linearity of the points which are not scattered in space either.
 We will use a correlation matrix to put numbers on our hypotheses. 
 
-```{r, echo = FALSE, message = FALSE, eval=TRUE}
-Correlation <- cor(tab[3:9], use="pairwise.complete.obs")
-corrplot_tab <- corrplot(Correlation, type = 'upper', method = 'number')
-```
-In this matrix, we see that none of our variables were strongly correlated with our dependent variable (y) mental health.
-
-???
-
 We will also check the validity of our model by doing a regression.
 
 ### Regression study
@@ -107,51 +99,63 @@ mod <- lm(Mental_Health ~ Income_Inequality + Wages + Unemployment + Working_Age
 tab_model(mod,p.style = "stars",show.ci = FALSE, string.pred = "Coeffcient")
 ```
 
-On table 4, we can see that our model is 75.5% explained by the variables we have chosen. Moreover, we notice that our variables, income inequality, wages, unemployment, working age and GDP are very significant. On the other hand, the time an employee spends working does not seem to have an impact on the rate of mental health disorder. We will therefore not take it into account as an explanatory variable for our problem. 
-Another variable that is checked here is time. We see in the regression that it is significant and that its coefficient is close to 0, which confirms our first plot. Indeed, the proportion of population with a mental disorder can be calculated every year but it is rather constant through the years. 
+On this model, we can see that our model is approximately 80% explained by the variables we have chosen. Moreover, we notice that our variables, income inequality, wages, unemployment, working age and GDP are very significant. In fact, two variables show a real impact on mental health, they are income inequality and working age. Indeed, their coefficients of 25.42 and -0.41 are significantly high while that of our other variables is closer to 0. 
+On the other hand, the time an employee spends working does not seem to have an impact on the rate of mental health disorder. We will therefore not take it into account as an explanatory variable for our problem. 
+Another variable that is checked here is 'Time'. We see in the regression that it is significant and that its coefficient is close to 0, which confirms our first plot. Indeed, the proportion of population with a mental disorder can be calculated every year but it is rather constant through the years. 
 
-In the correlation matrix we could see that some of our explanatory variables were particularly correlated. We will therefore check that there is not too much multicollinearity which could bias our results.
+We can conclude that our model is rather reliable and that the working environment considered has a moderate to low impact on the mental health of workers in the OECD countries.  
 
-```{r}
-vif(mod) 
-```
-We can see that none of these value is higer than 5 so we can conclude that our model is ready to be analysed more precisly. 
-
-We will see more precisely with our table 5 how each of these variables impact these diseases, always according to the countries through 2000 and 2017.
+We will now see more precisely how each of these variables impact these diseases, always according to the countries through 2000 and 2017.
 
 ### Impact of work environment's variables on mental health disorders by country
+
+Using these graphs and our two first tables, we can make these important points about the impact of the work environment on mental health in a population:
+
+###### Income Inequality Analysis 
 ```{r, warning=FALSE}
-# Income Inequality Analysis 
 ggplot(data = tab, mapping = aes(x = tab$Income_Inequality, y = tab$Mental_Health)) +
   geom_point(mapping = aes(color = LOCATION)) +
   geom_smooth() +
   xlim(0,0.5) + 
   ylim(0,20)+
   xlab("Income inequality (Gini coef.") + ylab("Prevalence of mental health (in %)") 
+```
+The higher the income inequality in a country, the more likely that country will have a high proportion of its population with mental disorders. (-)
 
-# Wages Analysis
+##### Average wages Analysis
+```{r, warning=FALSE}
 ggplot(data = tab, mapping = aes(x = tab$Wages, y = tab$Mental_Health)) +
   geom_point(mapping = aes(color = LOCATION)) +
   geom_smooth()+
   xlim(0,70000) + 
   ylim(0,20)+
   xlab("Average wages (US$") + ylab("Prevalence of mental health (in %)") 
+```
+The higher the average wage in a country, the more likely that country will have a high proportion of its population with mental disorders. (-)
 
+##### Unemployment rate Analysis
+```{r, warning=FALSE}
 ggplot(data = tab, mapping = aes(x = tab$Unemployment, y = tab$Mental_Health)) +
   geom_point(mapping = aes(color = LOCATION)) +
   geom_smooth() +
   xlim(0,28.0) + 
   ylim(0,20)+
   xlab("Unemployment rate (in %)") + ylab("Prevalence of mental health (in %)") 
+```
+The higher the unemployment rate in a country, the more likely that country will have a high proportion of its population with mental disorders. (-)
 
-#Working Age Analysis
+##### Working age of a population Analysis
+```{r, warning=FALSE}
 ggplot(data = tab, mapping = aes(x = tab$Working_Age, y = tab$Mental_Health)) +
   geom_point(mapping = aes(color = LOCATION)) +
   geom_smooth() +
   ylim(0,20)+
   xlab("Working age population (in %)") + ylab("Prevalence of mental health (in %)") 
+```
+The higher the percentage of a country's working-age population, the lower the proportion of its population with mental disorders. (+)
 
-# GDP Analysis
+##### GDP Analysis
+```{r, warning=FALSE}
 ggplot(data = tab, mapping = aes(x = tab$GDP, y = tab$Mental_Health)) +
   geom_point(mapping = aes(color = LOCATION)) +
   geom_smooth() +
@@ -159,25 +163,23 @@ ggplot(data = tab, mapping = aes(x = tab$GDP, y = tab$Mental_Health)) +
   ylim(0,20)+
   xlab("GDP (US dollars/capita)") + ylab("Prevalence of mental health (in %)") 
 ```
+The higher the GDP of a country, the more likely that country will have a high proportion of its population with mental disorders. (-)
 
-Using this graph and our table 4, we can make these important points about the impact of the work environment on mental health in a population:
+By using a correlation matrix, we will be able to put numbers on these connections.
+```{r, echo = FALSE, message = FALSE, eval=TRUE}
+Correlation <- cor(tab[3:9], use="pairwise.complete.obs")
+corrplot_tab <- corrplot(Correlation, type = 'upper', method = 'number')
+```
+This confirms the assumptions formed by our first graphs, the positive coefficients indicating an increase in mental health and a contrario for the negative coefficient. 
 
-A: The higher the income inequality in a country, the more likely that country will have a high proportion of its population with mental disorders. (-)
+Finally, In the correlation matrix we could see that some of our explanatory variables were particularly correlated. We will therefore check that there is not too much multicollinearity which could bias our results.
 
-B: The higher the average wage in a country, the more likely that country will have a high proportion of its population with mental disorders. (-)
-
-C: The higher the unemployment rate in a country, the more likely that country will have a high proportion of its population with mental disorders. (-)
-
-D: The higher the percentage of a country's working-age population, the lower the proportion of its population with mental disorders. (+)
-
-E: The higher the GDP of a country, the more likely that country will have a high proportion of its population with mental disorders. (-)
+```{r}
+vif(mod) 
+```
+We can see that none of these value is higer than 5 so we can conclude that our model is ready to be analysed more precisly.
 
 In summary, a country with a medium wage, high GDP does not promote good mental health of workers. Second, high unemployment and income inequality worsen the mental health of a population. Nevertheless, if a country has a high proportion of working age population, it will have less problems related to the mental health of its workers.
-
-
-
-
-
 
 ----
 
