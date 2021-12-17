@@ -255,7 +255,11 @@ ggarrange(plot3,plot4,nrow = 2,align = 'v') %>%
   annotate_figure(top = text_grob("Depression Rate For Countries with The Most and Least deaths of Covid in 2020", 
                                   size = 12),
                   bottom = text_grob("Depression Rate"))
+```
+As a reminder, antidepressant consumption is defined daily dosage per 1 000 inhabitants per day. 
+In the 2 following bar plots, the unit 'u' represents this unit of measure.
 
+```{r}
 kbl(tibble(
   'Top Covid deaths'=mean.top.rate.deaths,
   'Low Covid deaths'=mean.low.rate.deaths
