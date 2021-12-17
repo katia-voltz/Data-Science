@@ -30,16 +30,11 @@ Finally, the results for public expenditure on health show that, as with the wor
 
 
 
-### Limitation
+### Limitations
 
-- Data quantification and precision(ex: China with numbers of cases and deaths that seem to be underestimated).
-- Large population sample on 'Mental Health' (ex: Children included).
-- Lack of data over the years and especially for the covid part.
-- Limitation of the OECD countries, this is not representative of the all world.
-- Focalisation on 'Mental Health' in the work environment but this is a variable very complex that take into account a lot of other aspects.
+Our project leads us to an interesting conclusion. Nevertheless, it has many limitations that we must be careful about regarding its accuracy and validity. 
+We encountered a first problem concerning the lack of data, all our variables did not have data available for each year (2000 to 2017) and especially concerning the recent data and for the covid part. We were also confronted with certain biases in the precision and quantification of certain countries whose data seemed to be over or underestimated (ex: China with numbers of Covid-19 cases and deaths that seem to be underestimated). Moreover, our analysis of the problem focuses only on OECD countries. Thus, its conclusions are not applicable or representative to countries worldwide. Last but not least, we used the 'Mental Health' data as a whole, which also includes information about populations other than employees (e.g. children, non-working adults, etc.). All this without forgetting that the quantification of mental health and the disorders that make it up (depression, anxiety, etc.) are extremely complex. It is therefore difficult to reduce it only to the work environment.
 
-One of the limitations of our work was the lack of recent data. Indeed, for the covid part, we had very little data in 2020. 
-Moreover, it seems that some information is biased, especially concerning the figures related to Covid (numbers of cases and deaths in some countries like China for example, seem to be underestimated). 
 
 ### Future work
 
