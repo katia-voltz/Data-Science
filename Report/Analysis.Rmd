@@ -106,6 +106,9 @@ tab_model(mod2,p.style = "stars",show.ci = FALSE, string.pred = "Coeffcient")
 
 For all regions studied, mental health is positively correlated with the population in that region. The higher the (positive) coefficient, the more the region indicates a population with a high rate of mental disorders. Moreover, here again we have confirmation that the countries of Oceania and North America have the most problems with the mental health of their population. 
 
+Thus, we cannot explain our model 100% by the work environment in which an employee evolves, but it would be interesting to go further and analyze the specificities of each region that make the mental health of its population more or less impacted when it comes to the work world.
+
+
 ----
 
 
