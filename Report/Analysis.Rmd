@@ -524,7 +524,6 @@ As a result, we have a model that looks viable. The percentage of variance expla
 
 Then we use an average-linkage model on the scaled data and use 5 clusters to show the difference:
 Study what is the optimal number of clusters k that is relevant to use
-We conclude that a number of 5 clusters is optimal because the total within the sum of squares reduces only slightly from this point.
 Graphical representation of the clusters
 
 ```{r, results = 'hide'}
@@ -554,6 +553,7 @@ fviz_nbclust(data_test_std, kmeans, method="wss")
 km.res <- kmeans(data_test_std, 5)
 fviz_cluster(km.res, data=data_test_std, repel=TRUE)
 ```
+We conclude that a number of 5 clusters is optimal because the total within the sum of squares reduces only slightly from this point.
 We can observe the different distribution of the values according to the country's structures. The countries are distributed according to the location. It is why we want to analyse, what is the 'real' correlation between these variables, inside the regions.
 
 By aggregating all the data, we analyse that the prevalence of mental health problems has a real impact on public expenditure in OECD countries. However, by looking at these distributions that appear to be correlated by region, we will proceed to a more complete analysis, which will allow us to identify whether there is also a correlation within a certain locality or not. 
