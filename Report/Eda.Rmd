@@ -169,7 +169,7 @@ The higher the income inequality in a country, the more likely that country will
 
 ##### Average wages Analysis
 ```{r, warning=FALSE}
-P2 <- ggplot(data = tab, mapping = aes(x = tab$Wages, y = tab$Mental_Health)) +
+P2 <- ggplot(data = tab, mapping = aes(x = Wages, y = Mental_Health)) +
   geom_point(mapping = aes(color = LOCATION)) +
   geom_smooth()+
   xlim(0,70000) + 
@@ -183,7 +183,7 @@ The higher the average wage in a country, the more likely that country will have
 
 ##### Unemployment rate Analysis
 ```{r, warning=FALSE}
-P3 <- ggplot(data = tab, mapping = aes(x = tab$Unemployment, y = tab$Mental_Health)) +
+P3 <- ggplot(data = tab, mapping = aes(x = Unemployment, y = Mental_Health)) +
   geom_point(mapping = aes(color = LOCATION)) +
   geom_smooth() +
   xlim(0,28.0) + 
@@ -197,7 +197,7 @@ The higher the unemployment rate in a country, the more likely that country will
 
 ##### Working age of a population Analysis
 ```{r, warning=FALSE}
-P4 <- ggplot(data = tab, mapping = aes(x = tab$Working_Age, y = tab$Mental_Health)) +
+P4 <- ggplot(data = tab, mapping = aes(x = Working_Age, y = Mental_Health)) +
   geom_point(mapping = aes(color = LOCATION)) +
   geom_smooth() +
   ylim(0,20)+
@@ -210,7 +210,7 @@ The higher the percentage of a country's working-age population, the lower the p
 
 ##### GDP Analysis
 ```{r, warning=FALSE}
-P5 <- ggplot(data = tab, mapping = aes(x = tab$GDP, y = tab$Mental_Health)) +
+P5 <- ggplot(data = tab, mapping = aes(x = GDP, y = Mental_Health)) +
   geom_point(mapping = aes(color = LOCATION)) +
   geom_smooth() +
   xlim(0,84057) + 
