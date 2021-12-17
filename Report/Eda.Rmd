@@ -271,7 +271,7 @@ Depression_Rate2000_2021 <- ddply(Depression_Rate2000_2021, .(LOCATION),
                                     }
                                   )
                                   
-kbl(Depression_Rate2000_2021[1:38,],caption = "**Table of depression rate and its growth over the years**") %>%
+kbl(Depression_Rate2000_2021[1:38,],caption = "**Table 12**: Depression rate and its growth over the years") %>%
   kable_classic(full_width = T, html_font = "Cambria") %>%
   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))%>%
   add_footnote(
