@@ -436,7 +436,7 @@ Our intitial question of research is:
 
 
 
-### List.of.countries
+#### List.of.countries
 
 In continuation of our analysis, we keep the OECD countries to answer our research question.
 
@@ -445,7 +445,7 @@ tab.of.countries <- read.csv2(here::here('Data/Entities_LOCATION_Region.csv'))
 ```
 
 
-### Cleaning Public spending on health
+#### Cleaning Public spending on health
 
 Importation of the dataset Public.spending on health. This dataframe represent Current health expenditure (% of GDP) of each countries.
 
@@ -494,7 +494,7 @@ Public.spending.on.health_New <- Public.spending.on.health_New %>%
 Finally we have a new dataframe of the Current health expenditure (% of GDP) of each countries attributed to the Time (from 2000 to 2018).
 
 
-### 2: Cleaning Mental Health
+#### Cleaning Mental Health
 
 Now we import the  share with mental and substance disorders data corresponding to a list of countries. Our goal is to compare the prevalence of mental health disorder in a population of a country with respect to the public investments on health.
 
@@ -556,7 +556,7 @@ Public.spending.on.health_New_2 <- Public.spending.on.health_New %>%
 ----
 
 
-### 3: Merge the datasets
+#### Merge the datasets
 
 We merge the two dataframes into one single table named tab_1. We join them by 'LOCATION' and 'Time'. Moreover, we add the 'Region' and the 'Entity' from the table: 'list.of.countries'
 
