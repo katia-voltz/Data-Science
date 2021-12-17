@@ -11,7 +11,7 @@ The work environment in which an employee evolves has an impact on his/her menta
 
 Covid-19 has had an impact on the mental health of the countries' populations, but it is also about everything involved in this crisis that has impacted people's mental illness. Indeed, the increase in telecommuting is a consequence of Covid which is then linked to mental health. However, there are many other variables caused by Covid that have not been taken into account, such as isolation, physical health (due to covid) or loss of relatives etc., and it would have been interesting to observe these variables.
 
--->
+The public spendind on health and mental health disorder prevalence are positively mutually correlated. What is interesting is about the location effect that shows that they are other factors that influence these variations between the countries like social-cultural factors. 
 
 To highlight the link between all the research questions: 
 
