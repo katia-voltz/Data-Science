@@ -135,7 +135,7 @@ tab$TIME <- as.numeric(tab$TIME)
 ```
 
 ```{r}
-kbl(tab[1:20,],caption = "**Table 1.a : List of OECD countries common for all our data **: `tab`") %>%
+kbl(tab[1:20,],caption = "**Table 1**^a^ : List of OECD countries common for all our data: `tab`") %>%
   kable_classic(full_width = T, html_font = "Cambria") %>%
   kable_styling(bootstrap_options = c('striped', 'hover', 'condensed')) %>%
   add_footnote(
@@ -170,9 +170,13 @@ tab4 <- left_join(tab3, Work_Time_m, by = c("LOCATION"))
 tab5 <- left_join(tab4, GDP_m, by = c("LOCATION"))
 tab_mean <- left_join(tab5, tab_countries, by=('LOCATION'))
 
-kbl(tab_mean,caption = "**Table 1.b : List of OECD countries common for all our data's mean from 2000 to 2017 **: `tab_mean`") %>%
+#Representation of the 10 first rows
+kbl(tab_mean[1:10,],caption = "**Table 1**^b^ : List of OECD countries common for all our data's mean from 2000 to 2017: `tab_mean`") %>%
   kable_classic(full_width = T, html_font = "Cambria") %>%
-  kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))
+  kable_styling(bootstrap_options = c('striped', 'hover', 'condensed'))%>%
+  add_footnote(paste("Representation of the 10 first rows of the dataset. Total observation: ", nrow(tab_mean)))
+  
+  
 ```
 
 
