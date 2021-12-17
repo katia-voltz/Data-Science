@@ -155,12 +155,13 @@ Using these graphs and our two first tables, we can make these important points 
 
 ##### Income Inequality Analysis 
 ```{r, warning=FALSE}
-ggplot(data = tab, mapping = aes(x = tab$Income_Inequality, y = tab$Mental_Health)) +
+P1 <- ggplot(data = tab, mapping = aes(x = tab$Income_Inequality, y = tab$Mental_Health)) +
   geom_point(mapping = aes(color = LOCATION)) +
   geom_smooth() +
   xlim(0,0.5) + 
   ylim(0,20)+
   xlab("Income inequality (Gini coef.") + ylab("Prevalence of mental health (in %)") 
+ ggplotly(P1)
 ```
 
 The higher the income inequality in a country, the more likely that country will have a high proportion of its population with mental disorders. (-)
@@ -168,12 +169,13 @@ The higher the income inequality in a country, the more likely that country will
 
 ##### Average wages Analysis
 ```{r, warning=FALSE}
-ggplot(data = tab, mapping = aes(x = tab$Wages, y = tab$Mental_Health)) +
+P2 <- ggplot(data = tab, mapping = aes(x = tab$Wages, y = tab$Mental_Health)) +
   geom_point(mapping = aes(color = LOCATION)) +
   geom_smooth()+
   xlim(0,70000) + 
   ylim(0,20)+
   xlab("Average wages (US$") + ylab("Prevalence of mental health (in %)") 
+ggplotly(P2)
 ```
 
 The higher the average wage in a country, the more likely that country will have a high proportion of its population with mental disorders. (-)
@@ -181,12 +183,13 @@ The higher the average wage in a country, the more likely that country will have
 
 ##### Unemployment rate Analysis
 ```{r, warning=FALSE}
-ggplot(data = tab, mapping = aes(x = tab$Unemployment, y = tab$Mental_Health)) +
+P3 <- ggplot(data = tab, mapping = aes(x = tab$Unemployment, y = tab$Mental_Health)) +
   geom_point(mapping = aes(color = LOCATION)) +
   geom_smooth() +
   xlim(0,28.0) + 
   ylim(0,20)+
   xlab("Unemployment rate (in %)") + ylab("Prevalence of mental health (in %)") 
+ggplotly(P3)
 ```
 
 The higher the unemployment rate in a country, the more likely that country will have a high proportion of its population with mental disorders. (-)
@@ -194,11 +197,12 @@ The higher the unemployment rate in a country, the more likely that country will
 
 ##### Working age of a population Analysis
 ```{r, warning=FALSE}
-ggplot(data = tab, mapping = aes(x = tab$Working_Age, y = tab$Mental_Health)) +
+P4 <- ggplot(data = tab, mapping = aes(x = tab$Working_Age, y = tab$Mental_Health)) +
   geom_point(mapping = aes(color = LOCATION)) +
   geom_smooth() +
   ylim(0,20)+
   xlab("Working age population (in %)") + ylab("Prevalence of mental health (in %)") 
+ggplotly(P4)
 ```
 --> Decrire l'axe qui commence a 60% 
 The higher the percentage of a country's working-age population, the lower the proportion of its population with mental disorders. (+)
@@ -206,12 +210,13 @@ The higher the percentage of a country's working-age population, the lower the p
 
 ##### GDP Analysis
 ```{r, warning=FALSE}
-ggplot(data = tab, mapping = aes(x = tab$GDP, y = tab$Mental_Health)) +
+P5 <- ggplot(data = tab, mapping = aes(x = tab$GDP, y = tab$Mental_Health)) +
   geom_point(mapping = aes(color = LOCATION)) +
   geom_smooth() +
   xlim(0,84057) + 
   ylim(0,20)+
-  xlab("GDP (US dollars/capita)") + ylab("Prevalence of mental health (in %)") 
+  xlab("GDP (US dollars/capita)") + ylab("Prevalence of mental health (in %)")
+ggplotly(P5)
 ```
 
 The higher the GDP of a country, the more likely that country will have a high proportion of its population with mental disorders. (-)
