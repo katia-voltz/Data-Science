@@ -111,7 +111,7 @@ We will now see more precisely how each of these variables impact these diseases
 
 Using these graphs and our two first tables, we can make these important points about the impact of the work environment on mental health in a population:
 
-###### Income Inequality Analysis 
+##### Income Inequality Analysis 
 ```{r, warning=FALSE}
 ggplot(data = tab, mapping = aes(x = tab$Income_Inequality, y = tab$Mental_Health)) +
   geom_point(mapping = aes(color = LOCATION)) +
