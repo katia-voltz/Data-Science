@@ -157,14 +157,14 @@ Using these graphs and our two first tables, we can make these important points 
 ```{r, warning=FALSE}
 P1 <- ggplot(data = tab, mapping = aes(x = tab$Income_Inequality, y = tab$Mental_Health)) +
   geom_point(mapping = aes(color = LOCATION)) +
-  geom_smooth() +
-  xlim(0,0.5) + 
+  geom_smooth()+ 
   ylim(0,20)+
   xlab("Income inequality (Gini coef.)") + ylab("Prevalence of mental health (in %)") 
  ggplotly(P1)
 ```
+*Note : Here, the axis of X is not set to 0 because the minimum of the income inqualtiy compared to the maximum (0.5) is 0.2. Therefore we decided to not put X=0 in order to better visualize.*
 
-In this representation of mental health by country as a function of income inequality, we have a positive linear slope with concentrated results and a distribution according to the geomsmooth. We also notice the extreme value of Brazil for which income inequalities are particularly high but the mental health of its population is not the most worrying either. 
+In this representation of mental health by country as a function of income inequality, we have a positive linear slope with concentrated results and a distribution according to the geomsmooth. We also notice the extreme value of Brazil for which income inequalities are particularly high but the mental health of its population is not the most worrying either. In this case we can identify that the two countries with the highest mental health disorder value; New-Zeland and Australia have a income inequality higher than the average (0.34 Gini coefficient). 
 
 - The higher the income inequality in a country, the more likely that country will have a high proportion of its population with mental disorders. (-)
 
@@ -181,7 +181,10 @@ P2 <- ggplot(data = tab, mapping = aes(x = Wages, y = Mental_Health)) +
 ggplotly(P2)
 ```
 
-Concerning the average wage, we see that the results are rather spread out while having a distribution that follows the geomsooth and a positive linear slope. 
+Concerning the average wage, we see that the results are rather spread out while having a distribution that follows the geomsooth and a positive concave curve. The fact that the curve is concave makes us think that below a certain threshold, the average wage has a greater impact. This threshold would be around $4000 USD because the curve flattens out after passing this point. 
+
+Mental health is therefore impacted by the average wage, however after $4000 it is more difficult to draw a conclusion on an impact, as countries look less affected.
+
 
 - The higher the average wage in a country, the more likely that country will have a high proportion of its population with mental disorders. (-)
 
@@ -198,9 +201,9 @@ P3 <- ggplot(data = tab, mapping = aes(x = Unemployment, y = Mental_Health)) +
 ggplotly(P3)
 ```
 
-Again here the results are concentrated and have a distribution according to the geomsmooth. The linear slope is positive on average. We can see that it is not the countries with the highest unemployment rate that have the most serious prevalence of Mental Health. We can also notice that some countries like Poland, Portugal, Spain and Greece have an unemployment rate that is increasing a lot in the last years.
+Again here the results are concentrated and have a distribution according to the geomsmooth. The linear slope is very close to 0. We can notice that some countries like Poland, Portugal, Spain and Greece have an unemployment rate that is increasing a lot in the last years, but the prevalence does not look impacted. It is hard to tell through this graph what is the correlation between these two variables, except that there is none. As seen previously in the corrplot, the correlation coefficient is -0.06, an insignificant impact.  
 
-- The higher the unemployment rate in a country, the more likely that country will have a high proportion of its population with mental disorders. (-)
+- The unemployement rate does not seem to be correlated 
 
 
 
@@ -237,7 +240,7 @@ We can see in this representation of mental health as a function of GDP that the
 - The higher the GDP of a country, the more likely that country will have a high proportion of its population with mental disorders.(-)
 
 
-In summary, a country with a medium wage, high GDP does not promote good mental health of workers. Second, high unemployment and income inequality worsen the mental health of a population. Nevertheless, if a country has a high proportion of working age population, it will have less problems related to the mental health of its workers.
+In summary, a country with a medium wage, high GDP does not promote good mental health of workers. Second, high income inequality worsen the mental health of a population. Nevertheless, if a country has a high proportion of working age population, it will have less problems related to the mental health of its workers.
 
 ----
 
