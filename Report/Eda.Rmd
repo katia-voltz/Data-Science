@@ -213,7 +213,7 @@ P4 <- ggplot(data = tab, mapping = aes(x = Working_Age, y = Mental_Health)) +
   xlab("Working age population (in %)") + ylab("Prevalence of mental health (in %)") 
 ggplotly(P4)
 ```
-$$Note: here the axer does not start at 0 but at 60 because it did not make sense to put a share of the working age population at 0%.$$
+*Note: here the axer does not start at 0 but at 60 because it did not make sense to put a share of the working age population at 0%.*
 
 The geomsmooth representing the distribution of mental health by country as a function of the share of the working age population is concave with a linear slope that is first positive and then negative. The results are concentrated between the ages of 64% and 68%. It is noticeable that the working age of Japan, the Czech Republic and Romania has particularly increased in recent years, even reaching 71% for the latter two countries. 
 
