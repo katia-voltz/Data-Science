@@ -510,11 +510,18 @@ Regression.total.tab_1 <- lm(Value_Spending.on.health ~ Mental_health_Value + Ti
 tab_model(Regression.total.tab_1, p.style = "stars",show.ci = FALSE, string.pred = "Coeffcient")
 ```
 As a result, we have a model that looks viable. The percentage of variance explained is 68%, and the p-value is extremely low. Moreover, the the dependent variable 'Value spending on health' is significantly correlated to:
-'Mental Health value', 
-'Time', 
-'RegionNorth America', 
-'RegionOceania', 
-‘RegionWestern Europe'
+
+- Mental Health value: 0.61, the coefficient is positive. 
+
+- Time: Also positively impacting public spending on health but relatively, coefficient 0.1
+
+- RegionNorth America: Highest positive value. It means when the variable North america is choosen (dummy variable = 1, esle = 0), inside this Region, the Mental health value is impacting the public spending on health by 3.14% by adding 1% in mental health disorder prevalence.
+
+- RegionOceania: It is the opposite of North America, (-2.29). The value is decreasing inside this region. 
+
+- RegionWestern Europe: THe impact is moderated, close to 0, (0.78).
+
+Some coefficient of the regions in this table are really different from 0, like North America (+ 3.14), but some regions do not demonstrate significant impact or even sometimes decrease. It is why the impact between X and Y is more difficult to analyse at the level of the region. We will proceed with an analysis of cluster to see if some countries have the same characteristic values. 
 
 #### TEST OF CLUSTERS
 
