@@ -169,6 +169,7 @@ In this representation of mental health by country as a function of income inequ
 - The higher the income inequality in a country, the more likely that country will have a high proportion of its population with mental disorders. (-)
 
 
+
 ##### Average wages Analysis
 ```{r, warning=FALSE}
 P2 <- ggplot(data = tab, mapping = aes(x = Wages, y = Mental_Health)) +
@@ -183,6 +184,7 @@ ggplotly(P2)
 Concerning the average wage, we see that the results are rather spread out while having a distribution that follows the geomsooth and a positive linear slope. 
 
 - The higher the average wage in a country, the more likely that country will have a high proportion of its population with mental disorders. (-)
+
 
 
 ##### Unemployment rate Analysis
@@ -201,6 +203,7 @@ Again here the results are concentrated and have a distribution according to the
 - The higher the unemployment rate in a country, the more likely that country will have a high proportion of its population with mental disorders. (-)
 
 
+
 ##### Working age of a population Analysis
 ```{r, warning=FALSE}
 P4 <- ggplot(data = tab, mapping = aes(x = Working_Age, y = Mental_Health)) +
@@ -214,7 +217,8 @@ $$Note: here the axer does not start at 0 but at 60 because it did not make sens
 
 The geomsmooth representing the distribution of mental health by country as a function of the share of the working age population is concave with a linear slope that is first positive and then negative. The results are concentrated between the ages of 64% and 68%. It is noticeable that the working age of Japan, the Czech Republic and Romania has particularly increased in recent years, even reaching 71% for the latter two countries. 
 
-- The higher the percentage of a country's working-age population, the lower the proportion of its population with mental disorders. (+)
+- The higher the percentage of a country's working-age population, the lower the proportion of its population with mental disorders.(+)
+
 
 
 ##### GDP Analysis
@@ -230,7 +234,7 @@ ggplotly(P5)
 
 We can see in this representation of mental health as a function of GDP that the linear slope is positive, that the results are placed along the distribution with a peak of concentration between $24,000 and $50,000 and that Norway has a very high GDP that stands out from the others, even more recently. 
 
-- The higher the GDP of a country, the more likely that country will have a high proportion of its population with mental disorders. (-)
+- The higher the GDP of a country, the more likely that country will have a high proportion of its population with mental disorders.(-)
 
 
 In summary, a country with a medium wage, high GDP does not promote good mental health of workers. Second, high unemployment and income inequality worsen the mental health of a population. Nevertheless, if a country has a high proportion of working age population, it will have less problems related to the mental health of its workers.
