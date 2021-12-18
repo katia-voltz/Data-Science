@@ -19,7 +19,7 @@ It is not possible to explain 100% of the prevalence of mental health by focusin
 
 To return to our initial question: Is it possible to admit a causal link between the mental health of an OECD country and the economic conditions and the working environment? The answer is that these factors are linked, but they are only a small part of a larger model. 
 
-The covid also had a big impact as can be seen from the graph. However, the studies are still limited in this respect if they focus on variables such as teleworking. 
+The covid also had a big impact as can be seen from the analysis. However, the studies are still limited in this respect if they focus only on variables such as teleworking. 
 
 Finally, the results for public expenditure on health show that, as with the working environment, the values are mainly clustered around their locality. This implies that other dimensions are not taken into account in our model, such as culture, political system, and many others. 
 
