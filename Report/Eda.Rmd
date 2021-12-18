@@ -425,9 +425,12 @@ It appears that the distribution of values is based on *Location*, like *Mental 
 - Comparison of the 2 variables: 
 Now we want to compare the two variables: x = Value_Spending.on.health., y = Mental_health_Value In order to see if the expenditure on health of a country from the OCDE impacts the prevalence of mental illness in its population.
 
-Graph.3
+
+
+Graph.3: Visualization of X and Y, the colors represent the Region
 ```{r}
-Graph.region <- ggplot(tab_1, aes(x=Value_Spending.on.health, y=Mental_health_Value, colour=Region, group=Entity, labels=Time)) + geom_point() + ylim(0,20)
+Graph.region <- ggplot(tab_1, aes(x=Value_Spending.on.health, y=Mental_health_Value, colour=Region, group=Entity, labels=Time)) + geom_point() + ylim(0,20)+
+  ggtitle("Mental health disorder prevalence according to Public spending on health.")
 ggplotly(Graph.region)
 ```
 
@@ -443,10 +446,11 @@ The first is that when comparing the mental health of a country with only health
 Therefore, we decide to observe the opposite. Is a country suffering from a big proportion of mental illness, a country that invests the most on public health?
 We decide to reverse the research question for this analysis because it is more logical to put  x = Mental_health_Value , y = Value_Spending.on.health. We stay aware of this simultaneity problem. 
 
-Graph.4
+Graph.4: Visualization of X and Y, the colors represent the Region
 ```{r}
 Graph.region2 <- ggplot(tab_1, aes( x = Mental_health_Value , y = Value_Spending.on.health, colour=Region, group=Entity)) +
-  geom_point()+ ylim(0,20)
+  geom_point()+ ylim(0,20)+
+  ggtitle("Mental health disorder prevalence according to Public spending on health.")
 ggplotly(Graph.region2)
 ```
 The fact that we allocate the colors to the region of the country is to shed the light on the distributions of the values according to the location in the world.
